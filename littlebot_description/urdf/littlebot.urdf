@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<robot name="littlebot">
+
+ <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.571 0 1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/chassis2.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box	size="0.001 0.002 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <mass value="0.065"/>
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>  
+
+
+<!--Modelagem da roda esquerda "link" "joint" 
+######################################################################################## -->
+  <link name="roda_esquerda"> 
+    <visual>
+      <origin xyz="0 -0.0115 0" rpy="0 0 1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/roda.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.571 0 0 " />
+      <geometry>
+        <cylinder length="0.002614" radius="0.003338" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.041"/>
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>
+
+  <joint name="base_to_roda_esquerda" type="continuous">
+    <parent link="base_link"/>
+    <child link="roda_esquerda"/>
+    <origin xyz="0 0.07393 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+
+<!--Modelagem da roda direita "link" "joint"
+######################################################################################## -->
+  <link name="roda_direita">   
+    <visual>
+      <origin xyz="0 0.0115 0" rpy="0 0 -1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/roda.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.571 0 0 " />
+      <geometry>
+        <cylinder length="0.02614" radius="0.03338" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.041"/>
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>
+
+  <joint name="base_to_roda_direita" type="continuous">
+    <parent link="base_link"/>
+    <child link="roda_direita"/>
+    <origin xyz="0 -0.07393 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+
+<!--Modelagem da rodinha "link" "joint"
+######################################################################################## -->
+  <link name="rodinha">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/rodinha.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <geometry>                                                                    
+        <box	size="0.001 0.001 0.001"/>                                                                    
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0"/>                                                                   
+      <mass value="0.020"/>                                                                   
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
+    </inertial>                                                                   
+  </link>                                                                   
+
+  <joint name="base_to_rodinha" type="fixed">
+    <parent link="base_link"/>
+    <child link="rodinha"/>
+    <origin xyz="-0.07 0.0 -0.003" rpy="0 0 0" />
+  </joint>
+
+</robot>

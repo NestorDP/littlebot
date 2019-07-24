@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+
+<robot name="littlebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Used for fixing robot to Gazebo 'base_link' -->
+
+<!--
+<link name="world"/>
+
+<joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+</joint>
+-->
+ 
+ <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.571 0 1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/chassis2.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.571 0 1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/chassis2.dae" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0.15" rpy="1.571 0 1.571"/>
+      <mass value="0.100"/>
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>  
+
+
+<!--Modelagem da roda esquerda "link" "joint" 
+######################################################################################## -->
+  <link name="roda_esquerda"> 
+    <visual>
+      <origin xyz="0 -0.0115 0" rpy="0 0 1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/roda.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.0115 0" rpy="0 0 1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/roda.dae" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 -0.0115 0" rpy="0 0 1.571"/>
+      <mass value="0.041"/>
+      <inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
+    </inertial>
+  </link>
+
+  <!--
+  <joint name="base_to_roda_esquerda" type="fixed">
+    <parent link="base_link"/>
+    <child link="roda_esquerda"/>
+    <origin xyz="0 0.07393 -0.01" rpy="0 0 0" />
+  </joint>
+-->
+
+  <joint name="base_to_roda_esquerda" type="continuous">
+    <parent link="base_link"/>
+    <child link="roda_esquerda"/>
+    <origin xyz="0 0.07393 -0.01" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <gazebo reference="roda_esquerda">
+    <mu1 value="1.0"/>
+    <mu2 value="1.0"/>
+    <kp  value="10000000.0" />
+    <kd  value="1.0" />
+    <fdir1 value="1 0 0"/>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+
+
+<!--Modelagem da roda direita "link" "joint"
+######################################################################################## -->
+  <link name="roda_direita">   
+    <visual>
+      <origin xyz="0 0.0115 0" rpy="0 0 -1.571" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/roda.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0115 0" rpy="0 0 -1.571 " />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/roda.dae" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0.0115 0" rpy="0 0 -1.571"/>
+      <mass value="0.041"/>
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+  </link>
+
+<!--
+  <joint name="base_to_roda_direita" type="fixed">
+    <parent link="base_link"/>
+    <child link="roda_direita"/>
+    <origin xyz="0 -0.07393 -0.01" rpy="0 0 0" />
+  </joint>
+-->
+
+  <joint name="base_to_roda_direita" type="continuous">
+    <parent link="base_link"/>
+    <child link="roda_direita"/>
+    <origin xyz="0 -0.07393 -0.01" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <gazebo reference="roda_direita">
+    <mu1 value="1.0"/>
+    <mu2 value="1.0"/>
+    <kp  value="10000000.0" />
+    <kd  value="1.0" />
+    <fdir1 value="1 0 0"/>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+
+
+<!--Modelagem da rodinha "link" "joint"
+######################################################################################## -->
+  <link name="rodinha">                                                                                                                                         
+    <visual>                                                                    
+      <!--<origin xyz="0 0 0" rpy="3.14 0 1.571" /> -->
+      <origin xyz="0 0 0" rpy="3.14 0 2.141" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/Caster_Wheel.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 2.141" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/Caster_Wheel.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 2.141"/>                                                                   
+      <mass value="0.08"/>                                                                   
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
+    </inertial>                                                                   
+  </link>                                                                   
+
+  <joint name="base_to_rodinha" type="fixed">
+    <parent link="base_link"/>
+    <child link="rodinha"/>
+    <origin xyz="-0.07 0.0 -0.003" rpy="0 0 0" />
+  </joint>
+
+
+
+<!--
+********************************************************************************************
+Transmission para as rodas
+********************************************************************************************
+-->
+
+  <transmission name="trans_roda_esquerda" type="SimpleTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="base_to_roda_esquerda">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="roda_esquerda_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <transmission name="trans_roda_direita">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="base_to_roda_direita">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="roda_direita_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <!-- 
+  ******************************************************************************************
+  ros_control plugin 
+  ******************************************************************************************
+  -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+
+</robot>
