@@ -2,17 +2,11 @@
 
 <robot name="littlebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<!-- Used for fixing robot to Gazebo 'base_link' -->
-
-<!--
-<link name="world"/>
-
-<joint name="fixed" type="fixed">
-    <parent link="world"/>
-    <child link="base_link"/>
-</joint>
+ <!--
+########################################################################################
+Modelagem do chassis2 "link" "joint" 
+########################################################################################
 -->
- 
  <link name="base_link">
     <visual>
       <origin xyz="0 0 0" rpy="1.571 0 1.571" />
@@ -28,14 +22,17 @@
     </collision>
     <inertial>
       <origin xyz="0 0 0.15" rpy="1.571 0 1.571"/>
-      <mass value="0.100"/>
-      <inertia ixx="1e-3"  ixy="0"  ixz="0" iyy="1e-3" iyz="0" izz="1e-3" />
+      <mass value="0.058"/>
+      <inertia ixx="1.429e-4"  ixy="2.778e-10"  ixz="1.773e-8" iyy="1.943e-4" iyz="-2.656e-7" izz="5.361e-5" />
     </inertial>
   </link>  
 
 
-<!--Modelagem da roda esquerda "link" "joint" 
-######################################################################################## -->
+<!--
+########################################################################################
+Modelagem da roda esquerda "link" "joint" 
+########################################################################################
+-->
   <link name="roda_esquerda"> 
     <visual>
       <origin xyz="0 -0.0115 0" rpy="0 0 1.571" />
@@ -56,18 +53,10 @@
     </inertial>
   </link>
 
-  <!--
-  <joint name="base_to_roda_esquerda" type="fixed">
-    <parent link="base_link"/>
-    <child link="roda_esquerda"/>
-    <origin xyz="0 0.07393 -0.01" rpy="0 0 0" />
-  </joint>
--->
-
   <joint name="base_to_roda_esquerda" type="continuous">
     <parent link="base_link"/>
     <child link="roda_esquerda"/>
-    <origin xyz="0 0.07393 -0.01" rpy="0 0 0" />
+    <origin xyz="0.005 0.07393 -0.014" rpy="0 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
@@ -82,8 +71,11 @@
 
 
 
-<!--Modelagem da roda direita "link" "joint"
-######################################################################################## -->
+<!--
+########################################################################################
+Modelagem da roda direita "link" "joint"
+########################################################################################
+-->
   <link name="roda_direita">   
     <visual>
       <origin xyz="0 0.0115 0" rpy="0 0 -1.571" />
@@ -104,18 +96,10 @@
     </inertial>
   </link>
 
-<!--
-  <joint name="base_to_roda_direita" type="fixed">
-    <parent link="base_link"/>
-    <child link="roda_direita"/>
-    <origin xyz="0 -0.07393 -0.01" rpy="0 0 0" />
-  </joint>
--->
-
   <joint name="base_to_roda_direita" type="continuous">
     <parent link="base_link"/>
     <child link="roda_direita"/>
-    <origin xyz="0 -0.07393 -0.01" rpy="0 0 0" />
+    <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 0" />
     <axis xyz="0 1 0" />
   </joint>
 
@@ -130,7 +114,9 @@
 
 
 
-<!--Modelagem da rodinha "link" "joint"
+<!--
+########################################################################################
+Modelagem da rodinha "link" "joint"
 ######################################################################################## -->
   <link name="rodinha">                                                                                                                                         
     <visual>                                                                    
@@ -148,8 +134,8 @@
     </collision>                                                                    
     <inertial>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 2.141"/>                                                                   
-      <mass value="0.08"/>                                                                   
-      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
+      <mass value="0.073"/>                                                                   
+      <inertia ixx="5.470e-6"  ixy="4.042e-7"  ixz="3.515e-7" iyy="7.169e-6" iyz="-3.645e-7" izz="7.383e-6" />                                                                   
     </inertial>                                                                   
   </link>                                                                   
 
@@ -160,13 +146,74 @@
   </joint>
 
 
+<!--
+########################################################################################
+Modelagem do motor esquerdo "link" "joint"
+########################################################################################
+-->
+  <link name="motor_esquerdo">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="0 0 0" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0"/>                                                                   
+      <mass value="0.09"/>                                                                   
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
+    </inertial>                                                                   
+  </link>                                                                   
+
+  <joint name="base_to_motor_esquerdo" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_esquerdo"/>
+    <origin xyz="-0.032 0.0387 -0.014" rpy="0 0 0" />
+  </joint>
+  
+
+<!--
+########################################################################################
+Modelagem do motor direito "link" "joint"
+########################################################################################
+-->
+  <link name="motor_direito">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="0 0 0" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0"/>                                                                   
+      <mass value="0.09"/>                                                                   
+      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
+    </inertial>                                                                   
+  </link>                                                                   
+
+  <joint name="base_to_motor_direito" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_direito"/>
+    <origin xyz="-0.032 -0.0387 -0.014" rpy="0 0 0" />
+  </joint>
 
 <!--
 ********************************************************************************************
 Transmission para as rodas
 ********************************************************************************************
 -->
-
   <transmission name="trans_roda_esquerda" type="SimpleTransmission">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="base_to_roda_esquerda">
@@ -191,7 +238,7 @@ Transmission para as rodas
 
   <!-- 
   ******************************************************************************************
-  ros_control plugin 
+  ros_control gazebo plugin 
   ******************************************************************************************
   -->
   <gazebo>
@@ -200,4 +247,23 @@ Transmission para as rodas
     </plugin>
   </gazebo>
 
+  <!-- 
+  ******************************************************************************************
+  IMU gazebo plugin 
+  ******************************************************************************************
+  -->
+  <gazebo>
+    <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+      <robotNamespace>/</robotNamespace>
+      <updateRate>50.0</updateRate>
+      <bodyName>base_link</bodyName>
+      <topicName>imu/data</topicName>
+      <accelDrift>0.005 0.005 0.005</accelDrift>
+      <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+      <rateDrift>0.005 0.005 0.005 </rateDrift>
+      <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+      <headingDrift>0.005</headingDrift>
+      <headingGaussianNoise>0.005</headingGaussianNoise>
+    </plugin>
+  </gazebo>
 </robot>
