@@ -184,7 +184,7 @@ Modelagem do motor esquerdo "link" "joint"
   <joint name="base_to_motor_esquerdo" type="fixed">
     <parent link="base_link"/>
     <child link="motor_esquerdo"/>
-    <origin xyz="-0.032 0.0387 -0.014" rpy="0 0 0" />
+    <origin xyz="-0.032 0.0412 -0.014" rpy="0 0 0" />
   </joint>
   
 
@@ -216,7 +216,7 @@ Modelagem do motor direito "link" "joint"
   <joint name="base_to_motor_direito" type="fixed">
     <parent link="base_link"/>
     <child link="motor_direito"/>
-    <origin xyz="-0.032 -0.0387 -0.014" rpy="0 0 0" />
+    <origin xyz="-0.032 -0.0412 -0.014" rpy="0 0 0" />
   </joint>
 
 
