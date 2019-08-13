@@ -2,12 +2,16 @@
 
 <robot name="littlebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+ <link name="base_link">
+
+ </link>
+
  <!--
 ########################################################################################
 Modelagem do chassis2 "link" "joint" 
 ########################################################################################
 -->
- <link name="base_link">
+ <link name="chassis">
     <visual>
       <origin xyz="0 0 0" rpy="1.571 0 1.571" />
       <geometry>
@@ -27,6 +31,11 @@ Modelagem do chassis2 "link" "joint"
     </inertial>
   </link>  
 
+  <joint name="base_to_chassis" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+  </joint>
 
 <!--
 ########################################################################################
@@ -481,6 +490,7 @@ Transmission para as rodas
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/</robotNamespace>
+      <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
 
