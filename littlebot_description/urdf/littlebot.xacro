@@ -139,14 +139,15 @@ Modelagem da rodinha "link" "joint"
     </inertial>                                                                   
   </link>                                                                   
 
-  <joint name="base_to_rodinha" type="fixed">
+  <joint name="base_to_rodinha" type="continuous">
     <parent link="base_link"/>
     <child link="rodinha"/>
     <origin xyz="-0.07 0.0 -0.003" rpy="0 0 0" />
     <axis xyz="0 0 1" />
   </joint>
 
-    <gazebo reference="rodinha">
+  <!--
+  <gazebo reference="rodinha">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
     <kp  value="10000000.0" />
@@ -154,8 +155,7 @@ Modelagem da rodinha "link" "joint"
     <fdir1 value="1 0 0"/>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-
-
+  -->
 <!--
 ########################################################################################
 Modelagem do motor esquerdo "link" "joint"
@@ -381,7 +381,7 @@ Modelagem do sonar 05 "link" "joint"
 Transmission para as rodas
 ********************************************************************************************
 -->
-  <transmission name="trans_roda_esquerda" type="SimpleTransmission">
+  <transmission name="trans_roda_esquerda">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="base_to_roda_esquerda">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -398,6 +398,16 @@ Transmission para as rodas
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
     <actuator name="roda_direita_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="trans_rodinha" >
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="base_to_rodinha">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="roda_esquerda_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>

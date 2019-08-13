@@ -25,19 +25,7 @@
 <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
   args="-z 1.0 -unpause -urdf -model Diff_Drive -param robot_description"/>
 
+<include file="$(find littlebot_control)/launch/littlebot_control.launch"/>
 
-
-
-<!-- Load controller configuration -->
-<rosparam file="$(find littlebot_control)/config/littlebot_control.yaml" command="load"/>
-
-<!-- Spawn controllers -->
-<node name="controller_spawner" pkg="controller_manager" type="spawner"
-output="screen" args="joint_state_controller  diff_drive_controller"/>
-
-<!-- convert joint states to TF transforms for rviz, etc -->
-<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" respawn="false">
-</node>
- 
 
 </launch>
