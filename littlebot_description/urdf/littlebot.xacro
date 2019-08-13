@@ -116,46 +116,97 @@ Modelagem da roda direita "link" "joint"
 
 <!--
 ########################################################################################
-Modelagem da rodinha "link" "joint"
+Modelagem da rodinha-Caster Mounting Plate "link" "joint"
 ######################################################################################## -->
-  <link name="rodinha">                                                                                                                                         
+  <link name="caster_mounting">                                                                                                                                         
     <visual>                                                                    
-      <!--<origin xyz="0 0 0" rpy="3.14 0 1.571" /> -->
-      <origin xyz="0 0 0" rpy="3.14 0 2.141" />                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
       <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/Caster_Wheel.dae" />     
+	      <mesh filename="package://littlebot_description/meshes/Caster_Mounting_Plate.dae" />     
       </geometry>                                                                   
     </visual>                                                                   
     <collision>                                                                   
-      <origin xyz="0 0 0" rpy="3.14 0 2.141" />                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                    
       <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/Caster_Wheel.dae" />     
+	      <mesh filename="package://littlebot_description/meshes/Caster_Mounting_Plate.dae" />     
       </geometry>                                                                   
     </collision>                                                                    
     <inertial>                                                                    
-      <origin xyz="0 0 0" rpy="3.14 0 2.141"/>                                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
       <mass value="0.073"/>                                                                   
       <inertia ixx="5.470e-6"  ixy="4.042e-7"  ixz="3.515e-7" iyy="7.169e-6" iyz="-3.645e-7" izz="7.383e-6" />                                                                   
     </inertial>                                                                   
   </link>                                                                   
 
-  <joint name="base_to_rodinha" type="continuous">
+  <joint name="base_to_caster_mounting" type="fixed">
     <parent link="base_link"/>
-    <child link="rodinha"/>
-    <origin xyz="-0.07 0.0 -0.003" rpy="0 0 0" />
+    <child link="caster_mounting"/>
+    <origin xyz="-0.0753 0.0 -0.003" rpy="0 0 0" />
+    <!--<axis xyz="0 0 1" />-->
+  </joint>
+
+<!--
+########################################################################################
+Modelagem da rodinha-Caster Wheel Plate "link" "joint"
+######################################################################################## -->
+  <link name="caster_wheel">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/Caster_Wheel_Plate.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/Caster_Wheel_Plate.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
+      <mass value="0.073"/>                                                                   
+      <inertia ixx="5.470e-6"  ixy="4.042e-7"  ixz="3.515e-7" iyy="7.169e-6" iyz="-3.645e-7" izz="7.383e-6" />                                                                   
+    </inertial>                                                                   
+  </link>                                                                   
+
+  <joint name="caster_mounting_to_caster_wheel" type="continuous">
+    <parent link="caster_mounting"/>
+    <child link="caster_wheel"/>
+    <origin xyz="-0.0 0.0 -0.00623" rpy="0 0 0" />
     <axis xyz="0 0 1" />
   </joint>
 
-  <!--
-  <gazebo reference="rodinha">
-    <mu1 value="1.0"/>
-    <mu2 value="1.0"/>
-    <kp  value="10000000.0" />
-    <kd  value="1.0" />
-    <fdir1 value="1 0 0"/>
-    <turnGravityOff>false</turnGravityOff>
-  </gazebo>
-  -->
+<!--
+########################################################################################
+Modelagem da rodinha-Wheel "link" "joint"
+######################################################################################## -->
+  <link name="wheel">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/Wheel.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/Wheel.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
+      <mass value="0.073"/>                                                                   
+      <inertia ixx="5.470e-6"  ixy="4.042e-7"  ixz="3.515e-7" iyy="7.169e-6" iyz="-3.645e-7" izz="7.383e-6" />                                                                   
+    </inertial>                                                                   
+  </link>                                                                   
+
+  <joint name="caster_wheel_to_wheel" type="continuous">
+    <parent link="caster_wheel"/>
+    <child link="wheel"/>
+    <origin xyz="0.0 0.0148 -0.0153" rpy="0 0 0" />
+    <axis xyz="1 0 0" />
+  </joint>
+
 <!--
 ########################################################################################
 Modelagem do motor esquerdo "link" "joint"
@@ -402,12 +453,22 @@ Transmission para as rodas
     </actuator>
   </transmission>
 
-  <transmission name="trans_rodinha" >
+  <transmission name="trans_caster" >
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="base_to_rodinha">
+    <joint name="caster_mounting_to_caster_wheel">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="roda_esquerda_motor">
+    <actuator name="act_caster">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="trans_wheel" >
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="caster_wheel_to_wheel">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="act_wheel">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>

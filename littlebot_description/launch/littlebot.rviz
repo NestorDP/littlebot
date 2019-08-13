@@ -65,6 +65,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        caster_mounting:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        caster_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         motor_direito:
           Alpha: 1
           Show Axes: false
@@ -85,17 +95,32 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        rodinha:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         sonar_01:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         sonar_02:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sonar_03:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sonar_04:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sonar_05:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -160,10 +185,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.05979753
+      Pitch: -0.0802018121
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.455407739
+      Yaw: 3.18541265
     Saved: ~
 Window Geometry:
   Displays:
