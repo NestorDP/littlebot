@@ -1,7 +1,9 @@
+# Publish all joint states -----------------------------------
 joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50  
 
+# Position Controllers ---------------------------------------
 diff_drive_controller:
   type: "diff_drive_controller/DiffDriveController"
   
