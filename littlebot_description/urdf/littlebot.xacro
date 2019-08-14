@@ -142,16 +142,15 @@ Modelagem da rodinha-Caster Mounting Plate "link" "joint"
     </collision>                                                                    
     <inertial>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
-      <mass value="0.073"/>                                                                   
-      <inertia ixx="5.470e-6"  ixy="4.042e-7"  ixz="3.515e-7" iyy="7.169e-6" iyz="-3.645e-7" izz="7.383e-6" />                                                                   
+      <mass value="0.01946206"/>                                                                   
+      <inertia ixx="1.561e-6"  ixy="0.000e+0"  ixz="0.000e+0" iyy="1.944e-6" iyz="0.000e+0" izz="3.350e-6" />                                                                   
     </inertial>                                                                   
-  </link>                                                                   
+  </link>                                  
 
   <joint name="base_to_caster_mounting" type="fixed">
     <parent link="base_link"/>
     <child link="caster_mounting"/>
     <origin xyz="-0.0753 0.0 -0.003" rpy="0 0 0" />
-    <!--<axis xyz="0 0 1" />-->
   </joint>
 
 <!--
@@ -173,8 +172,8 @@ Modelagem da rodinha-Caster Wheel Plate "link" "joint"
     </collision>                                                                    
     <inertial>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
-      <mass value="0.073"/>                                                                   
-      <inertia ixx="5.470e-6"  ixy="4.042e-7"  ixz="3.515e-7" iyy="7.169e-6" iyz="-3.645e-7" izz="7.383e-6" />                                                                   
+      <mass value="0.00982010"/>                                                                   
+      <inertia ixx="8.398e-7"  ixy="-1.517e-14"  ixz="-1.601e-7" iyy="8.400e-7" iyz="1.155e-14" izz="1.340e-6" />                                                                   
     </inertial>                                                                   
   </link>                                                                   
 
@@ -204,8 +203,8 @@ Modelagem da rodinha-Wheel "link" "joint"
     </collision>                                                                    
     <inertial>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
-      <mass value="0.073"/>                                                                   
-      <inertia ixx="5.470e-6"  ixy="4.042e-7"  ixz="3.515e-7" iyy="7.169e-6" iyz="-3.645e-7" izz="7.383e-6" />                                                                   
+      <mass value="0.007 kg"/>                                                                   
+      <inertia ixx="3.569e-7"  ixy="0.000e+0"  ixz="0.000e+0" iyy="5.344e-7" iyz="0.000e+0" izz="3.569e-7" />                                                                   
     </inertial>                                                                   
   </link>                                                                   
 
