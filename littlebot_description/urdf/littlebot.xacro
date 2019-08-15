@@ -203,7 +203,7 @@ Modelagem da rodinha-Wheel "link" "joint"
     </collision>                                                                    
     <inertial>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
-      <mass value="0.007 kg"/>                                                                   
+      <mass value="0.007"/>                                                                   
       <inertia ixx="3.569e-7"  ixy="0.000e+0"  ixz="0.000e+0" iyy="5.344e-7" iyz="0.000e+0" izz="3.569e-7" />                                                                   
     </inertial>                                                                   
   </link>                                                                   
@@ -502,7 +502,7 @@ Transmission para as rodas
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
       <robotNamespace>/</robotNamespace>
       <updateRate>50.0</updateRate>
-      <bodyName>base_link</bodyName>
+      <bodyName>chassis</bodyName>
       <topicName>imu/data</topicName>
       <accelDrift>0.005 0.005 0.005</accelDrift>
       <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
