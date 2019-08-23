@@ -1,42 +1,31 @@
-<?xml version="1.0"?><launch>
+<?xml version="1.0"?>
+<launch>
 
-<!-- these are the arguments you can pass this launch file, for example paused:=true -->
-<arg name="paused" default="false"/>
-<arg name="use_sim_time" default="true"/>
-<arg name="gui" default="true"/>
-<arg name="headless" default="false"/>
-<arg name="debug" default="false"/>
-<arg name="model" default="$(find littlebot_description)/urdf/littlebot.xacro"/>
-<!-- We resume the logic in empty_world.launch -->
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="model" default="$(find littlebot_description)/urdf/littlebot.xacro"/>
+  <!-- We resume the logic in empty_world.launch -->
 
-<include file="$(find gazebo_ros)/launch/empty_world.launch">
-<arg name="debug" value="$(arg debug)" />
-<arg name="gui" value="$(arg gui)" />
-<arg name="paused" value="$(arg paused)"/>
-<arg name="use_sim_time" value="$(arg use_sim_time)"/>
-<arg name="headless" value="$(arg headless)"/>
-</include>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <!--<arg name="world_name" value="$(find husky_gazebo)/worlds/clearpath_playpen.world"/>-->
+  <arg name="debug" value="$(arg debug)" />
+  <arg name="gui" value="$(arg gui)" />
+  <arg name="paused" value="$(arg paused)"/>
+  <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+  <arg name="headless" value="$(arg headless)"/>
+  </include>
 
-<!-- Load the URDF into the ROS Parameter Server -->
-<param name="robot_description" command="$(find xacro)/xacro.py $(arg model)"/>
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)"/>
 
-<!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-<node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-  args="-z 1.0 -unpause -urdf -model Diff_Drive -param robot_description"/>
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-z 1.0 -unpause -urdf -model Diff_Drive -param robot_description"/>
 
-
-
-
-<!-- Load controller configuration -->
-<rosparam file="$(find littlebot_control)/config/littlebot_control.yaml" command="load"/>
-
-<!-- Spawn controllers -->
-<node name="controller_spawner" pkg="controller_manager" type="spawner"
-output="screen" args="joint_state_controller  diff_drive_controller"/>
-
-<!-- convert joint states to TF transforms for rviz, etc -->
-<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" respawn="false">
-</node>
- 
+  <include file="$(find littlebot_control)/launch/littlebot_control.launch"/>
 
 </launch>
