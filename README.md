@@ -2,6 +2,9 @@
 
 Projeto de robô móvel didático para estudo de robótica com ROS, sistemas embarcados, engenharia de controle... 
 
+
+![Alt Text](https://user-images.githubusercontent.com/37759765/64899983-83557400-d664-11e9-9659-fe93a5824e9e.png)
+
 ## Testando o Littlebot
 
 Estas instruções te ajudaram a fazer os primeiros testes com a plataforma Littlebot
