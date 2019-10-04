@@ -4,7 +4,7 @@ joint_state_controller:
   publish_rate: 50  
 
 # Position Controllers ---------------------------------------
-diff_drive_controller:
+littlebot_diff_controller:
   type: "diff_drive_controller/DiffDriveController"
   
   left_wheel: base_to_roda_esquerda
