@@ -64,7 +64,7 @@ Modelagem da roda esquerda "link" "joint"
   </link>
 
   <joint name="base_to_roda_esquerda" type="continuous">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="roda_esquerda"/>
     <origin xyz="0.005 0.07393 -0.014" rpy="0 0 0" />
     <axis xyz="0 1 0" />
@@ -107,7 +107,7 @@ Modelagem da roda direita "link" "joint"
   </link>
 
   <joint name="base_to_roda_direita" type="continuous">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="roda_direita"/>
     <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 0" />
     <axis xyz="0 1 0" />
@@ -149,7 +149,7 @@ Modelagem da rodinha-Caster Mounting Plate "link" "joint"
   </link>                                  
 
   <joint name="base_to_caster_mounting" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="caster_mounting"/>
     <origin xyz="-0.0753 0.0 -0.003" rpy="0 0 0" />
   </joint>
@@ -260,7 +260,7 @@ Modelagem do motor esquerdo "link" "joint"
   </link>                                                                   
 
   <joint name="base_to_motor_esquerdo" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="motor_esquerdo"/>
     <origin xyz="-0.032 0.0412 -0.014" rpy="0 0 0" />
   </joint>
@@ -292,7 +292,7 @@ Modelagem do motor direito "link" "joint"
   </link>                                                                   
 
   <joint name="base_to_motor_direito" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="motor_direito"/>
     <origin xyz="-0.032 -0.0412 -0.014" rpy="0 0 0" />
   </joint>
@@ -324,7 +324,7 @@ Modelagem do sonar 01 "link" "joint"
   </link>
 
   <joint name="base_to_sonar_01" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="sonar_01"/>
     <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
   </joint>
@@ -355,7 +355,7 @@ Modelagem do sonar 02 "link" "joint"
   </link>
 
   <joint name="base_to_sonar_02" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="sonar_02"/>
     <origin xyz="0.07211 0.0248 0.044" rpy="0 0 0.3927" />
   </joint>
@@ -386,7 +386,7 @@ Modelagem do sonar 03 "link" "joint"
   </link>
 
   <joint name="base_to_sonar_03" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="sonar_03"/>
     <origin xyz="0.06522 0.038787 0.044" rpy="0 0 0.7854" />
   </joint>
@@ -417,7 +417,7 @@ Modelagem do sonar 04 "link" "joint"
   </link>
 
   <joint name="base_to_sonar_04" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="sonar_04"/>
     <origin xyz="0.07211 -0.0248 0.044" rpy="0 0 -0.3927" />
   </joint>
@@ -448,7 +448,7 @@ Modelagem do sonar 05 "link" "joint"
   </link>
 
   <joint name="base_to_sonar_05" type="fixed">
-    <parent link="base_link"/>
+    <parent link="chassis"/>
     <child link="sonar_05"/>
     <origin xyz="0.050935 -0.052781 0.044" rpy="0 0 -0.7854" />
   </joint>
