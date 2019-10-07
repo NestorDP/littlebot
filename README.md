@@ -11,17 +11,17 @@ Estas instruções te ajudaram a fazer os primeiros testes com a plataforma Litt
 
 ### Prerequisitos
 
-Para testar o Littlebot em seu sistema você precisa ter instalado o ROS (melodic recomendado)
+Para testar o Littlebot em seu sistema você precisa ter instalado o ROS ([melodic](http://wiki.ros.org/melodic/Installation) recomendado). Um erro pode acontecer ao tentar vizualizar o modelo no RVIZ caso isso ocorra pode ser necessário mudar uma variável de ambiente, como segue abaixo: 
 
+```bash
+export LC_NUMERIC="en_US.UTF-8"
 ```
-Give examples
-```
 
-### Instalando
+### Rodando a simulação
 
-Para instalar o Littlebot é necessário criar um workspace ROS
+Para simular o Littlebot, o primeiro passo é criar um [workspace ROS](http://wiki.ros.org/catkin/Tutorials/create_a_workspace)
 
-```
+```bash
 mkdir -p ~/littlebot_ws/src
 cd littlebot_ws
 catkin_make
@@ -29,17 +29,15 @@ catkin_make
 
 Após criar o workspace fazer o clone do repositório
 
-```
+```bash
 cd src
 git clone https://github.com/NestorDP/littlebot.git
 cd ..
 catkin_make
 ```
 
-## Rodando a simulação 
-
 Para rodar a simulção no Gazebo
 
-```
+```bash
 roslaunch littlebot_gazebo gazebo.launch
 ```
