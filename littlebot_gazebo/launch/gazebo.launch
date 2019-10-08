@@ -24,7 +24,7 @@
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-z 1.0 -unpause -urdf -model Diff_Drive -param robot_description"/>
+    args="-z 1.0 -unpause -urdf -model / -param robot_description"/>
 
   <include file="$(find littlebot_control)/launch/littlebot_control.launch"/>
 

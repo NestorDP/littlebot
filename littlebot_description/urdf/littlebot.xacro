@@ -68,23 +68,23 @@ Modelagem do sonar "link" "joint"
 ########################################################################################
 -->
 
-  <xacro:littlebot_sonar sonar_numero="01">
+  <xacro:littlebot_sonar sonar_numero="1">
     <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
   </xacro:littlebot_sonar>
 
-  <xacro:littlebot_sonar sonar_numero="02">
+  <xacro:littlebot_sonar sonar_numero="2">
     <origin xyz="0.07211 0.0248 0.044" rpy="0 0 0.3927"/>
   </xacro:littlebot_sonar>
 
-  <xacro:littlebot_sonar sonar_numero="03">
+  <xacro:littlebot_sonar sonar_numero="3">
     <origin xyz="0.06522 0.038787 0.044" rpy="0 0 0.7854" />
   </xacro:littlebot_sonar>
 
-  <xacro:littlebot_sonar sonar_numero="04">
+  <xacro:littlebot_sonar sonar_numero="4">
     <origin xyz="0.07211 -0.0248 0.044" rpy="0 0 -0.3927"/>
   </xacro:littlebot_sonar>
 
-  <xacro:littlebot_sonar sonar_numero="05">
+  <xacro:littlebot_sonar sonar_numero="5">
     <origin xyz="0.050935 -0.052781 0.044" rpy="0 0 -0.7854"/>
   </xacro:littlebot_sonar>
 
@@ -324,7 +324,7 @@ Modelagem do motor direito "link" "joint"
   SONAR01 gazebo plugin 
   ******************************************************************************************
   -->
-  <gazebo reference="sonar_01">        
+  <gazebo reference="sonar_1">        
    <sensor type="ray" name="TeraRanger">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
@@ -355,8 +355,8 @@ Modelagem do motor direito "link" "joint"
          <gaussianNoise>0.005</gaussianNoise>
          <alwaysOn>true</alwaysOn>
          <updateRate>50</updateRate>
-         <topicName>sensor/sonar01</topicName>
-         <frameName>sonar_01</frameName>
+         <topicName>sensor/sonar1</topicName>
+         <frameName>sonar_1</frameName>
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
