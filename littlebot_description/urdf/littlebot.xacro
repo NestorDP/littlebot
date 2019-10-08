@@ -4,6 +4,7 @@
 
   <!-- Included URDF/XACRO Files -->
   <xacro:include filename="$(find littlebot_description)/urdf/rodas.xacro" />
+  <xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" />
 
  <link name="base_link">
 
@@ -47,11 +48,11 @@ Modelagem das rodas macro Xacro
 ########################################################################################
 -->
   <xacro:littlebot_wheel lado_roda="esquerda">
-    <origin xyz="0.005 0.07393 -0.014" rpy="0 0 0" />
+    <origin xyz="0.005 0.07393 -0.014" rpy="0 0 1.571" />
   </xacro:littlebot_wheel>
 
   <xacro:littlebot_wheel lado_roda="direita">
-    <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 0" />
+    <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 -1.571" />
   </xacro:littlebot_wheel>
 
 
@@ -158,8 +159,8 @@ Modelagem da rodinha-Wheel "link" "joint"
   </joint>
 
   <gazebo reference="wheel">
-    <mu1 value="1.0"/>
-    <mu2 value="1.0"/>
+    <mu1 value="100000.0"/>
+    <mu2 value="100.0"/>
     <kp  value="10000000.0" />
     <kd  value="1.0" />
     <fdir1 value="1 0 0"/>
@@ -235,6 +236,7 @@ Modelagem do motor direito "link" "joint"
 Modelagem do sonar 01 "link" "joint"
 ########################################################################################
 -->
+<!--
   <link name="sonar_01">   
     <visual>
       <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571" />
@@ -254,12 +256,19 @@ Modelagem do sonar 01 "link" "joint"
       <inertia ixx="5.706e-7"  ixy="6.307e-9"  ixz="2.156e-9" iyy="2.771e-6" iyz="7.710e-9" izz="2.878e-6" />                                                                   
     </inertial>
   </link>
+  
 
   <joint name="base_to_sonar_01" type="fixed">
     <parent link="chassis"/>
     <child link="sonar_01"/>
     <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
   </joint>
+-->
+
+
+  <xacro:littlebot_sonar sonar_numero="01">
+    <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
+  </xacro:littlebot_sonar>
 
 <!--
 ########################################################################################

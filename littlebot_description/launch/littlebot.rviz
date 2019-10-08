@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 744
   - Class: rviz/Selection
@@ -64,13 +66,17 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
         caster_mounting:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         caster_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        chassis:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -95,11 +101,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        sonar_01:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         sonar_02:
           Alpha: 1
           Show Axes: false
@@ -120,6 +121,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        sonar_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         wheel:
           Alpha: 1
           Show Axes: false
@@ -132,19 +138,70 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
-        All Enabled: true
+        All Enabled: false
+        base_link:
+          Value: false
+        caster_mounting:
+          Value: false
+        caster_wheel:
+          Value: false
+        chassis:
+          Value: false
+        motor_direito:
+          Value: false
+        motor_esquerdo:
+          Value: false
+        roda_direita:
+          Value: true
+        roda_esquerda:
+          Value: true
+        sonar_02:
+          Value: false
+        sonar_03:
+          Value: false
+        sonar_04:
+          Value: false
+        sonar_05:
+          Value: false
+        sonar_1:
+          Value: false
+        wheel:
+          Value: false
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        base_link:
+          chassis:
+            caster_mounting:
+              caster_wheel:
+                wheel:
+                  {}
+            motor_direito:
+              {}
+            motor_esquerdo:
+              {}
+            roda_direita:
+              {}
+            roda_esquerda:
+              {}
+            sonar_02:
+              {}
+            sonar_03:
+              {}
+            sonar_04:
+              {}
+            sonar_05:
+              {}
+            sonar_1:
+              {}
       Update Interval: 0
-      Value: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -170,7 +227,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.21542877
+      Distance: 0.27023387
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
