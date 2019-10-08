@@ -6,6 +6,12 @@
   <xacro:include filename="$(find littlebot_description)/urdf/rodas.xacro" />
   <xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" />
 
+
+ <!--
+########################################################################################
+Modelagem base_link "link"
+########################################################################################
+-->
  <link name="base_link">
 
  </link>
@@ -44,9 +50,10 @@ Modelagem do chassis2 "link" "joint"
 
 <!--
 ########################################################################################
-Modelagem das rodas macro Xacro
+Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 ########################################################################################
 -->
+
   <xacro:littlebot_wheel lado_roda="esquerda">
     <origin xyz="0.005 0.07393 -0.014" rpy="0 0 1.571" />
   </xacro:littlebot_wheel>
@@ -55,12 +62,38 @@ Modelagem das rodas macro Xacro
     <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 -1.571" />
   </xacro:littlebot_wheel>
 
+<!--
+########################################################################################
+Modelagem do sonar "link" "joint"
+########################################################################################
+-->
 
+  <xacro:littlebot_sonar sonar_numero="01">
+    <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
+  </xacro:littlebot_sonar>
+
+  <xacro:littlebot_sonar sonar_numero="02">
+    <origin xyz="0.07211 0.0248 0.044" rpy="0 0 0.3927"/>
+  </xacro:littlebot_sonar>
+
+  <xacro:littlebot_sonar sonar_numero="03">
+    <origin xyz="0.06522 0.038787 0.044" rpy="0 0 0.7854" />
+  </xacro:littlebot_sonar>
+
+  <xacro:littlebot_sonar sonar_numero="04">
+    <origin xyz="0.07211 -0.0248 0.044" rpy="0 0 -0.3927"/>
+  </xacro:littlebot_sonar>
+
+  <xacro:littlebot_sonar sonar_numero="05">
+    <origin xyz="0.050935 -0.052781 0.044" rpy="0 0 -0.7854"/>
+  </xacro:littlebot_sonar>
 
 <!--
 ########################################################################################
 Modelagem da rodinha-Caster Mounting Plate "link" "joint"
-######################################################################################## -->
+######################################################################################## 
+-->
+
   <link name="caster_mounting">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
@@ -90,7 +123,9 @@ Modelagem da rodinha-Caster Mounting Plate "link" "joint"
 <!--
 ########################################################################################
 Modelagem da rodinha-Caster Wheel Plate "link" "joint"
-######################################################################################## -->
+######################################################################################## 
+-->
+
   <link name="caster_wheel">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
@@ -118,6 +153,16 @@ Modelagem da rodinha-Caster Wheel Plate "link" "joint"
     <axis xyz="0 0 1" />
   </joint>
 
+  <transmission name="trans_caster" >
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="caster_mounting_to_caster_wheel">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="act_caster">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
   <gazebo reference="caster_wheel">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
@@ -130,7 +175,9 @@ Modelagem da rodinha-Caster Wheel Plate "link" "joint"
 <!--
 ########################################################################################
 Modelagem da rodinha-Wheel "link" "joint"
-######################################################################################## -->
+######################################################################################## 
+-->
+
   <link name="wheel">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
@@ -158,6 +205,16 @@ Modelagem da rodinha-Wheel "link" "joint"
     <axis xyz="1 0 0" />
   </joint>
 
+  <transmission name="trans_wheel" >
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="caster_wheel_to_wheel">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="act_wheel">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
   <gazebo reference="wheel">
     <mu1 value="100000.0"/>
     <mu2 value="100.0"/>
@@ -172,6 +229,7 @@ Modelagem da rodinha-Wheel "link" "joint"
 Modelagem do motor esquerdo "link" "joint"
 ########################################################################################
 -->
+
   <link name="motor_esquerdo">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="0 0 0" />                                                   
@@ -204,6 +262,7 @@ Modelagem do motor esquerdo "link" "joint"
 Modelagem do motor direito "link" "joint"
 ########################################################################################
 -->
+
   <link name="motor_direito">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="0 0 0" />                                                   
@@ -230,197 +289,6 @@ Modelagem do motor direito "link" "joint"
     <origin xyz="-0.032 -0.0412 -0.014" rpy="0 0 0" />
   </joint>
 
-
-<!--
-########################################################################################
-Modelagem do sonar 01 "link" "joint"
-########################################################################################
--->
-<!--
-  <link name="sonar_01">   
-    <visual>
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571" />
-      <geometry>
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />
-      </geometry>
-    </visual>
-    <collision>                                                                   
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571" />                                                    
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />     
-      </geometry>                                                                   
-    </collision>                                                                    
-    <inertial>                                                                    
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571"/>                                                                   
-      <mass value="0.015"/>                                                                   
-      <inertia ixx="5.706e-7"  ixy="6.307e-9"  ixz="2.156e-9" iyy="2.771e-6" iyz="7.710e-9" izz="2.878e-6" />                                                                   
-    </inertial>
-  </link>
-  
-
-  <joint name="base_to_sonar_01" type="fixed">
-    <parent link="chassis"/>
-    <child link="sonar_01"/>
-    <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
-  </joint>
--->
-
-
-  <xacro:littlebot_sonar sonar_numero="01">
-    <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
-  </xacro:littlebot_sonar>
-
-<!--
-########################################################################################
-Modelagem do sonar 02 "link" "joint"
-########################################################################################
--->
-  <link name="sonar_02">   
-    <visual>
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571" />
-      <geometry>
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />
-      </geometry>
-    </visual>
-    <collision>                                                                   
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571" />                                                    
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />     
-      </geometry>                                                                   
-    </collision>                                                                    
-    <inertial>                                                                    
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571"/>                                                                   
-      <mass value="0.015"/>                                                                   
-      <inertia ixx="5.706e-7"  ixy="6.307e-9"  ixz="2.156e-9" iyy="2.771e-6" iyz="7.710e-9" izz="2.878e-6" />                                                                   
-    </inertial>
-  </link>
-
-  <joint name="base_to_sonar_02" type="fixed">
-    <parent link="chassis"/>
-    <child link="sonar_02"/>
-    <origin xyz="0.07211 0.0248 0.044" rpy="0 0 0.3927" />
-  </joint>
-
-<!--
-########################################################################################
-Modelagem do sonar 03 "link" "joint"
-########################################################################################
--->
-  <link name="sonar_03">   
-    <visual>
-      <origin xyz="-0.014 0.01 0" rpy="-1.571 1.571 -1.571" />
-      <geometry>
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />
-      </geometry>
-    </visual>
-    <collision>                                                                   
-      <origin xyz="-0.014 0.01 0" rpy="-1.571 1.571 -1.571" />                                                    
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />     
-      </geometry>                                                                   
-    </collision>                                                                    
-    <inertial>                                                                    
-      <origin xyz="-0.014 0.01 0" rpy="-1.571 1.571 -1.571"/>                                                                   
-      <mass value="0.015"/>                                                                   
-      <inertia ixx="5.706e-7"  ixy="6.307e-9"  ixz="2.156e-9" iyy="2.771e-6" iyz="7.710e-9" izz="2.878e-6" />                                                                   
-    </inertial>
-  </link>
-
-  <joint name="base_to_sonar_03" type="fixed">
-    <parent link="chassis"/>
-    <child link="sonar_03"/>
-    <origin xyz="0.06522 0.038787 0.044" rpy="0 0 0.7854" />
-  </joint>
-
-  <!--
-########################################################################################
-Modelagem do sonar 04 "link" "joint"
-########################################################################################
--->
-  <link name="sonar_04">   
-    <visual>
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571" />
-      <geometry>
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />
-      </geometry>
-    </visual>
-    <collision>                                                                   
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571" />                                                    
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />     
-      </geometry>                                                                   
-    </collision>                                                                    
-    <inertial>                                                                    
-      <origin xyz="-0.014 0 0" rpy="-1.571 1.571 -1.571"/>                                                                   
-      <mass value="0.015"/>                                                                   
-      <inertia ixx="5.706e-7"  ixy="6.307e-9"  ixz="2.156e-9" iyy="2.771e-6" iyz="7.710e-9" izz="2.878e-6" />                                                                   
-    </inertial>
-  </link>
-
-  <joint name="base_to_sonar_04" type="fixed">
-    <parent link="chassis"/>
-    <child link="sonar_04"/>
-    <origin xyz="0.07211 -0.0248 0.044" rpy="0 0 -0.3927" />
-  </joint>
-
-<!--
-########################################################################################
-Modelagem do sonar 05 "link" "joint"
-########################################################################################
--->
-  <link name="sonar_05">   
-    <visual>
-      <origin xyz="-0.014 0.01 0" rpy="-1.571 1.571 -1.571" />
-      <geometry>
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />
-      </geometry>
-    </visual>
-    <collision>                                                                   
-      <origin xyz="-0.014 0.01 0" rpy="-1.571 1.571 -1.571" />                                                    
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/sonar.dae" />     
-      </geometry>                                                                   
-    </collision>                                                                    
-    <inertial>                                                                    
-      <origin xyz="-0.014 0.01 0" rpy="-1.571 1.571 -1.571"/>                                                                   
-      <mass value="0.015"/>                                                                   
-      <inertia ixx="5.706e-7"  ixy="6.307e-9"  ixz="2.156e-9" iyy="2.771e-6" iyz="7.710e-9" izz="2.878e-6" />                                                                   
-    </inertial>
-  </link>
-
-  <joint name="base_to_sonar_05" type="fixed">
-    <parent link="chassis"/>
-    <child link="sonar_05"/>
-    <origin xyz="0.050935 -0.052781 0.044" rpy="0 0 -0.7854" />
-  </joint>
-
-
-<!--
-********************************************************************************************
-Transmission para as rodas
-********************************************************************************************
--->
-
-  <transmission name="trans_caster" >
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="caster_mounting_to_caster_wheel">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="act_caster">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="trans_wheel" >
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="caster_wheel_to_wheel">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="act_wheel">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
   <!-- 
   ******************************************************************************************
   ros_control gazebo plugin 
@@ -432,7 +300,6 @@ Transmission para as rodas
       <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
-
   <!-- 
   ******************************************************************************************
   IMU gazebo plugin 
@@ -452,11 +319,9 @@ Transmission para as rodas
       <headingGaussianNoise>0.005</headingGaussianNoise>
     </plugin>
   </gazebo>
-
-
   <!-- 
   ******************************************************************************************
-  SONAR gazebo plugin 
+  SONAR01 gazebo plugin 
   ******************************************************************************************
   -->
   <gazebo reference="sonar_01">        
@@ -497,10 +362,9 @@ Transmission para as rodas
       </plugin>
    </sensor>  
   </gazebo>
-
   <!-- 
   ******************************************************************************************
-  SONAR gazebo plugin 
+  SONAR02 gazebo plugin 
   ******************************************************************************************
   -->
   <gazebo reference="sonar_02">        
@@ -544,7 +408,7 @@ Transmission para as rodas
 
     <!-- 
   ******************************************************************************************
-  SONAR gazebo plugin 
+  SONAR03 gazebo plugin 
   ******************************************************************************************
   -->
   <gazebo reference="sonar_03">        
@@ -588,7 +452,7 @@ Transmission para as rodas
 
     <!-- 
   ******************************************************************************************
-  SONAR gazebo plugin 
+  SONAR04 gazebo plugin 
   ******************************************************************************************
   -->
   <gazebo reference="sonar_04">        
@@ -632,7 +496,7 @@ Transmission para as rodas
 
     <!-- 
   ******************************************************************************************
-  SONAR gazebo plugin 
+  SONAR05 gazebo plugin 
   ******************************************************************************************
   -->
   <gazebo reference="sonar_05">        
