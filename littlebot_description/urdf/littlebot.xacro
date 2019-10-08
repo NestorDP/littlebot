@@ -321,7 +321,7 @@ Modelagem do motor direito "link" "joint"
   </gazebo>
   <!-- 
   ******************************************************************************************
-  SONAR01 gazebo plugin 
+  SONAR_01 gazebo plugin 
   ******************************************************************************************
   -->
   <gazebo reference="sonar_1">        
@@ -367,7 +367,7 @@ Modelagem do motor direito "link" "joint"
   SONAR02 gazebo plugin 
   ******************************************************************************************
   -->
-  <gazebo reference="sonar_02">        
+  <gazebo reference="sonar_2">        
    <sensor type="ray" name="TeraRanger">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
@@ -398,8 +398,8 @@ Modelagem do motor direito "link" "joint"
          <gaussianNoise>0.005</gaussianNoise>
          <alwaysOn>true</alwaysOn>
          <updateRate>50</updateRate>
-         <topicName>sensor/sonar02</topicName>
-         <frameName>sonar_02</frameName>
+         <topicName>sensor/sonar2</topicName>
+         <frameName>sonar_2</frameName>
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
@@ -411,7 +411,7 @@ Modelagem do motor direito "link" "joint"
   SONAR03 gazebo plugin 
   ******************************************************************************************
   -->
-  <gazebo reference="sonar_03">        
+  <gazebo reference="sonar_3">        
    <sensor type="ray" name="TeraRanger">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
@@ -442,8 +442,8 @@ Modelagem do motor direito "link" "joint"
          <gaussianNoise>0.005</gaussianNoise>
          <alwaysOn>true</alwaysOn>
          <updateRate>50</updateRate>
-         <topicName>sensor/sonar03</topicName>
-         <frameName>sonar_03</frameName>
+         <topicName>sensor/sonar3</topicName>
+         <frameName>sonar_3</frameName>
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
@@ -455,7 +455,7 @@ Modelagem do motor direito "link" "joint"
   SONAR04 gazebo plugin 
   ******************************************************************************************
   -->
-  <gazebo reference="sonar_04">        
+  <gazebo reference="sonar_4">        
    <sensor type="ray" name="TeraRanger">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
@@ -486,8 +486,8 @@ Modelagem do motor direito "link" "joint"
          <gaussianNoise>0.005</gaussianNoise>
          <alwaysOn>false</alwaysOn>
          <updateRate>50</updateRate>
-         <topicName>sensor/sonar04</topicName>
-         <frameName>sonar_04</frameName>
+         <topicName>sensor/sonar4</topicName>
+         <frameName>sonar_4</frameName>
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
@@ -499,7 +499,7 @@ Modelagem do motor direito "link" "joint"
   SONAR05 gazebo plugin 
   ******************************************************************************************
   -->
-  <gazebo reference="sonar_05">        
+  <gazebo reference="sonar_5">        
    <sensor type="ray" name="TeraRanger">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
@@ -530,8 +530,8 @@ Modelagem do motor direito "link" "joint"
          <gaussianNoise>0.005</gaussianNoise>
          <alwaysOn>true</alwaysOn>
          <updateRate>50</updateRate>
-         <topicName>sensor/sonar05</topicName>
-         <frameName>sonar_05</frameName>
+         <topicName>sensor/sonar5</topicName>
+         <frameName>sonar_5</frameName>
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
