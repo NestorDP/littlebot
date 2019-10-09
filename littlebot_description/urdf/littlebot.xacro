@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot name="littlebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="littlebot" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!-- Included URDF/XACRO Files -->
   <xacro:include filename="$(find littlebot_description)/urdf/rodas.xacro" />
@@ -56,10 +56,12 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 
   <xacro:littlebot_wheel lado_roda="esquerda">
     <origin xyz="0.005 0.07393 -0.014" rpy="0 0 1.571" />
+    <origin xyz="-0.012 0 0" rpy="0 0 0"/>
   </xacro:littlebot_wheel>
 
   <xacro:littlebot_wheel lado_roda="direita">
-    <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 -1.571" />
+    <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 1.571" />
+    <origin xyz="0.012 0 0" rpy="0 0 3.142"/>
   </xacro:littlebot_wheel>
 
 <!--
