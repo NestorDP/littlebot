@@ -2,7 +2,7 @@
 
 <robot name="littlebot_wheel" xmlns:xacro="http://ros.org/wiki/xacro" >
 
-	<xacro:macro name="littlebot_wheel" params="lado_roda *joint_pose *mesh_pose">
+	<xacro:macro name="littlebot_wheel" params="lado_roda *mesh_pose *joint_pose">
 
 		<link name="roda_${lado_roda}">
 			<visual>
@@ -24,14 +24,6 @@
 			</inertial>
 		</link>
 
-		<gazebo reference="roda_${lado_roda}">
-			<mu1 value="1.0"/>
-			<mu2 value="1.0"/>
-			<kp value="10000000.0" />
-			<kd value="1.0" />
-			<fdir1 value="1 0 0"/>
-		</gazebo>
-
 		<joint name="base_to_roda_${lado_roda}" type="continuous">
 			<parent link="chassis"/>
 			<child link="roda_${lado_roda}"/>
@@ -48,6 +40,14 @@
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
 		</transmission>
+
+		<gazebo reference="roda_${lado_roda}">
+			<mu1 value="1.0"/>
+			<mu2 value="1.0"/>
+			<kp value="10000000.0" />
+			<kd value="1.0" />
+			<fdir1 value="1 0 0"/>
+		</gazebo>
 
 	</xacro:macro>
 
