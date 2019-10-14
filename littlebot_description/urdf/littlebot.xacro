@@ -2,9 +2,9 @@
 
 <robot name="littlebot" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <!-- Included URDF/XACRO Files -->
-  <xacro:include filename="$(find littlebot_description)/urdf/rodas.xacro" />
-  <xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" />
+<!-- Included URDF/XACRO Files -->
+<xacro:include filename="$(find littlebot_description)/urdf/rodas.xacro" />
+<xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" />
 
 
  <!--
@@ -57,11 +57,13 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
   <xacro:littlebot_wheel lado_roda="esquerda">
     <origin xyz="-0.012 0 0" rpy="0 0 0"/>
     <origin xyz="0.005 0.07393 -0.014" rpy="0 0 1.571" />
+    <origin xyz="-0.032 0.0412 -0.014" rpy="0 0 0" />
   </xacro:littlebot_wheel>
 
   <xacro:littlebot_wheel lado_roda="direita">
     <origin xyz="0.012 0 0" rpy="0 0 3.142"/>
     <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 1.571" />
+    <origin xyz="-0.032 -0.0412 -0.014" rpy="0 0 0" />
   </xacro:littlebot_wheel>
 
 <!--
@@ -226,71 +228,6 @@ Modelagem da rodinha-Wheel "link" "joint"
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
 
-<!--
-########################################################################################
-Modelagem do motor esquerdo "link" "joint"
-########################################################################################
--->
-
-  <link name="motor_esquerdo">                                                                                                                                         
-    <visual>                                                                    
-      <origin xyz="0 0 0" rpy="0 0 0" />                                                   
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
-      </geometry>                                                                   
-    </visual>                                                                   
-    <collision>                                                                   
-      <origin xyz="0 0 0" rpy="0 0 0" />                                                    
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
-      </geometry>                                                                   
-    </collision>                                                                    
-    <inertial>                                                                    
-      <origin xyz="0 0 0" rpy="0 0 0"/>                                                                   
-      <mass value="0.09"/>                                                                   
-      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
-    </inertial>                                                                   
-  </link>                                                                   
-
-  <joint name="base_to_motor_esquerdo" type="fixed">
-    <parent link="chassis"/>
-    <child link="motor_esquerdo"/>
-    <origin xyz="-0.032 0.0412 -0.014" rpy="0 0 0" />
-  </joint>
-  
-
-<!--
-########################################################################################
-Modelagem do motor direito "link" "joint"
-########################################################################################
--->
-
-  <link name="motor_direito">                                                                                                                                         
-    <visual>                                                                    
-      <origin xyz="0 0 0" rpy="0 0 0" />                                                   
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
-      </geometry>                                                                   
-    </visual>                                                                   
-    <collision>                                                                   
-      <origin xyz="0 0 0" rpy="0 0 0" />                                                    
-      <geometry>                                                                   
-	      <mesh filename="package://littlebot_description/meshes/motor.dae" />     
-      </geometry>                                                                   
-    </collision>                                                                    
-    <inertial>                                                                    
-      <origin xyz="0 0 0" rpy="0 0 0"/>                                                                   
-      <mass value="0.09"/>                                                                   
-      <inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
-    </inertial>                                                                   
-  </link>                                                                   
-
-  <joint name="base_to_motor_direito" type="fixed">
-    <parent link="chassis"/>
-    <child link="motor_direito"/>
-    <origin xyz="-0.032 -0.0412 -0.014" rpy="0 0 0" />
-  </joint>
-
   <!-- 
   ******************************************************************************************
   ros_control gazebo plugin 
@@ -408,7 +345,7 @@ Modelagem do motor direito "link" "joint"
    </sensor>  
   </gazebo>
 
-    <!-- 
+  <!-- 
   ******************************************************************************************
   SONAR03 gazebo plugin 
   ******************************************************************************************
@@ -452,7 +389,7 @@ Modelagem do motor direito "link" "joint"
    </sensor>  
   </gazebo>
 
-    <!-- 
+  <!-- 
   ******************************************************************************************
   SONAR04 gazebo plugin 
   ******************************************************************************************
