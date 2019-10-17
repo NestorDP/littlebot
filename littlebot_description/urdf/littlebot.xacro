@@ -53,7 +53,6 @@ Modelagem do chassis2 "link" "joint"
 Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 ########################################################################################
 -->
-
   <xacro:littlebot_wheel lado_roda="esquerda">
     <origin xyz="-0.012 0 0" rpy="0 0 0"/>
     <origin xyz="0.005 0.07393 -0.014" rpy="0 0 1.571" />
@@ -71,7 +70,6 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 Modelagem do sonar "link" "joint"
 ########################################################################################
 -->
-
   <xacro:littlebot_sonar sonar_numero="1">
     <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
   </xacro:littlebot_sonar>
@@ -97,7 +95,6 @@ Modelagem do sonar "link" "joint"
 Modelagem da rodinha-Caster Mounting Plate "link" "joint"
 ######################################################################################## 
 -->
-
   <link name="caster_mounting">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
@@ -129,7 +126,6 @@ Modelagem da rodinha-Caster Mounting Plate "link" "joint"
 Modelagem da rodinha-Caster Wheel Plate "link" "joint"
 ######################################################################################## 
 -->
-
   <link name="caster_wheel">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
@@ -181,7 +177,6 @@ Modelagem da rodinha-Caster Wheel Plate "link" "joint"
 Modelagem da rodinha-Wheel "link" "joint"
 ######################################################################################## 
 -->
-
   <link name="wheel">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
@@ -344,7 +339,6 @@ Modelagem da rodinha-Wheel "link" "joint"
       </plugin>
    </sensor>  
   </gazebo>
-
   <!-- 
   ******************************************************************************************
   SONAR03 gazebo plugin 
@@ -388,7 +382,6 @@ Modelagem da rodinha-Wheel "link" "joint"
       </plugin>
    </sensor>  
   </gazebo>
-
   <!-- 
   ******************************************************************************************
   SONAR04 gazebo plugin 
@@ -432,8 +425,7 @@ Modelagem da rodinha-Wheel "link" "joint"
       </plugin>
    </sensor>  
   </gazebo>
-
-    <!-- 
+  <!-- 
   ******************************************************************************************
   SONAR05 gazebo plugin 
   ******************************************************************************************
