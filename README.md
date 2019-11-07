@@ -41,3 +41,7 @@ Para rodar a simulção no Gazebo
 ```bash
 roslaunch littlebot_gazebo gazebo.launch
 ```
+
+## Wiki
+
+Para mais informações entre no [Littlebot wiki](https://github.com/NestorDP/littlebot/wiki)
