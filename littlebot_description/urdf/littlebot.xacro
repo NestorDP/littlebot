@@ -259,7 +259,7 @@ Modelagem da rodinha-Wheel "link" "joint"
   ******************************************************************************************
   -->
   <gazebo reference="sonar_1">        
-   <sensor type="ray" name="TeraRanger">
+    <sensor type="ray" name="TeraRanger">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>50</update_rate>
@@ -294,7 +294,7 @@ Modelagem da rodinha-Wheel "link" "joint"
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
-   </sensor>  
+    </sensor>  
   </gazebo>
   <!-- 
   ******************************************************************************************
