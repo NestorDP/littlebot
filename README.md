@@ -10,7 +10,7 @@ Estas instruções te ajudaram a fazer os primeiros testes com a plataforma Litt
 
 ### Prerequisitos
 
-Para testar o Littlebot em seu sistema você precisa ter instalado o ROS ([melodic](http://wiki.ros.org/melodic/Installation) recomendado). Um erro pode acontecer ao tentar vizualizar o modelo no RVIZ caso isso ocorra pode ser necessário mudar uma variável de ambiente, como segue abaixo: 
+Para testar o Littlebot em seu sistema você precisa ter instalado o ROS ([melodic](http://wiki.ros.org/melodic/Installation) recomendado). Um erro pode acontecer ao tentar vizualizar o modelo no RVIZ caso isso ocorra pode ser necessário mudar uma variável de ambiente, como segue abaixo:
 
 ```bash
 export LC_NUMERIC="en_US.UTF-8"
