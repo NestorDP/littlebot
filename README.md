@@ -43,4 +43,4 @@ roslaunch littlebot_gazebo gazebo.launch
 
 ## Wiki
 
-Para mais informações entre no [Littlebot wiki](https://github.com/NestorDP/littlebot/wiki)
+Para mais informações acesse o [Littlebot wiki](https://github.com/NestorDP/littlebot/wiki)
