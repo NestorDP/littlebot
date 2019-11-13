@@ -46,7 +46,7 @@ Modelagem da roda "link" "joint" "transmission" "gazebo"
 	</transmission>
 
 	<gazebo reference="roda_${lado_roda}">
-		<mu1 value="1.0"/>
+		<mu1 value="1000.0"/>
 		<mu2 value="1.0"/>
 		<kp value="10000000.0" />
 		<kd value="1.0" />
