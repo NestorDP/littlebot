@@ -259,11 +259,8 @@ Modelagem da rodinha-Wheel "link" "joint"
   SONAR_01 gazebo plugin 
   ******************************************************************************************
   -->
-<<<<<<< HEA
-=======
   <gazebo reference="sonar_3">        
    <sensor type="ray" name="TeraRanger">
->>>>>>> feature/simulation
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>50</update_rate>
