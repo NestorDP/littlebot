@@ -70,8 +70,9 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 Modelagem do sonar "link" "joint"
 ########################################################################################
 -->
+
   <xacro:littlebot_sonar sonar_numero="1">
-    <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
+    <origin xyz="0.05822 0.045787 0.044" rpy="0 0 0.7854" />
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="2">
@@ -79,7 +80,7 @@ Modelagem do sonar "link" "joint"
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="3">
-    <origin xyz="0.06522 0.038787 0.044" rpy="0 0 0.7854" />
+    <origin xyz="0.077 0.0 0.044" rpy="0 0 0" />
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="4">
@@ -87,7 +88,7 @@ Modelagem do sonar "link" "joint"
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="5">
-    <origin xyz="0.050935 -0.052781 0.044" rpy="0 0 -0.7854"/>
+    <origin xyz="0.05822 -0.045787 0.044" rpy="0 0 -0.7854"/>
   </xacro:littlebot_sonar>
 
 <!--
@@ -258,8 +259,11 @@ Modelagem da rodinha-Wheel "link" "joint"
   SONAR_01 gazebo plugin 
   ******************************************************************************************
   -->
-  <gazebo reference="sonar_1">        
-    <sensor type="ray" name="TeraRanger">
+<<<<<<< HEA
+=======
+  <gazebo reference="sonar_3">        
+   <sensor type="ray" name="TeraRanger">
+>>>>>>> feature/simulation
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
       <update_rate>50</update_rate>
@@ -289,8 +293,8 @@ Modelagem da rodinha-Wheel "link" "joint"
          <gaussianNoise>0.005</gaussianNoise>
          <alwaysOn>true</alwaysOn>
          <updateRate>50</updateRate>
-         <topicName>sensor/sonar1</topicName>
-         <frameName>sonar_1</frameName>
+         <topicName>sensor/sonar3</topicName>
+         <frameName>sonar_3</frameName>
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
@@ -344,7 +348,7 @@ Modelagem da rodinha-Wheel "link" "joint"
   SONAR03 gazebo plugin 
   ******************************************************************************************
   -->
-  <gazebo reference="sonar_3">        
+  <gazebo reference="sonar_1">        
    <sensor type="ray" name="TeraRanger">
       <pose>0 0 0 0 0 0</pose>
       <visualize>false</visualize>
@@ -375,8 +379,8 @@ Modelagem da rodinha-Wheel "link" "joint"
          <gaussianNoise>0.005</gaussianNoise>
          <alwaysOn>true</alwaysOn>
          <updateRate>50</updateRate>
-         <topicName>sensor/sonar3</topicName>
-         <frameName>sonar_3</frameName>
+         <topicName>sensor/sonar1</topicName>
+         <frameName>sonar_1</frameName>
          <radiation>ULTRASOUND</radiation>
          <fov>0.2967</fov>
       </plugin>
