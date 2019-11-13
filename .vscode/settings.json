@@ -1,6 +1,0 @@
-{
-    "python.autoComplete.extraPaths": [
-        "/opt/ros/kinetic/lib/python2.7/dist-packages",
-        "/home/nestor/mixcell/source_code"
-    ]
-}
