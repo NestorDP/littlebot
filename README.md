@@ -1,7 +1,6 @@
 # Littlebot
 
-Projeto de robô móvel didático para estudo de robótica com ROS, sistemas embarcados, engenharia de controle... 
-
+Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desemvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
 
 ![Alt Text](https://user-images.githubusercontent.com/37759765/64899983-83557400-d664-11e9-9659-fe93a5824e9e.png)
 
