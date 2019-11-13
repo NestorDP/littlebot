@@ -1,0 +1,23 @@
+<package>
+  <name>littlebot_rviz</name>
+  <version>0.1.0</version>
+  <description>littlebot_rviz</description>
+  <maintainer email="nestor-dp@hotmail.com">Nestor D. Pereira Neto</maintainer>
+
+  <license>BSD</license>
+
+  <author email="nestor-dp@hotmail.com">Nestor D. Pereira Neto</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roslaunch</build_depend>
+
+  <run_depend>littlebot_description</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>rviz</run_depend>
+  <run_depend>xacro</run_depend>
+
+  <export>
+  </export>
+</package>
