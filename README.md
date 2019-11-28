@@ -8,7 +8,7 @@ Projeto opensource para estudo de robótica móvel com Robot Operating System RO
 
 Estas instruções te ajudaram a fazer os primeiros testes com a plataforma Littlebot
 
-### Prerequisitos
+### Pré-requisitos
 
 Para testar o Littlebot em seu sistema você precisa ter instalado o ROS ([melodic](http://wiki.ros.org/melodic/Installation) recomendado). Um erro pode acontecer ao tentar vizualizar o modelo no RVIZ caso isso ocorra pode ser necessário mudar uma variável de ambiente, como segue abaixo:
 
