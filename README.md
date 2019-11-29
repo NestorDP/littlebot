@@ -2,7 +2,7 @@
 
 Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desemvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
 
-![Alt Text](https://user-images.githubusercontent.com/37759765/64899983-83557400-d664-11e9-9659-fe93a5824e9e.png)
+![Alt Text](https://ap.imagensbrasil.org/images/2019/11/29/Screenshot-from-2019-11-29-14-00-38.png)
 
 ## Testando o Littlebot
 
