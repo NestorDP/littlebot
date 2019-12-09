@@ -20,9 +20,8 @@
   <run_depend>joint_state_controller</run_depend>
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>diff_drive_controller</run_depend>
-
+  <run_depend>robot_localization</run_depend>
   <run_depend>rqt_gui</run_depend>
-
 
 
   <export>

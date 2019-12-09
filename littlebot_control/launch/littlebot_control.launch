@@ -9,9 +9,14 @@
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
 
-  <!-- load the controllers -->
+  <!-- Spawn controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner"
 	output="screen" args="joint_state_controller  littlebot_diff_controller"/>
+
+  <!-- Start EKF for localization -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <rosparam command="load" file="$(find littlebot_control)/config/localization.yaml" />
+  </node>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" respawn="false">
