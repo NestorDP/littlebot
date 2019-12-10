@@ -1,0 +1,29 @@
+footprint: [[-0.5, -0.33], [-0.5, 0.33], [0.5, 0.33], [0.5, -0.33]]
+footprint_padding: 0.01
+
+robot_base_frame: base_link
+update_frequency: 4.0
+publish_frequency: 3.0
+transform_tolerance: 0.5
+
+resolution: 0.05
+
+obstacle_range: 5.5
+raytrace_range: 6.0
+
+#layer definitions (for more information http://wiki.ros.org/navigation/Tutorials/RobotSetup)
+static:
+    map_topic: /map
+    subscribe_to_updates: true
+
+obstacles_sonar:
+    observation_sources: sonar01 #sonar_2 sonar_3 sonar_4 sonar_5
+    sonar01: {data_type: Range, sensor_frame: /sonar_1, clearing: true, marking: true, topic: /sensor/sonar1, inf_is_valid: true}
+    #sonar_2: {data_type: Range, clearing: true, marking: true, topic: sonar2, inf_is_valid: true}
+    #sonar_3: {data_type: Range, clearing: true, marking: true, topic: sonar3, inf_is_valid: true}
+    #sonar_4: {data_type: Range, clearing: true, marking: true, topic: sonar4, inf_is_valid: true}
+    #sonar_5: {data_type: Range, clearing: true, marking: true, topic: sonar5, inf_is_valid: true}
+    
+
+inflation:
+    inflation_radius: 1.0

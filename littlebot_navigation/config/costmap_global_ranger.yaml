@@ -1,0 +1,7 @@
+global_frame: odom
+rolling_window: true
+track_unknown_space: true
+
+plugins:
+  - {name: obstacles_sonar,           type: "range_sensor_layer::RangeSensorLayer"}
+  - {name: inflation,                 type: "costmap_2d::InflationLayer"}

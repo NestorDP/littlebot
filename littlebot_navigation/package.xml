@@ -18,6 +18,7 @@
   <run_depend>navfn</run_depend>
   <run_depend>base_local_planner</run_depend>
   <run_depend>dwa_local_planner</run_depend>
+  <run_depend>range_sensor_layer</run_depend>
 
   <export>
   </export>
