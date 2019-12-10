@@ -33,7 +33,6 @@
 
     <remap from="odom" to="odometry/filtered"/>
     <remap from="/cmd_vel" to="littlebot_diff_controller/cmd_vel"/>
-    <remap from="/sonar" to="/sensor/sonar1"/>
 
   </node>
 

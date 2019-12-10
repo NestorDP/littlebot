@@ -1,4 +1,4 @@
-footprint: [[-0.5, -0.33], [-0.5, 0.33], [0.5, 0.33], [0.5, -0.33]]
+footprint: [[-0.3, -0.15], [-0.3, 0.15], [0.3, 0.15], [0.3, -0.15]]
 footprint_padding: 0.01
 
 robot_base_frame: base_link
@@ -17,12 +17,10 @@ static:
     subscribe_to_updates: true
 
 obstacles_sonar:
-    observation_sources: sonar01 #sonar_2 sonar_3 sonar_4 sonar_5
-    sonar01: {data_type: Range, sensor_frame: /sonar_1, clearing: true, marking: true, topic: /sensor/sonar1, inf_is_valid: true}
-    #sonar_2: {data_type: Range, clearing: true, marking: true, topic: sonar2, inf_is_valid: true}
-    #sonar_3: {data_type: Range, clearing: true, marking: true, topic: sonar3, inf_is_valid: true}
-    #sonar_4: {data_type: Range, clearing: true, marking: true, topic: sonar4, inf_is_valid: true}
-    #sonar_5: {data_type: Range, clearing: true, marking: true, topic: sonar5, inf_is_valid: true}
+    topics: ["/sensor/sonar1", "/sensor/sonar2", "/sensor/sonar3", "/sensor/sonar4", "/sensor/sonar5"]
+    no_readings_timeout: 1.0
+    clear_threshold: 0.2
+    mark_threshold: 0.8
     
 
 inflation:
