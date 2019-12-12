@@ -24,4 +24,4 @@ obstacles_sonar:
     clear_on_max_reading: true    
 
 inflation:
-    inflation_radius: 0.3
+    inflation_radius: 0.85
