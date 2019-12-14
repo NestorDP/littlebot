@@ -1,12 +1,12 @@
 # ![Littlebot](https://ap.imagensbrasil.org/images/2019/12/13/littlebottitulo.png)
 
-Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desemvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
+Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desenvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
 
 ![Alt Text](https://ap.imagensbrasil.org/images/2019/11/29/Screenshot-from-2019-11-29-14-00-38.png)
 
 ## Testando o Littlebot
 
-Estas instruções te ajudaram a fazer os primeiros testes com a plataforma Littlebot
+Estas instruções te ajudarão a fazer os primeiros testes com a plataforma Littlebot
 
 ### Pré-requisitos
 
