@@ -1,4 +1,4 @@
-# ![Littlebot](https://ap.imagensbrasil.org/images/2019/12/13/littlebotlogo.png)
+# ![Littlebot](https://ap.imagensbrasil.org/images/2019/12/13/littlebottitulo.png)
 
 Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desemvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
 
