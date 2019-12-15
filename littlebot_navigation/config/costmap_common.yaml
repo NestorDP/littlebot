@@ -8,8 +8,8 @@ transform_tolerance: 0.5
 
 resolution: 0.05
 
-obstacle_range: 5
-raytrace_range: 6
+obstacle_range: 1
+raytrace_range: 2
 
 #layer definitions (for more information http://wiki.ros.org/navigation/Tutorials/RobotSetup)
 static:
@@ -24,4 +24,4 @@ obstacles_sonar:
     clear_on_max_reading: true    
 
 inflation:
-    inflation_radius: 0.85
+    inflation_radius: 0.45
