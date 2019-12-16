@@ -24,6 +24,7 @@ Para simular o Littlebot, o primeiro passo é criar um [workspace ROS](http://wi
 mkdir -p ~/littlebot_ws/src
 cd littlebot_ws
 catkin_make
+source devel/setup.bash
 ```
 
 Após criar o workspace fazer o clone do repositório
