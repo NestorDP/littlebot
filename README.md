@@ -33,6 +33,7 @@ cd src
 git clone https://github.com/NestorDP/littlebot.git
 cd ..
 catkin_make
+source devel/setup.bash
 ```
 
 Para rodar a simulção no Gazebo
