@@ -23,19 +23,19 @@ Modelagem do chassis2 "link" "joint"
 -->
  <link name="chassis">
     <visual>
-      <origin xyz="0 0 0" rpy="1.571 0 1.571" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-	      <mesh filename="package://littlebot_description/meshes/chassis2.dae" />
+	      <mesh filename="package://littlebot_description/meshes/chassis.dae" />
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="1.571 0 1.571" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-	      <mesh filename="package://littlebot_description/meshes/chassis2.dae" />
+	      <mesh filename="package://littlebot_description/meshes/chassis.dae" />
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0 0 0.15" rpy="1.571 0 1.571"/>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
       <mass value="0.058"/>
       <inertia ixx="1.429e-4"  ixy="2.778e-10"  ixz="1.773e-8" iyy="1.943e-4" iyz="-2.656e-7" izz="5.361e-5" />
     </inertial>
@@ -67,10 +67,44 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 
 <!--
 ########################################################################################
+Modelagem do suporte do sonar "link" "joint"
+######################################################################################## 
+-->
+ <link name="suporte_sonar">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/suporte_sonar.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/suporte_sonar.dae" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <mass value="0.058"/>
+      <inertia ixx="1.429e-4"  ixy="2.778e-10"  ixz="1.773e-8" iyy="1.943e-4" iyz="-2.656e-7" izz="5.361e-5" />
+    </inertial>
+  </link>  
+
+  <joint name="chassis_to_suporte" type="fixed">
+    <parent link="chassis"/>
+    <child link="suporte_sonar"/>
+    <origin xyz="0.094 0.0 0.0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+
+
+<!--
+########################################################################################
 Modelagem do sonar "link" "joint"
 ########################################################################################
 -->
-<!-- 
+
   <xacro:littlebot_sonar sonar_numero="1">
     <origin xyz="0.05822 0.045787 0.064" rpy="0 0 0.7854" />
   </xacro:littlebot_sonar>
@@ -80,7 +114,7 @@ Modelagem do sonar "link" "joint"
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="3">
-    <origin xyz="0.077 0.0 0.064" rpy="0 0 0" />
+    <origin xyz="0.092279 0.0 0.004733" rpy="0 0 0" />
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="4">
@@ -90,7 +124,100 @@ Modelagem do sonar "link" "joint"
   <xacro:littlebot_sonar sonar_numero="5">
     <origin xyz="0.05822 -0.045787 0.064" rpy="0 0 -0.7854"/>
   </xacro:littlebot_sonar> 
-  -->
+ 
+
+<!--
+########################################################################################
+Modelagem da conversor1 "link" "joint"
+######################################################################################## 
+-->
+  <link name="conversor1">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/CC-converter.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/CC-converter.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
+      <mass value="0.01946206"/>                                                                   
+      <inertia ixx="1.561e-6"  ixy="0.000e+0"  ixz="0.000e+0" iyy="1.944e-6" iyz="0.000e+0" izz="3.350e-6" />                                                                   
+    </inertial>                                                                   
+  </link>                                  
+
+  <joint name="base_to_conversor1" type="fixed">
+    <parent link="chassis"/>
+    <child link="conversor1"/>
+    <origin xyz="-0.0285 -0.0185 0.00165" rpy="0 0 0" />
+  </joint>
+
+<!--
+########################################################################################
+Modelagem da conversor2 "link" "joint"
+######################################################################################## 
+-->
+  <link name="conversor2">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/CC-converter.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/CC-converter.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
+      <mass value="0.01946206"/>                                                                   
+      <inertia ixx="1.561e-6"  ixy="0.000e+0"  ixz="0.000e+0" iyy="1.944e-6" iyz="0.000e+0" izz="3.350e-6" />                                                                   
+    </inertial>                                                                   
+  </link>                                  
+
+  <joint name="base_to_conversor2" type="fixed">
+    <parent link="chassis"/>
+    <child link="conversor2"/>
+    <origin xyz="-0.0285 -0.0445 0.00165" rpy="0 0 0" />
+  </joint>
+
+<!--
+########################################################################################
+Modelagem da pont_h "link" "joint"
+######################################################################################## 
+-->
+  <link name="pont_h">                                                                                                                                         
+    <visual>                                                                    
+      <origin xyz="0 0 0" rpy="0 0 0" />                                                   
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/L298_Driver.dae" />     
+      </geometry>                                                                   
+    </visual>                                                                   
+    <collision>                                                                   
+      <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                    
+      <geometry>                                                                   
+	      <mesh filename="package://littlebot_description/meshes/L298_Driver.dae" />     
+      </geometry>                                                                   
+    </collision>                                                                    
+    <inertial>                                                                    
+      <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
+      <mass value="0.01946206"/>                                                                   
+      <inertia ixx="1.561e-6"  ixy="0.000e+0"  ixz="0.000e+0" iyy="1.944e-6" iyz="0.000e+0" izz="3.350e-6" />                                                                   
+    </inertial>                                                                   
+  </link>                                  
+
+  <joint name="base_to_pont_h" type="fixed">
+    <parent link="chassis"/>
+    <child link="pont_h"/>
+    <origin xyz="-0.0745 0.046 0.0015 " rpy="0 0 0" />
+  </joint>
 
 <!--
 ########################################################################################
