@@ -70,7 +70,7 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 Modelagem do sonar "link" "joint"
 ########################################################################################
 -->
-
+<!-- 
   <xacro:littlebot_sonar sonar_numero="1">
     <origin xyz="0.05822 0.045787 0.064" rpy="0 0 0.7854" />
   </xacro:littlebot_sonar>
@@ -89,7 +89,8 @@ Modelagem do sonar "link" "joint"
 
   <xacro:littlebot_sonar sonar_numero="5">
     <origin xyz="0.05822 -0.045787 0.064" rpy="0 0 -0.7854"/>
-  </xacro:littlebot_sonar>
+  </xacro:littlebot_sonar> 
+  -->
 
 <!--
 ########################################################################################
