@@ -54,15 +54,17 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 ########################################################################################
 -->
   <xacro:littlebot_wheel lado_roda="esquerda">
-    <origin xyz="-0.012 0 0" rpy="0 0 0"/>
-    <origin xyz="0.005 0.07393 -0.014" rpy="0 0 1.571" />
-    <origin xyz="-0.032 0.0412 -0.014" rpy="0 0 0" />
+    <origin xyz="0.0 0 0" rpy="0 0 0"/>
+    <origin xyz="0.0263 0.055 -0.01425" rpy="0 0 0" />
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    <origin xyz="0.0015 0.0479 -0.003" rpy="0 0 0" />
   </xacro:littlebot_wheel>
 
   <xacro:littlebot_wheel lado_roda="direita">
-    <origin xyz="0.012 0 0" rpy="0 0 3.142"/>
-    <origin xyz="0.005 -0.07393 -0.014" rpy="0 0 1.571" />
-    <origin xyz="-0.032 -0.0412 -0.014" rpy="0 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0.0263 -0.055 -0.01425" rpy="0 0 0" />
+    <origin xyz="0 -0.0178 -0.0225" rpy="3.142 0 0" />
+    <origin xyz="0.0015 -0.0301 -0.003" rpy="0 0 0" />
   </xacro:littlebot_wheel>
 
 <!--

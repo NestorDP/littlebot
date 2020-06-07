@@ -2,7 +2,7 @@
 
 <robot name="littlebot_wheel" xmlns:xacro="http://ros.org/wiki/xacro" >
 
-<xacro:macro name="littlebot_wheel" params="lado_roda *mesh_pose *joint_roda_pose *joint_motor_pose">
+<xacro:macro name="littlebot_wheel" params="lado_roda *mesh_roda_pose *joint_roda_pose *mesh_motor_pose *joint_motor_pose">
 <!--
 ########################################################################################
 Modelagem da roda "link" "joint" "transmission" "gazebo"
@@ -10,19 +10,19 @@ Modelagem da roda "link" "joint" "transmission" "gazebo"
 -->
 	<link name="roda_${lado_roda}">
 		<visual>
-			<xacro:insert_block name="mesh_pose"/>
+			<xacro:insert_block name="mesh_roda_pose"/>
 			<geometry>
 				<mesh filename="package://littlebot_description/meshes/roda.dae" />
 			</geometry>
 		</visual>
 		<collision>
-			<xacro:insert_block name="mesh_pose"/>
+			<xacro:insert_block name="mesh_roda_pose"/>
 			<geometry>
 				<mesh filename="package://littlebot_description/meshes/roda.dae" />
 			</geometry>
 		</collision>
 		<inertial>
-			<xacro:insert_block name="mesh_pose"/>
+			<xacro:insert_block name="mesh_roda_pose"/>
 			<mass value="0.041"/>
 			<inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
 		</inertial>
@@ -32,7 +32,7 @@ Modelagem da roda "link" "joint" "transmission" "gazebo"
 		<parent link="chassis"/>
 		<child link="roda_${lado_roda}"/>
 		<xacro:insert_block name="joint_roda_pose"/>
-		<axis xyz="1 0 0" rpy="0 0 0" />
+		<axis xyz="0 1 0" rpy="0 0 0" />
 	</joint>
 
 	<transmission name="trans_roda_${lado_roda}">
@@ -54,24 +54,24 @@ Modelagem da roda "link" "joint" "transmission" "gazebo"
 	</gazebo>
 <!--
 ########################################################################################
-Modelagem da roda direita "link" "joint"
+Modelagem do motor direita "link" "joint"
 ########################################################################################
 -->
 	<link name="motor_${lado_roda}">                                                                                                                                         
 		<visual>                                                                    
-			<origin xyz="0 0 0" rpy="0 0 0" />                                                   
+			<xacro:insert_block name="mesh_motor_pose"/>                                                   
 			<geometry>                                                                   
 				<mesh filename="package://littlebot_description/meshes/motor.dae" />     
 			</geometry>                                                                   
 		</visual>                                                                   
 		<collision>                                                                   
-			<origin xyz="0 0 0" rpy="0 0 0" />                                                    
+			<xacro:insert_block name="mesh_motor_pose"/>                                                    
 			<geometry>                                                                   
 				<mesh filename="package://littlebot_description/meshes/motor.dae" />     
 			</geometry>                                                                   
 		</collision>                                                                    
 		<inertial>                                                                    
-			<origin xyz="0 0 0" rpy="0 0 0"/>                                                                   
+			<xacro:insert_block name="mesh_motor_pose"/>>                                                                   
 			<mass value="0.09"/>                                                                   
 			<inertia ixx="0"  ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />                                                                   
 		</inertial>                                                                   
