@@ -25,7 +25,8 @@ Modelagem do chassis2 "link" "joint"
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-	      <mesh filename="package://littlebot_description/meshes/chassis.dae" />
+	      <!-- <mesh filename="package://littlebot_description/meshes/chassis.dae" /> -->
+        <mesh filename="package://littlebot_description/meshes/littlebot.dae" />
       </geometry>
     </visual>
     <collision>
@@ -56,15 +57,15 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
   <xacro:littlebot_wheel lado_roda="esquerda">
     <origin xyz="0.0 0 0" rpy="0 0 0"/>
     <origin xyz="0.0263 0.055 -0.01425" rpy="0 0 0" />
-    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-    <origin xyz="0.0015 0.0479 -0.003" rpy="0 0 0" />
+    <!-- <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    <origin xyz="0.0015 0.0479 -0.003" rpy="0 0 0" /> -->
   </xacro:littlebot_wheel>
 
   <xacro:littlebot_wheel lado_roda="direita">
     <origin xyz="0 0 0" rpy="0 0 3.142"/>
     <origin xyz="0.0263 -0.055 -0.01425" rpy="0 0 0" />
-    <origin xyz="0 -0.0178 -0.0225" rpy="3.142 0 0" />
-    <origin xyz="0.0015 -0.0301 -0.003" rpy="0 0 0" />
+    <!-- <origin xyz="0 -0.0178 -0.0225" rpy="3.142 0 0" />
+    <origin xyz="0.0015 -0.0301 -0.003" rpy="0 0 0" /> -->
   </xacro:littlebot_wheel>
 
 <!--
@@ -72,7 +73,7 @@ Modelagem das rodas macro Xacro "link" "gazebo" "joint" "transmission
 Modelagem do suporte do sonar "link" "joint"
 ######################################################################################## 
 -->
- <link name="suporte_sonar">
+ <!-- <link name="suporte_sonar">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -97,7 +98,7 @@ Modelagem do suporte do sonar "link" "joint"
     <child link="suporte_sonar"/>
     <origin xyz="0.094 0.0 0.0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-  </joint>
+  </joint> -->
 
 
 
@@ -133,7 +134,7 @@ Modelagem do sonar "link" "joint"
 Modelagem da conversor1 "link" "joint"
 ######################################################################################## 
 -->
-  <link name="conversor1">                                                                                                                                         
+  <!-- <link name="conversor1">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="0 0 0" />                                                   
       <geometry>                                                                   
@@ -157,14 +158,14 @@ Modelagem da conversor1 "link" "joint"
     <parent link="chassis"/>
     <child link="conversor1"/>
     <origin xyz="-0.0285 -0.0185 0.00165" rpy="0 0 0" />
-  </joint>
+  </joint> -->
 
 <!--
 ########################################################################################
 Modelagem da conversor2 "link" "joint"
 ######################################################################################## 
 -->
-  <link name="conversor2">                                                                                                                                         
+  <!-- <link name="conversor2">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="0 0 0" />                                                   
       <geometry>                                                                   
@@ -188,14 +189,14 @@ Modelagem da conversor2 "link" "joint"
     <parent link="chassis"/>
     <child link="conversor2"/>
     <origin xyz="-0.0285 -0.0445 0.00165" rpy="0 0 0" />
-  </joint>
+  </joint> -->
 
 <!--
 ########################################################################################
 Modelagem da pont_h "link" "joint"
 ######################################################################################## 
 -->
-  <link name="pont_h">                                                                                                                                         
+  <!-- <link name="pont_h">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="0 0 0" />                                                   
       <geometry>                                                                   
@@ -219,14 +220,14 @@ Modelagem da pont_h "link" "joint"
     <parent link="chassis"/>
     <child link="pont_h"/>
     <origin xyz="-0.0745 0.046 0.0015 " rpy="0 0 0" />
-  </joint>
+  </joint> -->
 
 <!--
 ########################################################################################
 Modelagem da rodinha-Caster Mounting Plate "link" "joint"
 ######################################################################################## 
 -->
-  <link name="caster_mounting">                                                                                                                                         
+  <!-- <link name="caster_mounting">                                                                                                                                         
     <visual>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571" />                                                   
       <geometry>                                                                   
@@ -250,7 +251,7 @@ Modelagem da rodinha-Caster Mounting Plate "link" "joint"
     <parent link="chassis"/>
     <child link="caster_mounting"/>
     <origin xyz="-0.0753 0.0 -0.003" rpy="0 0 0" />
-  </joint>
+  </joint> -->
 
 <!--
 ########################################################################################
@@ -278,7 +279,8 @@ Modelagem da rodinha-Caster Wheel Plate "link" "joint"
   </link>                                                                   
 
   <joint name="caster_mounting_to_caster_wheel" type="continuous">
-    <parent link="caster_mounting"/>
+    <!-- <parent link="caster_mounting"/> -->
+    <parent link="chassis"/>
     <child link="caster_wheel"/>
     <origin xyz="-0.0 0.0 -0.00623" rpy="0 0 0" />
     <axis xyz="0 0 1" />

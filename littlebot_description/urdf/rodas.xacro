@@ -2,7 +2,8 @@
 
 <robot name="littlebot_wheel" xmlns:xacro="http://ros.org/wiki/xacro" >
 
-<xacro:macro name="littlebot_wheel" params="lado_roda *mesh_roda_pose *joint_roda_pose *mesh_motor_pose *joint_motor_pose">
+<!-- <xacro:macro name="littlebot_wheel" params="lado_roda *mesh_roda_pose *joint_roda_pose *mesh_motor_pose *joint_motor_pose"> -->
+<xacro:macro name="littlebot_wheel" params="lado_roda *mesh_roda_pose *joint_roda_pose">
 <!--
 ########################################################################################
 Modelagem da roda "link" "joint" "transmission" "gazebo"
@@ -57,7 +58,7 @@ Modelagem da roda "link" "joint" "transmission" "gazebo"
 Modelagem do motor direita "link" "joint"
 ########################################################################################
 -->
-	<link name="motor_${lado_roda}">                                                                                                                                         
+	<!-- <link name="motor_${lado_roda}">                                                                                                                                         
 		<visual>                                                                    
 			<xacro:insert_block name="mesh_motor_pose"/>                                                   
 			<geometry>                                                                   
@@ -81,7 +82,7 @@ Modelagem do motor direita "link" "joint"
 		<parent link="chassis"/>
 		<child link="motor_${lado_roda}"/>
 		<xacro:insert_block name="joint_motor_pose"/>
-	</joint>
+	</joint> -->
 
 </xacro:macro>
 
