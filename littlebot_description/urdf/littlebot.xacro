@@ -109,11 +109,11 @@ Modelagem do sonar "link" "joint"
 -->
 
   <xacro:littlebot_sonar sonar_numero="1">
-    <origin xyz="0.05822 0.045787 0.064" rpy="0 0 0.7854" />
+    <origin xyz="0.07879836 0.03772198 0.004733" rpy="0 0 0.686455448" />
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="2">
-    <origin xyz="0.07211 0.0248 0.064" rpy="0 0 0.3927"/>
+    <origin xyz="0.08880761 0.02002920 0.004733" rpy="0 0 0.343218997"/>
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="3">
@@ -121,11 +121,11 @@ Modelagem do sonar "link" "joint"
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="4">
-    <origin xyz="0.07211 -0.0248 0.064" rpy="0 0 -0.3927"/>
+    <origin xyz="0.08880761 -0.02002920 0.004733" rpy="0 0 -0.343218997"/>
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="5">
-    <origin xyz="0.05822 -0.045787 0.064" rpy="0 0 -0.7854"/>
+    <origin xyz="0.07879836 -0.03772198 0.004733" rpy="0 0 -0.686455448"/>
   </xacro:littlebot_sonar> 
  
 
@@ -282,7 +282,7 @@ Modelagem da rodinha-Caster Wheel Plate "link" "joint"
     <!-- <parent link="caster_mounting"/> -->
     <parent link="chassis"/>
     <child link="caster_wheel"/>
-    <origin xyz="-0.0 0.0 -0.00623" rpy="0 0 0" />
+    <origin xyz="-0.087 0.0 -0.00623" rpy="0 0 0" />
     <axis xyz="0 0 1" />
   </joint>
 
