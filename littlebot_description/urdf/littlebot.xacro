@@ -36,9 +36,11 @@ Modelagem do chassis2 "link" "joint"
       </geometry>
     </collision>
     <inertial>
-      <origin xyz="0 0 0.15" rpy="0 0 0"/>
-      <mass value="0.058"/>
-      <inertia ixx="1.429e-4"  ixy="2.778e-10"  ixz="1.773e-8" iyy="1.943e-4" iyz="-2.656e-7" izz="5.361e-5" />
+      <origin xyz="0 0 0" rpy="1.571 0 1.571"/>
+      <!-- <mass value="0.058"/> -->
+      <mass value="0.19357368"/>
+      <!-- <inertia ixx="1.429e-4"  ixy="2.778e-10"  ixz="1.773e-8" iyy="1.943e-4" iyz="-2.656e-7" izz="5.361e-5" /> -->
+      <inertia ixx="1.84569610e-4"  ixy="-4.09475462e-6"  ixz="-2.91063667e-5" iyy="7.65700035e-4" iyz="2.32776537e-8" izz="9.00861891e-4" />
     </inertial>
   </link>  
 
@@ -46,7 +48,7 @@ Modelagem do chassis2 "link" "joint"
     <parent link="base_link"/>
     <child link="chassis"/>
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-    <axis xyz="0 1 0" />
+
   </joint>
 
 <!--
@@ -273,8 +275,8 @@ Modelagem da rodinha-Caster Wheel Plate "link" "joint"
     </collision>                                                                    
     <inertial>                                                                    
       <origin xyz="0 0 0" rpy="3.14 0 1.571"/>                                                                   
-      <mass value="0.00982010"/>                                                                   
-      <inertia ixx="8.398e-7"  ixy="-1.517e-14"  ixz="-1.601e-7" iyy="8.400e-7" iyz="1.155e-14" izz="1.340e-6" />                                                                   
+      <mass value="0.01290279"/>                                                                   
+      <inertia ixx="1.23004519e-6"  ixy="-4.54832220e-14"  ixz="-4.88841255e-7" iyy="1.51454374e-6" iyz="-1.45133258e-14" izz="1.82945276e-6" />                                                                   
     </inertial>                                                                   
   </link>                                                                   
 
