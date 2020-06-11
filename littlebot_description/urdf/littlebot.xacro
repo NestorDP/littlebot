@@ -111,23 +111,28 @@ Modelagem do sonar "link" "joint"
 -->
 
   <xacro:littlebot_sonar sonar_numero="1">
-    <origin xyz="0.07879836 0.03772198 0.004733" rpy="0 0 0.686455448" />
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.07879836 0.03772198 0.02500000" rpy="0 0 0.686455448" />
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="2">
-    <origin xyz="0.08880761 0.02002920 0.004733" rpy="0 0 0.343218997"/>
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.08880761 0.02002920 0.02500000" rpy="0 0 0.343218997"/>
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="3">
-    <origin xyz="0.092279 0.0 0.004733" rpy="0 0 0" />
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.092279 0.0 0.02500000" rpy="0 0 0" />
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="4">
-    <origin xyz="0.08880761 -0.02002920 0.004733" rpy="0 0 -0.343218997"/>
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.08880761 -0.02002920 0.02500000" rpy="0 0 -0.343218997"/>
   </xacro:littlebot_sonar>
 
   <xacro:littlebot_sonar sonar_numero="5">
-    <origin xyz="0.07879836 -0.03772198 0.004733" rpy="0 0 -0.686455448"/>
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.07879836 -0.03772198 0.02500000" rpy="0 0 -0.686455448"/>
   </xacro:littlebot_sonar> 
  
 

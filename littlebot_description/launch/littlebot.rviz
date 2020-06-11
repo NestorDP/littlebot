@@ -68,42 +68,12 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        caster_mounting:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         caster_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         chassis:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        conversor1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        conversor2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        motor_direita:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        motor_esquerda:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pont_h:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -143,11 +113,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        suporte_sonar:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         wheel:
           Alpha: 1
           Show Axes: false
@@ -160,19 +125,59 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: false
-      Marker Scale: 1
+        base_link:
+          Value: true
+        caster_wheel:
+          Value: true
+        chassis:
+          Value: true
+        roda_direita:
+          Value: true
+        roda_esquerda:
+          Value: true
+        sonar_1:
+          Value: true
+        sonar_2:
+          Value: true
+        sonar_3:
+          Value: true
+        sonar_4:
+          Value: true
+        sonar_5:
+          Value: true
+        wheel:
+          Value: true
+      Marker Scale: 0.4000000059604645
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        base_link:
+          chassis:
+            caster_wheel:
+              wheel:
+                {}
+            roda_direita:
+              {}
+            roda_esquerda:
+              {}
+            sonar_1:
+              {}
+            sonar_2:
+              {}
+            sonar_3:
+              {}
+            sonar_4:
+              {}
+            sonar_5:
+              {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Class: rviz/Group
       Displays:
         - Alpha: 0.5
@@ -255,25 +260,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.5664827823638916
+      Distance: 0.4372100234031677
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.15701161324977875
-        Y: -0.005713797174394131
-        Z: -0.01662381738424301
+        X: 0.14475210011005402
+        Y: -0.003309364663437009
+        Z: -0.01912175491452217
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6297961473464966
+      Pitch: 0.5547956228256226
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.948575258255005
+      Yaw: 4.633571624755859
     Saved: ~
 Window Geometry:
   Displays:
