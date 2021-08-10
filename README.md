@@ -1,8 +1,8 @@
-# ![LittleBOT](https://user-images.githubusercontent.com/37759765/128803828-3cf0daf5-ec08-4197-bc4e-595f58160e51.png)
+# ![LittleBOT](https://user-images.githubusercontent.com/37759765/128803980-141e7477-3d54-4a3a-bd8f-ce9761a19dde.png)
 
 Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desenvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
 
-![Alt Text](https://user-images.githubusercontent.com/37759765/128800773-a2714fbc-2218-4c7c-a7a5-e6070d67b1a1.png)
+![Prints simulação LittleBOT](https://user-images.githubusercontent.com/37759765/128800773-a2714fbc-2218-4c7c-a7a5-e6070d67b1a1.png)
 
 ## Testando o Littlebot
 
