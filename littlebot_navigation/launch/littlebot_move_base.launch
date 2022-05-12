@@ -14,7 +14,7 @@
     <param name="base_local_planner" value="$(arg base_local_planner)"/>  
     <rosparam file="$(find littlebot_navigation)/config/planner.yaml" command="load"/>
 
-    <!-- observation sources located in hfhfhfhfhcostmap_common.yaml -->
+    <!-- observation sources located in hcostmap_common.yaml -->
     <rosparam file="$(find littlebot_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find littlebot_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
 
