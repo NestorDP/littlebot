@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-  <param name="robot_description"
-    command="$(find xacro)/xacro --inorder '$(find littlebot_description)/urdf/littlebot.xacro'" />
-    
-  <!-- Show in Rviz   -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find littlebot_description)/launch/littlebot.rviz"/>
-
-</launch>

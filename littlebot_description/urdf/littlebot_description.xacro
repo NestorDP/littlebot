@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<robot name="littlebot">
+
+<!-- Included URDF XACRO Files -->
+<!-- <xacro:include filename="$(find littlebot_description)/urdf/rodas.xacro" />
+<xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" /> -->
+
+
+ <!--
+Modelagem base_link "link"
+-->
+ <link name="base_link">
+ </link>
+
+ <link name="chassis">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://littlebot_description/meshes/littlebot.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+	      <mesh filename="package://littlebot_description/meshes/chassis.dae" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.19357368"/>
+      <inertia ixx="1.84569610e-4"  ixy="-4.09475462e-6"  ixz="-2.91063667e-5" iyy="7.65700035e-4" iyz="2.32776537e-8" izz="9.00861891e-4" />
+    </inertial>
+  </link>  
+
+  <joint name="base_to_chassis" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+
+  </joint>
+
+    
+</robot>
