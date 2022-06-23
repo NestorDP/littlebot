@@ -3,17 +3,17 @@
 <robot name="littlebot">
 
 <!-- Included URDF XACRO Files -->
-<!-- <xacro:include filename="$(find littlebot_description)/urdf/rodas.xacro" />
-<xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" /> -->
+<!-- <xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" /> -->
+<!-- <xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" /> -->
 
 
- <!--
-Modelagem base_link "link"
--->
- <link name="base_link">
- </link>
+  <!-- Modelagem base_link "link" -->
+  <link name="base_link">
+  </link>
 
- <link name="chassis">
+  <!-- Modelagem chassis "link" and "joint"-->
+  <!-- ========================================================================== -->
+  <link name="chassis">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -38,5 +38,63 @@ Modelagem base_link "link"
     <child link="chassis"/>
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
   </joint>
-    
+
+  <!-- Left whell model "link" "joint" "transmission" "gazebo" -->
+  <!-- ========================================================================== -->
+	<link name="left_wheel">
+		<visual>
+			<origin xyz="0.0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0.0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+			</geometry>
+		</collision>
+		<inertial>
+			<origin xyz="0.0 0 0" rpy="0 0 0"/>
+			<mass value="0.041"/>
+			<inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
+    	</inertial>
+	</link>
+
+	<joint name="base_to_left_wheel" type="continuous">
+		<parent link="chassis"/>
+		<child link="left_wheel"/>
+		<origin xyz="0.0281 0.067 -0.01425" rpy="0 0 0" />
+		<axis xyz="0 1 0" rpy="0 0 0" />
+	</joint>
+
+  <!-- Right wheel model "link" "joint" "transmission" "gazebo" -->
+  <!-- ========================================================================== -->
+	<link name="right_wheel">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 3.142"/>
+			<geometry>
+				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 3.142"/>
+			<geometry>
+				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+			</geometry>
+		</collision>
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 3.142"/>
+			<mass value="0.041"/>
+			<inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
+    	</inertial>
+	</link>
+
+	<joint name="base_to_right_wheel" type="continuous">
+		<parent link="chassis"/>
+		<child link="right_wheel"/>
+		<origin xyz="0.0281 -0.067 -0.01425" rpy="0 0 0" />
+		<axis xyz="0 1 0" rpy="0 0 0" />
+	</joint>
+
 </robot>
