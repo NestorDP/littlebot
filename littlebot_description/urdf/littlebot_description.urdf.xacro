@@ -37,8 +37,6 @@ Modelagem base_link "link"
     <parent link="base_link"/>
     <child link="chassis"/>
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
-
   </joint>
-
     
 </robot>

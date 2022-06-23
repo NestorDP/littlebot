@@ -10,11 +10,11 @@ from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
-    littlebot_description_path    = get_package_share_path('littlebot_description')
-    urdf_model_path             = littlebot_description_path / 'urdf/littlebot_description.xacro'
-    rviz_config_path    = littlebot_description_path / 'rviz/littlebot_description.rviz'
+    description_path = get_package_share_path('littlebot_description')
+    urdf_model_path  = description_path / 'urdf/littlebot_description.urdf.xacro'
+    rviz_config_path = description_path / 'rviz/littlebot_description.rviz'
 
-    gui_arg   = DeclareLaunchArgument(name='gui', default_value='false', choices=['true', 'false'],
+    gui_arg   = DeclareLaunchArgument(name='gui', default_value='true', choices=['true', 'false'],
                                       description='Flag to enable joint_state_publisher_gui')
 
     model_arg = DeclareLaunchArgument(name='model', default_value=str(urdf_model_path),
