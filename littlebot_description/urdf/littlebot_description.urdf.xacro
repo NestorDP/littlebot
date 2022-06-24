@@ -117,7 +117,7 @@
 <!-- ============================================================================= -->
 	<gazebo>
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-      <parameters>"$(find littlebot_control)/config/control.yaml"</parameters>
+      <parameters>$(find littlebot_control)/config/control.yaml</parameters>
     </plugin>
   </gazebo>
 

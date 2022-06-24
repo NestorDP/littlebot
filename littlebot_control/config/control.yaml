@@ -14,7 +14,7 @@ littlebot_velocity_controller:
     right_wheel_names: ["base_to_right_wheel"]
 
     wheel_separation: 0.512  #0.1  # 0.256  # 0.512
-    wheels_per_side: 1  # actually 2, but both are controlled by 1 signal
+    wheels_per_side: 1  
     wheel_radius: 0.1651  # 0.015
 
     wheel_separation_multiplier: 1.0
