@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<robot name="littlebot">
+<robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot">
 
 <!-- Included URDF XACRO Files -->
 <!-- <xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" /> -->
@@ -17,13 +17,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://littlebot_description/meshes/littlebot.dae" />
+        <mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/littlebot.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-	      <mesh filename="package://littlebot_description/meshes/chassis.dae" />
+	      <mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/chassis.dae" />
       </geometry>
     </collision>
     <inertial>
@@ -45,13 +45,13 @@
 		<visual>
 			<origin xyz="0.0 0 0" rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
 			</geometry>
 		</visual>
 		<collision>
 			<origin xyz="0.0 0 0" rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
 			</geometry>
 		</collision>
 		<inertial>
@@ -68,19 +68,27 @@
 		<axis xyz="0 1 0" rpy="0 0 0" />
 	</joint>
 
+	<gazebo reference="left_wheel">
+      <mu1 value="1.0"/>
+      <mu2 value="0.5"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0"/>
+    </gazebo>
+
   <!-- Right wheel model "link" "joint" "transmission" "gazebo" -->
   <!-- ========================================================================== -->
 	<link name="right_wheel">
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 3.142"/>
 			<geometry>
-				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
 			</geometry>
 		</visual>
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 3.142"/>
 			<geometry>
-				<mesh filename="package://littlebot_description/meshes/roda.dae" />
+				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
 			</geometry>
 		</collision>
 		<inertial>
@@ -96,5 +104,43 @@
 		<origin xyz="0.0281 -0.067 -0.01425" rpy="0 0 0" />
 		<axis xyz="0 1 0" rpy="0 0 0" />
 	</joint>
+   
+  <gazebo reference="right_wheel">
+    <mu1 value="1.0"/>
+    <mu2 value="0.5"/>
+    <kp value="10000000.0" />
+    <kd value="1.0" />
+    <fdir1 value="1 0 0"/>
+  </gazebo>
+
+
+<!-- ============================================================================= -->
+	<gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>"$(find littlebot_control)/config/control.yaml"</parameters>
+    </plugin>
+  </gazebo>
+
+	<ros2_control name="littlebot_hardware" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="base_to_left_wheel">
+      <command_interface name="velocity">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>      
+    <joint name="base_to_right_wheel">
+      <command_interface name="velocity">
+        <param name="min">-1</param>
+        <param name="max">1</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
 
 </robot>

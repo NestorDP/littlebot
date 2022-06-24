@@ -1,0 +1,28 @@
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>littlebot_control</name>
+  <version>1.0.8</version>
+  <description>Lttlebot controller configurations</description>
+
+  <author email="nestor-dp@hotmail.com">Nestor Pereira Neto</author>
+  <maintainer email="nestor-dp@hotmail.com">Nestor Pereira Neto</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>controller_manager</depend>
+  <depend>diff_drive_controller</depend>
+  <depend>husky_description</depend>
+  <depend>interactive_marker_twist_server</depend>
+  <depend>joint_state_broadcaster</depend>
+  <depend>joint_trajectory_controller</depend>
+  <depend>joy</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>teleop_twist_joy</depend>
+  <depend>twist_mux</depend>
+
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
