@@ -17,13 +17,13 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/littlebot.dae" />
+        <mesh filename="file://$(find littlebot_description)/meshes/littlebot.dae" />
       </geometry>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-	      <mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/chassis.dae" />
+	      <mesh filename="file://$(find littlebot_description)/meshes/chassis.dae" />
       </geometry>
     </collision>
     <inertial>
@@ -73,13 +73,13 @@
 		<visual>
 			<origin xyz="0.0 0 0" rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
+				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
 			</geometry>
 		</visual>
 		<collision>
 			<origin xyz="0.0 0 0" rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
+				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
 			</geometry>
 		</collision>
 		<inertial>
@@ -110,13 +110,13 @@
 		<visual>
 			<origin xyz="0 0 0" rpy="0 0 3.142"/>
 			<geometry>
-				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
+				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
 			</geometry>
 		</visual>
 		<collision>
 			<origin xyz="0 0 0" rpy="0 0 3.142"/>
 			<geometry>
-				<mesh filename="/home/nestor/Documents/littlebot/littlebot_ws/src/littlebot/littlebot_description/meshes/roda.dae" />
+				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
 			</geometry>
 		</collision>
 		<inertial>

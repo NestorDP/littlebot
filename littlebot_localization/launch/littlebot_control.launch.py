@@ -19,7 +19,7 @@ def generate_launch_description():
         executable='ekf_node',
         name='ekf_node',
         output='screen',
-        parameters=[config_littlebot_ekf],
+        parameters=[{'use_sim_time': True}, config_littlebot_ekf],
         )
     ld.add_action(node_ekf)
 
