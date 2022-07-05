@@ -5,8 +5,6 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    lc = LaunchContext()
-    ld = LaunchDescription()
 
     config_littlebot_ekf = PathJoinSubstitution(
         [FindPackageShare('littlebot_localization'),
@@ -19,11 +17,8 @@ def generate_launch_description():
         executable='ekf_node',
         name='ekf_node',
         output='screen',
-        parameters=[{'use_sim_time': True}, config_littlebot_ekf],
+        parameters=[config_littlebot_ekf],
         )
-    ld.add_action(node_ekf)
-
-    # primary_imu_enable = EnvironmentVariable('CPR_IMU', default_value='false')
 
     # if (primary_imu_enable.perform(lc)) == 'true':
     #     config_imu_filter = PathJoinSubstitution(
@@ -39,5 +34,8 @@ def generate_launch_description():
     #         parameters=[config_imu_filter]
     #     )
     #     ld.add_action(node_imu_filter)
+
+    ld = LaunchDescription()
+    ld.add_action(node_ekf)
 
     return ld
