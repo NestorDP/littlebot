@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot">
 
 <!-- Included URDF XACRO Files -->
-<!-- <xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" /> -->
+<xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" />
 <xacro:include filename="$(find littlebot_description)/urdf/littlebot_sonar.urdf.xacro" />
 
 
@@ -29,7 +29,9 @@
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.19357368"/>
-      <inertia ixx="1.84569610e-4"  ixy="-4.09475462e-6"  ixz="-2.91063667e-5" iyy="7.65700035e-4" iyz="2.32776537e-8" izz="9.00861891e-4" />
+      <inertia ixx="1.84569610e-4"  ixy="-4.09475462e-6"  ixz="-2.91063667e-5" 
+                                    iyy="7.65700035e-4"   iyz="2.32776537e-8"  
+                                                          izz="9.00861891e-4" />
     </inertial>
   </link>  
 
@@ -57,7 +59,9 @@
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.00142672"/>
-      <inertia ixx="4.54052487e-8"  ixy="1.07305074e-10"  ixz="-2.17782593e-10" iyy="2.70451174e-8" iyz="-4.58999382e-11" izz="7.14041804e-8" />
+      <inertia ixx="4.54052487e-8"  ixy="1.07305074e-10"  ixz="-2.17782593e-10" 
+                                    iyy="2.70451174e-8"   iyz="-4.58999382e-11" 
+                                                          izz="7.14041804e-8" />
     </inertial>
   </link>  
 
@@ -65,81 +69,19 @@
     <parent link="chassis"/>
     <child link="imu_link"/>
     <origin xyz="0.028 0.0 0.005" rpy="0 0 0" />
-
   </joint>
-  <!-- Left whell model "link" "joint" "transmission" "gazebo" -->
+
+  <!-- Whells model "link" "joint" "transmission" "gazebo" -->
   <!-- ========================================================================== -->
-	<link name="left_wheel">
-		<visual>
-			<origin xyz="0.0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</visual>
-		<collision>
-			<origin xyz="0.0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</collision>
-		<inertial>
-			<origin xyz="0.0 0 0" rpy="0 0 0"/>
-			<mass value="0.041"/>
-			<inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
-    	</inertial>
-	</link>
+  <xacro:littlebot_wheel side_wheel="left">
+    <origin xyz="0.0 0 0" rpy="0 0 0"/>
+    <origin xyz="0.0281 0.067 -0.01425" rpy="0 0 0" />
+  </xacro:littlebot_wheel>
 
-	<joint name="base_to_left_wheel" type="continuous">
-		<parent link="chassis"/>
-		<child link="left_wheel"/>
-		<origin xyz="0.0281 0.067 -0.01425" rpy="0 0 0" />
-		<axis xyz="0 1 0" rpy="0 0 0" />
-	</joint>
-
-	<gazebo reference="left_wheel">
-      <mu1 value="1.0"/>
-      <mu2 value="0.5"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
-      <fdir1 value="1 0 0"/>
-    </gazebo>
-
-  <!-- Right wheel model "link" "joint" "transmission" "gazebo" -->
-  <!-- ========================================================================== -->
-	<link name="right_wheel">
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 3.142"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</visual>
-		<collision>
-			<origin xyz="0 0 0" rpy="0 0 3.142"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</collision>
-		<inertial>
-			<origin xyz="0 0 0" rpy="0 0 3.142"/>
-			<mass value="0.041"/>
-			<inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
-    	</inertial>
-	</link>
-
-	<joint name="base_to_right_wheel" type="continuous">
-		<parent link="chassis"/>
-		<child link="right_wheel"/>
-		<origin xyz="0.0281 -0.067 -0.01425" rpy="0 0 0" />
-		<axis xyz="0 1 0" rpy="0 0 0" />
-	</joint>
-   
-  <gazebo reference="right_wheel">
-    <mu1 value="1.0"/>
-    <mu2 value="0.5"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
-    <fdir1 value="1 0 0"/>
-  </gazebo>
+  <xacro:littlebot_wheel side_wheel="right">
+    <origin xyz="0 0 0" rpy="0 0 3.142"/>
+    <origin xyz="0.0281 -0.067 -0.01425" rpy="0 0 0" />
+  </xacro:littlebot_wheel>
 
 <!-- Modelagem do sonar "link" "joint" -->
 <!-- ========================================================================== -->
@@ -260,35 +202,13 @@
       </sensor>  
     </gazebo>
   </xacro:macro>
-  <!-- 
-  ******************************************************************************************
-  SONAR_01 gazebo plugin 
-  ******************************************************************************************
-  -->
+
+<!-- Call SONAR gazebo plugin xacro -->
+<!-- ***************************************************************************** -->
   <xacro:sonar reference="sonar_1" topic_name="sonar1" />
-  <!-- 
-  ******************************************************************************************
-  SONAR02 gazebo plugin 
-  ******************************************************************************************
-  -->
   <xacro:sonar reference="sonar_2" topic_name="sonar2" />
-  <!-- 
-  ******************************************************************************************
-  SONAR03 gazebo plugin 
-  ******************************************************************************************
-  -->
   <xacro:sonar reference="sonar_3" topic_name="sonar3" />
-  <!-- 
-  ******************************************************************************************
-  SONAR04 gazebo plugin 
-  ******************************************************************************************
-  -->
   <xacro:sonar reference="sonar_4" topic_name="sonar4" />
-  <!-- 
-  ******************************************************************************************
-  SONAR05 gazebo plugin 
-  ******************************************************************************************
-  -->
   <xacro:sonar reference="sonar_5" topic_name="sonar5" />
 
 </robot>
