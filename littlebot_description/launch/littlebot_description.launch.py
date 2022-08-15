@@ -78,6 +78,8 @@ def generate_launch_description():
         arguments=['-d', LaunchConfiguration('rvizconfig')],
     )
 
+    # Return
+    #-----------------------------------------------------------------------------
     return LaunchDescription([
         time_arg,
         joint_gui_arg,
