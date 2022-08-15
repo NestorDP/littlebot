@@ -168,7 +168,7 @@
     <origin xyz="0.07879836 -0.03772198 0.02500000" rpy="0 0 -0.686455448"/>
   </xacro:littlebot_sonar> 
 
-<!-- Plugin control -->
+<!-- Plugin CONTROLER -->
 <!-- ***************************************************************************** -->
 	<gazebo>
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
@@ -214,5 +214,92 @@
       <visualize>true</visualize>
     </sensor>
   </gazebo>
+
+<!-- Plugin SONAR -->
+<!-- ***************************************************************************** -->
+  <xacro:macro name="sonar" params="reference topic_name">
+    <gazebo reference="${reference}">        
+      <sensor type="ray" name="TeraRanger">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>50</update_rate>
+        <ray>
+          <scan>
+              <horizontal>
+                <samples>10</samples>
+                <resolution>1</resolution> 
+                <min_angle>-0.14835</min_angle>
+                <max_angle>0.14835</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>10</samples>
+                <resolution>1</resolution> 
+                <min_angle>-0.14835</min_angle>
+                <max_angle>0.14835</max_angle> 
+              </vertical>
+          </scan>
+          <range>
+              <min>0.01</min>
+              <max>2</max>
+              <resolution>0.02</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.005</stddev>
+          </noise>
+        </ray>
+
+        <plugin name="gazebo_ros_range_controller" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <!-- <namespace>/</namespace> -->
+            <remapping>~/out:=sensor/${topic_name}</remapping>
+          </ros>
+          <output_type>sensor_msgs/Range</output_type>
+          <frame_name> ${reference} </frame_name>
+        </plugin>
+
+        <!-- <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+          <topicName>sensor/${topic_name}</topicName>
+          <frameName>${reference}</frameName>
+          <gaussianNoise>0.005</gaussianNoise>
+          <updateRate>50</updateRate>
+          <fov>0.2967</fov>
+          <alwaysOn>true</alwaysOn>
+          <radiation>ULTRASOUND</radiation>
+        </plugin> -->
+      </sensor>  
+    </gazebo>
+  </xacro:macro>
+  <!-- 
+  ******************************************************************************************
+  SONAR_01 gazebo plugin 
+  ******************************************************************************************
+  -->
+  <xacro:sonar reference="sonar_1" topic_name="sonar1" />
+  <!-- 
+  ******************************************************************************************
+  SONAR02 gazebo plugin 
+  ******************************************************************************************
+  -->
+  <xacro:sonar reference="sonar_2" topic_name="sonar2" />
+  <!-- 
+  ******************************************************************************************
+  SONAR03 gazebo plugin 
+  ******************************************************************************************
+  -->
+  <xacro:sonar reference="sonar_3" topic_name="sonar3" />
+  <!-- 
+  ******************************************************************************************
+  SONAR04 gazebo plugin 
+  ******************************************************************************************
+  -->
+  <xacro:sonar reference="sonar_4" topic_name="sonar4" />
+  <!-- 
+  ******************************************************************************************
+  SONAR05 gazebo plugin 
+  ******************************************************************************************
+  -->
+  <xacro:sonar reference="sonar_5" topic_name="sonar5" />
 
 </robot>
