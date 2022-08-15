@@ -1,16 +1,16 @@
-# Littlebot
+# littleBOT
 
-Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desemvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
+Projeto opensource para estudo de robótica móvel com Robot Operating System ROS. Além de áreas importantes no desenvolvimento de robôs, como: sistemas embarcados, engenharia de controle, processamento de sinais digitais...
 
-![Alt Text](https://ap.imagensbrasil.org/images/2019/11/29/Screenshot-from-2019-11-29-14-00-38.png)
+![Prints simulação LittleBOT](https://user-images.githubusercontent.com/37759765/128800773-a2714fbc-2218-4c7c-a7a5-e6070d67b1a1.png)
 
 ## Testando o Littlebot
 
-Estas instruções te ajudaram a fazer os primeiros testes com a plataforma Littlebot
+Estas instruções te ajudarão a fazer os primeiros testes com a plataforma Littlebot
 
 ### Pré-requisitos
 
-Para testar o Littlebot em seu sistema você precisa ter instalado o ROS ([melodic](http://wiki.ros.org/melodic/Installation) recomendado). Um erro pode acontecer ao tentar vizualizar o modelo no RVIZ caso isso ocorra pode ser necessário mudar uma variável de ambiente, como segue abaixo:
+Para testar o Littlebot em seu sistema você precisa ter instalado o ROS ([melodic](http://wiki.ros.org/melodic) recomendado). Um erro pode acontecer ao tentar vizualizar o modelo no RVIZ no ROS-melodic, caso isso ocorra, pode ser necessário mudar uma variável de ambiente, como segue abaixo:
 
 ```bash
 export LC_NUMERIC="en_US.UTF-8"
@@ -24,6 +24,7 @@ Para simular o Littlebot, o primeiro passo é criar um [workspace ROS](http://wi
 mkdir -p ~/littlebot_ws/src
 cd littlebot_ws
 catkin_make
+source devel/setup.bash
 ```
 
 Após criar o workspace fazer o clone do repositório
