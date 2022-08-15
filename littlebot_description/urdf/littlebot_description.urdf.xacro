@@ -255,7 +255,7 @@
           </ros>
           <output_type>sensor_msgs/Range</output_type>
           <frame_name>${reference}</frame_name>
-          <radiation_type>ultrasonic</radiation_type>
+          <radiation_type>ultrasound</radiation_type>
         </plugin>
       </sensor>  
     </gazebo>
