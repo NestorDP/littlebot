@@ -41,9 +41,9 @@
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
   </joint>
 
- <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
- <!-- ========================================================================== -->
- <link name="imu_link">
+  <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
+  <!-- ========================================================================== -->
+  <link name="imu_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
