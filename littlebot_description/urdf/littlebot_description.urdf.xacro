@@ -220,28 +220,26 @@
   <xacro:macro name="sonar" params="reference topic_name">
     <gazebo reference="${reference}">        
       <sensor type="ray" name="TeraRanger">
-        <pose>0 0 0 0 0 0</pose>
-        <visualize>false</visualize>
         <update_rate>50</update_rate>
         <ray>
           <scan>
-              <horizontal>
-                <samples>10</samples>
-                <resolution>1</resolution> 
-                <min_angle>-0.14835</min_angle>
-                <max_angle>0.14835</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>10</samples>
-                <resolution>1</resolution> 
-                <min_angle>-0.14835</min_angle>
-                <max_angle>0.14835</max_angle> 
-              </vertical>
+            <horizontal>
+              <samples>10</samples>
+              <resolution>1</resolution> 
+              <min_angle>-0.14835</min_angle>
+              <max_angle>0.14835</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>10</samples>
+              <resolution>1</resolution> 
+              <min_angle>-0.14835</min_angle>
+              <max_angle>0.14835</max_angle> 
+            </vertical>
           </scan>
           <range>
-              <min>0.01</min>
-              <max>2</max>
-              <resolution>0.02</resolution>
+            <min>0.01</min>
+            <max>2</max>
+            <resolution>0.02</resolution>
           </range>
           <noise>
             <type>gaussian</type>
@@ -256,18 +254,9 @@
             <remapping>~/out:=sensor/${topic_name}</remapping>
           </ros>
           <output_type>sensor_msgs/Range</output_type>
-          <frame_name> ${reference} </frame_name>
+          <frame_name>${reference}</frame_name>
+          <radiation_type>ultrasonic</radiation_type>
         </plugin>
-
-        <!-- <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-          <topicName>sensor/${topic_name}</topicName>
-          <frameName>${reference}</frameName>
-          <gaussianNoise>0.005</gaussianNoise>
-          <updateRate>50</updateRate>
-          <fov>0.2967</fov>
-          <alwaysOn>true</alwaysOn>
-          <radiation>ULTRASOUND</radiation>
-        </plugin> -->
       </sensor>  
     </gazebo>
   </xacro:macro>
