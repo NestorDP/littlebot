@@ -26,7 +26,7 @@ def generate_launch_description():
     
     joint_gui_arg   = DeclareLaunchArgument(
         name='joint_gui', 
-        default_value='false', 
+        default_value='true', 
         choices=['true', 'false'],
         description='Flag to enable joint_state_publisher_gui')
 
@@ -78,6 +78,8 @@ def generate_launch_description():
         arguments=['-d', LaunchConfiguration('rvizconfig')],
     )
 
+    # Return
+    #-----------------------------------------------------------------------------
     return LaunchDescription([
         time_arg,
         joint_gui_arg,

@@ -3,8 +3,8 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot">
 
 <!-- Included URDF XACRO Files -->
-<!-- <xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" /> -->
-<!-- <xacro:include filename="$(find littlebot_description)/urdf/sonar.xacro" /> -->
+<xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" />
+<xacro:include filename="$(find littlebot_description)/urdf/littlebot_sonar.urdf.xacro" />
 
 
   <!-- Modelagem base_link "link" -->
@@ -29,7 +29,9 @@
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.19357368"/>
-      <inertia ixx="1.84569610e-4"  ixy="-4.09475462e-6"  ixz="-2.91063667e-5" iyy="7.65700035e-4" iyz="2.32776537e-8" izz="9.00861891e-4" />
+      <inertia ixx="1.84569610e-4"  ixy="-4.09475462e-6"  ixz="-2.91063667e-5" 
+                                    iyy="7.65700035e-4"   iyz="2.32776537e-8"  
+                                                          izz="9.00861891e-4" />
     </inertial>
   </link>  
 
@@ -39,9 +41,9 @@
     <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
   </joint>
 
- <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
- <!-- ========================================================================== -->
- <link name="imu_link">
+  <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
+  <!-- ========================================================================== -->
+  <link name="imu_link">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -57,7 +59,9 @@
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.00142672"/>
-      <inertia ixx="4.54052487e-8"  ixy="1.07305074e-10"  ixz="-2.17782593e-10" iyy="2.70451174e-8" iyz="-4.58999382e-11" izz="7.14041804e-8" />
+      <inertia ixx="4.54052487e-8"  ixy="1.07305074e-10"  ixz="-2.17782593e-10" 
+                                    iyy="2.70451174e-8"   iyz="-4.58999382e-11" 
+                                                          izz="7.14041804e-8" />
     </inertial>
   </link>  
 
@@ -65,84 +69,49 @@
     <parent link="chassis"/>
     <child link="imu_link"/>
     <origin xyz="0.028 0.0 0.005" rpy="0 0 0" />
-
   </joint>
-  <!-- Left whell model "link" "joint" "transmission" "gazebo" -->
+
+  <!-- Whells model "link" "joint" "transmission" "gazebo" -->
   <!-- ========================================================================== -->
-	<link name="left_wheel">
-		<visual>
-			<origin xyz="0.0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</visual>
-		<collision>
-			<origin xyz="0.0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</collision>
-		<inertial>
-			<origin xyz="0.0 0 0" rpy="0 0 0"/>
-			<mass value="0.041"/>
-			<inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
-    	</inertial>
-	</link>
+  <xacro:littlebot_wheel side_wheel="left">
+    <origin xyz="0.0 0 0" rpy="0 0 0"/>
+    <origin xyz="0.0281 0.067 -0.01425" rpy="0 0 0" />
+  </xacro:littlebot_wheel>
 
-	<joint name="base_to_left_wheel" type="continuous">
-		<parent link="chassis"/>
-		<child link="left_wheel"/>
-		<origin xyz="0.0281 0.067 -0.01425" rpy="0 0 0" />
-		<axis xyz="0 1 0" rpy="0 0 0" />
-	</joint>
+  <xacro:littlebot_wheel side_wheel="right">
+    <origin xyz="0 0 0" rpy="0 0 3.142"/>
+    <origin xyz="0.0281 -0.067 -0.01425" rpy="0 0 0" />
+  </xacro:littlebot_wheel>
 
-	<gazebo reference="left_wheel">
-      <mu1 value="1.0"/>
-      <mu2 value="0.5"/>
-      <kp value="10000000.0" />
-      <kd value="1.0" />
-      <fdir1 value="1 0 0"/>
-    </gazebo>
+<!-- Modelagem do sonar "link" "joint" -->
+<!-- ========================================================================== -->
+  <xacro:littlebot_sonar sonar_numero="1">
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.07879836 0.03772198 0.02500000" rpy="0 0 0.686455448" />
+  </xacro:littlebot_sonar>
 
-  <!-- Right wheel model "link" "joint" "transmission" "gazebo" -->
-  <!-- ========================================================================== -->
-	<link name="right_wheel">
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 3.142"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</visual>
-		<collision>
-			<origin xyz="0 0 0" rpy="0 0 3.142"/>
-			<geometry>
-				<mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-			</geometry>
-		</collision>
-		<inertial>
-			<origin xyz="0 0 0" rpy="0 0 3.142"/>
-			<mass value="0.041"/>
-			<inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
-    	</inertial>
-	</link>
+  <xacro:littlebot_sonar sonar_numero="2">
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.08880761 0.02002920 0.02500000" rpy="0 0 0.343218997"/>
+  </xacro:littlebot_sonar>
 
-	<joint name="base_to_right_wheel" type="continuous">
-		<parent link="chassis"/>
-		<child link="right_wheel"/>
-		<origin xyz="0.0281 -0.067 -0.01425" rpy="0 0 0" />
-		<axis xyz="0 1 0" rpy="0 0 0" />
-	</joint>
-   
-  <gazebo reference="right_wheel">
-    <mu1 value="1.0"/>
-    <mu2 value="0.5"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
-    <fdir1 value="1 0 0"/>
-  </gazebo>
+  <xacro:littlebot_sonar sonar_numero="3">
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.092279 0.0 0.02500000" rpy="0 0 0" />
+  </xacro:littlebot_sonar>
 
+  <xacro:littlebot_sonar sonar_numero="4">
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.08880761 -0.02002920 0.02500000" rpy="0 0 -0.343218997"/>
+  </xacro:littlebot_sonar>
 
-<!-- ============================================================================= -->
+  <xacro:littlebot_sonar sonar_numero="5">
+    <origin xyz="0 0 -0.020267" rpy="0 0 0" />
+    <origin xyz="0.07879836 -0.03772198 0.02500000" rpy="0 0 -0.686455448"/>
+  </xacro:littlebot_sonar> 
+
+<!-- Plugin CONTROLER -->
+<!-- ***************************************************************************** -->
 	<gazebo>
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
       <parameters>$(find littlebot_control)/config/control.yaml</parameters>
@@ -171,6 +140,8 @@
     </joint>
   </ros2_control>
 
+<!-- Plugin IMU -->
+<!-- ***************************************************************************** -->
   <gazebo reference="imu_link">
     <sensor name="imu_sensor" type="imu">
       <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
@@ -185,5 +156,59 @@
       <visualize>true</visualize>
     </sensor>
   </gazebo>
+
+<!-- Plugin SONAR -->
+<!-- ***************************************************************************** -->
+  <xacro:macro name="sonar" params="reference topic_name">
+    <gazebo reference="${reference}">        
+      <sensor type="ray" name="TeraRanger">
+        <update_rate>50</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>10</samples>
+              <resolution>1</resolution> 
+              <min_angle>-0.14835</min_angle>
+              <max_angle>0.14835</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>10</samples>
+              <resolution>1</resolution> 
+              <min_angle>-0.14835</min_angle>
+              <max_angle>0.14835</max_angle> 
+            </vertical>
+          </scan>
+          <range>
+            <min>0.01</min>
+            <max>2</max>
+            <resolution>0.02</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.005</stddev>
+          </noise>
+        </ray>
+
+        <plugin name="gazebo_ros_range_controller" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <!-- <namespace>/</namespace> -->
+            <remapping>~/out:=sensor/${topic_name}</remapping>
+          </ros>
+          <output_type>sensor_msgs/Range</output_type>
+          <frame_name>${reference}</frame_name>
+          <radiation_type>ultrasound</radiation_type>
+        </plugin>
+      </sensor>  
+    </gazebo>
+  </xacro:macro>
+
+<!-- Call SONAR gazebo plugin xacro -->
+<!-- ***************************************************************************** -->
+  <xacro:sonar reference="sonar_1" topic_name="sonar1" />
+  <xacro:sonar reference="sonar_2" topic_name="sonar2" />
+  <xacro:sonar reference="sonar_3" topic_name="sonar3" />
+  <xacro:sonar reference="sonar_4" topic_name="sonar4" />
+  <xacro:sonar reference="sonar_5" topic_name="sonar5" />
 
 </robot>
