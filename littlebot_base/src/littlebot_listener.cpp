@@ -1,14 +1,8 @@
 // Copyright Nestor 2022
 
-#include "rclcpp/rclcpp.hpp"
-#include "rclcpp_components/register_node_macro.hpp"
+#include "littlebot_base/littlebot_listener.hpp"
 
-#include "std_msgs/msg/string.hpp"
-
-#define LITTLEBOT_BASE_CPP_PUBLIC __attribute__ ((visibility("default")))
-#define LITTLEBOT_BASE_CPP_LOCAL __attribute__ ((visibility("hidden")))
-
-namespace littlebot_listener {
+namespace littlebot_base {
 class Listener : public rclcpp::Node {
  public:
     LITTLEBOT_BASE_CPP_PUBLIC
@@ -30,6 +24,6 @@ class Listener : public rclcpp::Node {
     rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
 };
 
-}  // namespace littlebot_listener
+}  // namespace littlebot_base
 
-RCLCPP_COMPONENTS_REGISTER_NODE(littlebot_listener::Listener)
+RCLCPP_COMPONENTS_REGISTER_NODE(littlebot_base::Listener)
