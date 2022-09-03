@@ -5,7 +5,6 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
-
 #include "std_msgs/msg/string.hpp"
 
 #define LITTLEBOT_BASE_CPP_PUBLIC __attribute__ ((visibility("default")))
