@@ -3,10 +3,7 @@
 #include "littlebot_base/littlebot_listener.hpp"
 
 namespace littlebot_base {
-class Listener : public rclcpp::Node {
- public:
-    LITTLEBOT_BASE_CPP_PUBLIC
-    explicit Listener(const rclcpp::NodeOptions & options)
+Listener::Listener(const rclcpp::NodeOptions & options)
     : Node("listener", options) {
 
       setvbuf(stdout, NULL, _IONBF, BUFSIZ);
@@ -19,11 +16,6 @@ class Listener : public rclcpp::Node {
       sub_ =
         create_subscription<std_msgs::msg::String>("chatter", 10, callback);
     }
-
- private:
-    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
-};
-
 }  // namespace littlebot_base
 
 RCLCPP_COMPONENTS_REGISTER_NODE(littlebot_base::Listener)

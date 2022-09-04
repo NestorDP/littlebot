@@ -22,23 +22,40 @@ include_directories(include)
 set(node_plugins "")
 
 
+# Littlebot Listener
 add_library(littlebot_listener SHARED
   src/littlebot_listener.cpp)
 
 target_compile_definitions(littlebot_listener
-  PRIVATE "DEMO_NODES_CPP_BUILDING_DLL")
+  PRIVATE "LITTLEBOT_BASE_CPP_BUILDING_DLL")
 
 ament_target_dependencies(littlebot_listener
   "rclcpp"
   "rclcpp_components"
   "std_msgs")
-
+  
 rclcpp_components_register_nodes(littlebot_listener "littlebot_base::Listener")
 set(node_plugins "${node_plugins}littlebot_base::Listener;$<TARGET_FILE:littlebot_listener>\n")
+
+# Littlebot Talker
+add_library(littlebot_talker SHARED
+  src/littlebot_talker.cpp)
+
+target_compile_definitions(littlebot_talker
+  PRIVATE "DEMO_NODES_CPP_BUILDING_DLL")
+
+ament_target_dependencies(littlebot_talker
+  "rclcpp"
+  "rclcpp_components"
+  "std_msgs")
+
+rclcpp_components_register_nodes(littlebot_talker "littlebot_base::Talker")
+set(node_plugins "${node_plugins}littlebot_base::Talker;$<TARGET_FILE:littlebot_talker>\n")
 
 
 install(TARGETS
   littlebot_listener
+  littlebot_talker
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
