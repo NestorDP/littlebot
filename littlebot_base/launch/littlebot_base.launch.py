@@ -15,10 +15,6 @@ def generate_launch_description():
             executable='component_container',
             composable_node_descriptions=[
                 ComposableNode(
-                    package='composition',
-                    plugin='composition::Talker',
-                    name='talker'),
-                ComposableNode(
                     package='littlebot_base',
                     plugin='littlebot_base::Listener',
                     name='listener')
