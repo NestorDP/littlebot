@@ -25,7 +25,6 @@ class Listener : public rclcpp::Node {
  private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
   comm::LittlebotCommunicationProtocol s_;
-  std::shared_ptr<std::string> send_ptr_;
   std::string port_ = "/dev/pts/5";
 };
 

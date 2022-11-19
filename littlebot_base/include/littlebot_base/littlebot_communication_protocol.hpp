@@ -20,6 +20,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include <libserial/serial.hpp>
 
@@ -41,24 +42,32 @@ class LittlebotCommunicationProtocol {
   ~LittlebotCommunicationProtocol();
 
   /**
-   * @brief Method to open the serial communication
+   * @brief
    * 
    */
-  void ReceiveMsg(void);
+  void LittlebotRead(void);
+
+
+  /**
+   * @brief
+   * 
+   */
+  void LittlebotWrite();
 
 
  private:
-   /** Length of buffer */
+  /** Length of buffer */
   const int kLengthBuffer_ = 200;
 
   /** Port */
   serial::Serial port_;
 
   /** Buffer */
-  std::string msg_protocol;
+  std::string msg_protocol_;
 
-  std::array<float, 2> velocity_read;
-  std::array<float, 2> velocity_write;
+  /**  */
+  float velocity_read_[2];
+  float velocity_write_[2];
 
 };
 }  // namespace serial

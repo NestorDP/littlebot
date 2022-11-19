@@ -8,15 +8,11 @@ Listener::Listener(const rclcpp::NodeOptions & options)
   : Node("listener", options), s_("/dev/pts/5"){
 
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
-    
-
-    send_ptr_ = std::make_shared<std::string>("texto");
 
     auto callback =
       [this](std_msgs::msg::String::ConstSharedPtr msg) -> void {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->data.c_str());
-
-        
+        s_.LittlebotWrite();
       };
 
     sub_ =
