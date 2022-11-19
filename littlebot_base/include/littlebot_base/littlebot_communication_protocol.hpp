@@ -52,7 +52,13 @@ class LittlebotCommunicationProtocol {
    * @brief
    * 
    */
-  void LittlebotWrite();
+  void LittlebotWrite(void);
+
+  /**
+   * @brief
+   * 
+   */
+  void SetVelocity(float dir, float lef);
 
 
  private:

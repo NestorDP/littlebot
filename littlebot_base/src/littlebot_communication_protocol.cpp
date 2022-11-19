@@ -2,8 +2,8 @@
 
 comm::LittlebotCommunicationProtocol::LittlebotCommunicationProtocol(std::string port): port_() {
   port_.OpenPort(port.c_str());
-  velocity_write_[0] = 2.14;
-  velocity_write_[1] = 3.14;
+  // velocity_write_[0] = 2.14;
+  // velocity_write_[1] = 3.14;
 }
 
 void comm::LittlebotCommunicationProtocol::LittlebotRead(void){
@@ -12,7 +12,7 @@ void comm::LittlebotCommunicationProtocol::LittlebotRead(void){
   std::cout << msg_protocol_ << std::endl;
 }
 
-void comm::LittlebotCommunicationProtocol::LittlebotWrite(){
+void comm::LittlebotCommunicationProtocol::LittlebotWrite(void){
   unsigned int i;
   char vel_dir[sizeof(float)];
   char vel_lef[sizeof(float)];
@@ -35,15 +35,24 @@ void comm::LittlebotCommunicationProtocol::LittlebotWrite(){
 
   a = (float*) &vel_dir[0];
   b = (float*) &vel_lef[0];
-  
+
+  printf("%.2f#%.2f\n", *a, *b);
 
   msg << vel_dir << '#' << vel_lef;
 
   port_.SendMsg(std::make_shared<std::string>(msg.str()));
-
 }
 
 
+void comm::LittlebotCommunicationProtocol::SetVelocity(float *dir, float *lef) {
+  velocity_write_[0] = *dir;
+  velocity_write_[1] = *lef;
+}
+
+void comm::LittlebotCommunicationProtocol::GetVelocity(float *dir, float *lef) {
+  *dir = velocity_read_[0];
+  *lef = velocity_read_[1];
+}
 
 
 

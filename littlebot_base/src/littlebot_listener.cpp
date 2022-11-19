@@ -12,6 +12,7 @@ Listener::Listener(const rclcpp::NodeOptions & options)
     auto callback =
       [this](std_msgs::msg::String::ConstSharedPtr msg) -> void {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->data.c_str());
+        s_.SetVelocity(3.14, 3.14);
         s_.LittlebotWrite();
       };
 
