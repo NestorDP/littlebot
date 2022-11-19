@@ -5,7 +5,7 @@
 namespace littlebot_base {
 
 Listener::Listener(const rclcpp::NodeOptions & options)
-  : Node("listener", options), s_("/dev/pts/5"){
+  : Node("listener", options), s_("/dev/rfcomm0"){
 
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
 

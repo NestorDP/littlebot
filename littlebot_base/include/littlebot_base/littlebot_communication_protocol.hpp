@@ -47,7 +47,6 @@ class LittlebotCommunicationProtocol {
    */
   void LittlebotRead(void);
 
-
   /**
    * @brief
    * 
@@ -59,6 +58,12 @@ class LittlebotCommunicationProtocol {
    * 
    */
   void SetVelocity(float dir, float lef);
+
+    /**
+   * @brief
+   * 
+   */
+  void GetVelocity(float *dir, float *lef);
 
 
  private:
