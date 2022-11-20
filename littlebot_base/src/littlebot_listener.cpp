@@ -5,15 +5,19 @@
 namespace littlebot_base {
 
 Listener::Listener(const rclcpp::NodeOptions & options)
-  : Node("listener", options), s_("/dev/rfcomm0"){
+    : Node("", options) 
+    {}
 
+Listener::Listener(comm::LittlebotCommunicationProtocol *comm, const rclcpp::NodeOptions & options)
+  : Node("listener", options){
+    
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
 
     auto callback =
-      [this](std_msgs::msg::String::ConstSharedPtr msg) -> void {
+      [this, comm](std_msgs::msg::String::ConstSharedPtr msg) -> void {
         RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->data.c_str());
-        s_.SetVelocity(3.14, 3.14);
-        s_.LittlebotWrite();
+        comm->SetVelocity(3.14, 3.14);
+        comm->LittlebotWrite();
       };
 
     sub_ =

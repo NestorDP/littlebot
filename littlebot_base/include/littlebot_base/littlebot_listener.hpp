@@ -19,13 +19,15 @@
 namespace littlebot_base {
 class Listener : public rclcpp::Node {
  public:
-   LITTLEBOT_LISTENER_CPP_PUBLIC
-   explicit Listener(const rclcpp::NodeOptions & options);
+  LITTLEBOT_LISTENER_CPP_PUBLIC
+  explicit Listener(const rclcpp::NodeOptions & options);
+
+  LITTLEBOT_LISTENER_CPP_PUBLIC
+  explicit Listener(comm::LittlebotCommunicationProtocol *comm, const rclcpp::NodeOptions & options);
 
  private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
   comm::LittlebotCommunicationProtocol s_;
-  std::string port_ = "/dev/pts/5";
 };
 
 }  // namespace littlebot_base

@@ -14,9 +14,6 @@
 using namespace std::chrono_literals;
 
 namespace littlebot_base {
-Talker::Talker(const rclcpp::NodeOptions & options)
-: Node("", options){}
-
 
 Talker::Talker(const rclcpp::NodeOptions & options)
 : Node("talker", options), count_(0) {

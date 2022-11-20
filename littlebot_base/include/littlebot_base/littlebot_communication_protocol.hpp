@@ -29,6 +29,7 @@ namespace comm {
 
 class LittlebotCommunicationProtocol {
  public:
+  LittlebotCommunicationProtocol();
   /**
    * @brief Constructor of the serial class
    * 

@@ -14,29 +14,28 @@
 
 #include <memory>
 
-#include <libserial/serial.hpp>
+#include "rclcpp/rclcpp.hpp"
 
 #include "littlebot_base/littlebot_listener.hpp"
-#include "littlebot_base/littlebot_talker.hpp"
-
-#include "rclcpp/rclcpp.hpp"
+//#include "littlebot_base/littlebot_talker.hpp"
+#include "littlebot_base/littlebot_communication_protocol.hpp"
 
 int main(int argc, char * argv[])
 {
   setvbuf(stdout, NULL, _IONBF, BUFSIZ);
+  comm::LittlebotCommunicationProtocol s("/dev/pts/5"); 
 
   rclcpp::init(argc, argv);
 
-  serial::Serial s;
-  s.open_port("/dev/pts/6");
+  
 
   rclcpp::executors::SingleThreadedExecutor exec;
   rclcpp::NodeOptions options;
 
-  auto talker = std::make_shared<littlebot_base::Talker>(&s, options);
+  //auto talker = std::make_shared<littlebot_base::Talker>(&s, options);
   auto listener = std::make_shared<littlebot_base::Listener>(&s, options);
 
-  exec.add_node(talker);
+  //exec.add_node(talker);
   exec.add_node(listener);
  
   exec.spin();

@@ -25,7 +25,7 @@ set(node_plugins "")
 # Littlebot Listener
 add_library(littlebot_listener SHARED
   src/littlebot_listener.cpp
-  src/littlebot_communication_protocol.cpp)
+)
 
 target_link_libraries( littlebot_listener
   serial
@@ -43,11 +43,43 @@ rclcpp_components_register_nodes(littlebot_listener "littlebot_base::Listener")
 set(node_plugins "${node_plugins}littlebot_base::Listener;$<TARGET_FILE:littlebot_listener>\n")
 
 
+# Littlebot Talker
+add_library(littlebot_talker SHARED
+  src/littlebot_talker.cpp)
+
+target_compile_definitions(littlebot_talker
+  PRIVATE "DEMO_NODES_CPP_BUILDING_DLL")
+
+ament_target_dependencies(littlebot_talker
+  "rclcpp"
+  "rclcpp_components"
+  "std_msgs")
+
+rclcpp_components_register_nodes(littlebot_talker "littlebot_base::Talker")
+set(node_plugins "${node_plugins}littlebot_base::Talker;$<TARGET_FILE:littlebot_talker>\n")
+
+
+add_executable(manual_composition
+  src/manual_composition.cpp
+  src/littlebot_communication_protocol.cpp)
+  
+target_link_libraries(manual_composition
+  littlebot_listener)
+
+ament_target_dependencies(manual_composition
+  "rclcpp")
+
 install(TARGETS
   littlebot_listener
+  littlebot_talker
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
+
+
+install(TARGETS
+  manual_composition
+  DESTINATION lib/${PROJECT_NAME})
 
 
 # Install launch files.
