@@ -1,19 +1,19 @@
-#include "littlebot_base/littlebot_communication_protocol.hpp"
+#include "littlebot_base/communication_protocol.hpp"
 
 namespace comm{ 
     
-LittlebotCommunicationProtocol::LittlebotCommunicationProtocol(){}
+CommunicationProtocol::CommunicationProtocol(){}
 
 
-
-LittlebotCommunicationProtocol::LittlebotCommunicationProtocol(std::string port): port_() {
+CommunicationProtocol::CommunicationProtocol(std::string port)/*: port_()*/ {
   port_.OpenPort(port.c_str());
 }
 
-LittlebotCommunicationProtocol::~LittlebotCommunicationProtocol(){}
+
+CommunicationProtocol::~CommunicationProtocol(){}
 
 
-void LittlebotCommunicationProtocol::LittlebotRead(void){
+void CommunicationProtocol::LittlebotRead(void){
   float *a, *b;
   port_.ReceiveMsg(&msg_protocol_);
   a = (float *) (msg_protocol_.c_str());
@@ -23,7 +23,8 @@ void LittlebotCommunicationProtocol::LittlebotRead(void){
   std::cout << msg_protocol_ << std::endl;
 }
 
-void LittlebotCommunicationProtocol::LittlebotWrite(void){
+
+void CommunicationProtocol::LittlebotWrite(void){
   unsigned int i;
   char vel_dir[sizeof(float)];
   char vel_lef[sizeof(float)];
@@ -47,13 +48,13 @@ void LittlebotCommunicationProtocol::LittlebotWrite(void){
 }
 
 
-void LittlebotCommunicationProtocol::SetVelocity(float dir, float lef) {
+void CommunicationProtocol::SetVelocity(float dir, float lef) {
   velocity_write_[0] = dir;
   velocity_write_[1] = lef;
 }
 
 
-void LittlebotCommunicationProtocol::GetVelocity(float *dir, float *lef) {
+void CommunicationProtocol::GetVelocity(float *dir, float *lef) {
   *dir = velocity_read_[0];
   *lef = velocity_read_[1];
 }

@@ -4,7 +4,6 @@
 #define LITTLEBOT_BASE_LITTLEBOT_TALKER_HPP_
 
 #include <string>
-#include <libserial/serial.hpp>
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"

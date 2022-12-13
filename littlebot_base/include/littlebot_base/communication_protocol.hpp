@@ -27,20 +27,20 @@
 
 namespace comm {
 
-class LittlebotCommunicationProtocol {
+class CommunicationProtocol {
  public:
-  LittlebotCommunicationProtocol();
+  CommunicationProtocol();
   /**
    * @brief Constructor of the serial class
    * 
    */
-  LittlebotCommunicationProtocol(std::string port);
+  CommunicationProtocol(std::string port);
 
   /**
    * @brief Destroyer of the serial class
    * 
    */
-  ~LittlebotCommunicationProtocol();
+  ~CommunicationProtocol();
 
   /**
    * @brief

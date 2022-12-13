@@ -17,17 +17,15 @@
 #include "rclcpp/rclcpp.hpp"
 
 #include "littlebot_base/littlebot_listener.hpp"
-//#include "littlebot_base/littlebot_talker.hpp"
-#include "littlebot_base/littlebot_communication_protocol.hpp"
+#include "littlebot_base/communication_protocol.hpp"
 
 int main(int argc, char * argv[])
 {
   setvbuf(stdout, NULL, _IONBF, BUFSIZ);
-  comm::LittlebotCommunicationProtocol s("/dev/pts/5"); 
+  
+  comm::CommunicationProtocol s("/dev/rfcomm0"); 
 
   rclcpp::init(argc, argv);
-
-  
 
   rclcpp::executors::SingleThreadedExecutor exec;
   rclcpp::NodeOptions options;
