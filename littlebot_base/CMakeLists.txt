@@ -47,8 +47,12 @@ set(node_plugins "${node_plugins}littlebot_base::Listener;$<TARGET_FILE:littlebo
 add_library(littlebot_talker SHARED
   src/littlebot_talker.cpp)
 
+target_link_libraries(littlebot_talker
+  serial
+)
+
 target_compile_definitions(littlebot_talker
-  PRIVATE "DEMO_NODES_CPP_BUILDING_DLL")
+  PRIVATE "LITTLEBOT_NODES_CPP_BUILDING_DLL")
 
 ament_target_dependencies(littlebot_talker
   "rclcpp"
@@ -64,7 +68,8 @@ add_executable(manual_composition
   src/communication_protocol.cpp)
   
 target_link_libraries(manual_composition
-  littlebot_listener)
+  littlebot_listener
+  littlebot_talker)
 
 ament_target_dependencies(manual_composition
   "rclcpp")

@@ -21,8 +21,8 @@ class Listener : public rclcpp::Node {
   LITTLEBOT_LISTENER_CPP_PUBLIC
   explicit Listener(const rclcpp::NodeOptions & options);
 
-  LITTLEBOT_LISTENER_CPP_PUBLIC
-  explicit Listener(comm::CommunicationProtocol *comm, const rclcpp::NodeOptions & options);
+  // LITTLEBOT_LISTENER_CPP_PUBLIC
+  // explicit Listener(comm::CommunicationProtocol *comm, const rclcpp::NodeOptions & options);
 
  private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;

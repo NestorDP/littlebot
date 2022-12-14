@@ -72,7 +72,7 @@ class CommunicationProtocol {
   const int kLengthBuffer_ = 200;
 
   /** Port */
-  serial::Serial port_;
+  serial::Serial port_ ;
 
   /** Buffer */
   std::string msg_protocol_;

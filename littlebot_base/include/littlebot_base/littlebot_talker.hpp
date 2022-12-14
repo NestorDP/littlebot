@@ -8,25 +8,30 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 
-#define LITTLEBOT_TALKER_PUBLIC __attribute__ ((visibility("default")))
+#include <libserial/serial.hpp>
 
-namespace littlebot_base {
-class Talker : public rclcpp::Node {
- public:
-  LITTLEBOT_TALKER_PUBLIC
-  explicit Talker(const rclcpp::NodeOptions & options);
+#define LITTLEBOT_TALKER_PUBLIC __attribute__((visibility("default")))
 
- protected:
-  void on_timer();
+namespace littlebot_base
+{
+  class Talker : public rclcpp::Node
+  {
+  public:
+    LITTLEBOT_TALKER_PUBLIC
+    explicit Talker(const rclcpp::NodeOptions &options);
 
- private:
-  size_t count_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_;
-  rclcpp::TimerBase::SharedPtr timer_;
-  std::string message_;
+  protected:
+    void on_timer();
 
-};
+  private:
+    size_t count_;
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_;
+    rclcpp::TimerBase::SharedPtr timer_;
+    std::string message_;
 
-}  // namespace littlebot_base
+    serial::Serial serial_;
+  };
 
-#endif  // LITTLEBOT_BASE_LITTLEBOT_TALKER_HPP_
+} // namespace littlebot_base
+
+#endif // LITTLEBOT_BASE_LITTLEBOT_TALKER_HPP_
