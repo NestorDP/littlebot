@@ -10,7 +10,7 @@
 #include "rclcpp_components/register_node_macro.hpp"
 #include "std_msgs/msg/string.hpp"
 
-#include "littlebot_base/communication_protocol.hpp"
+#include "littlebot_base/protocol.hpp"
 
 #define LITTLEBOT_LISTENER_CPP_PUBLIC __attribute__ ((visibility("default")))
 #define LITTLEBOT_LISTENER_CPP_LOCAL __attribute__ ((visibility("hidden")))
@@ -26,7 +26,7 @@ class Listener : public rclcpp::Node {
 
  private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
-  comm::CommunicationProtocol s_;
+  littlebot::Protocol littlebot_base;
 };
 
 }  // namespace littlebot_base

@@ -18,7 +18,7 @@
 
 #include "littlebot_base/littlebot_talker.hpp"
 #include "littlebot_base/littlebot_listener.hpp"
-#include "littlebot_base/communication_protocol.hpp"
+#include "littlebot_base/protocol.hpp"
 
 #include <libserial/serial.hpp>
 
@@ -26,7 +26,7 @@ int main(int argc, char * argv[])
 {
   setvbuf(stdout, NULL, _IONBF, BUFSIZ);
   
-  // comm::CommunicationProtocol s("/dev/rfcomm0"); 
+  // littlebot::CommunicationProtocol littlebot_base("/dev/rfcomm0"); 
 
   rclcpp::init(argc, argv);
 

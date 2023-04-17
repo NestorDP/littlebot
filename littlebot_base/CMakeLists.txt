@@ -65,7 +65,7 @@ set(node_plugins "${node_plugins}littlebot_base::Talker;$<TARGET_FILE:littlebot_
 
 add_executable(manual_composition
   src/manual_composition.cpp
-  src/communication_protocol.cpp)
+  src/protocol.cpp)
   
 target_link_libraries(manual_composition
   littlebot_listener

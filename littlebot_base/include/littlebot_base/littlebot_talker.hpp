@@ -10,6 +10,8 @@
 
 #include <libserial/serial.hpp>
 
+#include "littlebot_base/protocol.hpp"
+
 #define LITTLEBOT_TALKER_PUBLIC __attribute__((visibility("default")))
 
 namespace littlebot_base
@@ -30,6 +32,9 @@ namespace littlebot_base
     std::string message_;
 
     serial::Serial serial_;
+    littlebot::Protocol protocol_;
+
+    float velocity_read_[2] = {0.0, 0.0};
   };
 
 } // namespace littlebot_base
