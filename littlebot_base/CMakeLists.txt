@@ -43,24 +43,24 @@ rclcpp_components_register_nodes(littlebot_listener "littlebot_base::Listener")
 set(node_plugins "${node_plugins}littlebot_base::Listener;$<TARGET_FILE:littlebot_listener>\n")
 
 
-# Littlebot Talker
-add_library(littlebot_talker SHARED
-  src/littlebot_talker.cpp)
+# Littlebot Base Reader
+add_library(littlebot_base_reader SHARED
+  src/reader.cpp)
 
-target_link_libraries(littlebot_talker
+target_link_libraries(littlebot_base_reader
   serial
 )
 
-target_compile_definitions(littlebot_talker
+target_compile_definitions(littlebot_base_reader
   PRIVATE "LITTLEBOT_NODES_CPP_BUILDING_DLL")
 
-ament_target_dependencies(littlebot_talker
+ament_target_dependencies(littlebot_base_reader
   "rclcpp"
   "rclcpp_components"
   "std_msgs")
 
-rclcpp_components_register_nodes(littlebot_talker "littlebot_base::Talker")
-set(node_plugins "${node_plugins}littlebot_base::Talker;$<TARGET_FILE:littlebot_talker>\n")
+rclcpp_components_register_nodes(littlebot_base_reader "littlebot_base::Reader")
+set(node_plugins "${node_plugins}littlebot_base::Reader;$<TARGET_FILE:reader>\n")
 
 
 add_executable(littlebot_base_composition
@@ -68,14 +68,14 @@ add_executable(littlebot_base_composition
   
 target_link_libraries(littlebot_base_composition
   littlebot_listener
-  littlebot_talker)
+  littlebot_base_reader)
 
 ament_target_dependencies(littlebot_base_composition
   "rclcpp")
 
 install(TARGETS
   littlebot_listener
-  littlebot_talker
+  littlebot_base_reader
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
