@@ -22,25 +22,25 @@ include_directories(include)
 set(node_plugins "")
 
 
-# Littlebot Listener
-add_library(littlebot_listener SHARED
-  src/littlebot_listener.cpp
+# Littlebot base writer
+add_library(littlebot_base_writer SHARED
+  src/writer.cpp
 )
 
-target_link_libraries( littlebot_listener
+target_link_libraries( littlebot_base_writer
   serial
 )
 
-target_compile_definitions(littlebot_listener
+target_compile_definitions(littlebot_base_writer
   PRIVATE "LITTLEBOT_BASE_CPP_BUILDING_DLL")
 
-ament_target_dependencies(littlebot_listener
+ament_target_dependencies(littlebot_base_writer
   "rclcpp"
   "rclcpp_components"
   "std_msgs")
   
-rclcpp_components_register_nodes(littlebot_listener "littlebot_base::Listener")
-set(node_plugins "${node_plugins}littlebot_base::Listener;$<TARGET_FILE:littlebot_listener>\n")
+rclcpp_components_register_nodes(littlebot_base_writer "littlebot_base::Writer")
+set(node_plugins "${node_plugins}littlebot_base::Writer;$<TARGET_FILE:writer>\n")
 
 
 # Littlebot Base Reader
@@ -67,14 +67,14 @@ add_executable(littlebot_base_composition
   src/littlebot_base_composition.cpp)
   
 target_link_libraries(littlebot_base_composition
-  littlebot_listener
+  littlebot_base_writer
   littlebot_base_reader)
 
 ament_target_dependencies(littlebot_base_composition
   "rclcpp")
 
 install(TARGETS
-  littlebot_listener
+  littlebot_base_writer
   littlebot_base_reader
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
