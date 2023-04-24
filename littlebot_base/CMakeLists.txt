@@ -14,6 +14,11 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(controller_interface REQUIRED)
+find_package(controller_manager REQUIRED)
+find_package(controller_manager_msgs REQUIRED)
+find_package(hardware_interface REQUIRED)
+find_package(pluginlib REQUIRED)
 
 include_directories(include)
 
@@ -63,6 +68,7 @@ rclcpp_components_register_nodes(littlebot_base_reader "littlebot_base::Reader")
 set(node_plugins "${node_plugins}littlebot_base::Reader;$<TARGET_FILE:reader>\n")
 
 
+# Compostion for reader and writer components
 add_executable(littlebot_base_composition
   src/littlebot_base_composition.cpp)
   
@@ -73,6 +79,16 @@ target_link_libraries(littlebot_base_composition
 ament_target_dependencies(littlebot_base_composition
   "rclcpp")
 
+
+# Hardware interface
+ament_target_dependencies( littlebot_hardware
+  "hardware_interface"
+  "pluginlib"
+  "rclcpp")
+
+pluginlib_export_plugin_description_file(hardware_interface litllebot_hardware.xml)
+
+
 install(TARGETS
   littlebot_base_writer
   littlebot_base_reader
@@ -80,11 +96,9 @@ install(TARGETS
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
 
-
 install(TARGETS
   littlebot_base_composition
   DESTINATION lib/${PROJECT_NAME})
-
 
 # Install launch files.
 install(DIRECTORY
