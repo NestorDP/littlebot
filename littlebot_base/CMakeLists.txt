@@ -63,15 +63,14 @@ rclcpp_components_register_nodes(littlebot_talker "littlebot_base::Talker")
 set(node_plugins "${node_plugins}littlebot_base::Talker;$<TARGET_FILE:littlebot_talker>\n")
 
 
-add_executable(manual_composition
-  src/manual_composition.cpp
-  src/protocol.cpp)
+add_executable(littlebot_base_composition
+  src/littlebot_base_composition.cpp)
   
-target_link_libraries(manual_composition
+target_link_libraries(littlebot_base_composition
   littlebot_listener
   littlebot_talker)
 
-ament_target_dependencies(manual_composition
+ament_target_dependencies(littlebot_base_composition
   "rclcpp")
 
 install(TARGETS
@@ -83,7 +82,7 @@ install(TARGETS
 
 
 install(TARGETS
-  manual_composition
+  littlebot_base_composition
   DESTINATION lib/${PROJECT_NAME})
 
 
