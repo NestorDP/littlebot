@@ -20,7 +20,7 @@ namespace littlebot_base {
 
 
   Reader::Reader(const rclcpp::NodeOptions & options, serial::Serial *serial)
-  : Node("getVelocite", options), count_(0), serial_(serial) {
+  : Node("reader", "littlebot_base", options), count_(0), serial_(serial) {
 
     pub_ = create_publisher<std_msgs::msg::String>("feedback", 10);
     timer_ = create_wall_timer(1000ms, std::bind(&Reader::on_timer, this));

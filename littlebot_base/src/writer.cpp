@@ -8,7 +8,7 @@ namespace littlebot_base {
     {}
 
   Writer::Writer(const rclcpp::NodeOptions & options, serial::Serial *serial)
-    : Node("base_writer", options), serial_(serial){
+    : Node("writer","littlebot_base", options), serial_(serial){
       
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
 
