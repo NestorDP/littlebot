@@ -25,22 +25,21 @@
 int main(int argc, char * argv[])
 {
   setvbuf(stdout, NULL, _IONBF, BUFSIZ);
-  
-  // littlebot::CommunicationProtocol littlebot_base("/dev/rfcomm0"); 
 
   rclcpp::init(argc, argv);
 
   rclcpp::executors::SingleThreadedExecutor exec;
   rclcpp::NodeOptions options;
 
-  auto talker   = std::make_shared<littlebot_base::Talker>(options);
-  // auto listener = std::make_shared<littlebot_base::Listener>(options);
+  serial::Serial ser;
+  ser.OpenPort("/dev/rfcomm0");
+  ser.SetFlowControl(serial::FlowControl::Software);
 
-  // auto talker   = std::make_shared<littlebot_base::Talker>(&s, options);
-  // auto listener = std::make_shared<littlebot_base::Listener>(&s, options);
+  auto talker   = std::make_shared<littlebot_base::Talker>(options, &ser);
+  auto listener = std::make_shared<littlebot_base::Listener>(options, &ser);
 
   exec.add_node(talker);
-  // exec.add_node(listener);
+  exec.add_node(listener);
  
   exec.spin();
   rclcpp::shutdown();

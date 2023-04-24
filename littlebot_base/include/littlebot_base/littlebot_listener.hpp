@@ -21,12 +21,13 @@ class Listener : public rclcpp::Node {
   LITTLEBOT_LISTENER_CPP_PUBLIC
   explicit Listener(const rclcpp::NodeOptions & options);
 
-  // LITTLEBOT_LISTENER_CPP_PUBLIC
-  // explicit Listener(comm::CommunicationProtocol *comm, const rclcpp::NodeOptions & options);
+  LITTLEBOT_LISTENER_CPP_PUBLIC
+  explicit Listener(const rclcpp::NodeOptions & options, serial::Serial *serial);
 
  private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
-  littlebot::Protocol littlebot_base;
+  
+  serial::Serial *serial_;
 };
 
 }  // namespace littlebot_base

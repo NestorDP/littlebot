@@ -22,6 +22,9 @@ namespace littlebot_base
     LITTLEBOT_TALKER_PUBLIC
     explicit Talker(const rclcpp::NodeOptions &options);
 
+    LITTLEBOT_TALKER_PUBLIC
+    explicit Talker(const rclcpp::NodeOptions & options, serial::Serial *serial);
+
   protected:
     void on_timer();
 
@@ -31,8 +34,7 @@ namespace littlebot_base
     rclcpp::TimerBase::SharedPtr timer_;
     std::string message_;
 
-    serial::Serial serial_;
-    littlebot::Protocol protocol_;
+    serial::Serial *serial_;
 
     float velocity_read_[2] = {0.0, 0.0};
   };

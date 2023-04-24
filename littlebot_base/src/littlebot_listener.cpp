@@ -4,24 +4,23 @@
 
 namespace littlebot_base {
 
-// Listener::Listener(const rclcpp::NodeOptions & options)
-//     : Node("", options) 
-//     {}
-
 Listener::Listener(const rclcpp::NodeOptions & options)
-  : Node("listener", options){
+    : Node("", options) 
+    {}
+
+Listener::Listener(const rclcpp::NodeOptions & options, serial::Serial *serial)
+  : Node("setVelocite", options), serial_(serial){
     
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
 
     auto callback =
       [this](std_msgs::msg::String::ConstSharedPtr msg) -> void {
-        RCLCPP_INFO(this->get_logger(), "I heard: [%s]", msg->data.c_str());
-        // comm->SetVelocity(3.14, 3.14);
-        // comm->LittlebotWrite();
+        std::string send_msg = msg->data.c_str();
+        serial_->SendMsg(&send_msg);
       };
 
     sub_ =
-      create_subscription<std_msgs::msg::String>("chatter", 10, callback);
+      create_subscription<std_msgs::msg::String>("velocidade", 10, callback);
   }
 }  // namespace littlebot_base
 
