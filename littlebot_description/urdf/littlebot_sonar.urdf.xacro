@@ -29,7 +29,5 @@
             <child link="sonar_${sonar_numero}"/>
             <xacro:insert_block name="joint_pose"/>
         </joint>
-
 	</xacro:macro>
-
 </robot>

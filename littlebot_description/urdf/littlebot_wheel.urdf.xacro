@@ -1,51 +1,40 @@
 <?xml version="1.0"?>
 
 <robot name="littlebot_wheel" xmlns:xacro="http://ros.org/wiki/xacro" >
+  <xacro:macro name="littlebot_wheel" params="side_wheel *mesh_wheel_pose *joint_wheel_pose">
+    <link name="${side_wheel}_wheel">
+      <visual>
+        <xacro:insert_block name="mesh_wheel_pose"/>
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <xacro:insert_block name="mesh_wheel_pose"/>
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
+        </geometry>
+      </collision>
+      <inertial>
+        <xacro:insert_block name="mesh_wheel_pose"/>
+        <mass value="0.041"/>
+        <inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
+      </inertial>
+    </link>
 
-<xacro:macro name="littlebot_wheel" params="side_wheel *mesh_wheel_pose *joint_wheel_pose">
-  <link name="${side_wheel}_wheel">
-    <visual>
-      <xacro:insert_block name="mesh_wheel_pose"/>
-      <geometry>
-        <mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-      </geometry>
-    </visual>
-    <collision>
-      <xacro:insert_block name="mesh_wheel_pose"/>
-      <geometry>
-        <mesh filename="file://$(find littlebot_description)/meshes/roda.dae" />
-      </geometry>
-    </collision>
-    <inertial>
-      <xacro:insert_block name="mesh_wheel_pose"/>
-      <mass value="0.041"/>
-      <inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
-    </inertial>
-  </link>
+    <joint name="base_to_${side_wheel}_wheel" type="continuous">
+      <parent link="chassis"/>
+      <child link="${side_wheel}_wheel"/>
+      <xacro:insert_block name="joint_wheel_pose"/>
+      <axis xyz="0 1 0" rpy="0 0 0" />
+    </joint>
 
-  <joint name="base_to_${side_wheel}_wheel" type="continuous">
-    <parent link="chassis"/>
-    <child link="${side_wheel}_wheel"/>
-    <xacro:insert_block name="joint_wheel_pose"/>
-    <axis xyz="0 1 0" rpy="0 0 0" />
-  </joint>
-
-  <!-- <transmission name="trans_${side_wheel}_wheel">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="base_to_${side_wheel}_wheel">
-  <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="${side_wheel}_wheel_motor">
-  <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-  </transmission> -->
-
-  <gazebo reference="${side_wheel}_wheel">
-    <mu1 value="1000.0"/>
-    <mu2 value="1.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
-    <fdir1 value="1 0 0"/>
-  </gazebo>
-</xacro:macro>
+    <gazebo reference="${side_wheel}_wheel">
+      <mu1 value="1000.0"/>
+      <mu2 value="1.0"/>
+      <kp value="10000000.0" />
+      <kd value="1.0" />
+      <fdir1 value="1 0 0"/>
+    </gazebo>
+  </xacro:macro>
 </robot>

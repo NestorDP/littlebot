@@ -81,12 +81,12 @@ ament_target_dependencies(littlebot_base_composition
 
 
 # Hardware interface
-ament_target_dependencies( littlebot_hardware
-  "hardware_interface"
-  "pluginlib"
-  "rclcpp")
+# ament_target_dependencies( littlebot_hardware
+#   "hardware_interface"
+#   "pluginlib"
+#   "rclcpp")
 
-pluginlib_export_plugin_description_file(hardware_interface litllebot_hardware.xml)
+# pluginlib_export_plugin_description_file(hardware_interface litllebot_hardware.xml)
 
 
 install(TARGETS

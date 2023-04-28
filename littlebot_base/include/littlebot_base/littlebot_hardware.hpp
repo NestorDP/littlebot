@@ -1,64 +1,73 @@
 #ifndef LITTLEBOT_BASE__LITTLEBOT_HARDWARE_HPP_
 #define LITTLEBOT_BASE__LITTLEBOT_HARDWARE_HPP_
 
-#include <chrono>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "hardware_interface/base_interface.hpp"
+#include <libserial/serial.hpp>
+
 #include "hardware_interface/handle.hpp"
 #include "hardware_interface/hardware_info.hpp"
 #include "hardware_interface/system_interface.hpp"
 #include "hardware_interface/types/hardware_interface_return_values.hpp"
-#include "hardware_interface/types/hardware_interface_status_values.hpp"
-#include "hardware_interface/visibility_control.h"
+#include "rclcpp/clock.hpp"
+#include "rclcpp/duration.hpp"
 #include "rclcpp/macros.hpp"
-#include "rclcpp/rclcpp.hpp"
+#include "rclcpp/time.hpp"
+#include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
+#include "rclcpp_lifecycle/state.hpp"
+#include "littlebot_base/visibility_control.h"
 
 using namespace std::chrono_literals;
 
 namespace littlebot_base
 {
-
-class LittlebotHardware
-: public hardware_interface::BaseInterface<hardware_interface::SystemInterface>
+class LittlebotHardware : public hardware_interface::SystemInterface
 {
 public:
   RCLCPP_SHARED_PTR_DEFINITIONS(LittlebotHardware)
 
-  HARDWARE_INTERFACE_PUBLIC
-  hardware_interface::return_type configure(const hardware_interface::HardwareInfo & info) override;
+  LITTLEBOT_BASE_PUBLIC
+  hardware_interface::CallbackReturn on_init(
+    const hardware_interface::HardwareInfo & info) override;
 
-  HARDWARE_INTERFACE_PUBLIC
+  LITTLEBOT_BASE_PUBLIC
   std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
 
-  HARDWARE_INTERFACE_PUBLIC
+  LITTLEBOT_BASE_PUBLIC
   std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
 
-  HARDWARE_INTERFACE_PUBLIC
-  hardware_interface::return_type start() override;
+  LITTLEBOT_BASE_PUBLIC
+  hardware_interface::CallbackReturn on_activate(
+    const rclcpp_lifecycle::State & previous_state) override;
 
-  HARDWARE_INTERFACE_PUBLIC
-  hardware_interface::return_type stop() override;
+  LITTLEBOT_BASE_PUBLIC
+  hardware_interface::CallbackReturn on_deactivate(
+    const rclcpp_lifecycle::State & previous_state) override;
 
-  HARDWARE_INTERFACE_PUBLIC
-  hardware_interface::return_type read() override;
+  LITTLEBOT_BASE_PUBLIC
+  hardware_interface::return_type read(
+    const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
-  HARDWARE_INTERFACE_PUBLIC
-  hardware_interface::return_type write() override;
+  LITTLEBOT_BASE_PUBLIC
+  hardware_interface::return_type write(
+    const rclcpp::Time & time, const rclcpp::Duration & period) override;
 
 private:
-  // ROS Parameters
-  std::string serial_port_;
-  double polling_timeout_;
-  double wheel_diameter_, max_accel_, max_speed_;
+  // Parameters for the DiffBot simulation
+  double hw_start_sec_;
+  double hw_stop_sec_;
 
-  // Store the command for the robot
+  // Store the command for the simulated robot
   std::vector<double> hw_commands_;
-  std::vector<double> hw_states_position_, hw_states_position_offset_, hw_states_velocity_;
+  std::vector<double> hw_positions_;
+  std::vector<double> hw_velocities_;
 
-  uint8_t left_cmd_joint_index_, right_cmd_joint_index_;
+  // Store the wheeled robot position
+  double base_x_;
+  double base_y_;
+  double base_theta_;
 };
 
 }  // namespace littlebot_base

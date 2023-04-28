@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot_robot">
+  <xacro:macro name="littlebot_robot" >
+
+    <!-- Modelagem base_link "link" -->
+    <link name="base_link">
+    </link>
+
+    <!-- Modelagem chassis "link" and "joint"-->
+    <!-- ========================================================================== -->
+    <link name="chassis">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/littlebot.dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/chassis.dae" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.19357368"/>
+        <inertia ixx="1.84569610e-4"  ixy="-4.09475462e-6"  ixz="-2.91063667e-5" 
+                                      iyy="7.65700035e-4"   iyz="2.32776537e-8"  
+                                                            izz="9.00861891e-4" />
+      </inertial>
+    </link>  
+
+    <joint name="base_to_chassis" type="fixed">
+      <parent link="base_link"/>
+      <child link="chassis"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    </joint>
+
+    <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
+    <!-- ========================================================================== -->
+    <link name="imu_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/MPU_6050.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/MPU_6050.dae" />
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.00142672"/>
+        <inertia ixx="4.54052487e-8"  ixy="1.07305074e-10"  ixz="-2.17782593e-10" 
+                                      iyy="2.70451174e-8"   iyz="-4.58999382e-11" 
+                                                            izz="7.14041804e-8" />
+      </inertial>
+    </link>  
+
+    <joint name="chassis_to_imu" type="fixed">
+      <parent link="chassis"/>
+      <child link="imu_link"/>
+      <origin xyz="0.028 0.0 0.005" rpy="0 0 0" />
+    </joint>
+  </xacro:macro>
+</robot>

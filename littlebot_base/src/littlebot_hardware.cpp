@@ -1,4 +1,3 @@
-
 #include <chrono>
 #include <cmath>
 #include <limits>
@@ -9,125 +8,82 @@
 #include "rclcpp/rclcpp.hpp"
 
 #include "littlebot_base/littlebot_hardware.hpp"
-namespace
-{
-  const uint8_t LEFT = 0, RIGHT = 1;
-}
-
-namespace
-{
-  const int UNDERVOLT_ERROR = 18;
-  const int UNDERVOLT_WARN = 19;
-  const int OVERVOLT_ERROR = 30;
-  const int OVERVOLT_WARN = 29;
-  const int DRIVER_OVERTEMP_ERROR = 50;
-  const int DRIVER_OVERTEMP_WARN = 30;
-  const int MOTOR_OVERTEMP_ERROR = 80;
-  const int MOTOR_OVERTEMP_WARN = 70;
-  const double LOWPOWER_ERROR = 0.2;
-  const double LOWPOWER_WARN = 0.3;
-  const int CONTROLFREQ_WARN = 90;
-  const unsigned int SAFETY_TIMEOUT = 0x1;
-  const unsigned int SAFETY_LOCKOUT = 0x2;
-  const unsigned int SAFETY_ESTOP = 0x8;
-  const unsigned int SAFETY_CCI = 0x10;
-  const unsigned int SAFETY_PSU = 0x20;
-  const unsigned int SAFETY_CURRENT = 0x40;
-  const unsigned int SAFETY_WARN = (SAFETY_TIMEOUT | SAFETY_CCI | SAFETY_PSU);
-  const unsigned int SAFETY_ERROR = (SAFETY_LOCKOUT | SAFETY_ESTOP | SAFETY_CURRENT);
-}  // namespace
-
 
 namespace littlebot_base
 {
-  static const std::string HW_NAME = "HuskyHardware";
-  static const std::string LEFT_CMD_JOINT_NAME = "front_left_wheel_joint";
-  static const std::string RIGHT_CMD_JOINT_NAME = "front_right_wheel_joint";
-
-hardware_interface::return_type LittlebotHardware::configure(
+hardware_interface::CallbackReturn LittlebotHardware::on_init(
   const hardware_interface::HardwareInfo & info)
 {
-  if (configure_default(info) != hardware_interface::return_type::OK)
+  if (
+    hardware_interface::SystemInterface::on_init(info) !=
+    hardware_interface::CallbackReturn::SUCCESS)
   {
-    return hardware_interface::return_type::ERROR;
+    return hardware_interface::CallbackReturn::ERROR;
   }
 
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Name: %s", info_.name.c_str());
+  base_x_ = 0.0;
+  base_y_ = 0.0;
+  base_theta_ = 0.0;
 
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Number of Joints %u", info_.joints.size());
-
-  hw_states_position_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  hw_states_position_offset_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  hw_states_velocity_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-
-  wheel_diameter_ = std::stod(info_.hardware_parameters["wheel_diameter"]);
-  max_accel_ = std::stod(info_.hardware_parameters["max_accel"]);
-  max_speed_ = std::stod(info_.hardware_parameters["max_speed"]);
-  polling_timeout_ = std::stod(info_.hardware_parameters["polling_timeout"]);
-
-  serial_port_ = info_.hardware_parameters["serial_port"];
-
-  status_node_ = std::make_shared<husky_status::HuskyStatus>();
-
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Port: %s", serial_port_.c_str());
-  horizon_legacy::connect(serial_port_);
-  horizon_legacy::configureLimits(max_speed_, max_accel_);
-  resetTravelOffset();
+  hw_positions_.resize(info_.joints.size(),
+                       std::numeric_limits<double>::quiet_NaN());
+  hw_velocities_.resize(info_.joints.size(),
+                        std::numeric_limits<double>::quiet_NaN());
+  hw_commands_.resize(info_.joints.size(),
+                      std::numeric_limits<double>::quiet_NaN());
 
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
   {
-    // HuskyHardware has exactly two states and one command interface on each joint
+    // DiffBotSystem has exactly two states and one command interface on each joint
     if (joint.command_interfaces.size() != 1)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger(HW_NAME),
-        "Joint '%s' has %d command interfaces found. 1 expected.", joint.name.c_str(),
+        rclcpp::get_logger("LittlebotHardware"),
+        "Joint '%s' has %zu command interfaces found. 1 expected.", joint.name.c_str(),
         joint.command_interfaces.size());
-      return hardware_interface::return_type::ERROR;
+      return hardware_interface::CallbackReturn::ERROR;
     }
 
     if (joint.command_interfaces[0].name != hardware_interface::HW_IF_VELOCITY)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger(HW_NAME),
+        rclcpp::get_logger("LittlebotHardware"),
         "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
         joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_VELOCITY);
-      return hardware_interface::return_type::ERROR;
+      return hardware_interface::CallbackReturn::ERROR;
     }
 
     if (joint.state_interfaces.size() != 2)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger(HW_NAME),
-        "Joint '%s' has %d state interface. 2 expected.", joint.name.c_str(),
+        rclcpp::get_logger("LittlebotHardware"),
+        "Joint '%s' has %zu state interface. 2 expected.", joint.name.c_str(),
         joint.state_interfaces.size());
-      return hardware_interface::return_type::ERROR;
+      return hardware_interface::CallbackReturn::ERROR;
     }
 
     if (joint.state_interfaces[0].name != hardware_interface::HW_IF_POSITION)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger(HW_NAME),
-        "Joint '%s' have '%s' as first state interface. '%s' and '%s' expected.",
-        joint.name.c_str(), joint.state_interfaces[0].name.c_str(),
-        hardware_interface::HW_IF_POSITION);
-      return hardware_interface::return_type::ERROR;
+        rclcpp::get_logger("LittlebotHardware"),
+        "Joint '%s' have '%s' as first state interface. '%s' expected.", joint.name.c_str(),
+        joint.state_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
+      return hardware_interface::CallbackReturn::ERROR;
     }
 
     if (joint.state_interfaces[1].name != hardware_interface::HW_IF_VELOCITY)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger(HW_NAME),
+        rclcpp::get_logger("LittlebotHardware"),
         "Joint '%s' have '%s' as second state interface. '%s' expected.", joint.name.c_str(),
         joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
-      return hardware_interface::return_type::ERROR;
+      return hardware_interface::CallbackReturn::ERROR;
     }
   }
 
-  status_ = hardware_interface::status::CONFIGURED;
-  return hardware_interface::return_type::OK;
+  return hardware_interface::CallbackReturn::SUCCESS;
 }
+
 
 std::vector<hardware_interface::StateInterface> LittlebotHardware::export_state_interfaces()
 {
@@ -135,102 +91,134 @@ std::vector<hardware_interface::StateInterface> LittlebotHardware::export_state_
   for (auto i = 0u; i < info_.joints.size(); i++)
   {
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_states_position_[i]));
+      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_positions_[i]));
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_states_velocity_[i]));
+      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_velocities_[i]));
   }
 
   return state_interfaces;
 }
 
+
 std::vector<hardware_interface::CommandInterface> LittlebotHardware::export_command_interfaces()
 {
   std::vector<hardware_interface::CommandInterface> command_interfaces;
-
   for (auto i = 0u; i < info_.joints.size(); i++)
   {
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
-
-    // Determine which joints will be used for commands since Husky only has two motors
-    if (info_.joints[i].name == LEFT_CMD_JOINT_NAME)
-    {
-      left_cmd_joint_index_ = i;
-    }
-
-    if (info_.joints[i].name == RIGHT_CMD_JOINT_NAME)
-    {
-      right_cmd_joint_index_ = i;
-    }
   }
 
   return command_interfaces;
 }
 
-hardware_interface::return_type LittlebotHardware::start()
+
+hardware_interface::CallbackReturn LittlebotHardware::on_activate(
+  const rclcpp_lifecycle::State & /*previous_state*/)
 {
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Starting ...please wait...");
+  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+  RCLCPP_INFO(rclcpp::get_logger("LittlebotHardware"), "Activating ...please wait...");
+
+  for (auto i = 0; i < hw_start_sec_; i++)
+  {
+    rclcpp::sleep_for(std::chrono::seconds(1));
+    RCLCPP_INFO(
+      rclcpp::get_logger("LittlebotHardware"), "%.1f seconds left...", hw_start_sec_ - i);
+  }
+  // END: This part here is for exemplary purposes - Please do not copy to your production code
 
   // set some default values
-  for (auto i = 0u; i < hw_states_position_.size(); i++)
+  for (auto i = 0u; i < hw_positions_.size(); i++)
   {
-    if (std::isnan(hw_states_position_[i]))
+    if (std::isnan(hw_positions_[i]))
     {
-      hw_states_position_[i] = 0;
-      hw_states_position_offset_[i] = 0;
-      hw_states_velocity_[i] = 0;
+      hw_positions_[i] = 0;
+      hw_velocities_[i] = 0;
       hw_commands_[i] = 0;
     }
   }
 
-  status_ = hardware_interface::status::STARTED;
+  RCLCPP_INFO(rclcpp::get_logger("LittlebotHardware"), "Successfully activated!");
 
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "System Successfully started!");
-
-  return hardware_interface::return_type::OK;
+  return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::return_type LittlebotHardware::stop()
+
+hardware_interface::CallbackReturn LittlebotHardware::on_deactivate(
+  const rclcpp_lifecycle::State & /*previous_state*/)
 {
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Stopping ...please wait...");
+  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+  RCLCPP_INFO(rclcpp::get_logger("LittlebotHardware"), "Deactivating ...please wait...");
 
-  status_ = hardware_interface::status::STOPPED;
-
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "System successfully stopped!");
-
-  return hardware_interface::return_type::OK;
-}
-
-hardware_interface::return_type LittlebotHardware::read()
-{
-  RCLCPP_DEBUG(rclcpp::get_logger(HW_NAME), "Reading from hardware");
-
-  updateJointsFromHardware();
-
-  RCLCPP_DEBUG(rclcpp::get_logger(HW_NAME), "Joints successfully read!");
-
-  // This will run at 10Hz but status data is only needed at 1Hz.
-  static int i = 0;
-  if (i <= 10)
+  for (auto i = 0; i < hw_stop_sec_; i++)
   {
-    i++;
+    rclcpp::sleep_for(std::chrono::seconds(1));
+    RCLCPP_INFO(
+      rclcpp::get_logger("LittlebotHardware"), "%.1f seconds left...", hw_stop_sec_ - i);
   }
-  else
+  // END: This part here is for exemplary purposes - Please do not copy to your production code
+
+  RCLCPP_INFO(rclcpp::get_logger("LittlebotHardware"), "Successfully deactivated!");
+
+  return hardware_interface::CallbackReturn::SUCCESS;
+}
+
+
+hardware_interface::return_type LittlebotHardware::read(
+  const rclcpp::Time & /*time*/, const rclcpp::Duration & period)
+{
+  double radius = 0.02;  // radius of the wheels
+  double dist_w = 0.1;   // distance between the wheels
+  for (uint i = 0; i < hw_commands_.size(); i++)
   {
-    readStatusFromHardware();
-    i = 0;
+    // Simulate DiffBot wheels's movement as a first-order system
+    // Update the joint status: this is a revolute joint without any limit.
+    // Simply integrates
+    hw_positions_[i] = hw_positions_[1] + period.seconds() * hw_commands_[i];
+    hw_velocities_[i] = hw_commands_[i];
+
+    // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+    RCLCPP_INFO(
+      rclcpp::get_logger("LittlebotHardware"),
+      "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
+      hw_velocities_[i], info_.joints[i].name.c_str());
+    // END: This part here is for exemplary purposes - Please do not copy to your production code
   }
+
+  // Update the free-flyer, i.e. the base notation using the classical
+  // wheel differentiable kinematics
+  double base_dx = 0.5 * radius * (hw_commands_[0] + hw_commands_[1]) * cos(base_theta_);
+  double base_dy = 0.5 * radius * (hw_commands_[0] + hw_commands_[1]) * sin(base_theta_);
+  double base_dtheta = radius * (hw_commands_[0] - hw_commands_[1]) / dist_w;
+  base_x_ += base_dx * period.seconds();
+  base_y_ += base_dy * period.seconds();
+  base_theta_ += base_dtheta * period.seconds();
+
+  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+  RCLCPP_INFO(
+    rclcpp::get_logger("LittlebotHardware"), "Joints successfully read! (%.5f,%.5f,%.5f)",
+    base_x_, base_y_, base_theta_);
+  // END: This part here is for exemplary purposes - Please do not copy to your production code
 
   return hardware_interface::return_type::OK;
 }
 
-hardware_interface::return_type LittlebotHardware::write()
+
+hardware_interface::return_type littlebot_base ::LittlebotHardware::write(
+  const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
-  RCLCPP_DEBUG(rclcpp::get_logger(HW_NAME), "Writing to hardware");
+  // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
+  RCLCPP_INFO(rclcpp::get_logger("LittlebotHardware"), "Writing...");
 
-  writeCommandsToHardware();
-
-  RCLCPP_DEBUG(rclcpp::get_logger(HW_NAME), "Joints successfully written!");
+  for (auto i = 0u; i < hw_commands_.size(); i++)
+  {
+    // Simulate sending commands to the hardware
+    RCLCPP_INFO(
+      rclcpp::get_logger("LittlebotHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
+      info_.joints[i].name.c_str());
+  }
+  RCLCPP_INFO(rclcpp::get_logger("LittlebotHardware"), "Joints successfully written!");
+  // END: This part here is for exemplary purposes - Please do not copy to your production code
 
   return hardware_interface::return_type::OK;
 }
