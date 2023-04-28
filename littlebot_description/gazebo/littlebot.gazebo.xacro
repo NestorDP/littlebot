@@ -33,7 +33,7 @@
     </ros2_control>
 
     <!-- Plugin IMU -->
-    <!-- <gazebo reference="imu_link">
+    <gazebo reference="imu_link">
       <sensor name="imu_sensor" type="imu">
         <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
           <ros>
@@ -46,10 +46,10 @@
         <update_rate>100</update_rate>
         <visualize>true</visualize>
       </sensor>
-    </gazebo> -->
+    </gazebo>
 
     <!-- Plugin SONAR -->
-    <!-- <xacro:macro name="sonar" params="reference topic_name">
+    <xacro:macro name="sonar" params="reference topic_name">
       <gazebo reference="${reference}">        
         <sensor type="ray" name="TeraRanger">
           <update_rate>50</update_rate>
@@ -78,8 +78,8 @@
               <mean>0.0</mean>
               <stddev>0.005</stddev>
             </noise>
-          </ray> -->
-<!-- 
+          </ray>
+
           <plugin name="gazebo_ros_range_controller" filename="libgazebo_ros_ray_sensor.so">
             <ros>
               <namespace>/</namespace>
@@ -91,14 +91,14 @@
           </plugin>
         </sensor>  
       </gazebo>
-    </xacro:macro> -->
+    </xacro:macro>
 
     <!-- Call SONAR gazebo plugin xacro -->
-    <!-- <xacro:sonar reference="sonar_1" topic_name="sonar1" />
+    <xacro:sonar reference="sonar_1" topic_name="sonar1" />
     <xacro:sonar reference="sonar_2" topic_name="sonar2" />
     <xacro:sonar reference="sonar_3" topic_name="sonar3" />
     <xacro:sonar reference="sonar_4" topic_name="sonar4" />
-    <xacro:sonar reference="sonar_5" topic_name="sonar5" /> -->
+    <xacro:sonar reference="sonar_5" topic_name="sonar5" />
     
   </xacro:macro>
 </robot>
