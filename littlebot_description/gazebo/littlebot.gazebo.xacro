@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+  
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="littlebot_gazebo">
+  
+    <!-- Plugin CONTROLER -->
+    <gazebo>
+      <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <parameters>$(find littlebot_control)/config/control.yaml</parameters>
+      </plugin>
+    </gazebo>
+
+    <ros2_control name="littlebot_hardware" type="system">
+      <hardware>
+        <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+      </hardware>
+      <joint name="base_to_left_wheel">
+        <command_interface name="velocity">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>      
+      <joint name="base_to_right_wheel">
+        <command_interface name="velocity">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+    </ros2_control>
+
+    <!-- Plugin IMU -->
+    <!-- <gazebo reference="imu_link">
+      <sensor name="imu_sensor" type="imu">
+        <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+          <ros>
+            <namespace>/</namespace>
+            <remapping>~/out:=imu/data_raw</remapping>
+          </ros>
+          <initial_orientation_as_reference>false</initial_orientation_as_reference>
+        </plugin>
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+      </sensor>
+    </gazebo> -->
+
+    <!-- Plugin SONAR -->
+    <!-- <xacro:macro name="sonar" params="reference topic_name">
+      <gazebo reference="${reference}">        
+        <sensor type="ray" name="TeraRanger">
+          <update_rate>50</update_rate>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>10</samples>
+                <resolution>1</resolution> 
+                <min_angle>-0.14835</min_angle>
+                <max_angle>0.14835</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>10</samples>
+                <resolution>1</resolution> 
+                <min_angle>-0.14835</min_angle>
+                <max_angle>0.14835</max_angle> 
+              </vertical>
+            </scan>
+            <range>
+              <min>0.01</min>
+              <max>2</max>
+              <resolution>0.02</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.005</stddev>
+            </noise>
+          </ray> -->
+<!-- 
+          <plugin name="gazebo_ros_range_controller" filename="libgazebo_ros_ray_sensor.so">
+            <ros>
+              <namespace>/</namespace>
+              <remapping>~/out:=sensor/${topic_name}</remapping>
+            </ros>
+            <output_type>sensor_msgs/Range</output_type>
+            <frame_name>${reference}</frame_name>
+            <radiation_type>ultrasound</radiation_type>
+          </plugin>
+        </sensor>  
+      </gazebo>
+    </xacro:macro> -->
+
+    <!-- Call SONAR gazebo plugin xacro -->
+    <!-- <xacro:sonar reference="sonar_1" topic_name="sonar1" />
+    <xacro:sonar reference="sonar_2" topic_name="sonar2" />
+    <xacro:sonar reference="sonar_3" topic_name="sonar3" />
+    <xacro:sonar reference="sonar_4" topic_name="sonar4" />
+    <xacro:sonar reference="sonar_5" topic_name="sonar5" /> -->
+    
+  </xacro:macro>
+</robot>
