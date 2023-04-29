@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="littlebot_control" >
+    <ros2_control name="littlebot_hardware" type="system">
+      <hardware>
+          <plugin>littlebot_base/LittlebotHardware</plugin>
+          <param name="hw_start_duration_sec">2.0</param>
+          <param name="hw_stop_duration_sec">3.0</param>
+          <param name="wheel_diameter">0.3302</param>
+          <param name="max_accel">5.0</param>
+          <param name="max_speed">1.0</param>
+          <param name="polling_timeout">0.1</param>
+          <param name="serial_port">$(arg serial_port)</param>
+      </hardware>
+      <joint name="base_to_left_wheel">
+        <command_interface name="velocity">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>      
+      <joint name="base_to_right_wheel">
+        <command_interface name="velocity">
+          <param name="min">-1</param>
+          <param name="max">1</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+  </xacro:macro>
+</robot>

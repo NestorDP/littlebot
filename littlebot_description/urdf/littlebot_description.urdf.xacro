@@ -13,6 +13,9 @@
 
   <!-- Included GAZEBO XACRO Files -->
   <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" />
+
+  <!-- Included ROS2_CONTROL XACRO Files -->
+  <!-- <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" /> -->
   
   <!-- Littlebot's robot description -->
   <!-- =========================================================== -->
@@ -54,11 +57,19 @@
   <xacro:littlebot_sonar sonar_numero="5">
     <origin xyz="0 0 -0.020267" rpy="0 0 0" />
     <origin xyz="0.07879836 -0.03772198 0.02500000" rpy="0 0 -0.686455448"/>
-  </xacro:littlebot_sonar> 
+  </xacro:littlebot_sonar>
+
 
   <!-- Load Gazebo plugins -->
   <!-- =========================================================== -->
-  <xacro:littlebot_gazebo/>
+  <xacro:if value="$(arg use_sim)">
+    <xacro:littlebot_gazebo/>
+  </xacro:if>
 
+  <!-- Load ROS2 Control plugins -->
+  <!-- =========================================================== -->
+  <xacro:unless value="$(arg use_sim)">
+    <!-- <xacro:littlebot_control/> -->
+  </xacro:unless>
 
 </robot>
