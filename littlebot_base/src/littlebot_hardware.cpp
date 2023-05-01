@@ -24,11 +24,15 @@ hardware_interface::return_type LittlebotHardware::configure(
     return hardware_interface::return_type::ERROR;
   }
 
-  hw_start_sec_ = stod(info_.hardware_parameters["example_param_hw_start_duration_sec"]);
-  hw_stop_sec_ = stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
   hw_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+
+  serial_port_ = info_.hardware_parameters["serial_port"];
+
+  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Port: %s", serial_port_.c_str());
+
+  //TODO: connect to serial port
 
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
   {
@@ -114,13 +118,6 @@ hardware_interface::return_type LittlebotHardware::start()
 {
   RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Starting ...please wait...");
 
-  for (auto i = 0; i <= hw_start_sec_; i++)
-  {
-    rclcpp::sleep_for(std::chrono::seconds(1));
-    RCLCPP_INFO(
-      rclcpp::get_logger("DiffBotSystemHardware"), "%.1f seconds left...", hw_start_sec_ - i);
-  }
-
   // set some default values
   for (auto i = 0u; i < hw_positions_.size(); i++)
   {
@@ -142,13 +139,6 @@ hardware_interface::return_type LittlebotHardware::start()
 hardware_interface::return_type LittlebotHardware::stop()
 {
   RCLCPP_INFO(rclcpp::get_logger("DiffBotSystemHardware"), "Stopping ...please wait...");
-
-  for (auto i = 0; i <= hw_stop_sec_; i++)
-  {
-    rclcpp::sleep_for(std::chrono::seconds(1));
-    RCLCPP_INFO(
-      rclcpp::get_logger("DiffBotSystemHardware"), "%.1f seconds left...", hw_stop_sec_ - i);
-  }
 
   status_ = hardware_interface::status::STOPPED;
 

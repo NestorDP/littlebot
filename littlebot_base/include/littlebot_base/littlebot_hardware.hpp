@@ -60,10 +60,6 @@ public:
   hardware_interface::return_type write() override;
 
 private:
-  // Parameters for the DiffBot simulation
-  double hw_start_sec_;
-  double hw_stop_sec_;
-
   // Store the command for the simulated robot
   std::vector<double> hw_commands_;
   std::vector<double> hw_positions_;
@@ -73,6 +69,9 @@ private:
   double base_x_;
   double base_y_;
   double base_theta_;
+
+  // ROS Parameters
+  std::string serial_port_;
 };
 
 }  // namespace littlebot_base
