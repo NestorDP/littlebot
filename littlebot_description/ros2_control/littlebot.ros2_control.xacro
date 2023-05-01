@@ -3,6 +3,12 @@
   <xacro:macro name="littlebot_control" >
     <ros2_control name="littlebot_hardware" type="system">
       <hardware>
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>fake_components/GenericSystem</plugin>
+          <param name="fake_sensor_commands">${fake_sensor_commands}</param>
+          <param name="state_following_offset">0.0</param>
+        </xacro:if>
+        <xacro:unless value="${use_fake_hardware}">
           <plugin>littlebot_base/LittlebotHardware</plugin>
           <param name="hw_start_duration_sec">2.0</param>
           <param name="hw_stop_duration_sec">3.0</param>
@@ -11,6 +17,7 @@
           <param name="max_speed">1.0</param>
           <param name="polling_timeout">0.1</param>
           <param name="serial_port">$(arg serial_port)</param>
+        </xacro:unless>
       </hardware>
       <joint name="base_to_left_wheel">
         <command_interface name="velocity">

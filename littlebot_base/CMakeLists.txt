@@ -81,13 +81,22 @@ ament_target_dependencies(littlebot_base_composition
 
 
 # Hardware interface
-# ament_target_dependencies( littlebot_hardware
-#   "hardware_interface"
-#   "pluginlib"
-#   "rclcpp")
+add_library(littlebot_hardware SHARED
+  src/littlebot_hardware.cpp)
 
-# pluginlib_export_plugin_description_file(hardware_interface litllebot_hardware.xml)
+ament_target_dependencies( littlebot_hardware
+  hardware_interface
+  pluginlib
+  rclcpp)
 
+pluginlib_export_plugin_description_file(hardware_interface littlebot_hardware.xml)
+
+## INSTALL
+install( TARGETS
+  littlebot_hardware
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
 
 install(TARGETS
   littlebot_base_writer
@@ -100,10 +109,27 @@ install(TARGETS
   littlebot_base_composition
   DESTINATION lib/${PROJECT_NAME})
 
-# Install launch files.
+install( 
+  DIRECTORY include/
+  DESTINATION include
+)
+
 install(DIRECTORY
   launch
   DESTINATION share/${PROJECT_NAME}/
+)
+
+## EXPORTS
+ament_export_include_directories(
+  include
+)
+ament_export_libraries(
+  littlebot_hardware
+)
+ament_export_dependencies(
+  hardware_interface
+  pluginlib
+  rclcpp
 )
 
 ament_package()
