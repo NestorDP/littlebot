@@ -18,9 +18,9 @@
       </visual>
 
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0.018" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://$(find littlebot_description)/meshes/chassis.dae" />
+          <box size="0.21 0.11 0.05"/>
         </geometry>
       </collision>
 

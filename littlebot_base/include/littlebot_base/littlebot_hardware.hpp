@@ -24,9 +24,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/time.hpp"
 
-#include "hardware_interface/visibility_control.h"
-
-
 
 using namespace std::chrono_literals;
 
