@@ -4,11 +4,12 @@
   <xacro:macro name="littlebot_robot" >
 
     <!-- Modelagem base_link "link" -->
+    <!-- ********************************************************* -->
     <link name="base_link">
     </link>
 
     <!-- Modelagem chassis "link" and "joint"-->
-    <!-- ========================================================================== -->
+    <!-- ********************************************************* -->
     <link name="chassis">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -39,8 +40,72 @@
       <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
     </joint>
 
+    <!-- Modelagem caster wheel-->
+    <!-- ********************************************************* -->
+    <link name="caster">
+      <visual>
+        <origin xyz="0 0 0" rpy="3.14 0 3.14" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/Caster_Wheel_Plate.dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0.0" rpy="3.14 0 3.14" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/Caster_Wheel_Plate.dae" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="3.14 0 3.14"/>
+        <mass value="0.01"/>
+        <inertia ixx="8.4e-7" ixy="-1.571e-14"  ixz="-1.601e-7" 
+                              iyy="8.4e-7"      iyz="1.55e-14"  
+                                                izz="1.304e-6" />
+      </inertial>
+    </link>  
+
+    <joint name="chassis_to_caster" type="fixed">
+      <parent link="chassis"/>
+      <child link="caster"/>
+      <origin xyz="-0.0871 0.0 -0.00875" rpy="0 0 0" />
+    </joint>
+
+    <!-- Modelagem free wheel-->
+    <!-- ********************************************************* -->
+    <link name="free_wheel">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/Wheel.dae" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0.0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="file://$(find littlebot_description)/meshes/Wheel.dae" />
+        </geometry>
+      </collision>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.007"/>
+        <inertia ixx="3.6e-7" ixy="0"         ixz="0" 
+                              iyy="5.344e-7"  iyz="0"  
+                                              izz="3.569e-7" />
+      </inertial>
+    </link>  
+
+    <joint name="chassis_to_free_wheel" type="fixed">
+      <parent link="chassis"/>
+      <child link="free_wheel"/>
+      <origin xyz="-0.102 0.0 -0.0245" rpy="0 0 0" />
+    </joint>
+
     <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
-    <!-- ========================================================================== -->
+    <!-- ********************************************************* -->
     <link name="imu_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />

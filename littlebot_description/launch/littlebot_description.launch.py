@@ -13,7 +13,7 @@ def generate_launch_description():
 
     description_path = get_package_share_path('littlebot_description')
     urdf_model_path  = description_path / 'urdf/littlebot_description.urdf.xacro'
-    rviz_config_path = description_path / 'rviz/littlebot_description.rviz'
+    rviz_config_path = description_path / 'config/littlebot_description.rviz'
     use_sim_time     = LaunchConfiguration('use_sim_time', default='false')
 
     # Launch arguments
