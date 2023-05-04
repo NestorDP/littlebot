@@ -30,7 +30,7 @@ hardware_interface::return_type LittlebotHardware::configure(
 
   serial_port_ = info_.hardware_parameters["serial_port"];
 
-  RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Port: %s", serial_port_.c_str());
+  // RCLCPP_INFO(rclcpp::get_logger(HW_NAME), "Port: %s", serial_port_.c_str());
 
   //TODO: connect to serial port
 
