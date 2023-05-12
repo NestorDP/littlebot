@@ -98,10 +98,10 @@
       </inertial>
     </link>  
 
-    <joint name="chassis_to_free_wheel" type="fixed">
-      <parent link="chassis"/>
+    <joint name="caster_to_free_wheel" type="fixed">
+      <parent link="caster"/>
       <child link="free_wheel"/>
-      <origin xyz="-0.102 0.0 -0.0245" rpy="0 0 0" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
     </joint>
 
     <!-- Modelagem da IMU MPU-6050 "link" "joint" -->

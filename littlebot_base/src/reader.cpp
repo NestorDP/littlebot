@@ -29,9 +29,18 @@ namespace littlebot_base {
 
   void Reader::on_timer() {
     auto msg = std::make_unique<std_msgs::msg::String>();
-    
-    serial_->ReceiveMsg(&message_);
-    msg->data = message_;
+    std::size_t found;
+    std::string final_mgs;
+
+    do {
+      serial_->ReceiveMsg(&message_);
+      found = message_.find("<");
+    } while (found != 0);
+
+    message_.erase(0, 1);
+    final_mgs = message_.substr(0, message_.find(">"));
+
+    msg->data = final_mgs;
     pub_->publish(std::move(msg));
   }
 }  // namespace littlebot_base
