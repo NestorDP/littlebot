@@ -15,14 +15,14 @@
   <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" />
 
   <!-- Included ROS2_CONTROL XACRO Files -->
-  <!-- <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" /> -->
+  <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" />
   
   <!-- Littlebot's robot description -->
   <!-- =========================================================== -->
   <!-- Body model -->
   <xacro:littlebot_robot />
 
-  <!-- Whells model -->
+  <!-- Whells models -->
   <xacro:littlebot_wheel side_wheel="left">
     <origin xyz="0.0 0 0" rpy="0 0 0"/>
     <origin xyz="0.0281 0.067 -0.01425" rpy="0 0 0" />
@@ -33,7 +33,7 @@
     <origin xyz="0.0281 -0.067 -0.01425" rpy="0 0 0" />
   </xacro:littlebot_wheel>
 
-  <!-- Modelagem do sonar -->
+  <!-- Sonar models-->
   <xacro:littlebot_sonar sonar_numero="1">
     <origin xyz="0 0 -0.020267" rpy="0 0 0" />
     <origin xyz="0.07879836 0.03772198 0.02500000" rpy="0 0 0.686455448" />

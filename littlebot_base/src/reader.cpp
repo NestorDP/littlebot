@@ -23,7 +23,7 @@ namespace littlebot_base {
   : Node("reader", "littlebot_base", options), count_(0), serial_(serial) {
 
     pub_ = create_publisher<std_msgs::msg::String>("velocite_feedback", 10);
-    timer_ = create_wall_timer(1000ms, std::bind(&Reader::on_timer, this));
+    timer_ = create_wall_timer(100ms, std::bind(&Reader::on_timer, this));
   }
 
 

@@ -32,6 +32,7 @@ namespace littlebot_base
 class LittlebotHardware 
 : public hardware_interface::BaseInterface<hardware_interface::SystemInterface>
 {
+
 public:
   RCLCPP_SHARED_PTR_DEFINITIONS(LittlebotHardware)
 
@@ -58,17 +59,18 @@ public:
 
 private:
   // Store the command for the simulated robot
-  std::vector<double> hw_commands_;
-  std::vector<double> hw_positions_;
-  std::vector<double> hw_velocities_;
-
-  // Store the wheeled robot position
-  double base_x_;
-  double base_y_;
-  double base_theta_;
+  std::vector<double> commands_velocities_;
+  std::vector<double> states_positions_;
+  std::vector<double> states_velocities_;
 
   // ROS Parameters
-  std::string serial_port_;
+  std::string left_wheel_name_ = "";
+  std::string right_wheel_name_ = "";
+  std::string serial_port_ = "";
+  int encoder_ppr = 0;
+
+  // Serial device
+  serial::Serial serial_device_;
 };
 
 }  // namespace littlebot_base
