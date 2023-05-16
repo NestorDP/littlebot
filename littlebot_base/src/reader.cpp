@@ -38,16 +38,19 @@ namespace littlebot_base {
     auto pos_right_topic = std::make_unique<example_interfaces::msg::Float32>();
 
     std::size_t found;
+    std::size_t found_begin_char;
+    std::size_t found_end_char;
     std::string final_mgs;
     std::string med_msg;
 
     do {
-      serial_->ReceiveMsg(&message_);
-      found = message_.find("<");
-    } while (found != 0);
+      serial_->ReceiveMsg(&message_); // "<left_vel#right_vel#left_pos#right_pos#>"
+      found_begin_char = message_.find("<");
+      found_end_char = message_.find(">");
+    } while (found_begin_char != 0 || found_end_char == std::string::npos);
 
     message_.erase(0, 1);
-    final_mgs = message_.substr(0, message_.find(">"));
+    final_mgs = message_.substr(0, message_.find(">")); 
 
 
     found = final_mgs.find("#");

@@ -14,7 +14,11 @@ namespace littlebot_base {
 
     auto callback =
       [this](std_msgs::msg::String::ConstSharedPtr msg) -> void {
-        std::string send_msg = msg->data.c_str();
+        std::stringstream msg_protocol;
+        int a = -20000;
+        int b = 20000;
+        msg_protocol << a << "#" << b << "#"; 
+        std::string send_msg = msg_protocol.str();
         serial_->SendMsg(&send_msg);
       };
 

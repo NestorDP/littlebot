@@ -5,6 +5,7 @@
 #define LITTLEBOT_BASE_WRITER_HPP_
 
 #include <string>
+#include <sstream>
 
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
