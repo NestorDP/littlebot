@@ -14,6 +14,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(example_interfaces REQUIRED)
 find_package(controller_interface REQUIRED)
 find_package(controller_manager REQUIRED)
 find_package(controller_manager_msgs REQUIRED)
@@ -42,7 +43,8 @@ target_compile_definitions(littlebot_base_writer
 ament_target_dependencies(littlebot_base_writer
   "rclcpp"
   "rclcpp_components"
-  "std_msgs")
+  "std_msgs"
+  "example_interfaces")
   
 rclcpp_components_register_nodes(littlebot_base_writer "littlebot_base::Writer")
 set(node_plugins "${node_plugins}littlebot_base::Writer;$<TARGET_FILE:writer>\n")
@@ -62,7 +64,8 @@ target_compile_definitions(littlebot_base_reader
 ament_target_dependencies(littlebot_base_reader
   "rclcpp"
   "rclcpp_components"
-  "std_msgs")
+  "std_msgs"
+  "example_interfaces")
 
 rclcpp_components_register_nodes(littlebot_base_reader "littlebot_base::Reader")
 set(node_plugins "${node_plugins}littlebot_base::Reader;$<TARGET_FILE:reader>\n")

@@ -4,8 +4,14 @@
 #define LITTLEBOT_BASE_READER_HPP_
 
 #include <string>
+#include <chrono>
+#include <iostream>
+#include <memory>
+#include <utility>
 
+#include "example_interfaces/msg/float32.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "rclcpp_components/register_node_macro.hpp"
 #include "std_msgs/msg/string.hpp"
 
 #include <libserial/serial.hpp>
@@ -29,7 +35,10 @@ namespace littlebot_base {
 
   private:
     size_t count_;
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_;
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub1_;
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub2_;
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub3_;
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub4_;
     rclcpp::TimerBase::SharedPtr timer_;
     std::string message_;
     serial::Serial *serial_;

@@ -15,7 +15,7 @@
   <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" />
 
   <!-- Included ROS2_CONTROL XACRO Files -->
-  <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" />
+  <!-- <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" /> -->
   
   <!-- Littlebot's robot description -->
   <!-- =========================================================== -->
