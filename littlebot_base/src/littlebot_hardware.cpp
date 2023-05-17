@@ -19,10 +19,6 @@ hardware_interface::return_type LittlebotHardware::configure(
     return hardware_interface::return_type::ERROR;
   }
 
-  commands_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  states_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  states_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-
   left_wheel_name_ = info_.hardware_parameters["left_wheel_name"];
   right_wheel_name_ = info_.hardware_parameters["right_wheel_name"];
   serial_port_ = info_.hardware_parameters["device"];
@@ -91,13 +87,16 @@ hardware_interface::return_type LittlebotHardware::configure(
 std::vector<hardware_interface::StateInterface> LittlebotHardware::export_state_interfaces()
 {
   std::vector<hardware_interface::StateInterface> state_interfaces;
-  for (auto i = 0u; i < info_.joints.size(); i++)
-  {
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &states_positions_[i]));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &states_velocities_[i]));
-  }
+
+  state_interfaces.emplace_back(hardware_interface::StateInterface(
+    left_wheel_name_, hardware_interface::HW_IF_POSITION, &left_position_));
+  state_interfaces.emplace_back(hardware_interface::StateInterface(
+    right_wheel_name_, hardware_interface::HW_IF_POSITION, &right_position_));
+
+  state_interfaces.emplace_back(hardware_interface::StateInterface(
+    left_wheel_name_, hardware_interface::HW_IF_VELOCITY, &left_velocitie_));
+  state_interfaces.emplace_back(hardware_interface::StateInterface(
+    right_wheel_name_, hardware_interface::HW_IF_VELOCITY, &right_velocitie_));
 
   return state_interfaces;
 }
@@ -106,11 +105,11 @@ std::vector<hardware_interface::StateInterface> LittlebotHardware::export_state_
 std::vector<hardware_interface::CommandInterface> LittlebotHardware::export_command_interfaces()
 {
   std::vector<hardware_interface::CommandInterface> command_interfaces;
-  for (auto i = 0u; i < info_.joints.size(); i++)
-  {
-    command_interfaces.emplace_back(hardware_interface::CommandInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &commands_velocities_[i]));
-  }
+
+  command_interfaces.emplace_back(hardware_interface::CommandInterface(
+    left_wheel_name_, hardware_interface::HW_IF_VELOCITY, &left_command_velocity_));
+  command_interfaces.emplace_back(hardware_interface::CommandInterface(
+    right_wheel_name_, hardware_interface::HW_IF_VELOCITY, &right_command_velocity_));
 
   return command_interfaces;
 }
@@ -119,17 +118,6 @@ std::vector<hardware_interface::CommandInterface> LittlebotHardware::export_comm
 hardware_interface::return_type LittlebotHardware::start()
 {
   RCLCPP_INFO(rclcpp::get_logger("LittlebotHardware"), "Starting ...please wait...");
-
-  // set some default values
-  for (auto i = 0u; i < states_positions_.size(); i++)
-  {
-    if (std::isnan(states_positions_[i]))
-    {
-      states_positions_[i] = 0;
-      states_velocities_[i] = 0;
-      commands_velocities_[i] = 0;
-    }
-  }
 
   status_ = hardware_interface::status::STARTED;
 
@@ -153,23 +141,51 @@ hardware_interface::return_type LittlebotHardware::stop()
 
 hardware_interface::return_type LittlebotHardware::read()
 {
-  //******************************************************************************
-  //ler os valores dos econders, de velocidade e ângulo
-  //lembrar de calcular a velocidade angular em rad/s
-  //usar a comunicação serial para ler a mensagem e "separar"
-  // as variáveis
-  //******************************************************************************
+  std::size_t split_character;
+  std::size_t begin_character;
+  std::size_t end_character;
+  std::string final_mgs;
+  std::string med_msg;
+  do {
+    serial_device_.ReceiveMsg(&message_protocol_); // "<left_vel#right_vel#left_pos#right_pos#>"
+    begin_character = message_protocol_.find("<");
+    end_character = message_protocol_.find(">");
+  } while (begin_character != 0 || end_character == std::string::npos);
+
+  message_protocol_.erase(0, 1);
+  final_mgs = message_protocol_.substr(0, end_character); 
+
+  split_character = final_mgs.find("#");
+  med_msg = final_mgs.substr(0, split_character);
+  final_mgs.erase(0, split_character + 1);
+  left_velocitie_ = stoi(med_msg);
+
+  split_character = final_mgs.find("#");
+  med_msg = final_mgs.substr(0, split_character);
+  final_mgs.erase(0, split_character + 1);
+  right_velocitie_ = stoi(med_msg);
+
+  split_character = final_mgs.find("#");
+  med_msg = final_mgs.substr(0, split_character);
+  final_mgs.erase(0, split_character + 1);
+  left_position_ = stoi(med_msg);
+
+  split_character = final_mgs.find("#");
+  med_msg = final_mgs.substr(0, split_character);
+  final_mgs.erase(0, split_character + 1);
+  right_position_ = stoi(med_msg);
+
   return hardware_interface::return_type::OK;
 }
 
 
 hardware_interface::return_type LittlebotHardware::write()
 {
-  //******************************************************************************
-  //escrever valores das velocidades angular em rad/s
-  //montar a mensagem a partir da variavel comands_velocities
-  //enviar através da comunicação serial
-  //******************************************************************************
+  std::stringstream msg_protocol;
+
+  msg_protocol << left_wheel_name_ << "#" << right_wheel_name_  << "#"; 
+  std::string send_msg = msg_protocol.str();
+  serial_device_.SendMsg(&send_msg);
 
   return hardware_interface::return_type::OK;
 }

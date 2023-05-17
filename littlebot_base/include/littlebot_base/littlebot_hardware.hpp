@@ -3,6 +3,7 @@
 
 #include <chrono>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -59,9 +60,12 @@ public:
 
 private:
   // Store the command for the simulated robot
-  std::vector<double> commands_velocities_;
-  std::vector<double> states_positions_;
-  std::vector<double> states_velocities_;
+  double left_command_velocity_ = 0;
+  double right_command_velocity_ = 0;
+  double left_position_ = 0;
+  double right_position_ = 0;
+  double left_velocitie_ = 0;
+  double right_velocitie_ = 0;
 
   // ROS Parameters
   std::string left_wheel_name_ = "";
@@ -71,6 +75,8 @@ private:
 
   // Serial device
   serial::Serial serial_device_;
+  std::string message_protocol_;
+
 };
 
 }  // namespace littlebot_base
