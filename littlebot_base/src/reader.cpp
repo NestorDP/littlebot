@@ -56,22 +56,22 @@ namespace littlebot_base {
     found = final_mgs.find("#");
     med_msg = final_mgs.substr(0, found);
     final_mgs.erase(0, found + 1);
-    vel_left_topic->data = stoi(med_msg);
+    vel_left_topic->data = stof(med_msg);
 
     found = final_mgs.find("#");
     med_msg = final_mgs.substr(0, found);
     final_mgs.erase(0, found + 1);
-    vel_right_topic->data = stoi(med_msg);
+    vel_right_topic->data = stof(med_msg);
 
     found = final_mgs.find("#");
     med_msg = final_mgs.substr(0, found);
     final_mgs.erase(0, found + 1);
-    pos_left_topic->data = stoi(med_msg);
+    pos_left_topic->data = stof(med_msg);
 
     found = final_mgs.find("#");
     med_msg = final_mgs.substr(0, found);
     final_mgs.erase(0, found + 1);
-    pos_right_topic->data = stoi(med_msg);
+    pos_right_topic->data = stof(med_msg);
 
     pub1_->publish(std::move(vel_left_topic));
     pub2_->publish(std::move(vel_right_topic));
