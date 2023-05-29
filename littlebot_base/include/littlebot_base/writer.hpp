@@ -6,7 +6,12 @@
 
 #include <string>
 #include <sstream>
+#include <chrono>
+#include <iostream>
+#include <memory>
+#include <utility>
 
+#include "example_interfaces/msg/float32.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -18,17 +23,29 @@
 
 namespace littlebot_base {
   class Writer : public rclcpp::Node {
-  public:
+   public:
     LITTLEBOT_BASE_WRITER_CPP_PUBLIC
     explicit Writer(const rclcpp::NodeOptions & options);
 
     LITTLEBOT_BASE_WRITER_CPP_PUBLIC
     explicit Writer(const rclcpp::NodeOptions & options, serial::Serial *serial);
 
-  private:
-    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
-    
+   protected:
+    void on_timer();
+
+   private:
+    /* Command right velocity subscriber*/
+    rclcpp::Subscription<example_interfaces::msg::Float32>::SharedPtr cmd_right_vel_sub_;
+    /* Command right velocity subscriber*/
+    rclcpp::Subscription<example_interfaces::msg::Float32>::SharedPtr cmd_left_vel_sub_;
+    /*Right velocite variable*/
+    float right_vel_;
+    /*Left velocite variable*/
+    float left_vel_;
+    /*Serial port object*/
     serial::Serial *serial_;
+    /* */
+    rclcpp::TimerBase::SharedPtr timer_;
   };
 }  // namespace littlebot_base
 
