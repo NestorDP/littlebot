@@ -35,10 +35,10 @@ int main(int argc, char * argv[])
   ser.OpenPort("/dev/rfcomm0");
   ser.SetFlowControl(serial::FlowControl::Software);
 
-  auto reader = std::make_shared<littlebot_base::Reader>(options, &ser);
+  // auto reader = std::make_shared<littlebot_base::Reader>(options, &ser);
   auto writer = std::make_shared<littlebot_base::Writer>(options, &ser);
 
-  exec.add_node(reader);
+  // exec.add_node(reader);
   exec.add_node(writer);
  
   exec.spin();

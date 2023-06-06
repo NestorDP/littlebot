@@ -31,13 +31,22 @@ namespace littlebot_base {
     explicit Writer(const rclcpp::NodeOptions & options, serial::Serial *serial);
 
    protected:
-    void on_timer();
+    void writerTimer();
 
    private:
     /* Command right velocity subscriber*/
     rclcpp::Subscription<example_interfaces::msg::Float32>::SharedPtr cmd_right_vel_sub_;
     /* Command right velocity subscriber*/
     rclcpp::Subscription<example_interfaces::msg::Float32>::SharedPtr cmd_left_vel_sub_;
+
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub1_;
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub2_;
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub3_;
+    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub4_;
+
+    std::stringstream msg_protocol_;
+    std::string send_msg_;
+
     /*Right velocite variable*/
     float right_vel_;
     /*Left velocite variable*/
@@ -45,7 +54,7 @@ namespace littlebot_base {
     /*Serial port object*/
     serial::Serial *serial_;
     /* */
-    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::TimerBase::SharedPtr timer_writer_;
   };
 }  // namespace littlebot_base
 

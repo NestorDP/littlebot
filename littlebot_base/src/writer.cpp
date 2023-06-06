@@ -21,18 +21,24 @@ namespace littlebot_base {
 
 
   Writer::Writer(const rclcpp::NodeOptions & options, serial::Serial *serial)
-    : Node("writer","littlebot_base", options), serial_(serial){
+    : Node("robot","littlebot_base", options), serial_(serial){
       
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
 
     auto vel_right_callback =
       [this](example_interfaces::msg::Float32::ConstSharedPtr vel) -> void {
         right_vel_ = vel->data;
+        msg_protocol_ << "W" << left_vel_ << "#" << right_vel_ << "#"; 
+        send_msg_ = msg_protocol_.str();
+        this->serial_->SendMsg(&send_msg_);
       };
     
     auto vel_left_callback =
       [this](example_interfaces::msg::Float32::ConstSharedPtr vel) -> void {
         left_vel_ = vel->data;
+        msg_protocol_ << "W" << left_vel_ << "#" << right_vel_ << "#"; 
+        send_msg_ = msg_protocol_.str();
+        this->serial_->SendMsg(&send_msg_);
       };
 
     cmd_right_vel_sub_ =
@@ -41,14 +47,19 @@ namespace littlebot_base {
     cmd_left_vel_sub_ =
       create_subscription<example_interfaces::msg::Float32>("cmd_left_vel", 10, vel_left_callback);
 
-    timer_ = create_wall_timer(1000ms, std::bind(&Writer::on_timer, this));
+    pub1_ = create_publisher<example_interfaces::msg::Float32>("vel_left", 10);
+    pub2_ = create_publisher<example_interfaces::msg::Float32>("vel_right", 10);
+    pub3_ = create_publisher<example_interfaces::msg::Float32>("pos_left", 10);
+    pub4_ = create_publisher<example_interfaces::msg::Float32>("pos_right", 10);
+
+    timer_writer_ = create_wall_timer(1000ms, std::bind(&Writer::writerTimer, this));
   }
 
-  void Writer::on_timer() {
-    std::stringstream msg_protocol;
-    msg_protocol << left_vel_ << "#" << right_vel_ << "#"; 
-    std::string send_msg = msg_protocol.str();
-    this->serial_->SendMsg(&send_msg);
+  void Writer::writerTimer() {
+    
+    // msg_protocol << left_vel_ << "#" << right_vel_ << "#"; 
+    // std::string send_msg = msg_protocol.str();
+    // this->serial_->SendMsg(&send_msg);
   }
 
 }  // namespace littlebot_base
