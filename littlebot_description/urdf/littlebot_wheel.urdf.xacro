@@ -10,11 +10,9 @@
         </geometry>
       </visual>
       <collision>
-        <!-- <xacro:insert_block name="mesh_wheel_pose"/> -->
         <origin xyz="0 0 0" rpy="1.571 0 0" />
         <geometry>
           <cylinder length="0.018" radius="0.03298"/>
-          <!-- <mesh filename="file://$(find littlebot_description)/meshes/roda.dae" /> -->
         </geometry>
       </collision>
       <inertial>
