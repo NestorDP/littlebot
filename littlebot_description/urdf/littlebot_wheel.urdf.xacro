@@ -18,7 +18,9 @@
       <inertial>
         <xacro:insert_block name="mesh_wheel_pose"/>
         <mass value="0.041"/>
-        <inertia ixx="2.967e-5"  ixy="-7.675e-15"  ixz="-4.765e-14" iyy="1.616e-5" iyz="-1.121e-16" izz="1.616e-5" />
+        <inertia ixx="2.967e-5" ixy="-7.675e-15"  ixz="-4.765e-14" 
+                                iyy="1.616e-5"    iyz="-1.121e-16" 
+                                                  izz="1.616e-5" />
       </inertial>
     </link>
 

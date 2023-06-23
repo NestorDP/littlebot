@@ -1,33 +1,35 @@
 <?xml version="1.0"?>
 
 <robot name="littlebot_sonar" xmlns:xacro="http://ros.org/wiki/xacro" >
-
 	<xacro:macro name="littlebot_sonar" params="sonar_numero *meshe_pose *joint_pose">
+    <link name="sonar_${sonar_numero}">   
+      <visual>
+        <xacro:insert_block name="meshe_pose"/>
+        <geometry>
+            <mesh filename="file://$(find littlebot_description)/meshes/HC-SR04.dae" />
+        </geometry>
+      </visual>
 
-        <link name="sonar_${sonar_numero}">   
-            <visual>
-                <xacro:insert_block name="meshe_pose"/>
-                <geometry>
-                    <mesh filename="file://$(find littlebot_description)/meshes/HC-SR04.dae" />
-                </geometry>
-            </visual>
-            <collision>                                                                   
-                <xacro:insert_block name="meshe_pose"/>                                                    
-                <geometry>                                                                   
-                    <mesh filename="file://$(find littlebot_description)/meshes/HC-SR04.dae" />     
-                </geometry>                                                                   
-            </collision>                                                                    
-            <inertial>                                                                    
-                <xacro:insert_block name="meshe_pose"/>                                                                   
-                <mass value="0.015"/>                                                                   
-                <inertia ixx="5.706e-7"  ixy="6.307e-9"  ixz="2.156e-9" iyy="2.771e-6" iyz="7.710e-9" izz="2.878e-6" />                                                                   
-            </inertial>
-        </link>
+      <collision>                                                                   
+        <xacro:insert_block name="meshe_pose"/>                                                    
+        <geometry>                                                                   
+            <mesh filename="file://$(find littlebot_description)/meshes/HC-SR04.dae" />     
+        </geometry>                                                                   
+      </collision>   
+                                                                       
+      <inertial>                                                                    
+        <xacro:insert_block name="meshe_pose"/>                                                                   
+        <mass value="0.015"/>                                                                   
+        <inertia ixx="5.706e-7" ixy="6.307e-9"  ixz="2.156e-9" 
+                                iyy="2.771e-6"  iyz="7.710e-9" 
+                                                izz="2.878e-6" />                                                                   
+      </inertial>
+    </link>
 
-        <joint name="base_to_sonar_${sonar_numero}" type="fixed">
-            <parent link="chassis"/>
-            <child link="sonar_${sonar_numero}"/>
-            <xacro:insert_block name="joint_pose"/>
-        </joint>
+    <joint name="base_to_sonar_${sonar_numero}" type="fixed">
+      <parent link="chassis"/>
+      <child link="sonar_${sonar_numero}"/>
+      <xacro:insert_block name="joint_pose"/>
+    </joint>
 	</xacro:macro>
 </robot>
