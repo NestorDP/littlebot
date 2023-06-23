@@ -76,21 +76,21 @@
     <!-- ********************************************************* -->
     <link name="free_wheel">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="-0.015 0 -0.015" rpy="0 0 0" />
         <geometry>
           <mesh filename="file://$(find littlebot_description)/meshes/Wheel.dae" />
         </geometry>
       </visual>
 
       <collision>
-        <origin xyz="0 0 0.0" rpy="0 0 0" />
+        <origin xyz="-0.015 0 -0.015" rpy="0 0 0" />
         <geometry>
           <mesh filename="file://$(find littlebot_description)/meshes/Wheel.dae" />
         </geometry>
       </collision>
 
       <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="-0.015 0 -0.015" rpy="0 0 0"/>
         <mass value="0.007"/>
         <inertia ixx="3.6e-7" ixy="0"         ixz="0" 
                               iyy="5.344e-7"  iyz="0"  
