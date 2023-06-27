@@ -8,9 +8,19 @@
     <link name="base_link">
     </link>
 
-    <!-- Modelagem body "link" and "joint"-->
+    <!-- Robot Footprint -->
     <!-- ********************************************************* -->
-    <link name="body">
+    <link name="base_footprint"/>
+
+    <joint name="base_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="base_footprint"/>
+      <origin xyz="0.0 0.0 -0.03074" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Modelagem chassis_link "link" and "joint"-->
+    <!-- ********************************************************* -->
+    <link name="chassis_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -34,9 +44,9 @@
       </inertial>
     </link>  
 
-    <joint name="base_link_to_body" type="fixed">
+    <joint name="base_link_to_chassis_link" type="fixed">
       <parent link="base_link"/>
-      <child link="body"/>
+      <child link="chassis_link"/>
       <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
     </joint>
 
@@ -66,8 +76,8 @@
       </inertial>
     </link>  
 
-    <joint name="body_to_caster" type="continuous">
-      <parent link="body"/>
+    <joint name="chassis_link_to_caster" type="continuous">
+      <parent link="chassis_link"/>
       <child link="caster"/>
       <origin xyz="-0.0871 0.0 -0.00875" rpy="0 0 0" />
       <axis xyz="0 0 1" rpy="0 0 0" />
@@ -130,8 +140,8 @@
       </inertial>
     </link>  
 
-    <joint name="body_to_imu" type="fixed">
-      <parent link="body"/>
+    <joint name="chassis_link_to_imu" type="fixed">
+      <parent link="chassis_link"/>
       <child link="imu_link"/>
       <origin xyz="0.028 0.0 0.005" rpy="0 0 0" />
     </joint>

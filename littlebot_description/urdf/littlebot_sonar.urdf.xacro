@@ -27,7 +27,7 @@
     </link>
 
     <joint name="base_to_sonar_${sonar_numero}" type="fixed">
-      <parent link="body"/>
+      <parent link="chassis_link"/>
       <child link="sonar_${sonar_numero}"/>
       <xacro:insert_block name="joint_pose"/>
     </joint>
