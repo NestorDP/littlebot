@@ -40,7 +40,7 @@ def generate_launch_description():
         default=os.path.join(
             get_package_share_directory('littlebot_navigation2'),
             'config',
-            'littlebot_navigation.yaml'))
+            'littlebot_navigation2.yaml'))
 
     nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 
         'launch')
@@ -73,11 +73,11 @@ def generate_launch_description():
                 'params_file': param_dir}.items(),
         ),
 
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
-            parameters=[{'use_sim_time': use_sim_time}],
-            output='screen'),
+        # Node(
+        #     package='rviz2',
+        #     executable='rviz2',
+        #     name='rviz2',
+        #     arguments=['-d', rviz_config_dir],
+        #     parameters=[{'use_sim_time': use_sim_time}],
+        #     output='screen'),
     ])
