@@ -25,7 +25,7 @@
     </link>
 
     <joint name="base_to_${side_wheel}_wheel" type="continuous">
-      <parent link="chassis"/>
+      <parent link="base_link"/>
       <child link="${side_wheel}_wheel"/>
       <xacro:insert_block name="joint_wheel_pose"/>
       <axis xyz="0 1 0" rpy="0 0 0" />

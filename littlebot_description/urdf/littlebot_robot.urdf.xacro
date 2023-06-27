@@ -3,14 +3,14 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot_robot">
   <xacro:macro name="littlebot_robot" >
 
-    <!-- Modelagem base_link "link" -->
+    <!-- Modelagem base_footprint "link" -->
     <!-- ********************************************************* -->
-    <link name="base_link">
+    <link name="base_footprint">
     </link>
 
-    <!-- Modelagem chassis "link" and "joint"-->
+    <!-- Modelagem base_link "link" and "joint"-->
     <!-- ********************************************************* -->
-    <link name="chassis">
+    <link name="base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -34,9 +34,9 @@
       </inertial>
     </link>  
 
-    <joint name="base_to_chassis" type="fixed">
-      <parent link="base_link"/>
-      <child link="chassis"/>
+    <joint name="base_footprint_to_base_link" type="fixed">
+      <parent link="base_footprint"/>
+      <child link="base_link"/>
       <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
     </joint>
 
@@ -66,8 +66,8 @@
       </inertial>
     </link>  
 
-    <joint name="chassis_to_caster" type="continuous">
-      <parent link="chassis"/>
+    <joint name="base_link_to_caster" type="continuous">
+      <parent link="base_link"/>
       <child link="caster"/>
       <origin xyz="-0.0871 0.0 -0.00875" rpy="0 0 0" />
       <axis xyz="0 0 1" rpy="0 0 0" />
@@ -130,8 +130,8 @@
       </inertial>
     </link>  
 
-    <joint name="chassis_to_imu" type="fixed">
-      <parent link="chassis"/>
+    <joint name="base_link_to_imu" type="fixed">
+      <parent link="base_link"/>
       <child link="imu_link"/>
       <origin xyz="0.028 0.0 0.005" rpy="0 0 0" />
     </joint>
