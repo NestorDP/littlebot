@@ -27,7 +27,7 @@ def generate_launch_description():
         package='twist_mux',
         executable='twist_mux',
         output='screen',
-        remappings={('/cmd_vel_out', '/littlebot_velocity_controller/cmd_vel')},
+        remappings={('/cmd_vel_out', '/littlebot_velocity_controller/cmd_vel_unstamped')},
         parameters=[filepath_config_twist_mux]
     )
 
