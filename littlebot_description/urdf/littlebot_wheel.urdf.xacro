@@ -16,7 +16,8 @@
         </geometry>
       </collision>
       <inertial>
-        <xacro:insert_block name="mesh_wheel_pose"/>
+        <!-- <xacro:insert_block name="mesh_wheel_pose"/> -->
+        <origin xyz="0 0 0" rpy="0 0 1.571" />
         <mass value="0.041"/>
         <inertia ixx="2.967e-5" ixy="-7.675e-15"  ixz="-4.765e-14" 
                                 iyy="1.616e-5"    iyz="-1.121e-16" 
