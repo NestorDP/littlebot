@@ -7,7 +7,7 @@ using namespace std::chrono_literals;
 
 namespace littlebot_teleop {
   Teleop::Teleop(const rclcpp::NodeOptions & options)
-    : Node("littlebot_teleop", options){
+    : Node("littlebot_teleop","", options){
       
     auto joy_callback =
       [this](sensor_msgs::msg::Joy::ConstSharedPtr joy) -> void {
@@ -18,18 +18,21 @@ namespace littlebot_teleop {
     sub_joy_ =
       create_subscription<sensor_msgs::msg::Joy>("joy", 10, joy_callback);
 
-    //pub1_ = create_publisher<example_interfaces::msg::Float32>("vel_left", 10);
+    pub_twist_ = 
+      this->create_publisher<geometry_msgs::msg::Twist>(
+      "joy_teleop/cmd_vel",
+      10);
 
 
-    //timer_writer_ = create_wall_timer(1000ms, std::bind(&Writer::writerTimer, this));
+    timer_ = create_wall_timer(100ms, std::bind(&Teleop::teleopPublisher, this));
   }
 
-  // void Writer::writerTimer() {
-    
-  //   // msg_protocol << left_vel_ << "#" << right_vel_ << "#"; 
-  //   // std::string send_msg = msg_protocol.str();
-  //   // this->serial_->SendMsg(&send_msg);
-  // }
+  void Teleop::teleopPublisher() {
+  auto msg = std::make_unique<geometry_msgs::msg::Twist>();
+  msg->linear.x = x_joy_value_;
+  msg->angular.z = z_joy_value_;
+  pub_twist_->publish(std::move(msg));
+  }
 
 }  // namespace littlebot_teleop
 

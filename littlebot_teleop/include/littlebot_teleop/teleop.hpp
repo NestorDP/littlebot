@@ -25,10 +25,12 @@ namespace littlebot_teleop {
     explicit Teleop(const rclcpp::NodeOptions & options);
 
    protected:
+    void teleopPublisher(void);
 
    private:
     rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr sub_joy_;
-    //rclcpp::Publisher<geometry_msgs::msg::Twist> pub_twist_;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr pub_twist_;
+    rclcpp::TimerBase::SharedPtr timer_;
 
     float x_joy_value_;
     float z_joy_value_;
