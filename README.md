@@ -106,17 +106,57 @@ To get started with the Littlebot ROS2 package, follow the steps below:
 
   Congratulations! You have now installed the Littlebot ROS2 package, and you can begin configuring and experimenting with your Littlebot robot using ROS2.
   
-## usage
+## Usage
 
-## configuration
+## Configuration
 
-## contributing
+
+## Contribution
+
+If ou want to report a bug, submit a feature request, or contribute code, your input is valuable in making this project better.
+
+### Bug Reports and Feature Requests
+
+If you come across any issues or have ideas for new features, please feel free to [open an issue](https://github.com/NestorDP/littlebot/issues). When creating a new issue, please use the available issue template and provide as much detail as possible. This information will help us better understand and address your request.
+
+### Contributing Code
+
+If you want to contribute code to the project, we follow a typical pull request (PR) workflow:
+
+1. Fork the repository and create a new branch from the `devel/ros2-<ros distro>` branch.
+2. Make your changes in the new branch and test them thoroughly.
+3. Ensure your code follows the project's coding conventions and standards.
+4. Submit a pull request (PR) to the `devel/ros2-<ros distro>` branch of this repository.
+5. Include a detailed description of your changes and the problem they solve.
+
+I will review your PR, provide feedback if needed, and work with you to ensure your contribution aligns with the project's goals.
+
+### Code Guidelines
+
+To maintain a consistent codebase, please follow these guidelines when contributing:
+
+- Adhere to the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) and formatting conventions.
+- Write clear, concise, and well-documented code.
+- Ensure your changes do not break existing functionality.
+- Include unit tests to validate your code.
+
+### License
+
+By contributing to this project, you agree that your contributions will be licensed under the [project's license](https://github.com/your_username/your_repository/blob/main/LICENSE). This allows us to maintain an open and collaborative environment for the community.
+
+Thank you for considering contributing to our project. Your involvement makes a significant difference in the development and success of this project!
 
 ## license
 
+### GNU General Public License v3.0
+Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+
 ## credits
 
-## contact
+
+<!-- ## Wiki
+
+For more information see the [littleBOT wiki](https://github.com/NestorDP/littlebot/wiki) -->
 
 <!-- ## Testando o Littlebot
 
@@ -156,9 +196,3 @@ Para rodar a simulção no Gazebo
 ```bash
 roslaunch littlebot_gazebo gazebo.launch
 ``` -->
-
-# Wiki
-
-For more information see the [littleBOT wiki](https://github.com/NestorDP/littlebot/wiki)
-
-
