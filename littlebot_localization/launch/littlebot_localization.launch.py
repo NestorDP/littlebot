@@ -1,5 +1,5 @@
-from launch import LaunchContext, LaunchDescription
-from launch.substitutions import EnvironmentVariable, PathJoinSubstitution
+from launch import LaunchDescription
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -8,8 +8,7 @@ def generate_launch_description():
 
     config_littlebot_ekf = PathJoinSubstitution(
         [FindPackageShare('littlebot_localization'),
-        'config',
-        'littlebot_localization.yaml'],
+         'config', 'littlebot_localization.yaml'],
     )
 
     node_ekf = Node(

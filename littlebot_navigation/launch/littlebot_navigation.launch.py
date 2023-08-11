@@ -18,7 +18,7 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, GroupAction, SetEnvironmentVariable
+from launch.actions import DeclareLaunchArgument, GroupAction
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
@@ -27,7 +27,6 @@ from launch_ros.actions import SetRemap
 
 def generate_launch_description():
     # Configurations
-    #-----------------------------------------
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
     map_dir = LaunchConfiguration(
@@ -45,10 +44,9 @@ def generate_launch_description():
             'littlebot_navigation2.yaml'))
 
     # Path to lauch folder of the nav2_bringup package
-    #-----------------------------------------
-    nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 
+    nav2_launch_file_dir = os.path.join(
+        get_package_share_directory('nav2_bringup'),
         'launch')
-
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -65,12 +63,14 @@ def generate_launch_description():
             'use_sim_time',
             default_value='false',
             description='Use simulation (Gazebo) clock if true'),
-        
+
         GroupAction([
-            SetRemap(src='/cmd_vel', dst='/littlebot_velocity_controller/cmd_vel'),
+            SetRemap(src='/cmd_vel',
+                     dst='/littlebot_velocity_controller/cmd_vel'),
             SetRemap(src='/odom', dst='/odometry/filtered'),
             IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
+                PythonLaunchDescriptionSource([nav2_launch_file_dir,
+                                               '/bringup_launch.py']),
                 launch_arguments={
                     'map': map_dir,
                     'use_sim_time': use_sim_time,

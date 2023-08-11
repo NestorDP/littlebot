@@ -1,10 +1,9 @@
 // Copyright 2022 Nestor
 
-#ifndef LITTLEBOT_BASE_READER_HPP_
-#define LITTLEBOT_BASE_READER_HPP_
+#ifndef LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_READER_HPP_
+#define LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_READER_HPP_
 
 #include <string>
-#include <chrono>
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -21,29 +20,29 @@
 #define LITTLEBOT_BASE_READER_PUBLIC __attribute__((visibility("default")))
 
 namespace littlebot_base {
-  class Reader : public rclcpp::Node
-  {
-  public:
-    LITTLEBOT_BASE_READER_PUBLIC
-    explicit Reader(const rclcpp::NodeOptions &options);
 
-    LITTLEBOT_BASE_READER_PUBLIC
-    explicit Reader(const rclcpp::NodeOptions & options, serial::Serial *serial);
+class Reader : public rclcpp::Node {
+ public:
+  LITTLEBOT_BASE_READER_PUBLIC
+  explicit Reader(const rclcpp::NodeOptions &options);
 
-  protected:
-    void on_timer();
+  LITTLEBOT_BASE_READER_PUBLIC
+  explicit Reader(const rclcpp::NodeOptions & options, serial::Serial *serial);
 
-  private:
-    size_t count_;
-    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub1_;
-    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub2_;
-    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub3_;
-    rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub4_;
-    rclcpp::TimerBase::SharedPtr timer_;
-    std::string message_;
-    serial::Serial *serial_;
-  };
+ protected:
+  void on_timer();
 
-} // namespace littlebot_base
+ private:
+  size_t count_;
+  rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub1_;
+  rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub2_;
+  rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub3_;
+  rclcpp::Publisher<example_interfaces::msg::Float32>::SharedPtr pub4_;
+  rclcpp::TimerBase::SharedPtr timer_;
+  std::string message_;
+  serial::Serial *serial_;
+};
 
-#endif // LITTLEBOT_BASE_READER_HPP_
+}  // namespace littlebot_base
+
+#endif  // LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_READER_HPP_
