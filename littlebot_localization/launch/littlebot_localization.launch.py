@@ -8,8 +8,7 @@ def generate_launch_description():
 
     config_littlebot_ekf = PathJoinSubstitution(
         [FindPackageShare('littlebot_localization'),
-        'config',
-        'littlebot_localization.yaml'],
+         'config', 'littlebot_localization.yaml'],
     )
 
     node_ekf = Node(

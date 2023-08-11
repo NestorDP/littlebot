@@ -12,7 +12,7 @@
 # def generate_launch_description():
 
 #     description_path = get_package_share_path('littlebot_description')
-#     urdf_model_path  = description_path / 'urdf/littlebot_description.urdf.xacro'
+#     model_path = description_path / 'urdf/littlebot_description.urdf.xacro'
 #     rviz_config_path = description_path / 'config/littlebot_description.rviz'
 #     use_sim_time     = LaunchConfiguration('use_sim_time', default='false')
 
@@ -23,15 +23,15 @@
 #         default_value='false',
 #         choices=['true', 'false'],
 #         description='Use simulation (Gazebo) clock if true')
-    
+
 #     joint_gui_arg   = DeclareLaunchArgument(
-#         name='joint_gui', 
-#         default_value='true', 
+#         name='joint_gui',
+#         default_value='true',
 #         choices=['true', 'false'],
 #         description='Flag to enable joint_state_publisher_gui')
 
 #     model_arg = DeclareLaunchArgument(
-#         name='model', 
+#         name='model',
 #         default_value=str(urdf_model_path),
 #         description='Absolute path to robot urdf file')
 
@@ -43,7 +43,7 @@
 #     # Parameters
 #     #-----------------------------------------------------------------------------
 #     robot_description = ParameterValue(
-#         Command(['xacro ', LaunchConfiguration('model')]), 
+#         Command(['xacro ', LaunchConfiguration('model')]),
 #         value_type=str)
 
 #     # Nodes
@@ -53,7 +53,7 @@
 #         executable='robot_state_publisher',
 #         name='robot_state_publisher',
 #         parameters=[
-#             {'robot_description': robot_description}, 
+#             {'robot_description': robot_description},
 #             {'use_sim_time': use_sim_time}],
 #         output='screen'
 #     )
@@ -89,4 +89,4 @@
 #         joint_state_publisher_gui_node,
 #         robot_state_publisher_node,
 #         rviz_node
-#     ])    
+#     ])
