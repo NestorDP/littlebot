@@ -38,9 +38,6 @@ Get started by following the installation instructions below to set up the Littl
 - [Contact](#contact)
 
 
-
-## Installation
-
 ## Installation
 
 To get started with the Littlebot ROS2 package, follow the steps below:
@@ -140,59 +137,9 @@ To maintain a consistent codebase, please follow these guidelines when contribut
 - Ensure your changes do not break existing functionality.
 - Include unit tests to validate your code.
 
-### License
-
-By contributing to this project, you agree that your contributions will be licensed under the [project's license](https://github.com/your_username/your_repository/blob/main/LICENSE). This allows us to maintain an open and collaborative environment for the community.
-
-Thank you for considering contributing to our project. Your involvement makes a significant difference in the development and success of this project!
-
 ## license
+By contributing to this project, you agree that your contributions will be licensed under the [**GNU General Public License v3.0**](https://github.com/NestorDP/littlebot/blob/devel/ros2-foxy/LICENSE). This allows us to maintain an open and collaborative environment for the community.
 
-### GNU General Public License v3.0
-Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+Thank you for considering contributing to our project. Your involvement makes a significant difference in the development and success of LittleBOT!
 
 ## credits
-
-
-<!-- ## Wiki
-
-For more information see the [littleBOT wiki](https://github.com/NestorDP/littlebot/wiki) -->
-
-<!-- ## Testando o Littlebot
-
-Estas instruções te ajudarão a fazer os primeiros testes com a plataforma Littlebot -->
-
-<!-- ### Pré-requisitos
-
-Para testar o Littlebot em seu sistema você precisa ter instalado o ROS ([melodic](http://wiki.ros.org/melodic) recomendado). Um erro pode acontecer ao tentar vizualizar o modelo no RVIZ no ROS-melodic, caso isso ocorra, pode ser necessário mudar uma variável de ambiente, como segue abaixo: -->
-
-<!-- ```bash
-export LC_NUMERIC="en_US.UTF-8"
-``` -->
-
-<!-- ### Rodando a simulação
-
-Para simular o Littlebot, o primeiro passo é criar um [workspace ROS](http://wiki.ros.org/catkin/Tutorials/create_a_workspace)
-
-```bash
-mkdir -p ~/littlebot_ws/src
-cd littlebot_ws
-catkin_make
-source devel/setup.bash
-```
-
-Após criar o workspace fazer o clone do repositório
-
-```bash
-cd src
-git clone https://github.com/NestorDP/littlebot.git
-cd ..
-catkin_make
-source devel/setup.bash
-```
-
-Para rodar a simulção no Gazebo
-
-```bash
-roslaunch littlebot_gazebo gazebo.launch
-``` -->
