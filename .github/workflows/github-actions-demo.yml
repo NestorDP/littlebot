@@ -18,8 +18,9 @@ jobs:
       - name: Update pip
         run: python -m pip install --upgrade pip
 
-      - name: Install cpplint
+      - name: Install dependencies
         run: pip install cpplint
+             pip install -r flake8
         
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       # - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
