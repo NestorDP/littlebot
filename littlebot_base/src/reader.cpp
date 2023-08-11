@@ -1,6 +1,6 @@
 // Copyright 2022-2023 Nestor
 
-#include <chrono>
+#include <chrono>  // NOLINT
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -12,17 +12,16 @@
 
 #include "littlebot_base/reader.hpp"
 
-using namespace std::chrono_literals;
+using namespace std::chrono_literals;  // NOLINT
 
 namespace littlebot_base {
   Reader::Reader(const rclcpp::NodeOptions & options)
-      : Node("", options) 
+      : Node("", options)
       {}
 
 
   Reader::Reader(const rclcpp::NodeOptions & options, serial::Serial *serial)
   : Node("reader", "littlebot_base", options), count_(0), serial_(serial) {
-
     pub1_ = create_publisher<example_interfaces::msg::Float32>("vel_left", 10);
     pub2_ = create_publisher<example_interfaces::msg::Float32>("vel_right", 10);
     pub3_ = create_publisher<example_interfaces::msg::Float32>("pos_left", 10);
@@ -44,13 +43,13 @@ namespace littlebot_base {
     std::string med_msg;
 
     do {
-      serial_->ReceiveMsg(&message_); // "<left_vel#right_vel#left_pos#right_pos#>"
+      serial_->ReceiveMsg(&message_);
       found_begin_char = message_.find("<");
       found_end_char = message_.find(">");
     } while (found_begin_char != 0);
 
     message_.erase(0, 1);
-    final_mgs = message_.substr(0, message_.find(">")); 
+    final_mgs = message_.substr(0, message_.find(">"));
 
 
     found = final_mgs.find("#");

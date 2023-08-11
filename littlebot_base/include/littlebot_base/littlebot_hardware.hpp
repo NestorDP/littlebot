@@ -1,7 +1,8 @@
-#ifndef LITTLEBOT_BASE__LITTLEBOT_HARDWARE_HPP_
-#define LITTLEBOT_BASE__LITTLEBOT_HARDWARE_HPP_
+//  @ Copyright 2023 Nestor Neto
 
-#include <chrono>
+#ifndef LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_LITTLEBOT_HARDWARE_HPP_
+#define LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_LITTLEBOT_HARDWARE_HPP_
+
 #include <memory>
 #include <sstream>
 #include <string>
@@ -26,25 +27,23 @@
 #include "rclcpp/time.hpp"
 
 
-using namespace std::chrono_literals;
-
-namespace littlebot_base
-{
-class LittlebotHardware 
-: public hardware_interface::BaseInterface<hardware_interface::SystemInterface>
-{
-
-public:
+namespace littlebot_base {
+class LittlebotHardware : public
+  hardware_interface::BaseInterface<hardware_interface::SystemInterface> {
+ public:
   RCLCPP_SHARED_PTR_DEFINITIONS(LittlebotHardware)
 
   HARDWARE_INTERFACE_PUBLIC
-  hardware_interface::return_type configure(const hardware_interface::HardwareInfo & info) override;
+  hardware_interface::return_type
+  configure(const hardware_interface::HardwareInfo & info) override;
 
   HARDWARE_INTERFACE_PUBLIC
-  std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
+  std::vector<hardware_interface::StateInterface>
+    export_state_interfaces() override;
 
   HARDWARE_INTERFACE_PUBLIC
-  std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
+  std::vector<hardware_interface::CommandInterface>
+    export_command_interfaces() override;
 
   HARDWARE_INTERFACE_PUBLIC
   hardware_interface::return_type start() override;
@@ -58,7 +57,7 @@ public:
   HARDWARE_INTERFACE_PUBLIC
   hardware_interface::return_type write() override;
 
-private:
+ private:
   // Store the command for the simulated robot
   double left_command_velocity_ = 0;
   double right_command_velocity_ = 0;
@@ -76,9 +75,8 @@ private:
   // Serial device
   serial::Serial serial_device_;
   std::string message_protocol_;
-
 };
 
 }  // namespace littlebot_base
 
-#endif  // LITTLEBOT_BASE__LITTLEBOT_HARDWARE_HPP_
+#endif  // LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_LITTLEBOT_HARDWARE_HPP_

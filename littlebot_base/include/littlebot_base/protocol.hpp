@@ -7,8 +7,8 @@
  * 
  * 
  */
-#ifndef _BASE__COMMUNICATION_PROTOCOL_HPP_
-#define _BASE__COMMUNICATION_PROTOCOL_HPP_
+#ifndef LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_PROTOCOL_HPP_
+#define LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_PROTOCOL_HPP_
 
 #include <errno.h>
 #include <fcntl.h>
@@ -25,7 +25,7 @@
 #include <libserial/serial.hpp>
 
 
-namespace littlebot{
+namespace littlebot {
 
 class Protocol {
  public:
@@ -34,7 +34,7 @@ class Protocol {
    * @brief Constructor of the serial class
    * 
    */
-  Protocol(std::string port);
+  explicit Protocol(std::string port);
 
   /**
    * @brief Destroyer of the serial class
@@ -72,7 +72,7 @@ class Protocol {
   const int kLengthBuffer_ = 200;
 
   /** Port */
-  serial::Serial port_ ;
+  serial::Serial port_;
 
   /** Buffer */
   std::string msg_protocol_;
@@ -80,8 +80,7 @@ class Protocol {
   /**  */
   float velocity_read_[2];
   float velocity_write_[2];
-
 };
-}  // namespace serial
+}  // namespace littlebot
 
-#endif  // _BASE__COMMUNICATION_PROTOCOL_HPP_
+#endif  // LITTLEBOT_BASE_INCLUDE_LITTLEBOT_BASE_PROTOCOL_HPP_
