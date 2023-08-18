@@ -3,7 +3,7 @@
 
 name: Code Quality
 run-name: Run Lint Checks
-on: [pull_request]
+on: [push, pull_request]
 jobs:
   cpplint:
     runs-on: ubuntu-20.04
