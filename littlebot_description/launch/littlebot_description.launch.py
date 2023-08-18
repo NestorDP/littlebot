@@ -17,7 +17,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
     # Launch arguments
-    time_arg = DeclareLaunchArgument( 
+    time_arg = DeclareLaunchArgument(
         'use_sim_time',
         default_value='false',
         choices=['true', 'false'],
