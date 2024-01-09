@@ -3,16 +3,16 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot">
   
   <!-- Default arguments -->
-  <xacro:arg name="use_sim" default="false" />
+  <xacro:arg name="use_sim" default="true" />
   <xacro:arg name="prefix" default="littlebot" />
 
   <!-- Included URDF XACRO Files -->
+  <xacro:include filename="$(find littlebot_description)/urdf/littlebot_body.urdf.xacro" />
   <xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" />
   <xacro:include filename="$(find littlebot_description)/urdf/littlebot_sonar.urdf.xacro" />
-  <xacro:include filename="$(find littlebot_description)/urdf/littlebot_body.urdf.xacro" />
 
   <!-- Included GAZEBO XACRO Files -->
-  <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" />
+  <!-- <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" /> -->
 
   <!-- Included ROS2_CONTROL XACRO Files -->
   <!-- <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" /> -->
@@ -20,7 +20,7 @@
   <!-- Littlebot's robot description -->
   <!-- =========================================================== -->
   <!-- Body model -->
-  <xacro:littlebot_robot />
+  <xacro:littlebot_body />
 
   <!-- Whells models -->
   <xacro:littlebot_wheel side_wheel="left">
@@ -39,37 +39,37 @@
     <origin xyz="0.07879836 0.03772198 0.02500000" rpy="0 0 0.686455448" />
   </xacro:littlebot_sonar>
 
-  <xacro:littlebot_sonar sonar_numero="2">
+  <!-- <xacro:littlebot_sonar sonar_numero="2">
     <origin xyz="0 0 -0.020267" rpy="0 0 0" />
     <origin xyz="0.08880761 0.02002920 0.02500000" rpy="0 0 0.343218997"/>
-  </xacro:littlebot_sonar>
+  </xacro:littlebot_sonar> -->
 
-  <xacro:littlebot_sonar sonar_numero="3">
+  <!-- <xacro:littlebot_sonar sonar_numero="3">
     <origin xyz="0 0 -0.020267" rpy="0 0 0" />
     <origin xyz="0.092279 0.0 0.02500000" rpy="0 0 0" />
-  </xacro:littlebot_sonar>
+  </xacro:littlebot_sonar> -->
 
-  <xacro:littlebot_sonar sonar_numero="4">
+  <!-- <xacro:littlebot_sonar sonar_numero="4">
     <origin xyz="0 0 -0.020267" rpy="0 0 0" />
     <origin xyz="0.08880761 -0.02002920 0.02500000" rpy="0 0 -0.343218997"/>
-  </xacro:littlebot_sonar>
+  </xacro:littlebot_sonar> -->
 
-  <xacro:littlebot_sonar sonar_numero="5">
+  <!-- <xacro:littlebot_sonar sonar_numero="5">
     <origin xyz="0 0 -0.020267" rpy="0 0 0" />
     <origin xyz="0.07879836 -0.03772198 0.02500000" rpy="0 0 -0.686455448"/>
-  </xacro:littlebot_sonar>
+  </xacro:littlebot_sonar> -->
 
 
   <!-- Load Gazebo plugins -->
   <!-- =========================================================== -->
-  <xacro:if value="$(arg use_sim)">
+  <!-- <xacro:if value="$(arg use_sim)">
     <xacro:littlebot_gazebo/>
-  </xacro:if>
+  </xacro:if> -->
 
   <!-- Load ROS2 Control plugins -->
   <!-- =========================================================== -->
-  <xacro:unless value="$(arg use_sim)">
+  <!-- <xacro:unless value="$(arg use_sim)"> -->
     <!-- <xacro:littlebot_control/> -->
-  </xacro:unless>
+  <!-- </xacro:unless> -->
 
 </robot>

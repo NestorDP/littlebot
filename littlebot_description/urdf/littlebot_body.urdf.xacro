@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot_robot">
-  <xacro:macro name="littlebot_robot" >
+<robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot_body">
+  <xacro:macro name="littlebot_body" >
 
     <!-- Modelagem base_link "link" -->
     <!-- ********************************************************* -->
@@ -10,13 +10,13 @@
 
     <!-- Robot Footprint -->
     <!-- ********************************************************* -->
-    <link name="base_footprint"/>
+    <!-- <link name="base_footprint"/> -->
 
-    <joint name="base_joint" type="fixed">
+    <!-- <joint name="base_joint" type="fixed">
       <parent link="base_link"/>
       <child link="base_footprint"/>
       <origin xyz="0.0 0.0 -0.03074" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
     <!-- Modelagem chassis_link "link" and "joint"-->
     <!-- ********************************************************* -->
@@ -52,7 +52,7 @@
 
     <!-- Modelagem caster wheel-->
     <!-- ********************************************************* -->
-    <link name="caster">
+    <!-- <link name="caster">
       <visual>
         <origin xyz="0 0 0" rpy="3.14 0 3.14" />
         <geometry>
@@ -81,11 +81,11 @@
       <child link="caster"/>
       <origin xyz="-0.0871 0.0 -0.00875" rpy="0 0 0" />
       <axis xyz="0 0 1" rpy="0 0 0" />
-    </joint>
+    </joint> -->
 
     <!-- Modelagem free wheel-->
     <!-- ********************************************************* -->
-    <link name="free_wheel">
+    <!-- <link name="free_wheel">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -114,11 +114,11 @@
       <child link="free_wheel"/>
       <origin xyz="-0.015 0 -0.015" rpy="0 0 0" />
       <axis xyz="0 1 0" rpy="0 0 0" />
-    </joint>
+    </joint> -->
 
     <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
     <!-- ********************************************************* -->
-    <link name="imu_link">
+    <!-- <link name="imu_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -144,6 +144,6 @@
       <parent link="chassis_link"/>
       <child link="imu_link"/>
       <origin xyz="0.028 0.0 0.005" rpy="0 0 0" />
-    </joint>
+    </joint> -->
   </xacro:macro>
 </robot>
