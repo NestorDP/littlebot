@@ -9,7 +9,7 @@
   <!-- Included URDF XACRO Files -->
   <xacro:include filename="$(find littlebot_description)/urdf/littlebot_wheel.urdf.xacro" />
   <xacro:include filename="$(find littlebot_description)/urdf/littlebot_sonar.urdf.xacro" />
-  <xacro:include filename="$(find littlebot_description)/urdf/littlebot_robot.urdf.xacro" />
+  <xacro:include filename="$(find littlebot_description)/urdf/littlebot_body.urdf.xacro" />
 
   <!-- Included GAZEBO XACRO Files -->
   <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" />
