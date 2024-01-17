@@ -2,15 +2,36 @@
   
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="littlebot_gazebo">
+
+  
+  <gazebo>
+    <plugin
+      filename="ignition-gazebo-diff-drive-system"
+      name="ignition::gazebo::systems::DiffDrive">
+      <left_joint>base_to_left_wheel</left_joint>
+      <right_joint>base_to_right_wheel</right_joint>
+      <wheel_separation>0.11</wheel_separation>
+      <wheel_radius>0.0329</wheel_radius>
+      <odom_publish_frequency>1</odom_publish_frequency>
+      <max_linear_acceleration>1</max_linear_acceleration>
+      <min_linear_acceleration>-1</min_linear_acceleration>
+      <max_angular_acceleration>2</max_angular_acceleration>
+      <min_angular_acceleration>-2</min_angular_acceleration>
+      <max_linear_velocity>0.5</max_linear_velocity>
+      <min_linear_velocity>-0.5</min_linear_velocity>
+      <max_angular_velocity>1</max_angular_velocity>
+      <min_angular_velocity>-1</min_angular_velocity>
+    </plugin>
+  </gazebo>
   
     <!-- Plugin CONTROLER -->
-    <gazebo>
+    <!-- <gazebo>
       <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
         <parameters>$(find littlebot_control)/config/control.yaml</parameters>
       </plugin>
-    </gazebo>
+    </gazebo> -->
 
-    <ros2_control name="littlebot_hardware_sim" type="system">
+    <!-- <ros2_control name="littlebot_hardware_sim" type="system">
       <hardware>
         <plugin>gazebo_ros2_control/GazeboSystem</plugin>
       </hardware>
@@ -36,10 +57,10 @@
       <joint name="caster_to_free_wheel">
         <state_interface name="position"/>
       </joint>
-    </ros2_control>
+    </ros2_control> -->
 
     <!-- Plugin IMU -->
-    <gazebo reference="imu_link">
+    <!-- <gazebo reference="imu_link">
       <sensor name="imu_sensor" type="imu">
         <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
           <ros>
@@ -52,10 +73,10 @@
         <update_rate>100</update_rate>
         <visualize>true</visualize>
       </sensor>
-    </gazebo>
+    </gazebo> -->
 
     <!-- Plugin SONAR -->
-    <xacro:macro name="sonar" params="reference topic_name">
+    <!-- <xacro:macro name="sonar" params="reference topic_name">
       <gazebo reference="${reference}">        
         <sensor type="ray" name="TeraRanger">
           <update_rate>50</update_rate>
@@ -97,14 +118,14 @@
           </plugin>
         </sensor>  
       </gazebo>
-    </xacro:macro>
+    </xacro:macro> -->
 
     <!-- Call SONAR gazebo plugin xacro -->
-    <xacro:sonar reference="sonar_1" topic_name="sonar1" />
-    <xacro:sonar reference="sonar_2" topic_name="sonar2" />
-    <xacro:sonar reference="sonar_3" topic_name="sonar3" />
-    <xacro:sonar reference="sonar_4" topic_name="sonar4" />
-    <xacro:sonar reference="sonar_5" topic_name="sonar5" />
+    <!-- <xacro:sonar reference="sonar_1" topic_name="sonar1" /> -->
+    <!-- <xacro:sonar reference="sonar_2" topic_name="sonar2" /> -->
+    <!-- <xacro:sonar reference="sonar_3" topic_name="sonar3" /> -->
+    <!-- <xacro:sonar reference="sonar_4" topic_name="sonar4" /> -->
+    <!-- <xacro:sonar reference="sonar_5" topic_name="sonar5" /> -->
     
   </xacro:macro>
 </robot>

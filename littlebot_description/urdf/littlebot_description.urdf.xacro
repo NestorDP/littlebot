@@ -12,7 +12,7 @@
   <!-- <xacro:include filename="$(find littlebot_description)/urdf/littlebot_sonar.urdf.xacro" /> -->
 
   <!-- Included GAZEBO XACRO Files -->
-  <!-- <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" /> -->
+  <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" />
 
   <!-- Included ROS2_CONTROL XACRO Files -->
   <!-- <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" /> -->
@@ -62,9 +62,9 @@
 
   <!-- Load Gazebo plugins -->
   <!-- =========================================================== -->
-  <!-- <xacro:if value="$(arg use_sim)">
+  <xacro:if value="$(arg use_sim)">
     <xacro:littlebot_gazebo/>
-  </xacro:if> -->
+  </xacro:if>
 
   <!-- Load ROS2 Control plugins -->
   <!-- =========================================================== -->
