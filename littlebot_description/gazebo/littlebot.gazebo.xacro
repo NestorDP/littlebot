@@ -37,6 +37,12 @@
         <state_interface name="position"/>
         <state_interface name="velocity"/>
     </joint>
+    <joint name="chassis_link_to_caster">
+        <state_interface name="position"/>
+    </joint>
+    <joint name="caster_to_free_wheel">
+        <state_interface name="position"/>
+    </joint>
   </ros2_control>
 
   <gazebo>
