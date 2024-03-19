@@ -52,7 +52,7 @@
 
     <!-- Modelagem caster wheel-->
     <!-- ********************************************************* -->
-    <!-- <link name="caster">
+    <link name="caster">
       <visual>
         <origin xyz="0 0 0" rpy="3.14 0 3.14" />
         <geometry>
@@ -63,7 +63,7 @@
       <collision>
         <origin xyz="0 0 0.0" rpy="3.14 0 3.14" />
         <geometry>
-          <mesh filename="file://$(find littlebot_description)/meshes/Caster_Wheel_Plate.dae" />
+          <box size="0.21 0.11 0.01"/>
         </geometry>
       </collision>
 
@@ -81,11 +81,11 @@
       <child link="caster"/>
       <origin xyz="-0.0871 0.0 -0.00875" rpy="0 0 0" />
       <axis xyz="0 0 1" rpy="0 0 0" />
-    </joint> -->
+    </joint>
 
     <!-- Modelagem free wheel-->
     <!-- ********************************************************* -->
-    <!-- <link name="free_wheel">
+    <link name="free_wheel">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -96,7 +96,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://$(find littlebot_description)/meshes/Wheel.dae" />
+          <box size="0.21 0.11 0.01"/>
         </geometry>
       </collision>
 
@@ -114,11 +114,11 @@
       <child link="free_wheel"/>
       <origin xyz="-0.015 0 -0.015" rpy="0 0 0" />
       <axis xyz="0 1 0" rpy="0 0 0" />
-    </joint> -->
+    </joint>
 
     <!-- Modelagem da IMU MPU-6050 "link" "joint" -->
     <!-- ********************************************************* -->
-    <!-- <link name="imu_link">
+    <link name="imu_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
@@ -128,7 +128,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="file://$(find littlebot_description)/meshes/MPU_6050.dae" />
+          <box size="0.21 0.11 0.01"/>
         </geometry>
       </collision>
       <inertial>
@@ -144,6 +144,6 @@
       <parent link="chassis_link"/>
       <child link="imu_link"/>
       <origin xyz="0.028 0.0 0.005" rpy="0 0 0" />
-    </joint> -->
+    </joint>
   </xacro:macro>
 </robot>
