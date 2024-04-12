@@ -50,63 +50,25 @@
       <parameters>$(find littlebot_control)/config/control.yaml</parameters>
     </plugin>
   </gazebo>
-  
-    <!-- Plugin CONTROLER -->
-    <!-- <gazebo>
-      <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-        <parameters>$(find littlebot_control)/config/control.yaml</parameters>
-      </plugin>
-    </gazebo> -->
 
-    <!-- <ros2_control name="littlebot_hardware_sim" type="system">
-      <hardware>
-        <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-      </hardware>
-      <joint name="base_to_left_wheel">
-        <command_interface name="velocity">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-      </joint>      
-      <joint name="base_to_right_wheel">
-        <command_interface name="velocity">
-          <param name="min">-1</param>
-          <param name="max">1</param>
-        </command_interface>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-      </joint>
-      <joint name="chassis_link_to_caster">
-        <state_interface name="position"/>
-      </joint>
-      <joint name="caster_to_free_wheel">
-        <state_interface name="position"/>
-      </joint>
-    </ros2_control> -->
 
-       <gazebo>
+  <!-- Plugin IMU -->
+  <gazebo>
+    <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+          <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu"/>
+  </gazebo>
 
-      <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
-            <render_engine>ogre2</render_engine>
-        </plugin>
-
-      <plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu">
-        </plugin>
-
-    </gazebo>
- 
-    <!-- Plugin IMU -->
-    <gazebo reference="imu_link">
-      <sensor name="imu_sensor" type="imu">
-        <always_on>1</always_on>
-        <update_rate>100</update_rate>
-        <visualize>true</visualize>
-        <ignition_frame_id>imu_link</ignition_frame_id>
-        <topic>imu</topic>
-      </sensor>
-    </gazebo>
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>1</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <ignition_frame_id>imu_link</ignition_frame_id>
+      <topic>imu</topic>
+    </sensor>
+  </gazebo>
 
     <!-- Plugin SONAR -->
     <!-- <xacro:macro name="sonar" params="reference topic_name">
