@@ -136,3 +136,194 @@ ament_export_dependencies(
 )
 
 ament_package()
+
+
+cmake_minimum_required(VERSION 3.8)
+project(bravo_seven_driver)
+
+set(THIS_PACKAGE_INCLUDE_DEPENDS
+  ament_cmake
+  driver_base
+  hardware_interface
+  jiro_lifecycle_manager
+  pluginlib
+  rclcpp
+  rclcpp_lifecycle
+  ros_common_interfaces
+  ros2_control_toolbox
+  std_msgs
+)
+
+foreach(dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
+  find_package(${dependency} REQUIRED)
+endforeach()
+
+add_library(bravo_seven_udp_communication SHARED
+  src/bravo_seven_udp_communication.cpp
+  src/packet_helper.cpp
+)
+
+target_include_directories(bravo_seven_udp_communication PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+ament_target_dependencies(bravo_seven_udp_communication PUBLIC
+  ${THIS_PACKAGE_INCLUDE_DEPENDS}
+)
+
+add_library(bravo_seven_hardware_component SHARED
+  src/bravo_seven_hardware_component.cpp
+)
+
+target_include_directories(bravo_seven_hardware_component PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+pluginlib_export_plugin_description_file(bravo_seven_driver
+  bravo_seven_udp_communication.xml
+)
+
+pluginlib_export_plugin_description_file(hardware_interface
+  bravo_seven_hardware_plugin.xml
+)
+
+ament_target_dependencies(bravo_seven_hardware_component PUBLIC
+  ${THIS_PACKAGE_INCLUDE_DEPENDS}
+)
+
+install(
+  TARGETS bravo_seven_udp_communication
+  EXPORT export_bravo_seven_udp_communication
+  LIBRARY DESTINATION lib
+)
+
+install(
+  TARGETS bravo_seven_hardware_component
+  EXPORT export_bravo_seven_hardware_component
+  LIBRARY DESTINATION lib
+)
+
+if(BUILD_DOCS)
+  find_package(ament_doxygen REQUIRED)
+  ament_doxygen(DOC_TITLE ${PROJECT_NAME})
+endif()
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  find_package(ament_cmake_gmock REQUIRED)
+  find_package(ament_cmake_gtest REQUIRED)
+  find_package(ament_cmake_pytest REQUIRED)
+
+  # Next lines implements a local copyrigth checker
+  set(ament_cmake_copyright_FOUND TRUE)
+  set(DESCRIPTIONS_PYTHON_TESTS test/test_copyright.py)
+  get_filename_component(_test_name ${DESCRIPTIONS_PYTHON_TESTS} NAME_WE)
+
+  ament_add_pytest_test(${_test_name} ${DESCRIPTIONS_PYTHON_TESTS}
+    PYTHON_EXECUTABLE "${PYTHON_EXECUTABLE}"
+    APPEND_ENV AMENT_PREFIX_PATH=$ENV{AMENT_PREFIX_PATH}:${CMAKE_INSTALL_PREFIX}
+    PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}
+    TIMEOUT 120
+    WERROR ON
+  )
+
+  list(APPEND AMENT_LINT_AUTO_EXCLUDE ament_cmake_cpplint)
+  ament_lint_auto_find_test_dependencies()
+  find_package(ament_cmake_cpplint REQUIRED)
+  ament_cpplint(MAX_LINE_LENGTH "120")
+  set(AMENT_CPPCHECK_ALLOW_SLOW_VERSIONS True)
+
+  ament_add_gmock(test_bravo_seven_hardware
+    test/test_bravo_seven_hardware_component.cpp
+  )
+
+  target_link_libraries(test_bravo_seven_hardware
+    bravo_seven_hardware_component
+  )
+
+  ament_target_dependencies(test_bravo_seven_hardware
+    ${THIS_PACKAGE_INCLUDE_DEPENDS}
+  )
+
+  ament_add_gtest(test_bravo_seven_udp_communication
+    test/test_bravo_seven_udp_communication.cpp
+  )
+
+  ament_target_dependencies(test_bravo_seven_udp_communication
+    ${THIS_PACKAGE_INCLUDE_DEPENDS}
+  )
+
+  target_link_libraries(test_bravo_seven_udp_communication
+    bravo_seven_udp_communication
+  )
+
+  add_library(fake_bravo_seven_communication SHARED
+    test/fake_communication/fake_bravo_seven_communication.cpp
+  )
+
+  target_include_directories(fake_bravo_seven_communication PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/test>
+    $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:test>
+  )
+
+  ament_target_dependencies(fake_bravo_seven_communication
+    pluginlib
+  )
+
+  install(
+    TARGETS fake_bravo_seven_communication
+    EXPORT export_fake_bravo_seven_communication
+    LIBRARY DESTINATION lib
+  )
+
+  ament_export_libraries(
+    fake_bravo_seven_communication
+  )
+
+  ament_export_targets(
+    export_fake_bravo_seven_communication
+  )
+
+  pluginlib_export_plugin_description_file(bravo_seven_driver
+    test/fake_communication/fake_bravo_seven_communication.xml
+  )
+
+  ament_add_gmock(test_bravo_seven_communication_loader
+    test/test_bravo_seven_communication_loader.cpp
+  )
+
+  ament_target_dependencies(test_bravo_seven_communication_loader
+    ${THIS_PACKAGE_INCLUDE_DEPENDS}
+  )
+
+  target_link_libraries(test_bravo_seven_communication_loader
+    fake_bravo_seven_communication
+  )
+
+  set(ament_cmake_copyright_FOUND TRUE)
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+
+endif()
+
+ament_export_libraries(
+  bravo_seven_hardware_component
+  bravo_seven_udp_communication
+)
+
+ament_export_include_directories(
+  include
+)
+
+ament_export_targets(
+  export_bravo_seven_hardware_component
+  export_bravo_seven_udp_communication
+)
+
+ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})
+
+ament_package()

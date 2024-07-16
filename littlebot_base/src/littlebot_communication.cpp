@@ -1,6 +1,6 @@
 //  @ Copyright 2023 Nestor Neto
 
-#include "littlebot_base/protocol.hpp"
+#include "littlebot_base/littlebot_communication.hpp"
 
 namespace littlebot {
 
