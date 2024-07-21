@@ -138,6 +138,34 @@ ament_export_dependencies(
 ament_package()
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 cmake_minimum_required(VERSION 3.8)
 project(bravo_seven_driver)
 
@@ -172,6 +200,12 @@ ament_target_dependencies(bravo_seven_udp_communication PUBLIC
   ${THIS_PACKAGE_INCLUDE_DEPENDS}
 )
 
+pluginlib_export_plugin_description_file(bravo_seven_driver
+  bravo_seven_udp_communication.xml
+)
+
+
+
 add_library(bravo_seven_hardware_component SHARED
   src/bravo_seven_hardware_component.cpp
 )
@@ -181,17 +215,14 @@ target_include_directories(bravo_seven_hardware_component PUBLIC
   $<INSTALL_INTERFACE:include>
 )
 
-pluginlib_export_plugin_description_file(bravo_seven_driver
-  bravo_seven_udp_communication.xml
+ament_target_dependencies(bravo_seven_hardware_component PUBLIC
+  ${THIS_PACKAGE_INCLUDE_DEPENDS}
 )
 
 pluginlib_export_plugin_description_file(hardware_interface
   bravo_seven_hardware_plugin.xml
 )
 
-ament_target_dependencies(bravo_seven_hardware_component PUBLIC
-  ${THIS_PACKAGE_INCLUDE_DEPENDS}
-)
 
 install(
   TARGETS bravo_seven_udp_communication
