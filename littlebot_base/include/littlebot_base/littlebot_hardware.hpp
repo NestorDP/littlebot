@@ -26,7 +26,7 @@ public:
    * @brief Deconstructor for the LittlebotHardwareComponent class
    *
    */
-  // ~LittlebotHardwareComponent() override;
+  ~LittlebotHardwareComponent() = default;
 
   /**
    * @brief
@@ -37,31 +37,13 @@ public:
   /**
    * @brief 
    */
-  hardware_interface::CallbackReturn on_configure(
-    const rclcpp_lifecycle::State & state) override;
-
-  /**
-   * @brief 
-   */
   hardware_interface::CallbackReturn on_activate(
     const rclcpp_lifecycle::State & state) override;
 
   /**
    * @brief 
    */
-  hardware_interface::CallbackReturn on_shutdown(
-    const rclcpp_lifecycle::State & state) override;
-
-  /**
-   * @brief 
-   */
   hardware_interface::CallbackReturn on_deactivate(
-    const rclcpp_lifecycle::State & state) override;
-
-  /**
-   * @brief 
-  */
-  hardware_interface::CallbackReturn on_error(
     const rclcpp_lifecycle::State & state) override;
 
   /**
@@ -117,40 +99,6 @@ private:
    * @brief 
    */
   static constexpr int kNumStateInterface_{2};
-
-
-
-
-
-
-
-
-
-
-
-  /**
-   * @brief 
-   */
-  //std::shared_ptr<LittlebotCommunicationInterface> littlebot_communication_ptr_;
-
-  /**
-   * @brief The name of the package where the communication plugin is implemented.
-   *
-   */
-  //const std::string communication_plugin_package_name_{"littlebot_base"};
-
-  /**
-   * @brief The name of the communication plugin.
-   *
-   */
-  //std::string communication_plugin_name_{""};
-
-  /**
-   * @brief The base class of the communication plugin.
-   *
-   */
-  //const std::string communication_plugin_base_class_{"LittlebotCommunicationInterface"};
-
 };
 
 }  // namespace littlebot_base

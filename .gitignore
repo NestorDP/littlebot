@@ -33,3 +33,4 @@
 
 
 .vscode/
+*__pycache__/

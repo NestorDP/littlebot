@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+// Not necessary for Python but should still be declared to avoid name collisions 
+// in the Protocol Buffers namespace and non-Python languages
+package protoblog;
+
+// Style guide prefers prefixing enum values instead of surrounding
+// with an enclosing message
+enum MotorSide {
+    LEFT = 0;
+    RIGHT = 1;
+}
+
+message LittlebotProtocol {
+    message MotorInterface {
+        bool side = 1;
+        float status_velocity = 2;
+        float status_position = 3;
+        float command_velocity = 4;
+    }
+
+    repeated MotorInterface motor_interface = 3;
+}
