@@ -10,7 +10,7 @@ import base64
 import serial
 import sys
 
-import todolist_pb2 as TodoList
+import littlebot_protocol_pb2 as LittlebotProtocol
 
 serial_port = sys.argv[1]
 
@@ -20,24 +20,30 @@ start_character = b'<'
 end_character = b'>'
 
 # Create a new TodoList
-my_list = TodoList.TodoList()
-my_list.owner_id = 1234
+littlebot_msg_protocol = LittlebotProtocol.LittlebotProtocol()
 
-my_list.owner_name = "Tim"
+left_motor = littlebot_msg_protocol.motor_interface.add()
+left_motor.side = LittlebotProtocol.MotorSide.Value("LEFT")
+left_motor.status_velocity = 10
+left_motor.status_position = 20
+left_motor.command_velocity = 30
 
-first_item = my_list.todos.add()
-first_item.state = TodoList.TaskState.Value("TASK_DONE")
-first_item.task = "Test ProtoBuf for Python"
-first_item.due_date = "31.10.2019"
+right_motor = littlebot_msg_protocol.motor_interface.add()
+right_motor.side = LittlebotProtocol.MotorSide.Value("RIGHT")
+right_motor.status_velocity = 40
+right_motor.status_position = 50
+right_motor.command_velocity = 60
+
+print(littlebot_msg_protocol)
 
 # Serialize the TodoList and send it over the serial port
-encoded_data = start_character + my_list.SerializeToString() + end_character
+encoded_data = start_character + littlebot_msg_protocol.SerializeToString() + end_character
 ser.write(encoded_data)
 print(f"Encoded data sent: {encoded_data}\n")
 
 ser.flush()
 
-my_list2 = TodoList.TodoList()
+littlebot_msg_protocol2 = LittlebotProtocol.LittlebotProtocol()
 
 # Read the encoded data from the serial port
 data = ser.read()
@@ -49,9 +55,13 @@ print(f"Encoded data received: {encoded_data_received}")
 
 # Parse the decoded data into a TodoList
 try:
-    my_list2.ParseFromString(encoded_data_received[:-1])
-    print(my_list2)
+    littlebot_msg_protocol2.ParseFromString(encoded_data_received[:-1])
+    print(littlebot_msg_protocol2)
 except Exception as e:
     print(f"Failed to parse the message: {e}")
+
+
+if left_motor.side == False:
+    print("Right motor side is LEFT")
 
 ser.close()
