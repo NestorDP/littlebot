@@ -20,10 +20,12 @@ class LittlebotFake:
         self.littlebot_msg = LittlebotProtocol.LittlebotProtocol()
         self.radius = 0.037
         self.delta_time = 0.1
+        self.left_command_vel = 0.0
+        self.right_command_vel = 0.0
 
     def serial_configuration(self, serial_port):
         return serial.Serial(serial_port, baudrate=115200)
-
+        
     def linear_velocity_to_angular_position(self, linear_velocity, time):
         angular_velocity = linear_velocity / self.radius
         angular_position = angular_velocity * time
@@ -36,7 +38,7 @@ class LittlebotFake:
         self.littlebot_msg.right_status_vel = self.right_command_vel
         self.littlebot_msg.right_status_pos = self.linear_velocity_to_angular_position(self.right_command_vel, self.delta_time)        
 
-        encoded_data = self.START_CHARACTER + self.self.littlebot_msg.SerializeToString() + self.END_CHARACTER
+        encoded_data = self.START_CHARACTER + self.littlebot_msg.SerializeToString() + self.END_CHARACTER
         self.ser.write(encoded_data)
 
         threading.Timer(self.delta_time, self.send_status).start()
@@ -49,7 +51,6 @@ class LittlebotFake:
 
         self.left_command_vel = self.littlebot_msg.left_command_vel
         self.right_command_vel = self.littlebot_msg.right_command_vel
-
 
     def read_from_serial(self):
         while True:
