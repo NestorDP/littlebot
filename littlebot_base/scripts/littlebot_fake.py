@@ -18,22 +18,28 @@ class LittlebotFake:
     def __init__(self, serial_port):
         self.ser = self.serial_configuration(serial_port)
         self.littlebot_msg = LittlebotProtocol.LittlebotProtocol()
+        self.radius = 0.037
+        self.delta_time = 0.1
 
     def serial_configuration(self, serial_port):
-        # Open serial port
-        return serial.Serial(serial_port, baudrate=115200)  # open serial port
+        return serial.Serial(serial_port, baudrate=115200)
 
-    def send_status(self):
+    def linear_velocity_to_angular_position(self, linear_velocity, time):
+        angular_velocity = linear_velocity / self.radius
+        angular_position = angular_velocity * time
+        return angular_position
+
+    def send_status(self):        
         self.littlebot_msg.left_status_vel = self.left_command_vel
-        self.littlebot_msg.left_status_pos = 10
+        self.littlebot_msg.left_status_pos = self.linear_velocity_to_angular_position(self.left_command_vel, self.delta_time)
 
         self.littlebot_msg.right_status_vel = self.right_command_vel
-        self.littlebot_msg.right_status_pos = 10        
+        self.littlebot_msg.right_status_pos = self.linear_velocity_to_angular_position(self.right_command_vel, self.delta_time)        
 
         encoded_data = self.START_CHARACTER + self.self.littlebot_msg.SerializeToString() + self.END_CHARACTER
         self.ser.write(encoded_data)
 
-        threading.Timer(1, self.send_status).start()
+        threading.Timer(self.delta_time, self.send_status).start()
 
     def receive_command_callback(self, encoded_data_received):
         try:
@@ -74,5 +80,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     serial_port = sys.argv[1]
+    
     littlebot_fake = LittlebotFake(serial_port)
     littlebot_fake.start()
