@@ -24,17 +24,13 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18littlebot_protocol.proto\x12\tprotoblog\"\xc5\x01\n\x11LittlebotProtocol\x12\x44\n\x0fmotor_interface\x18\x03 \x03(\x0b\x32+.protoblog.LittlebotProtocol.MotorInterface\x1aj\n\x0eMotorInterface\x12\x0c\n\x04side\x18\x01 \x01(\x08\x12\x17\n\x0fstatus_velocity\x18\x02 \x01(\x02\x12\x17\n\x0fstatus_position\x18\x03 \x01(\x02\x12\x18\n\x10\x63ommand_velocity\x18\x04 \x01(\x02* \n\tMotorSide\x12\x08\n\x04LEFT\x10\x00\x12\t\n\x05RIGHT\x10\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18littlebot_protocol.proto\x12\tprotoblog\"\xae\x01\n\x11LittlebotProtocol\x12\x17\n\x0fleft_status_vel\x18\x01 \x01(\x02\x12\x17\n\x0fleft_status_pos\x18\x02 \x01(\x02\x12\x18\n\x10left_command_vel\x18\x03 \x01(\x02\x12\x18\n\x10right_status_vel\x18\x04 \x01(\x02\x12\x18\n\x10right_status_pos\x18\x05 \x01(\x02\x12\x19\n\x11right_command_vel\x18\x06 \x01(\x02\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'littlebot_protocol_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_MOTORSIDE']._serialized_start=239
-  _globals['_MOTORSIDE']._serialized_end=271
   _globals['_LITTLEBOTPROTOCOL']._serialized_start=40
-  _globals['_LITTLEBOTPROTOCOL']._serialized_end=237
-  _globals['_LITTLEBOTPROTOCOL_MOTORINTERFACE']._serialized_start=131
-  _globals['_LITTLEBOTPROTOCOL_MOTORINTERFACE']._serialized_end=237
+  _globals['_LITTLEBOTPROTOCOL']._serialized_end=214
 # @@protoc_insertion_point(module_scope)
