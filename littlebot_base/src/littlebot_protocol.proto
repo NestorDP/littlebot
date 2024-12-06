@@ -9,6 +9,7 @@ message LittlebotProtocol {
         float left_status_vel = 1;
         float left_status_pos = 2;
         float left_command_vel = 3;
+        
         float right_status_vel = 4;
         float right_status_pos = 5;
         float right_command_vel = 6;
