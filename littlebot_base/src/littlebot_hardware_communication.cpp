@@ -10,6 +10,9 @@ namespace littlebot_base
   LittlebotHardwareCommunication::LittlebotHardwareCommunication(const std::string serial_port)
   {
     std::cout << "LittlebotHardwareCommunication constructor" << serial_port << std::endl;
+    
+    serial_ = std::make_shared<serial::Serial>();
+    serial_->OpenPort(serial_port);
   }
 
   LittlebotHardwareCommunication::~LittlebotHardwareCommunication()
@@ -17,7 +20,7 @@ namespace littlebot_base
     std::cout << "LittlebotHardwareCommunication deconstructor" << std::endl;
   }
 
-  void LittlebotHardwareCommunication::setCommandVelocities(std::vector<float> velocities)
+  void LittlebotHardwareCommunication::setCommandVelocities([[maybe_unused]] std::vector<float> velocities)
   {
     std::cout << "LittlebotHardwareCommunication setCommandVelocities" << std::endl;
   }
