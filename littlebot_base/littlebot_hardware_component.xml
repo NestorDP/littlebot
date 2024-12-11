@@ -1,0 +1,9 @@
+<library path="littlebot_hardware_component">
+  <class name="littlebot_base/LittlebotHardwareComponent"
+         type="littlebot_base::LittlebotHardwareComponent"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      The ros2_control LittlebotHardwareComponent using a system hardware interface-type.
+    </description>
+  </class>
+</library>
