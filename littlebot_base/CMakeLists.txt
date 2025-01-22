@@ -20,14 +20,14 @@ find_package(controller_manager REQUIRED)
 find_package(controller_manager_msgs REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
-# find_package(Protobuf REQUIRED)
+find_package(Protobuf REQUIRED)
 
 include_directories(include)
 
 # Print some protobuf info (optional)
-# message(STATUS "Using Protocol Buffers: ${Protobuf_VERSION}")
-# message(STATUS "Protobuf include directory: ${Protobuf_INCLUDE_DIRS}")
-# message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
+message(STATUS "Using Protocol Buffers: ${Protobuf_VERSION}")
+message(STATUS "Protobuf include directory: ${Protobuf_INCLUDE_DIRS}")
+message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
 
 # Add your proto file
 # set(PROTO_FILES

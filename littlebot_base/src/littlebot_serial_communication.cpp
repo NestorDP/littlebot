@@ -12,7 +12,7 @@ namespace littlebot_base
     std::cout << "LittlebotHardwareCommunication constructor" << serial_port << std::endl;
     
     serial_ = std::make_shared<serial::Serial>();
-    serial_->OpenPort(serial_port);
+    serial_->open(serial_port);
   }
 
   LittlebotHardwareCommunication::~LittlebotHardwareCommunication()
