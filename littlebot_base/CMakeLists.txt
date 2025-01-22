@@ -24,24 +24,24 @@ find_package(Protobuf REQUIRED)
 
 include_directories(include)
 
-# Print some protobuf info (optional)
+# Print some protobuf info
 message(STATUS "Using Protocol Buffers: ${Protobuf_VERSION}")
 message(STATUS "Protobuf include directory: ${Protobuf_INCLUDE_DIRS}")
 message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
 
 # Add your proto file
-# set(PROTO_FILES
-#     src/littlebot_protocol.proto
-# )
+set(PROTO_FILES
+    src/littlebot_protocol.proto
+)
 
 # Generate sources and headers from .proto
-# protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILES})
 
 # Add include directories
-# include_directories(
-#   ${Protobuf_INCLUDE_DIRS}
-#   ${CMAKE_CURRENT_BINARY_DIR}  # This is where generated files will be
-# )
+include_directories(
+  ${Protobuf_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_BINARY_DIR}  # This is where generated files will be
+)
 
 # create ament index resource which references the libraries in the binary dir
 set(node_plugins "")
@@ -49,9 +49,9 @@ set(node_plugins "")
 # Hardware interface
 add_library(littlebot_hardware_component SHARED
   src/littlebot_hardware_component.cpp
-  src/littlebot_hardware_communication.cpp
-  # ${PROTO_SRCS}
-  # ${PROTO_HDRS}
+  src/littlebot_serial_communication.cpp
+  ${PROTO_SRCS}
+  ${PROTO_HDRS}
   )
 
 ament_target_dependencies(littlebot_hardware_component

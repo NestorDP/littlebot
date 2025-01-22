@@ -8,13 +8,13 @@
 namespace littlebot_base
 {
 
-class HardwareCommunication{
+class LittlebotCommunicationInterface{
 public:
   /**
-   * @brief Deconstructor for the HardwareCommunication class
+   * @brief Deconstructor for the LittlebotCommunicationInterface class
    *
    */
-  virtual ~HardwareCommunication() = default;
+  virtual ~LittlebotCommunicationInterface() = default;
 
   /**
    * @brief Set the command velocities
@@ -33,9 +33,9 @@ public:
 
 protected:
   /**
-   * @brief Constructor for the LittlebotHardwareCommunication class
+   * @brief Constructor for the LittlebotLittlebotCommunicationInterface class
    */
-  HardwareCommunication() = default;
+  LittlebotCommunicationInterface() = default;
   
 private:
   /**

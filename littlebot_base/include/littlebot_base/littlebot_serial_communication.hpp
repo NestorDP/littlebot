@@ -7,23 +7,23 @@
 
 #include <libserial/serial.hpp>
 
-#include "littlebot_base/hardware_communication.hpp"
+#include "littlebot_base/littlebot_communication_interface.hpp"
 
 namespace littlebot_base
 {
 
-class LittlebotHardwareCommunication : public HardwareCommunication
+class LittlebotSerialCommunication : public LittlebotCommunicationInterface
 {
 public:
   /**
-   * @brief Constructor for the LittlebotLittlebotHardwareCommunication class
+   * @brief Constructor for the LittlebotSerialCommunication class
    */
-  LittlebotHardwareCommunication(const std::string serial_port);
+  LittlebotSerialCommunication(const std::string serial_port);
   
   /**
-   * @brief Deconstructor for the LittlebotHardwareCommunication class
+   * @brief Deconstructor for the LittlebotSerialCommunication class
    */
-  ~LittlebotHardwareCommunication();
+  ~LittlebotSerialCommunication();
 
   /**
    * @brief Set the command velocities

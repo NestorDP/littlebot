@@ -3,49 +3,49 @@
 #include <string>
 #include <vector>
 
-#include "littlebot_base/littlebot_hardware_comunication.hpp"
+#include "littlebot_base/littlebot_serial_communication.hpp"
 
 namespace littlebot_base
 {
-  LittlebotHardwareCommunication::LittlebotHardwareCommunication(const std::string serial_port)
+  LittlebotSerialCommunication::LittlebotSerialCommunication(const std::string serial_port)
   {
-    std::cout << "LittlebotHardwareCommunication constructor" << serial_port << std::endl;
+    std::cout << "LittlebotSerialCommunication constructor" << serial_port << std::endl;
     
     serial_ = std::make_shared<serial::Serial>();
     serial_->open(serial_port);
   }
 
-  LittlebotHardwareCommunication::~LittlebotHardwareCommunication()
+  LittlebotSerialCommunication::~LittlebotSerialCommunication()
   {
-    std::cout << "LittlebotHardwareCommunication deconstructor" << std::endl;
+    std::cout << "LittlebotSerialCommunication deconstructor" << std::endl;
   }
 
-  void LittlebotHardwareCommunication::setCommandVelocities([[maybe_unused]] std::vector<float> velocities)
+  void LittlebotSerialCommunication::setCommandVelocities([[maybe_unused]] std::vector<float> velocities)
   {
-    std::cout << "LittlebotHardwareCommunication setCommandVelocities" << std::endl;
+    std::cout << "LittlebotSerialCommunication setCommandVelocities" << std::endl;
   }
 
-  std::vector<float> LittlebotHardwareCommunication::getStatusVelocities() const
+  std::vector<float> LittlebotSerialCommunication::getStatusVelocities() const
   {
-    std::cout << "LittlebotHardwareCommunication getStatusVelocities" << std::endl;
+    std::cout << "LittlebotSerialCommunication getStatusVelocities" << std::endl;
     return std::vector<float>{1.2, 3.4};
   }
 
-  std::vector<float> LittlebotHardwareCommunication::getStatusPositionsStatus() const
+  std::vector<float> LittlebotSerialCommunication::getStatusPositionsStatus() const
   {
-    std::cout << "LittlebotHardwareCommunication getStatusPositionsStatus" << std::endl;
+    std::cout << "LittlebotSerialCommunication getStatusPositionsStatus" << std::endl;
     return std::vector<float>{1.2, 3.4};
   }
 
-  bool LittlebotHardwareCommunication::receive()
+  bool LittlebotSerialCommunication::receive()
   {
-    std::cout << "LittlebotHardwareCommunication receive" << std::endl;
+    std::cout << "LittlebotSerialCommunication receive" << std::endl;
     return true;
   }
 
-  bool LittlebotHardwareCommunication::send()
+  bool LittlebotSerialCommunication::send()
   {
-    std::cout << "LittlebotHardwareCommunication send" << std::endl;
+    std::cout << "LittlebotSerialCommunication send" << std::endl;
     return true;
   }
 
