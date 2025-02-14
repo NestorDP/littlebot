@@ -12,18 +12,18 @@
 namespace littlebot_base
 {
 
-class LittlebotSerialCommunication : public LittlebotCommunicationInterface
+class LittlebotCommunication : public LittlebotCommunicationInterface
 {
 public:
   /**
-   * @brief Constructor for the LittlebotSerialCommunication class
+   * @brief Constructor for the LittlebotCommunication class
    */
-  LittlebotSerialCommunication(const std::string serial_port);
+  LittlebotCommunication(const std::string serial_port);
   
   /**
-   * @brief Deconstructor for the LittlebotSerialCommunication class
+   * @brief Deconstructor for the LittlebotCommunication class
    */
-  ~LittlebotSerialCommunication();
+  ~LittlebotCommunication();
 
   /**
    * @brief Set the command velocities
