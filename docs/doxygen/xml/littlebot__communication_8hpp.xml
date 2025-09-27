@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="littlebot__communication_8hpp" kind="file" language="C++">
+    <compoundname>littlebot_communication.hpp</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">libserial/serial.hpp</includes>
+    <includes refid="littlebot__communication__interface_8hpp" local="yes">littlebot_base/littlebot_communication_interface.hpp</includes>
+    <includedby refid="littlebot__communication_8cpp" local="yes">/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_communication.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication.hpp</label>
+        <link refid="littlebot__communication_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>littlebot_base/littlebot_communication_interface.hpp</label>
+        <link refid="littlebot__communication__interface_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>libserial/serial.hpp</label>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication.hpp</label>
+        <link refid="littlebot__communication_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_communication.cpp</label>
+        <link refid="littlebot__communication_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classlittlebot__base_1_1LittlebotCommunication" prot="public">littlebot_base::LittlebotCommunication</innerclass>
+    <innernamespace refid="namespacelittlebot__base">littlebot_base</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>//<sp/><sp/>@<sp/>Copyright<sp/>2024<sp/>Nestor<sp/>Neto</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;libserial/serial.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="littlebot__communication__interface_8hpp" kindref="compound">littlebot_base/littlebot_communication_interface.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="namespacelittlebot__base" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacelittlebot__base" kindref="compound">littlebot_base</ref></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="classlittlebot__base_1_1LittlebotCommunication" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlittlebot__base_1_1LittlebotCommunication" kindref="compound">LittlebotCommunication</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classlittlebot__base_1_1LittlebotCommunicationInterface" kindref="compound">LittlebotCommunicationInterface</ref></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><ref refid="classlittlebot__base_1_1LittlebotCommunication" kindref="compound">LittlebotCommunication</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>serial_port);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><ref refid="classlittlebot__base_1_1LittlebotCommunication_1a57d7d97e059e07a6bc38304ed9d542cc" kindref="member">~LittlebotCommunication</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classlittlebot__base_1_1LittlebotCommunication_1a0b95fdaaeb60532058248a7afc38fd7e" kindref="member">setCommandVelocities</ref>([[maybe_unused]]<sp/>std::vector&lt;float&gt;<sp/>velocities)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="classlittlebot__base_1_1LittlebotCommunication_1aeee2bc5ba06e5b3451fd2cd387005c93" kindref="member">getStatusVelocities</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/><ref refid="classlittlebot__base_1_1LittlebotCommunication_1a49eb9a06191a56e6127d385154978d1b" kindref="member">getStatusPositionsStatus</ref>()<sp/></highlight><highlight class="keyword">const<sp/>override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="classlittlebot__base_1_1LittlebotCommunication_1adc39824e659f6f81d10856f281c28d27" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classlittlebot__base_1_1LittlebotCommunication_1adc39824e659f6f81d10856f281c28d27" kindref="member">start</ref>();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="classlittlebot__base_1_1LittlebotCommunication_1acbc286f66fc016bd482fccf918c236a2" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classlittlebot__base_1_1LittlebotCommunication_1acbc286f66fc016bd482fccf918c236a2" kindref="member">stop</ref>();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>receive()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>send()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>command_velocities_;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>status_positions_;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>std::vector&lt;float&gt;<sp/>status_velocities_;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>std::shared_ptr&lt;serial::Serial&gt;<sp/>serial_;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>kStartByte{0x3C};</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>kEndByte{0x3E};</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>littlebot_base</highlight></codeline>
+    </programlisting>
+    <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication.hpp"/>
+  </compounddef>
+</doxygen>

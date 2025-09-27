@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Troubleshooting &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="API Reference" href="api/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/index.html">Package Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-issues">Installation Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ros2-not-found">ROS2 Not Found</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-errors">Build Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-issues">Hardware Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#serial-port-access">Serial Port Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-timeout">Communication Timeout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#control-issues">Control Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#robot-not-moving">Robot Not Moving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#simulation-issues">Simulation Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gazebo-won-t-launch">Gazebo Won’t Launch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robot-model-issues">Robot Model Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#navigation-issues">Navigation Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#localization-problems">Localization Problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#path-planning-issues">Path Planning Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rqt-plugin-issues">RQT Plugin Issues</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plugin-not-loading">Plugin Not Loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qt-issues">Qt Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#log-analysis">Log Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-debug-logging">Enabling Debug Logging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-log-messages">Common Log Messages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Troubleshooting</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/troubleshooting.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+<p>This section covers common issues and their solutions when working with LittleBot.</p>
+<section id="installation-issues">
+<h2>Installation Issues<a class="headerlink" href="#installation-issues" title="Link to this heading"></a></h2>
+<section id="ros2-not-found">
+<h3>ROS2 Not Found<a class="headerlink" href="#ros2-not-found" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">ros2</span></code> command not found or ROS2 packages not available.</p>
+<p><strong>Solution</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure ROS2 is sourced</span>
+<span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+
+<span class="c1"># Add to your .bashrc for permanent sourcing</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;source /opt/ros/humble/setup.bash&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+</section>
+<section id="build-errors">
+<h3>Build Errors<a class="headerlink" href="#build-errors" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> fails with dependency errors.</p>
+<p><strong>Solution</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Update rosdep database</span>
+rosdep<span class="w"> </span>update
+
+<span class="c1"># Install missing dependencies</span>
+rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-r<span class="w"> </span>-y
+
+<span class="c1"># Clean build and rebuild</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>build<span class="w"> </span>install<span class="w"> </span>log
+colcon<span class="w"> </span>build
+</pre></div>
+</div>
+</section>
+</section>
+<section id="hardware-issues">
+<h2>Hardware Issues<a class="headerlink" href="#hardware-issues" title="Link to this heading"></a></h2>
+<section id="serial-port-access">
+<h3>Serial Port Access<a class="headerlink" href="#serial-port-access" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: Permission denied when accessing serial port.</p>
+<p><strong>Solution</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add user to dialout group</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>dialout<span class="w"> </span><span class="nv">$USER</span>
+
+<span class="c1"># Log out and back in, or use:</span>
+newgrp<span class="w"> </span>dialout
+
+<span class="c1"># Verify port exists and permissions</span>
+ls<span class="w"> </span>-l<span class="w"> </span>/dev/ttyUSB*
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span><span class="w"> </span>/dev/ttyUSB0<span class="w">  </span><span class="c1"># Temporary fix</span>
+</pre></div>
+</div>
+</section>
+<section id="communication-timeout">
+<h3>Communication Timeout<a class="headerlink" href="#communication-timeout" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: Hardware communication timeouts or no response.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Check physical connections</strong></p></li>
+<li><p><strong>Verify firmware is running</strong></p></li>
+<li><p><strong>Check baud rate settings</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hardware</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115200</span><span class="w">  </span><span class="c1"># Match firmware settings</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Test serial communication manually</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install screen for testing</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>screen
+
+<span class="c1"># Test communication</span>
+screen<span class="w"> </span>/dev/ttyUSB0<span class="w"> </span><span class="m">115200</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="control-issues">
+<h2>Control Issues<a class="headerlink" href="#control-issues" title="Link to this heading"></a></h2>
+<section id="robot-not-moving">
+<h3>Robot Not Moving<a class="headerlink" href="#robot-not-moving" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: Commands sent but robot doesn’t move.</p>
+<p><strong>Diagnosis</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if commands are being received</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/cmd_vel
+
+<span class="c1"># Check joint states</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/joint_states
+
+<span class="c1"># Check controller status</span>
+ros2<span class="w"> </span>control<span class="w"> </span>list_controllers
+</pre></div>
+</div>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Verify controller is loaded and active</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>control<span class="w"> </span>load_controller<span class="w"> </span>diff_drive_controller
+ros2<span class="w"> </span>control<span class="w"> </span>switch_controllers<span class="w"> </span>--activate<span class="w"> </span>diff_drive_controller
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check hardware interface status</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>control<span class="w"> </span>list_hardware_interfaces
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="simulation-issues">
+<h2>Simulation Issues<a class="headerlink" href="#simulation-issues" title="Link to this heading"></a></h2>
+<section id="gazebo-won-t-launch">
+<h3>Gazebo Won’t Launch<a class="headerlink" href="#gazebo-won-t-launch" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: Gazebo fails to start or crashes.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Update Gazebo</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade<span class="w"> </span>gazebo
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check graphics drivers</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For NVIDIA users</span>
+nvidia-smi
+
+<span class="c1"># For Intel integrated graphics</span>
+glxinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;OpenGL renderer&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Use software rendering</strong> (if hardware acceleration fails):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">LIBGL_ALWAYS_SOFTWARE</span><span class="o">=</span><span class="m">1</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_gazebo<span class="w"> </span>littlebot_gazebo_classic.launch.py
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="robot-model-issues">
+<h3>Robot Model Issues<a class="headerlink" href="#robot-model-issues" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: Robot appears incorrectly in simulation or RViz.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Check URDF/Xacro files</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Validate URDF</span>
+check_urdf<span class="w"> </span>src/littlebot_description/urdf/littlebot.urdf.xacro
+</pre></div>
+</div>
+</li>
+<li><p><strong>Update robot description</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>param<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/robot_state_publisher<span class="w"> </span>robot_description<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>xacro<span class="w"> </span>src/littlebot_description/urdf/littlebot.urdf.xacro<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="navigation-issues">
+<h2>Navigation Issues<a class="headerlink" href="#navigation-issues" title="Link to this heading"></a></h2>
+<section id="localization-problems">
+<h3>Localization Problems<a class="headerlink" href="#localization-problems" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: Robot doesn’t localize correctly or loses track of position.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Check sensor data</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify laser scan</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/scan
+
+<span class="c1"># Check odometry</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verify map and transforms</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check transform tree</span>
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_tools<span class="w"> </span>view_frames.py
+evince<span class="w"> </span>frames.pdf
+</pre></div>
+</div>
+</li>
+<li><p><strong>Tune localization parameters</strong> in your configuration files.</p></li>
+</ol>
+</section>
+<section id="path-planning-issues">
+<h3>Path Planning Issues<a class="headerlink" href="#path-planning-issues" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: Navigation fails to plan paths or robot gets stuck.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Check costmaps</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize costmaps in RViz</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>nav2_bringup<span class="w"> </span>navigation_launch.py
+</pre></div>
+</div>
+</li>
+<li><p><strong>Verify robot footprint</strong> matches physical robot</p></li>
+<li><p><strong>Adjust planner parameters</strong> for your environment</p></li>
+</ol>
+</section>
+</section>
+<section id="rqt-plugin-issues">
+<h2>RQT Plugin Issues<a class="headerlink" href="#rqt-plugin-issues" title="Link to this heading"></a></h2>
+<section id="plugin-not-loading">
+<h3>Plugin Not Loading<a class="headerlink" href="#plugin-not-loading" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: RQT plugin doesn’t appear or fails to load.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Force plugin discovery</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rqt<span class="w"> </span>--force-discover
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check plugin registration</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify plugin.xml is properly exported</span>
+ros2<span class="w"> </span>pkg<span class="w"> </span>xml<span class="w"> </span>littlebot_rqt_plugin
+</pre></div>
+</div>
+</li>
+<li><p><strong>Clear RQT cache</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-rf<span class="w"> </span>~/.config/ros.org/rqt_gui.ini
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="qt-issues">
+<h3>Qt Issues<a class="headerlink" href="#qt-issues" title="Link to this heading"></a></h3>
+<p><strong>Problem</strong>: GUI elements don’t display correctly or crash.</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Update Qt packages</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>qt5-default<span class="w"> </span>qtbase5-dev
+</pre></div>
+</div>
+</li>
+<li><p><strong>Check environment variables</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="nv">$QT_PLUGIN_PATH</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$DISPLAY</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="log-analysis">
+<h2>Log Analysis<a class="headerlink" href="#log-analysis" title="Link to this heading"></a></h2>
+<section id="enabling-debug-logging">
+<h3>Enabling Debug Logging<a class="headerlink" href="#enabling-debug-logging" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set ROS2 logging level</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">RCUTILS_LOGGING_SEVERITY_THRESHOLD</span><span class="o">=</span>DEBUG
+
+<span class="c1"># Or for specific nodes</span>
+ros2<span class="w"> </span>run<span class="w"> </span>littlebot_base<span class="w"> </span>hardware_component<span class="w"> </span>--ros-args<span class="w"> </span>--log-level<span class="w"> </span>DEBUG
+</pre></div>
+</div>
+</section>
+<section id="common-log-messages">
+<h3>Common Log Messages<a class="headerlink" href="#common-log-messages" title="Link to this heading"></a></h3>
+<p><strong>“Hardware interface not ready”</strong>:
+- Check hardware connections
+- Verify firmware is running
+- Ensure correct serial port configuration</p>
+<p><strong>“Controller failed to switch”</strong>:
+- Check controller configuration
+- Verify hardware interface is active
+- Review joint names in configuration</p>
+<p><strong>“Transform timeout”</strong>:
+- Check if all required transforms are being published
+- Verify transform tree with <code class="docutils literal notranslate"><span class="pre">tf2_tools</span></code></p>
+</section>
+</section>
+<section id="getting-help">
+<h2>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h2>
+<p>If you’re still experiencing issues:</p>
+<ol class="arabic simple">
+<li><p><strong>Check the GitHub Issues</strong>: <a class="reference external" href="https://github.com/NestorDP/littlebot/issues">https://github.com/NestorDP/littlebot/issues</a></p></li>
+<li><p><strong>Review ROS2 documentation</strong>: <a class="reference external" href="https://docs.ros.org/en/humble/">https://docs.ros.org/en/humble/</a></p></li>
+<li><p><strong>Ask on ROS Discourse</strong>: <a class="reference external" href="https://discourse.ros.org/">https://discourse.ros.org/</a></p></li>
+<li><p><strong>Join the ROS community</strong>: <a class="reference external" href="https://www.ros.org/community/">https://www.ros.org/community/</a></p></li>
+</ol>
+<p>When reporting issues, please include:
+- Operating system and ROS2 version
+- Complete error messages
+- Steps to reproduce the problem
+- Relevant configuration files</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api/index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

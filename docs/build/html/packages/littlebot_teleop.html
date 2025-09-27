@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>littlebot_teleop &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="littlebot_rqt_plugin" href="littlebot_rqt_plugin.html" />
+    <link rel="prev" title="littlebot_navigation" href="littlebot_navigation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Package Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-packages">Core Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#navigation-and-localization">Navigation and Localization</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#user-interface">User Interface</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">littlebot_teleop</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#safety-features">Safety Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#advanced-features">Advanced Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#programming-interface">Programming Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-examples">Integration Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simulation">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#meta-package">Meta Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">littlebot_teleop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#teleoperation-nodes">Teleoperation Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#keyboard-control">Keyboard Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joystick-control">Joystick Control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#velocity-limits">Velocity Limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joystick-configuration">Joystick Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#safety-features">Safety Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#emergency-stop">Emergency Stop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#velocity-limiting">Velocity Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deadman-switch">Deadman Switch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multi-input-priority">Multi-Input Priority</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-key-bindings">Custom Key Bindings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#voice-control-integration">Voice Control Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-interface">Programming Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-teleop-node">Python Teleop Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#c-teleop-node">C++ Teleop Node</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-examples">Integration Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#complete-teleop-system">Complete Teleop System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-navigation-system">With Navigation System</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package Documentation</a></li>
+      <li class="breadcrumb-item active">littlebot_teleop</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/packages/littlebot_teleop.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="littlebot-teleop">
+<h1>littlebot_teleop<a class="headerlink" href="#littlebot-teleop" title="Link to this heading"></a></h1>
+<p>The <cite>littlebot_teleop</cite> package provides teleoperation (remote control) capabilities for manually controlling the LittleBot robot using various input devices.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This package implements:</p>
+<ul class="simple">
+<li><p>Keyboard-based teleoperation</p></li>
+<li><p>Joystick/gamepad control support</p></li>
+<li><p>Twist message publishing for robot control</p></li>
+<li><p>Safety features and velocity limiting</p></li>
+<li><p>Multi-input device support</p></li>
+<li><p>Configurable control mappings</p></li>
+</ul>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<section id="teleoperation-nodes">
+<h3>Teleoperation Nodes<a class="headerlink" href="#teleoperation-nodes" title="Link to this heading"></a></h3>
+<p><strong>Keyboard Teleop Node</strong></p>
+<p>Manual control using keyboard input:</p>
+<ul class="simple">
+<li><p>WASD or arrow key movement</p></li>
+<li><p>Adjustable velocity increments</p></li>
+<li><p>Emergency stop functionality</p></li>
+<li><p>Real-time velocity display</p></li>
+</ul>
+<p><strong>Joystick Teleop Node</strong></p>
+<p>Gamepad/joystick control:</p>
+<ul class="simple">
+<li><p>Analog stick movement control</p></li>
+<li><p>Button-based functions</p></li>
+<li><p>Deadzone handling</p></li>
+<li><p>Multiple joystick support</p></li>
+</ul>
+<p><strong>Twist Keyboard Node</strong></p>
+<p>Simple keyboard control interface:</p>
+<ul class="simple">
+<li><p>Direct velocity publishing</p></li>
+<li><p>Configurable key mappings</p></li>
+<li><p>Safety timeouts</p></li>
+<li><p>Debug output</p></li>
+</ul>
+</section>
+<section id="launch-files">
+<h3>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p><strong>Main Teleop Launch</strong>: <cite>launch/littlebot_teleop.launch.py</cite></p>
+<p>Starts keyboard-based teleoperation:</p>
+<ul class="simple">
+<li><p>Keyboard input handler</p></li>
+<li><p>Velocity command publisher</p></li>
+<li><p>Safety monitoring</p></li>
+<li><p>User interface display</p></li>
+</ul>
+<p><strong>Joystick Teleop Launch</strong>: <cite>launch/joystick_teleop.launch.py</cite></p>
+<p>Gamepad/joystick control interface:</p>
+<ul class="simple">
+<li><p>Joystick driver initialization</p></li>
+<li><p>Button and axis mapping</p></li>
+<li><p>Velocity scaling configuration</p></li>
+<li><p>Emergency stop handling</p></li>
+</ul>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="keyboard-control">
+<h3>Keyboard Control<a class="headerlink" href="#keyboard-control" title="Link to this heading"></a></h3>
+<p>Start keyboard teleoperation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch keyboard teleop</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>littlebot_teleop.launch.py
+
+<span class="c1"># Launch with custom velocity limits</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>littlebot_teleop.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>max_linear_vel:<span class="o">=</span><span class="m">0</span>.5<span class="w"> </span>max_angular_vel:<span class="o">=</span><span class="m">1</span>.0
+</pre></div>
+</div>
+<p><strong>Control Keys</strong>:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Keyboard Controls</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">W</span></code> / <code class="docutils literal notranslate"><span class="pre">↑</span></code></p></td>
+<td><p>Move forward</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">S</span></code> / <code class="docutils literal notranslate"><span class="pre">↓</span></code></p></td>
+<td><p>Move backward</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">A</span></code> / <code class="docutils literal notranslate"><span class="pre">←</span></code></p></td>
+<td><p>Turn left</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">D</span></code> / <code class="docutils literal notranslate"><span class="pre">→</span></code></p></td>
+<td><p>Turn right</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Q</span></code></p></td>
+<td><p>Increase linear velocity</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Z</span></code></p></td>
+<td><p>Decrease linear velocity</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">E</span></code></p></td>
+<td><p>Increase angular velocity</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p>Decrease angular velocity</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Space</span></code></p></td>
+<td><p>Emergency stop</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">R</span></code></p></td>
+<td><p>Reset to default velocities</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Usage Instructions</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>LittleBot Teleop Control
+------------------------
+Moving around:
+  W/↑ : Forward
+  S/↓ : Backward
+  A/← : Turn Left
+  D/→ : Turn Right
+
+Speed Control:
+  Q : Increase Linear Speed
+  Z : Decrease Linear Speed
+  E : Increase Angular Speed
+  C : Decrease Angular Speed
+
+Emergency:
+  SPACE : Emergency Stop
+  R : Reset to Default
+
+Current Speeds:
+  Linear: 0.2 m/s
+  Angular: 0.5 rad/s
+</pre></div>
+</div>
+</section>
+<section id="joystick-control">
+<h3>Joystick Control<a class="headerlink" href="#joystick-control" title="Link to this heading"></a></h3>
+<p>Connect and configure joystick:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check joystick connection</span>
+ls<span class="w"> </span>/dev/input/js*
+jstest<span class="w"> </span>/dev/input/js0
+
+<span class="c1"># Launch joystick teleop</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>joystick_teleop.launch.py
+
+<span class="c1"># Launch with custom joystick device</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>joystick_teleop.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>joy_dev:<span class="o">=</span>/dev/input/js1
+</pre></div>
+</div>
+<p><strong>Joystick Mapping</strong> (Xbox/PlayStation controller):</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Joystick Controls</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Control</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Left Stick Y-axis</p></td>
+<td><p>Linear velocity (forward/backward)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Left Stick X-axis</p></td>
+<td><p>Angular velocity (turn left/right)</p></td>
+</tr>
+<tr class="row-even"><td><p>Right Trigger (RT/R2)</p></td>
+<td><p>Speed boost (hold for faster movement)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Left Trigger (LT/L2)</p></td>
+<td><p>Precision mode (hold for slower movement)</p></td>
+</tr>
+<tr class="row-even"><td><p>A Button (X on PS)</p></td>
+<td><p>Emergency stop</p></td>
+</tr>
+<tr class="row-odd"><td><p>B Button (Circle on PS)</p></td>
+<td><p>Reset/resume normal operation</p></td>
+</tr>
+<tr class="row-even"><td><p>Start/Options Button</p></td>
+<td><p>Toggle teleop enable/disable</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<section id="velocity-limits">
+<h3>Velocity Limits<a class="headerlink" href="#velocity-limits" title="Link to this heading"></a></h3>
+<p><strong>Default Configuration</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">teleop_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Linear velocity limits (m/s)</span>
+<span class="w">    </span><span class="nt">max_linear_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">    </span><span class="nt">min_linear_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">linear_velocity_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+
+<span class="w">    </span><span class="c1"># Angular velocity limits (rad/s)</span>
+<span class="w">    </span><span class="nt">max_angular_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">min_angular_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">    </span><span class="nt">angular_velocity_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+
+<span class="w">    </span><span class="c1"># Safety timeouts</span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">  </span><span class="c1"># Stop robot if no command received</span>
+
+<span class="w">    </span><span class="c1"># Key repeat settings</span>
+<span class="w">    </span><span class="nt">key_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">repeat_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span>
+</pre></div>
+</div>
+<p><strong>Custom Velocity Configuration</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># High-speed configuration</span>
+<span class="nt">teleop_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_linear_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w">   </span><span class="c1"># 1 m/s max</span>
+<span class="w">    </span><span class="nt">max_angular_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span><span class="w">  </span><span class="c1"># 2 rad/s max</span>
+
+<span class="c1"># Precision configuration</span>
+<span class="nt">teleop_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">max_linear_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">   </span><span class="c1"># Slow and precise</span>
+<span class="w">    </span><span class="nt">max_angular_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">    </span><span class="nt">linear_velocity_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span>
+<span class="w">    </span><span class="nt">angular_velocity_step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span>
+</pre></div>
+</div>
+</section>
+<section id="joystick-configuration">
+<h3>Joystick Configuration<a class="headerlink" href="#joystick-configuration" title="Link to this heading"></a></h3>
+<p><strong>Axis and Button Mapping</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">joy_teleop</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Axis mappings (0-based index)</span>
+<span class="w">    </span><span class="nt">axis_linear</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">        </span><span class="c1"># Left stick Y-axis</span>
+<span class="w">    </span><span class="nt">axis_angular</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">       </span><span class="c1"># Left stick X-axis</span>
+
+<span class="w">    </span><span class="c1"># Button mappings (0-based index)</span>
+<span class="w">    </span><span class="nt">enable_button</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">      </span><span class="c1"># A button (continuous hold)</span>
+<span class="w">    </span><span class="nt">enable_turbo_button</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span><span class="w"> </span><span class="c1"># Right trigger</span>
+
+<span class="w">    </span><span class="c1"># Scaling factors</span>
+<span class="w">    </span><span class="nt">scale_linear</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">     </span><span class="c1"># Max linear velocity multiplier</span>
+<span class="w">    </span><span class="nt">scale_angular</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w">    </span><span class="c1"># Max angular velocity multiplier</span>
+<span class="w">    </span><span class="nt">scale_linear_turbo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w">  </span><span class="c1"># Turbo mode multiplier</span>
+<span class="w">    </span><span class="nt">scale_angular_turbo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5</span>
+
+<span class="w">    </span><span class="c1"># Deadzone settings</span>
+<span class="w">    </span><span class="nt">deadzone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w">         </span><span class="c1"># Ignore small stick movements</span>
+</pre></div>
+</div>
+<p><strong>Multi-Joystick Support</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Player 1 controller</span>
+<span class="nt">joy_teleop_1</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">joy_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joy1</span>
+<span class="w">    </span><span class="nt">cmd_vel_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/robot1/cmd_vel</span>
+
+<span class="c1"># Player 2 controller</span>
+<span class="nt">joy_teleop_2</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">joy_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joy2</span>
+<span class="w">    </span><span class="nt">cmd_vel_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/robot2/cmd_vel</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="safety-features">
+<h2>Safety Features<a class="headerlink" href="#safety-features" title="Link to this heading"></a></h2>
+<section id="emergency-stop">
+<h3>Emergency Stop<a class="headerlink" href="#emergency-stop" title="Link to this heading"></a></h3>
+<p>Multiple emergency stop mechanisms:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Keyboard emergency stop</span>
+<span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;space&#39;</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emergency_stop</span><span class="p">()</span>
+
+<span class="c1"># Joystick emergency stop</span>
+<span class="k">if</span> <span class="n">joy_msg</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="n">EMERGENCY_BUTTON</span><span class="p">]:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emergency_stop</span><span class="p">()</span>
+
+<span class="c1"># Timeout-based stop</span>
+<span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_command_time</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">emergency_stop</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">emergency_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Immediately stop the robot and clear all velocities&quot;&quot;&quot;</span>
+    <span class="n">stop_msg</span> <span class="o">=</span> <span class="n">Twist</span><span class="p">()</span>
+    <span class="n">stop_msg</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">stop_msg</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cmd_vel_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">stop_msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="velocity-limiting">
+<h3>Velocity Limiting<a class="headerlink" href="#velocity-limiting" title="Link to this heading"></a></h3>
+<p>Enforce safe velocity bounds:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">limit_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">angular</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply velocity limits and safety checks&quot;&quot;&quot;</span>
+    <span class="c1"># Limit linear velocity</span>
+    <span class="n">linear</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_linear_vel</span><span class="p">),</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">max_linear_vel</span><span class="p">)</span>
+
+    <span class="c1"># Limit angular velocity</span>
+    <span class="n">angular</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">angular</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_angular_vel</span><span class="p">),</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">max_angular_vel</span><span class="p">)</span>
+
+    <span class="c1"># Apply acceleration limits</span>
+    <span class="n">linear</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_acceleration_limit</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_linear_vel</span><span class="p">)</span>
+    <span class="n">angular</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_acceleration_limit</span><span class="p">(</span><span class="n">angular</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_angular_vel</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">linear</span><span class="p">,</span> <span class="n">angular</span>
+</pre></div>
+</div>
+</section>
+<section id="deadman-switch">
+<h3>Deadman Switch<a class="headerlink" href="#deadman-switch" title="Link to this heading"></a></h3>
+<p>Require continuous input for operation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">joystick_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">joy_msg</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process joystick input with deadman switch&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">joy_msg</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">enable_button</span><span class="p">]:</span>
+        <span class="c1"># Deadman switch not pressed - stop robot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish_stop_command</span><span class="p">()</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Deadman switch active - process movement commands</span>
+    <span class="n">linear</span> <span class="o">=</span> <span class="n">joy_msg</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">axis_linear</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_linear</span>
+    <span class="n">angular</span> <span class="o">=</span> <span class="n">joy_msg</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">axis_angular</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_angular</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">publish_velocity_command</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">angular</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-features">
+<h2>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading"></a></h2>
+<section id="multi-input-priority">
+<h3>Multi-Input Priority<a class="headerlink" href="#multi-input-priority" title="Link to this heading"></a></h3>
+<p>Handle multiple control sources:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Twist multiplexer configuration</span>
+<span class="nt">twist_mux</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">topics</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">joystick</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/joy_vel</span>
+<span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">    </span><span class="c1"># Highest priority</span>
+<span class="w">      </span><span class="nt">keyboard</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/key_vel</span>
+<span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span><span class="w">     </span><span class="c1"># Medium priority</span>
+<span class="w">      </span><span class="nt">navigation</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/nav_vel</span>
+<span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span>
+<span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w">     </span><span class="c1"># Lowest priority</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-key-bindings">
+<h3>Custom Key Bindings<a class="headerlink" href="#custom-key-bindings" title="Link to this heading"></a></h3>
+<p>Create custom control schemes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomTeleopNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;custom_teleop&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Custom key mappings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key_bindings</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="c1"># WASD movement</span>
+            <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>   <span class="c1"># Forward</span>
+            <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>  <span class="c1"># Backward</span>
+            <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>   <span class="c1"># Left</span>
+            <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">),</span>  <span class="c1"># Right</span>
+
+            <span class="c1"># Diagonal movement</span>
+            <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>   <span class="c1"># Forward-left</span>
+            <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">),</span>  <span class="c1"># Forward-right</span>
+            <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>  <span class="c1"># Backward-left</span>
+            <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">),</span> <span class="c1"># Backward-right</span>
+
+            <span class="c1"># Special functions</span>
+            <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="s1">&#39;reset&#39;</span><span class="p">,</span>
+            <span class="s1">&#39; &#39;</span><span class="p">:</span> <span class="s1">&#39;stop&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;h&#39;</span><span class="p">:</span> <span class="s1">&#39;help&#39;</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="voice-control-integration">
+<h3>Voice Control Integration<a class="headerlink" href="#voice-control-integration" title="Link to this heading"></a></h3>
+<p>Add voice command support:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">voice_command_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Process voice commands&quot;&quot;&quot;</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s1">&#39;forward&#39;</span> <span class="ow">in</span> <span class="n">command</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish_velocity</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;backward&#39;</span> <span class="ow">in</span> <span class="n">command</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish_velocity</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;left&#39;</span> <span class="ow">in</span> <span class="n">command</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish_velocity</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;right&#39;</span> <span class="ow">in</span> <span class="n">command</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish_velocity</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;stop&#39;</span> <span class="ow">in</span> <span class="n">command</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publish_velocity</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="programming-interface">
+<h2>Programming Interface<a class="headerlink" href="#programming-interface" title="Link to this heading"></a></h2>
+<section id="python-teleop-node">
+<h3>Python Teleop Node<a class="headerlink" href="#python-teleop-node" title="Link to this heading"></a></h3>
+<p>Create custom teleop nodes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Twist</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sensor_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Joy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">select</span><span class="o">,</span><span class="w"> </span><span class="nn">termios</span><span class="o">,</span><span class="w"> </span><span class="nn">tty</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TeleopNode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;teleop_node&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Publishers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cmd_vel_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">Twist</span><span class="p">,</span> <span class="s1">&#39;/cmd_vel&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># Subscribers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">joy_sub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_subscription</span><span class="p">(</span>
+            <span class="n">Joy</span><span class="p">,</span> <span class="s1">&#39;/joy&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">joy_callback</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># Parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;max_linear_vel&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;max_angular_vel&#39;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_linear_vel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s1">&#39;max_linear_vel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_angular_vel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s1">&#39;max_angular_vel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="c1"># Timer for keyboard input</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_timer</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyboard_callback</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyboard_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle keyboard input&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_key_pressed</span><span class="p">():</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_key</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">joy_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle joystick input&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>  <span class="c1"># Enable button pressed</span>
+            <span class="n">linear</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_linear_vel</span>
+            <span class="n">angular</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_angular_vel</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">publish_velocity</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">angular</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="c-teleop-node">
+<h3>C++ Teleop Node<a class="headerlink" href="#c-teleop-node" title="Link to this heading"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;rclcpp/rclcpp.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;geometry_msgs/msg/twist.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sensor_msgs/msg/joy.hpp&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">TeleopNode</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Node</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">TeleopNode</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Node</span><span class="p">(</span><span class="s">&quot;teleop_node&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Publishers</span>
+<span class="w">    </span><span class="n">cmd_vel_pub_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">create_publisher</span><span class="o">&lt;</span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Twist</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;/cmd_vel&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Subscribers</span>
+<span class="w">    </span><span class="n">joy_sub_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">create_subscription</span><span class="o">&lt;</span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Joy</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">      </span><span class="s">&quot;/joy&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">TeleopNode</span><span class="o">::</span><span class="n">joy_callback</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Parameters</span>
+<span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s">&quot;max_linear_vel&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s">&quot;max_angular_vel&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">max_linear_vel_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_parameter</span><span class="p">(</span><span class="s">&quot;max_linear_vel&quot;</span><span class="p">).</span><span class="n">as_double</span><span class="p">();</span>
+<span class="w">    </span><span class="n">max_angular_vel_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_parameter</span><span class="p">(</span><span class="s">&quot;max_angular_vel&quot;</span><span class="p">).</span><span class="n">as_double</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">joy_callback</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Joy</span><span class="o">::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="c1">// Enable button</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">twist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Twist</span><span class="p">();</span>
+<span class="w">      </span><span class="n">twist</span><span class="p">.</span><span class="n">linear</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">max_linear_vel_</span><span class="p">;</span>
+<span class="w">      </span><span class="n">twist</span><span class="p">.</span><span class="n">angular</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">max_angular_vel_</span><span class="p">;</span>
+<span class="w">      </span><span class="n">cmd_vel_pub_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">twist</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Publisher</span><span class="o">&lt;</span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Twist</span><span class="o">&gt;::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">cmd_vel_pub_</span><span class="p">;</span>
+<span class="w">  </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Subscription</span><span class="o">&lt;</span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Joy</span><span class="o">&gt;::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">joy_sub_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">max_linear_vel_</span><span class="p">,</span><span class="w"> </span><span class="n">max_angular_vel_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Keyboard Not Responding</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check terminal settings</span>
+stty<span class="w"> </span>-echo
+
+<span class="c1"># Reset terminal</span>
+reset
+
+<span class="c1"># Run in correct terminal</span>
+gnome-terminal<span class="w"> </span>--<span class="w"> </span>ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>littlebot_teleop.launch.py
+</pre></div>
+</div>
+<p><strong>Joystick Not Detected</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check joystick connection</span>
+ls<span class="w"> </span>/dev/input/js*
+
+<span class="c1"># Test joystick</span>
+jstest<span class="w"> </span>/dev/input/js0
+
+<span class="c1"># Check permissions</span>
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span><span class="w"> </span>/dev/input/js0
+
+<span class="c1"># Install joystick tools</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>joystick
+</pre></div>
+</div>
+<p><strong>Robot Not Moving</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check velocity commands</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/cmd_vel
+
+<span class="c1"># Check robot controllers</span>
+ros2<span class="w"> </span>control<span class="w"> </span>list_controllers
+
+<span class="c1"># Verify topic connections</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
+</pre></div>
+</div>
+</section>
+<section id="performance-optimization">
+<h3>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reduce publishing rate for efficiency</span>
+<span class="nt">teleop_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">publish_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20.0</span><span class="w">  </span><span class="c1"># Hz</span>
+
+<span class="c1"># Optimize deadzone settings</span>
+<span class="nt">joy_teleop</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">deadzone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">  </span><span class="c1"># Smaller deadzone for responsiveness</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="integration-examples">
+<h2>Integration Examples<a class="headerlink" href="#integration-examples" title="Link to this heading"></a></h2>
+<section id="complete-teleop-system">
+<h3>Complete Teleop System<a class="headerlink" href="#complete-teleop-system" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start robot</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_bringup<span class="w"> </span>littlebot_bringup.launch.py<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># Start teleop</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>littlebot_teleop.launch.py
+</pre></div>
+</div>
+</section>
+<section id="with-navigation-system">
+<h3>With Navigation System<a class="headerlink" href="#with-navigation-system" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start complete system</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_bringup<span class="w"> </span>littlebot_bringup.launch.py<span class="w"> </span><span class="p">&amp;</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_navigation<span class="w"> </span>littlebot_navigation.launch.py<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># Teleop will have lower priority than navigation</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>littlebot_teleop.launch.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p><strong>ROS2 Packages</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joy</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">teleop_twist_keyboard</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">teleop_twist_joy</span></code></p></li>
+</ul>
+<p><strong>System Dependencies</strong>:</p>
+<ul class="simple">
+<li><p>Joystick drivers</p></li>
+<li><p>Input device permissions</p></li>
+<li><p>Terminal access</p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>For detailed teleop API documentation, see the teleop_twist_keyboard and teleop_twist_joy package documentation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="littlebot_navigation.html" class="btn btn-neutral float-left" title="littlebot_navigation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="littlebot_rqt_plugin.html" class="btn btn-neutral float-right" title="littlebot_rqt_plugin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+  <compound refid="classlittlebot__base_1_1LittlebotCommunication" kind="class"><name>littlebot_base::LittlebotCommunication</name>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1aa150b299a62035cb3614c6739997381f" kind="variable"><name>command_velocities_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a6b8b6528931fdc81cdd672627561e3e2" kind="variable"><name>status_positions_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a7fa96c5b27456f3ab4393e8dc2094f08" kind="variable"><name>status_velocities_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1ad82883728df6049b6365f70a2a1303a7" kind="variable"><name>serial_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a847357cc0bd78430e7b14d302d5da5f1" kind="variable"><name>kStartByte</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a2fcb9e85b9122477b8d0463b503373a2" kind="variable"><name>kEndByte</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a751286041d3aee0a4136ee5df7a4f013" kind="function"><name>LittlebotCommunication</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a57d7d97e059e07a6bc38304ed9d542cc" kind="function"><name>~LittlebotCommunication</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a0b95fdaaeb60532058248a7afc38fd7e" kind="function"><name>setCommandVelocities</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1aeee2bc5ba06e5b3451fd2cd387005c93" kind="function"><name>getStatusVelocities</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1a49eb9a06191a56e6127d385154978d1b" kind="function"><name>getStatusPositionsStatus</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1adc39824e659f6f81d10856f281c28d27" kind="function"><name>start</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1acbc286f66fc016bd482fccf918c236a2" kind="function"><name>stop</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1aed815176514a667f48a30c734a6a9076" kind="function"><name>receive</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunication_1ae9e18e2a81249b54e79e4b404fbc1f32" kind="function"><name>send</name></member>
+  </compound>
+  <compound refid="classlittlebot__base_1_1LittlebotCommunicationInterface" kind="class"><name>littlebot_base::LittlebotCommunicationInterface</name>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a6191dfef2311faaa73219b2c4a624466" kind="variable"><name>command_velocities_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a44c6a78b97aaf7f529862f0dec14e0dc" kind="variable"><name>status_positions_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1ab1a3f007d04a79b0da1a689d43c886ee" kind="variable"><name>status_velocities_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a261ceff58de02d4d8ff6938844d7712f" kind="function"><name>~LittlebotCommunicationInterface</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1ada866930b91e48d3a5cfc42083aebd51" kind="function"><name>setCommandVelocities</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a68c3dace2d73f37ca53e2777f4a3c5d1" kind="function"><name>getStatusVelocities</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1ab8c914e44eb2f5d819c01158b4a6e1c7" kind="function"><name>getStatusPositionsStatus</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a6d3de289ac76dc99e2b713cbc6d1e8a2" kind="function"><name>LittlebotCommunicationInterface</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a5415c804280b8a13d620cd9464ed0cd8" kind="function"><name>receive</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1afeb87d44381014633850fafd1853273f" kind="function"><name>send</name></member>
+  </compound>
+  <compound refid="classlittlebot__base_1_1LittlebotHardwareComponent" kind="class"><name>littlebot_base::LittlebotHardwareComponent</name>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae50698b569b4a3e9c4455d53129a07b7" kind="variable"><name>hardware_component_name_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1abd7533f4742f572466e477903cef3916" kind="variable"><name>hw_commands_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a90c3b2c0354572e2123fdfd87de22f53" kind="variable"><name>hw_positions_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a30afe76d17c1bce59a4d8c8974b96127" kind="variable"><name>hw_velocities_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1aed624037758e0dbda38403301ec6b886" kind="variable"><name>kNumCommandInterface_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1adb7ebf224206178b77d83f5701297382" kind="variable"><name>kNumStateInterface_</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a12e6783d854895b7c92c1d8a4465f41b" kind="function"><name>~LittlebotHardwareComponent</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae5a69999a848159feacc1d7d63c41f42" kind="function"><name>on_init</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a84b0c80c82c2f5eaf9b9c596393f33bb" kind="function"><name>on_activate</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ab448e374330f42845dcd917f24aa0a92" kind="function"><name>on_deactivate</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae34070a99bf5ca7e0c716cbf78b1d121" kind="function"><name>export_state_interfaces</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a6cc242abaebaabf647f8ca6e4e4a2d5f" kind="function"><name>export_command_interfaces</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1aaa2acd019e87d3dc9ee113961e89c465" kind="function"><name>read</name></member>
+    <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a2f6bda00829edbbeded56906a7519828" kind="function"><name>write</name></member>
+  </compound>
+  <compound refid="namespacehardware__interface" kind="namespace"><name>hardware_interface</name>
+  </compound>
+  <compound refid="namespacelittlebot__base" kind="namespace"><name>littlebot_base</name>
+  </compound>
+  <compound refid="littlebot__communication_8hpp" kind="file"><name>littlebot_communication.hpp</name>
+  </compound>
+  <compound refid="littlebot__communication__interface_8hpp" kind="file"><name>littlebot_communication_interface.hpp</name>
+  </compound>
+  <compound refid="littlebot__hardware__component_8hpp" kind="file"><name>littlebot_hardware_component.hpp</name>
+  </compound>
+  <compound refid="littlebot__communication_8cpp" kind="file"><name>littlebot_communication.cpp</name>
+  </compound>
+  <compound refid="littlebot__hardware__component_8cpp" kind="file"><name>littlebot_hardware_component.cpp</name>
+  </compound>
+  <compound refid="dir_68f9b4efa9a45af395acbb4168c1cb3c" kind="dir"><name>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include</name>
+  </compound>
+  <compound refid="dir_ab8eec713b782874da7bf54beaead3bd" kind="dir"><name>/home/nestor/littlebot_ws/src/littlebot/littlebot_base</name>
+  </compound>
+  <compound refid="dir_8ab58479bfb618a80f3f58035d47ea0d" kind="dir"><name>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base</name>
+  </compound>
+  <compound refid="dir_e2a3db92f24a3c68fb6d731b096ce99c" kind="dir"><name>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src</name>
+  </compound>
+</doxygenindex>

@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>littlebot_control &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="littlebot_description" href="littlebot_description.html" />
+    <link rel="prev" title="littlebot_bringup" href="littlebot_bringup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Package Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#core-packages">Core Packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">littlebot_control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualization">Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#advanced-features">Advanced Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-examples">Integration Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#programming-interface">Programming Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#navigation-and-localization">Navigation and Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#user-interface">User Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simulation">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#meta-package">Meta Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">littlebot_control</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#controllers">Controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-files">Configuration Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#starting-controllers">Starting Controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managing-controllers">Managing Controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sending-commands">Sending Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rviz-configuration">RViz Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-topics">Monitoring Topics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tuning-controller-parameters">Tuning Controller Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#twist-multiplexer">Twist Multiplexer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#real-time-performance">Real-time Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#safety-features">Safety Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-tuning">Performance Tuning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-examples">Integration Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#with-navigation">With Navigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-teleop">With Teleop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-interface">Programming Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#c-interface">C++ Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-interface">Python Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package Documentation</a></li>
+      <li class="breadcrumb-item active">littlebot_control</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/packages/littlebot_control.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="littlebot-control">
+<h1>littlebot_control<a class="headerlink" href="#littlebot-control" title="Link to this heading"></a></h1>
+<p>The <cite>littlebot_control</cite> package provides ROS2 Control configuration, controllers, and launch files for managing robot motion and actuators.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This package integrates with the ROS2 Control framework to provide:</p>
+<ul class="simple">
+<li><p>Controller configuration files</p></li>
+<li><p>Launch files for controller management</p></li>
+<li><p>RViz configuration for visualization</p></li>
+<li><p>Motion control interfaces</p></li>
+<li><p>Real-time control capabilities</p></li>
+</ul>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<section id="controllers">
+<h3>Controllers<a class="headerlink" href="#controllers" title="Link to this heading"></a></h3>
+<p><strong>Differential Drive Controller</strong></p>
+<p>The primary motion controller for LittleBot’s differential drive system.</p>
+<p><strong>File</strong>: Configured in <cite>config/control.yaml</cite></p>
+<p>Key features:
+* Velocity command input via <code class="docutils literal notranslate"><span class="pre">/cmd_vel</span></code> topic
+* Odometry publication on <code class="docutils literal notranslate"><span class="pre">/odom</span></code> topic
+* Transform broadcasting (<code class="docutils literal notranslate"><span class="pre">base_link</span></code> → <code class="docutils literal notranslate"><span class="pre">odom</span></code>)
+* Configurable wheel parameters</p>
+<p><strong>Joint State Broadcaster</strong></p>
+<p>Publishes current joint positions and velocities.</p>
+<ul class="simple">
+<li><p>Publishes to <code class="docutils literal notranslate"><span class="pre">/joint_states</span></code> topic</p></li>
+<li><p>Compatible with <code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code></p></li>
+<li><p>Provides real-time joint information</p></li>
+</ul>
+</section>
+<section id="configuration-files">
+<h3>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h3>
+<p><strong>Control Configuration</strong>: <cite>config/control.yaml</cite></p>
+<p>Defines controller parameters:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controller_manager</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">  </span><span class="c1"># Hz</span>
+
+<span class="nt">diff_drive_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">left_wheel_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;left_wheel_joint&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">right_wheel_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;right_wheel_joint&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">wheel_separation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span><span class="w">  </span><span class="c1"># meters</span>
+<span class="w">    </span><span class="nt">wheel_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">     </span><span class="c1"># meters</span>
+<span class="w">    </span><span class="nt">publish_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span><span class="w">     </span><span class="c1"># Hz</span>
+<span class="w">    </span><span class="nt">pose_covariance_diagonal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.01</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">twist_covariance_diagonal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.01</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p><strong>Twist Mux Configuration</strong>: <cite>config/twist_mux.yaml</cite></p>
+<p>Manages multiple velocity command sources:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">twist_mux</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">topics</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">navigation</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/nav_vel</span>
+<span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">      </span><span class="nt">teleop</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teleop_vel</span>
+<span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+</pre></div>
+</div>
+</section>
+<section id="launch-files">
+<h3>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p><strong>Main Control Launch</strong>: <cite>launch/littlebot_control.launch.py</cite></p>
+<p>Starts the complete control system:</p>
+<ul class="simple">
+<li><p>Controller manager</p></li>
+<li><p>Differential drive controller</p></li>
+<li><p>Joint state broadcaster</p></li>
+<li><p>Transform publishers</p></li>
+</ul>
+<p><strong>Spawn Controller Launch</strong>: <cite>launch/spawn_diffdriver_controller.launch.py</cite></p>
+<p>Utility launch file for loading controllers:</p>
+<ul class="simple">
+<li><p>Loads controller configuration</p></li>
+<li><p>Spawns and activates controllers</p></li>
+<li><p>Handles controller lifecycle</p></li>
+</ul>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="starting-controllers">
+<h3>Starting Controllers<a class="headerlink" href="#starting-controllers" title="Link to this heading"></a></h3>
+<p>Launch the complete control system:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start controllers with hardware</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_control<span class="w"> </span>littlebot_control.launch.py
+
+<span class="c1"># Start controllers for simulation</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_control<span class="w"> </span>littlebot_control.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>use_sim_time:<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="managing-controllers">
+<h3>Managing Controllers<a class="headerlink" href="#managing-controllers" title="Link to this heading"></a></h3>
+<p>Control individual controllers:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List available controllers</span>
+ros2<span class="w"> </span>control<span class="w"> </span>list_controllers
+
+<span class="c1"># Load a controller</span>
+ros2<span class="w"> </span>control<span class="w"> </span>load_controller<span class="w"> </span>diff_drive_controller
+
+<span class="c1"># Start a controller</span>
+ros2<span class="w"> </span>control<span class="w"> </span>switch_controllers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--activate<span class="w"> </span>diff_drive_controller
+
+<span class="c1"># Stop a controller</span>
+ros2<span class="w"> </span>control<span class="w"> </span>switch_controllers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--deactivate<span class="w"> </span>diff_drive_controller
+</pre></div>
+</div>
+</section>
+<section id="sending-commands">
+<h3>Sending Commands<a class="headerlink" href="#sending-commands" title="Link to this heading"></a></h3>
+<p>Control the robot programmatically:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Send velocity commands</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/cmd_vel<span class="w"> </span>geometry_msgs/msg/Twist<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">&#39;{linear: {x: 0.5, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.2}}&#39;</span>
+
+<span class="c1"># Stop the robot</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/cmd_vel<span class="w"> </span>geometry_msgs/msg/Twist<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">&#39;{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
+<section id="rviz-configuration">
+<h3>RViz Configuration<a class="headerlink" href="#rviz-configuration" title="Link to this heading"></a></h3>
+<p><strong>File</strong>: <cite>rviz/diff_drive.rviz</cite></p>
+<p>Pre-configured RViz setup including:</p>
+<ul class="simple">
+<li><p>Robot model display</p></li>
+<li><p>Joint state visualization</p></li>
+<li><p>Odometry path tracking</p></li>
+<li><p>Velocity command visualization</p></li>
+<li><p>Transform tree display</p></li>
+</ul>
+<p>Launch RViz with configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch RViz with robot visualization</span>
+rviz2<span class="w"> </span>-d<span class="w"> </span>src/littlebot_control/rviz/diff_drive.rviz
+</pre></div>
+</div>
+</section>
+<section id="monitoring-topics">
+<h3>Monitoring Topics<a class="headerlink" href="#monitoring-topics" title="Link to this heading"></a></h3>
+<p>Key topics for monitoring:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Monitor joint states</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/joint_states
+
+<span class="c1"># Monitor odometry</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom
+
+<span class="c1"># Monitor velocity commands</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/cmd_vel
+
+<span class="c1"># Check controller status</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/controller_manager/robot_description
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<section id="tuning-controller-parameters">
+<h3>Tuning Controller Parameters<a class="headerlink" href="#tuning-controller-parameters" title="Link to this heading"></a></h3>
+<p><strong>Wheel Parameters</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">diff_drive_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">wheel_separation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span><span class="w">    </span><span class="c1"># Distance between wheels (m)</span>
+<span class="w">    </span><span class="nt">wheel_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">       </span><span class="c1"># Wheel radius (m)</span>
+<span class="w">    </span><span class="nt">left_wheel_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;left_wheel_joint&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">right_wheel_names</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;right_wheel_joint&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p><strong>Control Rates</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controller_manager</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">        </span><span class="c1"># Controller update frequency (Hz)</span>
+
+<span class="nt">diff_drive_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">publish_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50.0</span><span class="w">      </span><span class="c1"># Odometry publish rate (Hz)</span>
+</pre></div>
+</div>
+<p><strong>Covariance Tuning</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">diff_drive_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Position covariance [x, y, z, roll, pitch, yaw]</span>
+<span class="w">    </span><span class="nt">pose_covariance_diagonal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.01</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="c1"># Velocity covariance [vx, vy, vz, wx, wy, wz]</span>
+<span class="w">    </span><span class="nt">twist_covariance_diagonal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.01</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-features">
+<h2>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading"></a></h2>
+<section id="twist-multiplexer">
+<h3>Twist Multiplexer<a class="headerlink" href="#twist-multiplexer" title="Link to this heading"></a></h3>
+<p>The twist mux allows multiple sources to send velocity commands:</p>
+<ul class="simple">
+<li><p><strong>Navigation</strong>: Autonomous navigation commands (priority 10)</p></li>
+<li><p><strong>Teleop</strong>: Manual teleoperation commands (priority 100)</p></li>
+<li><p><strong>Safety</strong>: Emergency stop commands (highest priority)</p></li>
+</ul>
+<p>Priority system ensures safety and proper command arbitration.</p>
+</section>
+<section id="real-time-performance">
+<h3>Real-time Performance<a class="headerlink" href="#real-time-performance" title="Link to this heading"></a></h3>
+<p>Controller optimization:</p>
+<ul class="simple">
+<li><p>High-frequency control loops (100 Hz)</p></li>
+<li><p>Low-latency command processing</p></li>
+<li><p>Efficient memory usage</p></li>
+<li><p>Real-time scheduling support</p></li>
+</ul>
+</section>
+<section id="safety-features">
+<h3>Safety Features<a class="headerlink" href="#safety-features" title="Link to this heading"></a></h3>
+<p>Built-in safety mechanisms:</p>
+<ul class="simple">
+<li><p>Command timeout detection</p></li>
+<li><p>Velocity limiting</p></li>
+<li><p>Emergency stop capability</p></li>
+<li><p>Hardware fault detection</p></li>
+</ul>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Controllers Not Loading</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check controller manager status</span>
+ros2<span class="w"> </span>node<span class="w"> </span>info<span class="w"> </span>/controller_manager
+
+<span class="c1"># Verify configuration file</span>
+ros2<span class="w"> </span>param<span class="w"> </span>list<span class="w"> </span>/controller_manager
+</pre></div>
+</div>
+<p><strong>Incorrect Odometry</strong>:</p>
+<ul class="simple">
+<li><p>Verify wheel parameters match physical robot</p></li>
+<li><p>Check encoder calibration</p></li>
+<li><p>Validate transform tree</p></li>
+</ul>
+<p><strong>Commands Not Executed</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if controller is active</span>
+ros2<span class="w"> </span>control<span class="w"> </span>list_controllers
+
+<span class="c1"># Verify command topic</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
+
+<span class="c1"># Test hardware interface</span>
+ros2<span class="w"> </span>control<span class="w"> </span>list_hardware_interfaces
+</pre></div>
+</div>
+</section>
+<section id="performance-tuning">
+<h3>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Link to this heading"></a></h3>
+<p>Optimize controller performance:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Increase update rates for better response</span>
+<span class="nt">controller_manager</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span><span class="w">  </span><span class="c1"># Higher frequency</span>
+
+<span class="c1"># Reduce covariance for more confident odometry</span>
+<span class="nt">diff_drive_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pose_covariance_diagonal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0001</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.001</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="integration-examples">
+<h2>Integration Examples<a class="headerlink" href="#integration-examples" title="Link to this heading"></a></h2>
+<section id="with-navigation">
+<h3>With Navigation<a class="headerlink" href="#with-navigation" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start control system</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_control<span class="w"> </span>littlebot_control.launch.py<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># Start navigation (will send commands to /cmd_vel)</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_navigation<span class="w"> </span>littlebot_navigation.launch.py
+</pre></div>
+</div>
+</section>
+<section id="with-teleop">
+<h3>With Teleop<a class="headerlink" href="#with-teleop" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start control system</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_control<span class="w"> </span>littlebot_control.launch.py<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># Start teleop (manual control)</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_teleop<span class="w"> </span>littlebot_teleop.launch.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="programming-interface">
+<h2>Programming Interface<a class="headerlink" href="#programming-interface" title="Link to this heading"></a></h2>
+<section id="c-interface">
+<h3>C++ Interface<a class="headerlink" href="#c-interface" title="Link to this heading"></a></h3>
+<p>Create custom controllers:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;controller_interface/controller_interface.hpp&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomController</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">controller_interface</span><span class="o">::</span><span class="n">ControllerInterface</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">controller_interface</span><span class="o">::</span><span class="n">InterfaceConfiguration</span><span class="w"> </span><span class="n">command_interface_configuration</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">  </span><span class="n">controller_interface</span><span class="o">::</span><span class="n">InterfaceConfiguration</span><span class="w"> </span><span class="nf">state_interface_configuration</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">  </span><span class="n">controller_interface</span><span class="o">::</span><span class="n">return_type</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Time</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Duration</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">period</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="python-interface">
+<h3>Python Interface<a class="headerlink" href="#python-interface" title="Link to this heading"></a></h3>
+<p>Control via Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geometry_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="n">Twist</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">send_velocity_command</span><span class="p">():</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">rclpy</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="s1">&#39;velocity_publisher&#39;</span><span class="p">)</span>
+    <span class="n">pub</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">Twist</span><span class="p">,</span> <span class="s1">&#39;/cmd_vel&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">twist</span> <span class="o">=</span> <span class="n">Twist</span><span class="p">()</span>
+    <span class="n">twist</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">twist</span><span class="o">.</span><span class="n">angular</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="mf">0.2</span>
+    <span class="n">pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">twist</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p><strong>ROS2 Packages</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">controller_manager</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diff_drive_controller</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joint_state_broadcaster</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">twist_mux</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code></p></li>
+</ul>
+<p><strong>System Dependencies</strong>:</p>
+<ul class="simple">
+<li><p>ROS2 Control framework</p></li>
+<li><p>Real-time kernel (optional, for hard real-time)</p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>For detailed controller API documentation, see the ROS2 Control documentation and controller-specific references.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="littlebot_bringup.html" class="btn btn-neutral float-left" title="littlebot_bringup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="littlebot_description.html" class="btn btn-neutral float-right" title="littlebot_description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

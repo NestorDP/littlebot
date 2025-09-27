@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>littlebot_base &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="littlebot_bringup" href="littlebot_bringup.html" />
+    <link rel="prev" title="Package Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Package Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#core-packages">Core Packages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">littlebot_base</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scripts">Scripts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#navigation-and-localization">Navigation and Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#user-interface">User Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simulation">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#meta-package">Meta Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">littlebot_base</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hardware-interface">Hardware Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N14littlebot_base26LittlebotHardwareComponentE"><code class="docutils literal notranslate"><span class="pre">littlebot_base::LittlebotHardwareComponent</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#communication-layer">Communication Layer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N14littlebot_base22LittlebotCommunicationE"><code class="docutils literal notranslate"><span class="pre">littlebot_base::LittlebotCommunication</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#protocol-buffers">Protocol Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hardware-parameters">Hardware Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scripts">Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fake-hardware-script">Fake Hardware Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-tests">Integration Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package Documentation</a></li>
+      <li class="breadcrumb-item active">littlebot_base</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/packages/littlebot_base.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="littlebot-base">
+<h1>littlebot_base<a class="headerlink" href="#littlebot-base" title="Link to this heading"></a></h1>
+<p>The <cite>littlebot_base</cite> package provides the hardware interface and communication layer for the LittleBot robot.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This package contains:</p>
+<ul class="simple">
+<li><p><strong>Hardware Component</strong>: ROS2 Control hardware interface</p></li>
+<li><p><strong>Communication</strong>: Serial communication with robot firmware</p></li>
+<li><p><strong>Protocol Buffers</strong>: Message serialization for firmware communication</p></li>
+<li><p><strong>Fake Hardware</strong>: Simulation support for testing without physical hardware</p></li>
+</ul>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<section id="hardware-interface">
+<h3>Hardware Interface<a class="headerlink" href="#hardware-interface" title="Link to this heading"></a></h3>
+<p>The main hardware interface class that integrates with ROS2 Control framework.</p>
+<p><strong>File</strong>: <cite>src/littlebot_hardware_component.cpp</cite></p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base26LittlebotHardwareComponentE">
+<span id="_CPPv3N14littlebot_base26LittlebotHardwareComponentE"></span><span id="_CPPv2N14littlebot_base26LittlebotHardwareComponentE"></span><span id="littlebot_base::LittlebotHardwareComponent"></span><span class="target" id="classlittlebot__base_1_1LittlebotHardwareComponent"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LittlebotHardwareComponent</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">hardware_interface</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SystemInterface</span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base26LittlebotHardwareComponentD0Ev">
+<span id="_CPPv3N14littlebot_base26LittlebotHardwareComponentD0Ev"></span><span id="_CPPv2N14littlebot_base26LittlebotHardwareComponentD0Ev"></span><span id="littlebot_base::LittlebotHardwareComponent::~LittlebotHardwareComponent"></span><span class="target" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a12e6783d854895b7c92c1d8a4465f41b"></span><span class="sig-name descname"><span class="n"><span class="pre">~LittlebotHardwareComponent</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><br /></dt>
+<dd><p>Deconstructor for the <a class="reference internal" href="#classlittlebot__base_1_1LittlebotHardwareComponent"><span class="std std-ref">LittlebotHardwareComponent</span></a> class. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base26LittlebotHardwareComponent25export_command_interfacesEv">
+<span id="_CPPv3N14littlebot_base26LittlebotHardwareComponent25export_command_interfacesEv"></span><span id="_CPPv2N14littlebot_base26LittlebotHardwareComponent25export_command_interfacesEv"></span><span id="littlebot_base::LittlebotHardwareComponent::export_command_interfaces"></span><span class="target" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a6cc242abaebaabf647f8ca6e4e4a2d5f"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">hardware_interface</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">CommandInterface</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">export_command_interfaces</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><br /></dt>
+<dd><p></p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>Key Methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">on_init()</span></code>: Initialize hardware interface</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on_configure()</span></code>: Configure hardware parameters</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on_activate()</span></code>: Activate hardware communication</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">read()</span></code>: Read sensor data from hardware</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">write()</span></code>: Write commands to hardware</p></li>
+</ul>
+</section>
+<section id="communication-layer">
+<h3>Communication Layer<a class="headerlink" href="#communication-layer" title="Link to this heading"></a></h3>
+<p>Handles serial communication with the robot’s firmware.</p>
+<p><strong>File</strong>: <cite>src/littlebot_communication.cpp</cite></p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base22LittlebotCommunicationE">
+<span id="_CPPv3N14littlebot_base22LittlebotCommunicationE"></span><span id="_CPPv2N14littlebot_base22LittlebotCommunicationE"></span><span id="littlebot_base::LittlebotCommunication"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LittlebotCommunication</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../api/index.html#_CPPv414littlebot_base" title="littlebot_base"><span class="n"><span class="pre">littlebot_base</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../api/index.html#_CPPv4N14littlebot_base31LittlebotCommunicationInterfaceE" title="littlebot_base::LittlebotCommunicationInterface"><span class="n"><span class="pre">LittlebotCommunicationInterface</span></span></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base22LittlebotCommunication22LittlebotCommunicationEKNSt6stringE">
+<span id="_CPPv3N14littlebot_base22LittlebotCommunication22LittlebotCommunicationEKNSt6stringE"></span><span id="_CPPv2N14littlebot_base22LittlebotCommunication22LittlebotCommunicationEKNSt6stringE"></span><span id="littlebot_base::LittlebotCommunication::LittlebotCommunication__ssC"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication_1a751286041d3aee0a4136ee5df7a4f013"></span><span class="sig-name descname"><span class="n"><span class="pre">LittlebotCommunication</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">serial_port</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor for the <a class="reference internal" href="#classlittlebot__base_1_1LittlebotCommunication"><span class="std std-ref">LittlebotCommunication</span></a> class. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base22LittlebotCommunicationD0Ev">
+<span id="_CPPv3N14littlebot_base22LittlebotCommunicationD0Ev"></span><span id="_CPPv2N14littlebot_base22LittlebotCommunicationD0Ev"></span><span id="littlebot_base::LittlebotCommunication::~LittlebotCommunication"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication_1a57d7d97e059e07a6bc38304ed9d542cc"></span><span class="sig-name descname"><span class="n"><span class="pre">~LittlebotCommunication</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Deconstructor for the <a class="reference internal" href="#classlittlebot__base_1_1LittlebotCommunication"><span class="std std-ref">LittlebotCommunication</span></a> class. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base22LittlebotCommunication20setCommandVelocitiesENSt6vectorIfEE">
+<span id="_CPPv3N14littlebot_base22LittlebotCommunication20setCommandVelocitiesENSt6vectorIfEE"></span><span id="_CPPv2N14littlebot_base22LittlebotCommunication20setCommandVelocitiesENSt6vectorIfEE"></span><span id="littlebot_base::LittlebotCommunication::setCommandVelocities__std::vector:float:"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication_1a0b95fdaaeb60532058248a7afc38fd7e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setCommandVelocities</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">velocities</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><br /></dt>
+<dd><p>Set the command velocities. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK14littlebot_base22LittlebotCommunication19getStatusVelocitiesEv">
+<span id="_CPPv3NK14littlebot_base22LittlebotCommunication19getStatusVelocitiesEv"></span><span id="_CPPv2NK14littlebot_base22LittlebotCommunication19getStatusVelocitiesEv"></span><span id="littlebot_base::LittlebotCommunication::getStatusVelocitiesC"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication_1aeee2bc5ba06e5b3451fd2cd387005c93"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getStatusVelocities</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><br /></dt>
+<dd><p>Get the status velocities. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK14littlebot_base22LittlebotCommunication24getStatusPositionsStatusEv">
+<span id="_CPPv3NK14littlebot_base22LittlebotCommunication24getStatusPositionsStatusEv"></span><span id="_CPPv2NK14littlebot_base22LittlebotCommunication24getStatusPositionsStatusEv"></span><span id="littlebot_base::LittlebotCommunication::getStatusPositionsStatusC"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication_1a49eb9a06191a56e6127d385154978d1b"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getStatusPositionsStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><br /></dt>
+<dd><p>Get the status positions. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base22LittlebotCommunication5startEv">
+<span id="_CPPv3N14littlebot_base22LittlebotCommunication5startEv"></span><span id="_CPPv2N14littlebot_base22LittlebotCommunication5startEv"></span><span id="littlebot_base::LittlebotCommunication::start"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication_1adc39824e659f6f81d10856f281c28d27"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Start threads. </p>
+<p>This function starts the threads that read and write data to the hardware. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N14littlebot_base22LittlebotCommunication4stopEv">
+<span id="_CPPv3N14littlebot_base22LittlebotCommunication4stopEv"></span><span id="_CPPv2N14littlebot_base22LittlebotCommunication4stopEv"></span><span id="littlebot_base::LittlebotCommunication::stop"></span><span class="target" id="classlittlebot__base_1_1LittlebotCommunication_1acbc286f66fc016bd482fccf918c236a2"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Stop thread that read data from serial port. </p>
+<p>This function stops the threads that read and write data to the hardware. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>Key Methods:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">setCommandVelocities()</span></code>: Send velocity commands</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getStatusVelocities()</span></code>: Read current velocities</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">getStatusPositionsStatus()</span></code>: Read encoder positions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">receive()</span></code>: Receive data from firmware</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">send()</span></code>: Send data to firmware</p></li>
+</ul>
+</section>
+<section id="protocol-buffers">
+<h3>Protocol Buffers<a class="headerlink" href="#protocol-buffers" title="Link to this heading"></a></h3>
+<p>Message format for communication with firmware.</p>
+<p><strong>File</strong>: <cite>src/littlebot_protocol.proto</cite></p>
+<p>The protocol buffer definitions include:</p>
+<div class="highlight-protobuf notranslate"><div class="highlight"><pre><span></span><span class="kd">message</span><span class="w"> </span><span class="nc">LittlebotCommand</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="na">left_velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="na">right_velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int32</span><span class="w"> </span><span class="na">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">LittlebotStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="na">left_velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="na">right_velocity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="na">left_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="na">right_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int32</span><span class="w"> </span><span class="na">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<section id="hardware-parameters">
+<h3>Hardware Parameters<a class="headerlink" href="#hardware-parameters" title="Link to this heading"></a></h3>
+<p>Configure hardware settings in your launch file or parameter file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">hardware</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">plugin</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;littlebot_base/LittlebotHardwareComponent&quot;</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">serial_port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/dev/ttyUSB0&quot;</span>
+<span class="w">    </span><span class="nt">baud_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">115200</span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">    </span><span class="nt">wheel_separation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">    </span><span class="nt">wheel_radius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+</pre></div>
+</div>
+</section>
+<section id="launch-files">
+<h3>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p><strong>Container Launch</strong>: <cite>launch/littlebot_base_container.launch.py</cite></p>
+<p>Launches the hardware interface in a component container for better performance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">launch</span><span class="w"> </span><span class="kn">import</span> <span class="n">LaunchDescription</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.actions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ComposableNodeContainer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">launch_ros.descriptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ComposableNode</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_launch_description</span><span class="p">():</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="n">ComposableNodeContainer</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;littlebot_base_container&#39;</span><span class="p">,</span>
+        <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="n">package</span><span class="o">=</span><span class="s1">&#39;rclcpp_components&#39;</span><span class="p">,</span>
+        <span class="n">executable</span><span class="o">=</span><span class="s1">&#39;component_container&#39;</span><span class="p">,</span>
+        <span class="n">composable_node_descriptions</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">ComposableNode</span><span class="p">(</span>
+                <span class="n">package</span><span class="o">=</span><span class="s1">&#39;littlebot_base&#39;</span><span class="p">,</span>
+                <span class="n">plugin</span><span class="o">=</span><span class="s1">&#39;littlebot_base::LittlebotHardwareComponent&#39;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s1">&#39;littlebot_hardware&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">output</span><span class="o">=</span><span class="s1">&#39;screen&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">LaunchDescription</span><span class="p">([</span><span class="n">container</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="scripts">
+<h2>Scripts<a class="headerlink" href="#scripts" title="Link to this heading"></a></h2>
+<section id="fake-hardware-script">
+<h3>Fake Hardware Script<a class="headerlink" href="#fake-hardware-script" title="Link to this heading"></a></h3>
+<p><strong>File</strong>: <cite>scripts/littlebot_fake.py</cite></p>
+<p>Provides a fake hardware interface for testing and simulation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run fake hardware</span>
+ros2<span class="w"> </span>run<span class="w"> </span>littlebot_base<span class="w"> </span>littlebot_fake.py
+</pre></div>
+</div>
+<p>This script:</p>
+<ul class="simple">
+<li><p>Simulates sensor readings</p></li>
+<li><p>Responds to velocity commands</p></li>
+<li><p>Publishes fake odometry data</p></li>
+<li><p>Useful for testing without physical hardware</p></li>
+</ul>
+</section>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h2>
+<section id="unit-tests">
+<h3>Unit Tests<a class="headerlink" href="#unit-tests" title="Link to this heading"></a></h3>
+<p>The package includes comprehensive unit tests:</p>
+<p><strong>Files</strong>:
+* <cite>test/test_littlebot_communication.cpp</cite>
+* <cite>test/test_littlebot_hardware_component.cpp</cite>
+* <cite>test/mock_littlebot_communication.cpp</cite></p>
+<p>Run tests with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>colcon<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--packages-select<span class="w"> </span>littlebot_base
+colcon<span class="w"> </span>test-result<span class="w"> </span>--verbose
+</pre></div>
+</div>
+</section>
+<section id="integration-tests">
+<h3>Integration Tests<a class="headerlink" href="#integration-tests" title="Link to this heading"></a></h3>
+<p>Test the hardware interface with real or simulated hardware:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test with fake hardware</span>
+ros2<span class="w"> </span>run<span class="w"> </span>littlebot_base<span class="w"> </span>littlebot_fake.py<span class="w"> </span><span class="p">&amp;</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_base<span class="w"> </span>littlebot_base_container.launch.py
+
+<span class="c1"># Check communication</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/joint_states
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/cmd_vel<span class="w"> </span>geometry_msgs/msg/Twist<span class="w"> </span><span class="s1">&#39;{linear: {x: 0.1}}&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Serial Port Permission Denied</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add user to dialout group</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>dialout<span class="w"> </span><span class="nv">$USER</span>
+<span class="c1"># Log out and back in</span>
+</pre></div>
+</div>
+<p><strong>Communication Timeouts</strong>:</p>
+<ul class="simple">
+<li><p>Check serial port connection</p></li>
+<li><p>Verify baud rate settings</p></li>
+<li><p>Ensure firmware is running on robot</p></li>
+</ul>
+<p><strong>Build Errors</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install protocol buffer compiler</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>protobuf-compiler<span class="w"> </span>libprotobuf-dev
+
+<span class="c1"># Rebuild</span>
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>littlebot_base
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>For detailed API documentation, see the generated Doxygen documentation.</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p><strong>ROS2 Packages</strong>:
+* hardware_interface
+* controller_manager
+* rclcpp
+* rclcpp_components</p>
+<p><strong>System Dependencies</strong>:
+* libserial-dev
+* protobuf-compiler
+* libprotobuf-dev</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Package Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="littlebot_bringup.html" class="btn btn-neutral float-right" title="littlebot_bringup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

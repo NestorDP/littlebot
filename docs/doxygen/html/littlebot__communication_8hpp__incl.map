@@ -1,0 +1,13 @@
+<map id="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication.hpp" name="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="132,5,346,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="48,211,107,236"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,55,99,65,67,80,38,99,15,124,8,142,15,162,29,183,48,200,44,204,25,186,10,164,3,142,10,121,34,95,64,75,97,60,131,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="162,211,225,236"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="347,67,389,84,422,106,433,119,439,133,438,148,429,164,416,175,397,185,348,201,239,220,238,214,346,195,395,180,413,171,425,161,433,147,434,134,429,122,419,110,387,89,345,72"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="272,130,414,155"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="276,73,323,118,319,122,272,77"/>
+<area shape="rect" id="Node000005" href="$littlebot__communication__interface_8hpp.html" title=" " alt="" coords="25,123,248,163"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="206,77,167,115,164,111,202,73"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="124,164,97,201,93,198,120,161"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="152,161,179,198,175,201,148,164"/>
+</map>

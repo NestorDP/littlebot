@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>littlebot_description &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="littlebot_localization" href="littlebot_localization.html" />
+    <link rel="prev" title="littlebot_control" href="littlebot_control.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Package Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#core-packages">Core Packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">littlebot_description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#robot-structure">Robot Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sensors-and-hardware">Sensors and Hardware</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gazebo-integration">Gazebo Integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualization">Visualization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#customization">Customization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#testing-and-validation">Testing and Validation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#navigation-and-localization">Navigation and Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#user-interface">User Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simulation">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#meta-package">Meta Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">littlebot_description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#robot-model-files">Robot Model Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-assets">3D Assets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#viewing-robot-model">Viewing Robot Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#robot-model-parameters">Robot Model Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-urdf">Working with URDF</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#robot-structure">Robot Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#physical-properties">Physical Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#joint-configuration">Joint Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sensors-and-hardware">Sensors and Hardware</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sensor-integration">Sensor Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ros2-control-integration">ROS2 Control Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gazebo-integration">Gazebo Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-plugins">Simulation Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sensor-simulation">Sensor Simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#rviz-configuration">RViz Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-materials">Custom Materials</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#customization">Customization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modifying-robot-model">Modifying Robot Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing-and-validation">Testing and Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-validation">Model Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visual-inspection">Visual Inspection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package Documentation</a></li>
+      <li class="breadcrumb-item active">littlebot_description</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/packages/littlebot_description.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="littlebot-description">
+<h1>littlebot_description<a class="headerlink" href="#littlebot-description" title="Link to this heading"></a></h1>
+<p>The <cite>littlebot_description</cite> package contains the robot model definition, including URDF/Xacro files, meshes, materials, and visualization configurations.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This package provides:</p>
+<ul class="simple">
+<li><p>Complete robot model in URDF/Xacro format</p></li>
+<li><p>3D meshes and visual materials</p></li>
+<li><p>Robot description launch files</p></li>
+<li><p>RViz configuration for visualization</p></li>
+<li><p>Gazebo integration files</p></li>
+<li><p>ROS2 Control hardware descriptions</p></li>
+</ul>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<section id="robot-model-files">
+<h3>Robot Model Files<a class="headerlink" href="#robot-model-files" title="Link to this heading"></a></h3>
+<p><strong>Main URDF/Xacro Files</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">urdf/littlebot.urdf.xacro</span></code>: Main robot description</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gazebo/littlebot.gazebo.xacro</span></code>: Gazebo-specific plugins and sensors</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ros2_control/</span></code>: Hardware interface descriptions</p></li>
+</ul>
+<p><strong>Structure</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- Main robot structure --&gt;</span>
+<span class="nt">&lt;robot</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;littlebot&quot;</span><span class="w"> </span><span class="na">xmlns:xacro=</span><span class="s">&quot;http://www.ros.org/wiki/xacro&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">  </span><span class="cm">&lt;!-- Robot properties --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_width&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.3&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_length&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.4&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;wheel_radius&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.05&quot;</span><span class="nt">/&gt;</span>
+
+<span class="w">  </span><span class="cm">&lt;!-- Include components --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;xacro:include</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;$(find littlebot_description)/urdf/base.xacro&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;xacro:include</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;$(find littlebot_description)/urdf/wheels.xacro&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;xacro:include</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;$(find littlebot_description)/urdf/sensors.xacro&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/robot&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="d-assets">
+<h3>3D Assets<a class="headerlink" href="#d-assets" title="Link to this heading"></a></h3>
+<p><strong>Mesh Directory</strong>: <cite>meshes/</cite></p>
+<p>Contains CAD-based 3D models:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">littlebot.dae</span></code>: Main robot body</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">roda.dae</span></code>: Wheel meshes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Caster_Wheel_Plate.dae</span></code>: Caster wheel assembly</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HC-SR04.dae</span></code>: Ultrasonic sensor model</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MPU_6050.dae</span></code>: IMU sensor model</p></li>
+</ul>
+<p><strong>Material Properties</strong>:</p>
+<ul class="simple">
+<li><p>Realistic visual appearance</p></li>
+<li><p>Physics collision meshes</p></li>
+<li><p>Optimized for real-time rendering</p></li>
+</ul>
+</section>
+<section id="launch-files">
+<h3>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p><strong>Robot Description Launch</strong>: <cite>launch/littlebot_description.launch.py</cite></p>
+<p>Launches robot model visualization:</p>
+<ul class="simple">
+<li><p>Loads robot description parameter</p></li>
+<li><p>Starts <code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code></p></li>
+<li><p>Launches RViz with robot model</p></li>
+<li><p>Publishes static transforms</p></li>
+</ul>
+<p><strong>Simulation Description Launch</strong>: <cite>launch/littlebot_description_sim.launch.py</cite></p>
+<p>Specialized for simulation environments:</p>
+<ul class="simple">
+<li><p>Includes Gazebo plugins</p></li>
+<li><p>Configures simulation parameters</p></li>
+<li><p>Sets up sensor simulation</p></li>
+</ul>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="viewing-robot-model">
+<h3>Viewing Robot Model<a class="headerlink" href="#viewing-robot-model" title="Link to this heading"></a></h3>
+<p>Visualize the robot in RViz:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch robot visualization</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_description<span class="w"> </span>littlebot_description.launch.py
+
+<span class="c1"># Launch with custom configuration</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_description<span class="w"> </span>littlebot_description.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>rviz_config:<span class="o">=</span>custom_config.rviz
+
+<span class="c1"># Launch for simulation</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_description<span class="w"> </span>littlebot_description_sim.launch.py
+</pre></div>
+</div>
+</section>
+<section id="robot-model-parameters">
+<h3>Robot Model Parameters<a class="headerlink" href="#robot-model-parameters" title="Link to this heading"></a></h3>
+<p>Available launch parameters:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Launch Parameters</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 25.0%" />
+<col style="width: 50.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default Value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_sim_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Use simulation time</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">robot_description_file</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">littlebot.urdf.xacro</span></code></p></td>
+<td><p>Robot model file</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rviz_config</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">littlebot_description.rviz</span></code></p></td>
+<td><p>RViz configuration file</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">use_gui</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>Show joint state publisher GUI</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="working-with-urdf">
+<h3>Working with URDF<a class="headerlink" href="#working-with-urdf" title="Link to this heading"></a></h3>
+<p>Generate and validate URDF:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate URDF from Xacro</span>
+xacro<span class="w"> </span>src/littlebot_description/urdf/littlebot.urdf.xacro<span class="w"> </span>&gt;<span class="w"> </span>robot.urdf
+
+<span class="c1"># Validate URDF structure</span>
+check_urdf<span class="w"> </span>robot.urdf
+
+<span class="c1"># View URDF graphically</span>
+urdf_to_graphiz<span class="w"> </span>robot.urdf
+</pre></div>
+</div>
+</section>
+</section>
+<section id="robot-structure">
+<h2>Robot Structure<a class="headerlink" href="#robot-structure" title="Link to this heading"></a></h2>
+<section id="physical-properties">
+<h3>Physical Properties<a class="headerlink" href="#physical-properties" title="Link to this heading"></a></h3>
+<p><strong>Base Dimensions</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_width&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.3&quot;</span><span class="nt">/&gt;</span><span class="w">      </span><span class="cm">&lt;!-- 30 cm --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_length&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.4&quot;</span><span class="nt">/&gt;</span><span class="w">     </span><span class="cm">&lt;!-- 40 cm --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_height&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.1&quot;</span><span class="nt">/&gt;</span><span class="w">     </span><span class="cm">&lt;!-- 10 cm --&gt;</span>
+</pre></div>
+</div>
+<p><strong>Wheel Specifications</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;wheel_radius&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.05&quot;</span><span class="nt">/&gt;</span><span class="w">   </span><span class="cm">&lt;!-- 5 cm --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;wheel_width&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.02&quot;</span><span class="nt">/&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 2 cm --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;wheel_separation&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.3&quot;</span><span class="nt">/&gt;</span><span class="w"> </span><span class="cm">&lt;!-- 30 cm --&gt;</span>
+</pre></div>
+</div>
+<p><strong>Mass Properties</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_mass&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;2.0&quot;</span><span class="nt">/&gt;</span><span class="w">       </span><span class="cm">&lt;!-- 2 kg --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;wheel_mass&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.1&quot;</span><span class="nt">/&gt;</span><span class="w">      </span><span class="cm">&lt;!-- 100 g --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;caster_mass&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.05&quot;</span><span class="nt">/&gt;</span><span class="w">    </span><span class="cm">&lt;!-- 50 g --&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="joint-configuration">
+<h3>Joint Configuration<a class="headerlink" href="#joint-configuration" title="Link to this heading"></a></h3>
+<p><strong>Drive Wheels</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_wheel_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;continuous&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;left_wheel_link&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0.15 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 1 0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/joint&gt;</span>
+</pre></div>
+</div>
+<p><strong>Caster Wheel</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;caster_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;fixed&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;caster_link&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;-0.15 0 -0.05&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/joint&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="sensors-and-hardware">
+<h2>Sensors and Hardware<a class="headerlink" href="#sensors-and-hardware" title="Link to this heading"></a></h2>
+<section id="sensor-integration">
+<h3>Sensor Integration<a class="headerlink" href="#sensor-integration" title="Link to this heading"></a></h3>
+<p><strong>IMU Sensor</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;imu_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">    </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">      </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://littlebot_description/meshes/MPU_6050.dae&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/visual&gt;</span>
+<span class="nt">&lt;/link&gt;</span>
+</pre></div>
+</div>
+<p><strong>Ultrasonic Sensors</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ultrasonic_front_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;visual&gt;</span>
+<span class="w">    </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">      </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://littlebot_description/meshes/HC-SR04.dae&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/visual&gt;</span>
+<span class="nt">&lt;/link&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="ros2-control-integration">
+<h3>ROS2 Control Integration<a class="headerlink" href="#ros2-control-integration" title="Link to this heading"></a></h3>
+<p>Hardware interface definition:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ros2_control</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;LittlebotHardware&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;system&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;hardware&gt;</span>
+<span class="w">    </span><span class="nt">&lt;plugin&gt;</span>littlebot_base/LittlebotHardwareComponent<span class="nt">&lt;/plugin&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;serial_port&quot;</span><span class="nt">&gt;</span>/dev/ttyUSB0<span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;baud_rate&quot;</span><span class="nt">&gt;</span>115200<span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/hardware&gt;</span>
+
+<span class="w">  </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_wheel_joint&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;command_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;velocity&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;velocity&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/joint&gt;</span>
+
+<span class="w">  </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_wheel_joint&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;command_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;velocity&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;velocity&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/joint&gt;</span>
+<span class="nt">&lt;/ros2_control&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="gazebo-integration">
+<h2>Gazebo Integration<a class="headerlink" href="#gazebo-integration" title="Link to this heading"></a></h2>
+<section id="simulation-plugins">
+<h3>Simulation Plugins<a class="headerlink" href="#simulation-plugins" title="Link to this heading"></a></h3>
+<p><strong>Physics Properties</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gazebo</span><span class="w"> </span><span class="na">reference=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;material&gt;</span>Gazebo/Blue<span class="nt">&lt;/material&gt;</span>
+<span class="w">  </span><span class="nt">&lt;mu1&gt;</span>0.2<span class="nt">&lt;/mu1&gt;</span>
+<span class="w">  </span><span class="nt">&lt;mu2&gt;</span>0.2<span class="nt">&lt;/mu2&gt;</span>
+<span class="w">  </span><span class="nt">&lt;selfCollide&gt;</span>true<span class="nt">&lt;/selfCollide&gt;</span>
+<span class="nt">&lt;/gazebo&gt;</span>
+</pre></div>
+</div>
+<p><strong>Differential Drive Plugin</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gazebo&gt;</span>
+<span class="w">  </span><span class="nt">&lt;plugin</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;differential_drive_controller&quot;</span>
+<span class="w">          </span><span class="na">filename=</span><span class="s">&quot;libgazebo_ros_diff_drive.so&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ros&gt;</span>
+<span class="w">      </span><span class="nt">&lt;namespace&gt;</span>/<span class="nt">&lt;/namespace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/ros&gt;</span>
+<span class="w">    </span><span class="nt">&lt;left_joint&gt;</span>left_wheel_joint<span class="nt">&lt;/left_joint&gt;</span>
+<span class="w">    </span><span class="nt">&lt;right_joint&gt;</span>right_wheel_joint<span class="nt">&lt;/right_joint&gt;</span>
+<span class="w">    </span><span class="nt">&lt;wheel_separation&gt;</span>0.3<span class="nt">&lt;/wheel_separation&gt;</span>
+<span class="w">    </span><span class="nt">&lt;wheel_diameter&gt;</span>0.1<span class="nt">&lt;/wheel_diameter&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/plugin&gt;</span>
+<span class="nt">&lt;/gazebo&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="sensor-simulation">
+<h3>Sensor Simulation<a class="headerlink" href="#sensor-simulation" title="Link to this heading"></a></h3>
+<p><strong>IMU Plugin</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;gazebo</span><span class="w"> </span><span class="na">reference=</span><span class="s">&quot;imu_link&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;plugin</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;imu_plugin&quot;</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;libgazebo_ros_imu_sensor.so&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ros&gt;</span>
+<span class="w">      </span><span class="nt">&lt;namespace&gt;</span>/<span class="nt">&lt;/namespace&gt;</span>
+<span class="w">      </span><span class="nt">&lt;remapping&gt;</span>~/out:=imu<span class="nt">&lt;/remapping&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/ros&gt;</span>
+<span class="w">    </span><span class="nt">&lt;update_rate&gt;</span>100<span class="nt">&lt;/update_rate&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/plugin&gt;</span>
+<span class="nt">&lt;/gazebo&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
+<section id="rviz-configuration">
+<h3>RViz Configuration<a class="headerlink" href="#rviz-configuration" title="Link to this heading"></a></h3>
+<p><strong>File</strong>: <cite>config/littlebot_description.rviz</cite></p>
+<p>Pre-configured displays:</p>
+<ul class="simple">
+<li><p><strong>RobotModel</strong>: 3D robot visualization</p></li>
+<li><p><strong>TF</strong>: Transform frame display</p></li>
+<li><p><strong>Axes</strong>: Coordinate frame indicators</p></li>
+<li><p><strong>Grid</strong>: Reference grid</p></li>
+<li><p><strong>LaserScan</strong>: Sensor data (when available)</p></li>
+</ul>
+</section>
+<section id="custom-materials">
+<h3>Custom Materials<a class="headerlink" href="#custom-materials" title="Link to this heading"></a></h3>
+<p>Enhanced visual appearance:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;blue&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.2 0.2 1.0 1.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/material&gt;</span>
+
+<span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;black&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.1 0.1 0.1 1.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/material&gt;</span>
+
+<span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;white&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;1.0 1.0 1.0 1.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/material&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading"></a></h2>
+<section id="modifying-robot-model">
+<h3>Modifying Robot Model<a class="headerlink" href="#modifying-robot-model" title="Link to this heading"></a></h3>
+<p><strong>Adding New Sensors</strong>:</p>
+<ol class="arabic simple">
+<li><p>Create sensor link and joint</p></li>
+<li><p>Add visual and collision geometry</p></li>
+<li><p>Include sensor plugin (for simulation)</p></li>
+<li><p>Update launch files if needed</p></li>
+</ol>
+<p><strong>Changing Dimensions</strong>:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- Edit properties in main xacro file --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_width&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.35&quot;</span><span class="nt">/&gt;</span><span class="w">  </span><span class="cm">&lt;!-- Wider base --&gt;</span>
+<span class="nt">&lt;xacro:property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;wheel_radius&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0.06&quot;</span><span class="nt">/&gt;</span><span class="w"> </span><span class="cm">&lt;!-- Larger wheels --&gt;</span>
+</pre></div>
+</div>
+<p><strong>Custom Meshes</strong>:</p>
+<ol class="arabic simple">
+<li><p>Place new mesh files in <code class="docutils literal notranslate"><span class="pre">meshes/</span></code> directory</p></li>
+<li><p>Update visual geometry references</p></li>
+<li><p>Ensure proper scale and orientation</p></li>
+</ol>
+</section>
+</section>
+<section id="testing-and-validation">
+<h2>Testing and Validation<a class="headerlink" href="#testing-and-validation" title="Link to this heading"></a></h2>
+<section id="model-validation">
+<h3>Model Validation<a class="headerlink" href="#model-validation" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check URDF syntax</span>
+check_urdf<span class="w"> </span><span class="k">$(</span>xacro<span class="w"> </span>src/littlebot_description/urdf/littlebot.urdf.xacro<span class="k">)</span>
+
+<span class="c1"># Validate joint limits</span>
+ros2<span class="w"> </span>run<span class="w"> </span>robot_state_publisher<span class="w"> </span>robot_state_publisher<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--ros-args<span class="w"> </span>-p<span class="w"> </span>robot_description:<span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>xacro<span class="w"> </span>src/littlebot_description/urdf/littlebot.urdf.xacro<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="visual-inspection">
+<h3>Visual Inspection<a class="headerlink" href="#visual-inspection" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch with joint state publisher GUI</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_description<span class="w"> </span>littlebot_description.launch.py<span class="w"> </span>use_gui:<span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># Check transforms</span>
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_tools<span class="w"> </span>view_frames.py
+evince<span class="w"> </span>frames.pdf
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>URDF Parse Errors</strong>:</p>
+<ul class="simple">
+<li><p>Check XML syntax and structure</p></li>
+<li><p>Verify file paths for meshes and includes</p></li>
+<li><p>Validate property definitions</p></li>
+</ul>
+<p><strong>Missing Meshes</strong>:</p>
+<ul class="simple">
+<li><p>Ensure mesh files exist in correct directory</p></li>
+<li><p>Check file permissions and paths</p></li>
+<li><p>Verify mesh file formats (DAE, STL supported)</p></li>
+</ul>
+<p><strong>Transform Issues</strong>:</p>
+<ul class="simple">
+<li><p>Validate joint definitions and origins</p></li>
+<li><p>Check parent-child link relationships</p></li>
+<li><p>Ensure no circular dependencies</p></li>
+</ul>
+<p><strong>Simulation Problems</strong>:</p>
+<ul class="simple">
+<li><p>Verify Gazebo plugin configurations</p></li>
+<li><p>Check physics properties and collisions</p></li>
+<li><p>Validate sensor plugin parameters</p></li>
+</ul>
+</section>
+<section id="performance-optimization">
+<h3>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h3>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- Use simplified collision meshes --&gt;</span>
+<span class="nt">&lt;collision&gt;</span>
+<span class="w">  </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">    </span><span class="nt">&lt;box</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;${base_length} ${base_width} ${base_height}&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="nt">&lt;/collision&gt;</span>
+
+<span class="cm">&lt;!-- Optimize mesh complexity for real-time rendering --&gt;</span>
+<span class="nt">&lt;visual&gt;</span>
+<span class="w">  </span><span class="nt">&lt;geometry&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://littlebot_description/meshes/littlebot_simplified.dae&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/geometry&gt;</span>
+<span class="nt">&lt;/visual&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p><strong>ROS2 Packages</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joint_state_publisher</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">joint_state_publisher_gui</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xacro</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">urdf</span></code></p></li>
+</ul>
+<p><strong>Visualization</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rviz2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tf2_tools</span></code></p></li>
+</ul>
+<p><strong>Simulation</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gazebo_ros_pkgs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gazebo_ros</span></code></p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>For detailed URDF specification and ROS2 robot description standards, see the official ROS2 documentation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="littlebot_control.html" class="btn btn-neutral float-left" title="littlebot_control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="littlebot_localization.html" class="btn btn-neutral float-right" title="littlebot_localization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

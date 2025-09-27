@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_e2a3db92f24a3c68fb6d731b096ce99c" kind="dir">
+    <compoundname>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src</compoundname>
+    <innerfile refid="littlebot__communication_8cpp">littlebot_communication.cpp</innerfile>
+    <innerfile refid="littlebot__hardware__component_8cpp">littlebot_hardware_component.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/"/>
+  </compounddef>
+</doxygen>

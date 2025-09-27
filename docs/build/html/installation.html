@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="Welcome to LittleBot’s Documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#operating-system">Operating System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ros2-installation">ROS2 Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-dependencies">System Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hardware-dependencies">Hardware Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#method-1-from-source-recommended-for-development">Method 1: From Source (Recommended for Development)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#method-2-using-vcstool-recommended-for-users">Method 2: Using vcstool (Recommended for Users)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/index.html">Package Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/installation.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>This guide will walk you through installing the LittleBot ROS2 packages and all necessary dependencies.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<section id="operating-system">
+<h3>Operating System<a class="headerlink" href="#operating-system" title="Link to this heading"></a></h3>
+<p>LittleBot is tested and supported on:</p>
+<ul class="simple">
+<li><p>Ubuntu 22.04 LTS (Jammy Jellyfish) - <strong>Recommended</strong></p></li>
+<li><p>Ubuntu 20.04 LTS (Focal Fossa)</p></li>
+</ul>
+</section>
+<section id="ros2-installation">
+<h3>ROS2 Installation<a class="headerlink" href="#ros2-installation" title="Link to this heading"></a></h3>
+<p>You need ROS2 Humble or later installed on your system.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install ROS2 Humble (Ubuntu 22.04)</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl<span class="w"> </span>gnupg<span class="w"> </span>lsb-release
+sudo<span class="w"> </span>curl<span class="w"> </span>-sSL<span class="w"> </span>https://raw.githubusercontent.com/ros/rosdistro/master/ros.key<span class="w"> </span>-o<span class="w"> </span>/usr/share/keyrings/ros-archive-keyring.gpg
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg<span class="w"> </span>--print-architecture<span class="k">)</span><span class="s2"> signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu </span><span class="k">$(</span><span class="nb">source</span><span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$UBUNTU_CODENAME</span><span class="k">)</span><span class="s2"> main&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/ros2.list<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-desktop
+</pre></div>
+</div>
+</section>
+<section id="system-dependencies">
+<h3>System Dependencies<a class="headerlink" href="#system-dependencies" title="Link to this heading"></a></h3>
+<p>Install the required system packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Development tools</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-colcon-common-extensions<span class="w"> </span>python3-rosdep<span class="w"> </span>python3-vcstool
+
+<span class="c1"># Hardware interface dependencies</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-hardware-interface<span class="w"> </span>ros-humble-controller-manager
+
+<span class="c1"># Simulation dependencies</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-gazebo-ros-pkgs<span class="w"> </span>ros-humble-gazebo-ros2-control
+
+<span class="c1"># Navigation dependencies</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-navigation2<span class="w"> </span>ros-humble-nav2-bringup
+
+<span class="c1"># Additional utilities</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-rqt*<span class="w"> </span>ros-humble-rviz2
+</pre></div>
+</div>
+</section>
+<section id="hardware-dependencies">
+<h3>Hardware Dependencies<a class="headerlink" href="#hardware-dependencies" title="Link to this heading"></a></h3>
+<p>For serial communication with the LittleBot hardware:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Serial communication libraries</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libserial-dev
+
+<span class="c1"># Protocol buffers</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>protobuf-compiler<span class="w"> </span>libprotobuf-dev
+</pre></div>
+</div>
+</section>
+</section>
+<section id="installation-methods">
+<h2>Installation Methods<a class="headerlink" href="#installation-methods" title="Link to this heading"></a></h2>
+<section id="method-1-from-source-recommended-for-development">
+<h3>Method 1: From Source (Recommended for Development)<a class="headerlink" href="#method-1-from-source-recommended-for-development" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Create a workspace:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/littlebot_ws/src
+<span class="nb">cd</span><span class="w"> </span>~/littlebot_ws/src
+</pre></div>
+</div>
+</li>
+<li><p><strong>Clone the repository:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NestorDP/littlebot.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NestorDP/littlebot_gazebo.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NestorDP/littlebot_rqt_plugin.git
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install dependencies:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/littlebot_ws
+rosdep<span class="w"> </span>init<span class="w">  </span><span class="c1"># Only if you haven&#39;t run this before</span>
+rosdep<span class="w"> </span>update
+rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-r<span class="w"> </span>-y
+</pre></div>
+</div>
+</li>
+<li><p><strong>Build the workspace:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>colcon<span class="w"> </span>build
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="method-2-using-vcstool-recommended-for-users">
+<h3>Method 2: Using vcstool (Recommended for Users)<a class="headerlink" href="#method-2-using-vcstool-recommended-for-users" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Create a workspace:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/littlebot_ws/src
+<span class="nb">cd</span><span class="w"> </span>~/littlebot_ws
+</pre></div>
+</div>
+</li>
+<li><p><strong>Import repositories:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a repos file or download from repository</span>
+vcs<span class="w"> </span>import<span class="w"> </span>src<span class="w"> </span>&lt;<span class="w"> </span>littlebot.repos
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install and build:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-r<span class="w"> </span>-y
+colcon<span class="w"> </span>build
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Link to this heading"></a></h2>
+<p>Test your installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source the workspace</span>
+<span class="nb">source</span><span class="w"> </span>~/littlebot_ws/install/setup.bash
+
+<span class="c1"># Test launch files</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_description<span class="w"> </span>littlebot_description.launch.py
+
+<span class="c1"># In another terminal, check that nodes are running</span>
+ros2<span class="w"> </span>node<span class="w"> </span>list
+</pre></div>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Build Errors:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clean build if you encounter issues</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>build<span class="w"> </span>install<span class="w"> </span>log
+colcon<span class="w"> </span>build
+</pre></div>
+</div>
+<p><strong>Permission Issues with Serial Port:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add user to dialout group</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>dialout<span class="w"> </span><span class="nv">$USER</span>
+<span class="c1"># Log out and log back in</span>
+</pre></div>
+</div>
+<p><strong>Missing Dependencies:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Re-run rosdep</span>
+rosdep<span class="w"> </span>update
+rosdep<span class="w"> </span>install<span class="w"> </span>--from-paths<span class="w"> </span>src<span class="w"> </span>--ignore-src<span class="w"> </span>-r<span class="w"> </span>-y
+</pre></div>
+</div>
+</section>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Once installation is complete, proceed to <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a> to learn how to use LittleBot.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to LittleBot’s Documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

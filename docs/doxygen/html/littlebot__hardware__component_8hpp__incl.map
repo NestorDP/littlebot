@@ -1,0 +1,25 @@
+<map id="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" name="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="456,5,709,75"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,137,83,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="456,54,283,79,188,99,96,125,76,133,74,128,94,120,187,94,282,74,455,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="107,137,165,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="456,57,320,82,248,101,178,125,164,132,162,127,176,120,246,96,319,77,455,52"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="190,137,314,163"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="475,77,326,125,297,135,295,130,324,120,473,72"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="338,137,398,163"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="507,77,411,125,398,132,395,128,408,120,505,72"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="422,137,485,163"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="544,77,480,130,476,126,541,73"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="509,130,657,170"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="585,75,585,116,580,116,580,75"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="681,130,829,170"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="638,72,714,120,711,125,635,77"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="853,130,1019,170"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="693,72,861,123,860,128,692,77"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="1044,123,1236,177"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="710,60,1031,120,1030,125,709,65"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1261,137,1393,163"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="710,47,960,72,1105,93,1249,120,1285,130,1283,135,1247,125,1104,98,960,77,709,52"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1417,137,1605,163"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="710,46,1027,71,1217,92,1406,120,1458,131,1457,136,1405,125,1216,97,1026,76,709,51"/>
+</map>

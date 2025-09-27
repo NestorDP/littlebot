@@ -49,7 +49,7 @@ set(node_plugins "")
 # Hardware interface
 add_library(littlebot_hardware_component SHARED
   src/littlebot_hardware_component.cpp
-  src/littlebot_serial_communication.cpp
+  src/littlebot_communication.cpp
   ${PROTO_SRCS}
   ${PROTO_HDRS}
   )

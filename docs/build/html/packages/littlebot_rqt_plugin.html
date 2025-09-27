@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>littlebot_rqt_plugin &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="littlebot_gazebo" href="littlebot_gazebo.html" />
+    <link rel="prev" title="littlebot_teleop" href="littlebot_teleop.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Package Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-packages">Core Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#navigation-and-localization">Navigation and Localization</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#user-interface">User Interface</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">littlebot_rqt_plugin</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gui-components">GUI Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ros2-integration">ROS2 Integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#advanced-features">Advanced Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#customization">Customization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-and-installation">Building and Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simulation">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#meta-package">Meta Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">littlebot_rqt_plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gui-plugin-structure">GUI Plugin Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugin-registration">Plugin Registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#starting-the-plugin">Starting the Plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interface-features">Interface Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gui-components">GUI Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#control-widgets">Control Widgets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#display-widgets">Display Widgets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ros2-integration">ROS2 Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#node-communication">Node Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#message-handling">Message Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameter-interface">Parameter Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diagnostic-interface">Diagnostic Interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-logging">Data Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#customization">Customization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-new-controls">Adding New Controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-themes">Custom Themes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-files">Configuration Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#building-and-installation">Building and Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-requirements">Build Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugin-installation">Plugin Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package Documentation</a></li>
+      <li class="breadcrumb-item active">littlebot_rqt_plugin</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/packages/littlebot_rqt_plugin.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="littlebot-rqt-plugin">
+<h1>littlebot_rqt_plugin<a class="headerlink" href="#littlebot-rqt-plugin" title="Link to this heading"></a></h1>
+<p>The <cite>littlebot_rqt_plugin</cite> package provides a custom RQT GUI plugin for monitoring, controlling, and debugging the LittleBot robot system.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This package implements:</p>
+<ul class="simple">
+<li><p>Real-time robot monitoring interface</p></li>
+<li><p>Manual control capabilities</p></li>
+<li><p>System diagnostics and status display</p></li>
+<li><p>Log message visualization</p></li>
+<li><p>Parameter adjustment interface</p></li>
+<li><p>Custom Qt-based GUI components</p></li>
+</ul>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<section id="gui-plugin-structure">
+<h3>GUI Plugin Structure<a class="headerlink" href="#gui-plugin-structure" title="Link to this heading"></a></h3>
+<p><strong>Main Plugin Class</strong>: <cite>src/littlebot_rqt_plugin.cpp</cite></p>
+<p>Core plugin implementation:</p>
+<ul class="simple">
+<li><p>RQT framework integration</p></li>
+<li><p>ROS2 node management</p></li>
+<li><p>Message publishing/subscribing</p></li>
+<li><p>GUI event handling</p></li>
+</ul>
+<p><strong>GUI Implementation</strong>: <cite>src/littlebot_gui.cpp</cite></p>
+<p>User interface implementation:</p>
+<ul class="simple">
+<li><p>Qt widget management</p></li>
+<li><p>Control button handling</p></li>
+<li><p>Real-time data display</p></li>
+<li><p>User input processing</p></li>
+</ul>
+<p><strong>UI Definition</strong>: <cite>ui/littlebot_gui.ui</cite></p>
+<p>Qt Designer interface layout:</p>
+<ul class="simple">
+<li><p>Visual widget arrangement</p></li>
+<li><p>Control element positioning</p></li>
+<li><p>Style and appearance settings</p></li>
+<li><p>Layout management</p></li>
+</ul>
+</section>
+<section id="plugin-registration">
+<h3>Plugin Registration<a class="headerlink" href="#plugin-registration" title="Link to this heading"></a></h3>
+<p><strong>Plugin Configuration</strong>: <cite>plugin.xml</cite></p>
+<p>RQT plugin registration:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;library</span><span class="w"> </span><span class="na">path=</span><span class="s">&quot;littlebot_rqt_plugin&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;class</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;littlebot_rqt_plugin/LittlebotRqtPlugin&quot;</span>
+<span class="w">         </span><span class="na">type=</span><span class="s">&quot;littlebot_rqt_plugin::LittlebotRqtPlugin&quot;</span>
+<span class="w">         </span><span class="na">base_class_type=</span><span class="s">&quot;rqt_gui_cpp::Plugin&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;description&gt;</span>
+<span class="w">      </span>A<span class="w"> </span>GUI<span class="w"> </span>plugin<span class="w"> </span>for<span class="w"> </span>monitoring<span class="w"> </span>and<span class="w"> </span>controlling<span class="w"> </span>LittleBot<span class="w"> </span>robot
+<span class="w">    </span><span class="nt">&lt;/description&gt;</span>
+<span class="w">    </span><span class="nt">&lt;qtgui&gt;</span>
+<span class="w">      </span><span class="nt">&lt;group&gt;</span>
+<span class="w">        </span><span class="nt">&lt;label&gt;</span>Inspection<span class="nt">&lt;/label&gt;</span>
+<span class="w">        </span><span class="nt">&lt;statustip&gt;</span>Inspect<span class="w"> </span>the<span class="w"> </span>robot<span class="nt">&lt;/statustip&gt;</span>
+<span class="w">        </span><span class="nt">&lt;icon</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;theme&quot;</span><span class="nt">&gt;</span>folder<span class="nt">&lt;/icon&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/group&gt;</span>
+<span class="w">      </span><span class="nt">&lt;label&gt;</span>Littlebot<span class="w"> </span>GUI<span class="nt">&lt;/label&gt;</span>
+<span class="w">      </span><span class="nt">&lt;icon</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;theme&quot;</span><span class="nt">&gt;</span>system-help<span class="nt">&lt;/icon&gt;</span>
+<span class="w">      </span><span class="nt">&lt;statustip&gt;</span>GUI<span class="w"> </span>to<span class="w"> </span>control<span class="w"> </span>littlebot<span class="w"> </span>robot.<span class="nt">&lt;/statustip&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/qtgui&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/class&gt;</span>
+<span class="nt">&lt;/library&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="launch-files">
+<h3>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p><strong>Plugin Launch</strong>: <cite>launch/littlebot_rqt_plugin.launch.py</cite></p>
+<p>Starts the RQT plugin:</p>
+<ul class="simple">
+<li><p>Plugin initialization</p></li>
+<li><p>ROS2 node setup</p></li>
+<li><p>GUI display launch</p></li>
+<li><p>Parameter configuration</p></li>
+</ul>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="starting-the-plugin">
+<h3>Starting the Plugin<a class="headerlink" href="#starting-the-plugin" title="Link to this heading"></a></h3>
+<p>Launch the RQT plugin:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Launch standalone plugin</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_rqt_plugin<span class="w"> </span>littlebot_rqt_plugin.launch.py
+
+<span class="c1"># Launch within RQT framework</span>
+rqt<span class="w"> </span>--standalone<span class="w"> </span>littlebot_rqt_plugin
+
+<span class="c1"># Force plugin discovery (if needed)</span>
+rqt<span class="w"> </span>--force-discover
+
+<span class="c1"># Start RQT and manually load plugin</span>
+rqt
+<span class="c1"># Then: Plugins → Inspection → Littlebot GUI</span>
+</pre></div>
+</div>
+</section>
+<section id="interface-features">
+<h3>Interface Features<a class="headerlink" href="#interface-features" title="Link to this heading"></a></h3>
+<p><strong>Control Panel</strong>:</p>
+<ul class="simple">
+<li><p><strong>Emergency Stop</strong>: Immediate robot halt</p></li>
+<li><p><strong>Reset</strong>: Clear error states and restart</p></li>
+<li><p><strong>Speed Control</strong>: Adjust maximum velocities</p></li>
+<li><p><strong>Mode Selection</strong>: Switch between manual/auto modes</p></li>
+</ul>
+<p><strong>Status Display</strong>:</p>
+<ul class="simple">
+<li><p><strong>Connection Status</strong>: Hardware communication state</p></li>
+<li><p><strong>Battery Level</strong>: Power remaining (if available)</p></li>
+<li><p><strong>System Health</strong>: Overall robot status</p></li>
+<li><p><strong>Error Messages</strong>: Real-time error reporting</p></li>
+</ul>
+<p><strong>Data Visualization</strong>:</p>
+<ul class="simple">
+<li><p><strong>Sensor Readings</strong>: Live sensor data display</p></li>
+<li><p><strong>Velocity Commands</strong>: Current movement commands</p></li>
+<li><p><strong>Odometry</strong>: Position and orientation data</p></li>
+<li><p><strong>Joint States</strong>: Motor positions and velocities</p></li>
+</ul>
+</section>
+</section>
+<section id="gui-components">
+<h2>GUI Components<a class="headerlink" href="#gui-components" title="Link to this heading"></a></h2>
+<section id="control-widgets">
+<h3>Control Widgets<a class="headerlink" href="#control-widgets" title="Link to this heading"></a></h3>
+<p><strong>Command Buttons</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Emergency stop button</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">ui_</span><span class="p">.</span><span class="n">emergency_stop_button</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QPushButton</span><span class="o">::</span><span class="n">clicked</span><span class="p">,</span>
+<span class="w">        </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">onEmergencyStop</span><span class="p">);</span>
+
+<span class="c1">// Reset button</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">ui_</span><span class="p">.</span><span class="n">reset_button</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QPushButton</span><span class="o">::</span><span class="n">clicked</span><span class="p">,</span>
+<span class="w">        </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">onReset</span><span class="p">);</span>
+
+<span class="c1">// Manual control buttons</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">ui_</span><span class="p">.</span><span class="n">forward_button</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QPushButton</span><span class="o">::</span><span class="n">pressed</span><span class="p">,</span>
+<span class="w">        </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">onForwardPressed</span><span class="p">);</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">ui_</span><span class="p">.</span><span class="n">forward_button</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QPushButton</span><span class="o">::</span><span class="n">released</span><span class="p">,</span>
+<span class="w">        </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">onButtonReleased</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Speed Control Sliders</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Linear velocity slider</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">ui_</span><span class="p">.</span><span class="n">linear_velocity_slider</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QSlider</span><span class="o">::</span><span class="n">valueChanged</span><span class="p">,</span>
+<span class="w">        </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">onLinearVelocityChanged</span><span class="p">);</span>
+
+<span class="c1">// Angular velocity slider</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">ui_</span><span class="p">.</span><span class="n">angular_velocity_slider</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QSlider</span><span class="o">::</span><span class="n">valueChanged</span><span class="p">,</span>
+<span class="w">        </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">onAngularVelocityChanged</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="display-widgets">
+<h3>Display Widgets<a class="headerlink" href="#display-widgets" title="Link to this heading"></a></h3>
+<p><strong>Status Indicators</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Update connection status</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotGui::updateConnectionStatus</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">connected</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">connected</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ui_</span><span class="p">.</span><span class="n">connection_status_label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">(</span><span class="s">&quot;Connected&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ui_</span><span class="p">.</span><span class="n">connection_status_label</span><span class="o">-&gt;</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s">&quot;color: green;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ui_</span><span class="p">.</span><span class="n">connection_status_label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">(</span><span class="s">&quot;Disconnected&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ui_</span><span class="p">.</span><span class="n">connection_status_label</span><span class="o">-&gt;</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s">&quot;color: red;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Data Display</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Update sensor data display</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotGui::updateSensorData</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SensorData</span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ui_</span><span class="p">.</span><span class="n">battery_voltage_label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">(</span>
+<span class="w">        </span><span class="n">QString</span><span class="p">(</span><span class="s">&quot;Battery: %1V&quot;</span><span class="p">).</span><span class="n">arg</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">battery_voltage</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;f&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">ui_</span><span class="p">.</span><span class="n">temperature_label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">(</span>
+<span class="w">        </span><span class="n">QString</span><span class="p">(</span><span class="s">&quot;Temp: %1°C&quot;</span><span class="p">).</span><span class="n">arg</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">temperature</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;f&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">ui_</span><span class="p">.</span><span class="n">distance_label</span><span class="o">-&gt;</span><span class="n">setText</span><span class="p">(</span>
+<span class="w">        </span><span class="n">QString</span><span class="p">(</span><span class="s">&quot;Distance: %1m&quot;</span><span class="p">).</span><span class="n">arg</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">ultrasonic_distance</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;f&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Log Display</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add log message with timestamp</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotGui::addLogMessage</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">,</span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">level</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">QString</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QDateTime</span><span class="o">::</span><span class="n">currentDateTime</span><span class="p">().</span><span class="n">toString</span><span class="p">(</span><span class="s">&quot;hh:mm:ss&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">QString</span><span class="w"> </span><span class="n">formatted_msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QString</span><span class="p">(</span><span class="s">&quot;[%1] %2: %3&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">arg</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">arg</span><span class="p">(</span><span class="n">QString</span><span class="o">::</span><span class="n">fromStdString</span><span class="p">(</span><span class="n">level</span><span class="p">))</span>
+<span class="w">        </span><span class="p">.</span><span class="n">arg</span><span class="p">(</span><span class="n">QString</span><span class="o">::</span><span class="n">fromStdString</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">ui_</span><span class="p">.</span><span class="n">log_text_browser</span><span class="o">-&gt;</span><span class="n">append</span><span class="p">(</span><span class="n">formatted_msg</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Auto-scroll to bottom</span>
+<span class="w">    </span><span class="n">QScrollBar</span><span class="o">*</span><span class="w"> </span><span class="n">scrollbar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ui_</span><span class="p">.</span><span class="n">log_text_browser</span><span class="o">-&gt;</span><span class="n">verticalScrollBar</span><span class="p">();</span>
+<span class="w">    </span><span class="n">scrollbar</span><span class="o">-&gt;</span><span class="n">setValue</span><span class="p">(</span><span class="n">scrollbar</span><span class="o">-&gt;</span><span class="n">maximum</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ros2-integration">
+<h2>ROS2 Integration<a class="headerlink" href="#ros2-integration" title="Link to this heading"></a></h2>
+<section id="node-communication">
+<h3>Node Communication<a class="headerlink" href="#node-communication" title="Link to this heading"></a></h3>
+<p><strong>Publisher Setup</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::createPublishers</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Velocity command publisher</span>
+<span class="w">    </span><span class="n">cmd_vel_publisher_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node_</span><span class="o">-&gt;</span><span class="n">create_publisher</span><span class="o">&lt;</span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Twist</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;/cmd_vel&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Robot command publisher</span>
+<span class="w">    </span><span class="n">robot_command_publisher_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node_</span><span class="o">-&gt;</span><span class="n">create_publisher</span><span class="o">&lt;</span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;/robot_command&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Subscriber Setup</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::createSubscribers</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Joint state subscriber</span>
+<span class="w">    </span><span class="n">joint_state_subscriber_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node_</span><span class="o">-&gt;</span><span class="n">create_subscription</span><span class="o">&lt;</span><span class="n">sensor_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">JointState</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;/joint_states&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">LittlebotRqtPlugin</span><span class="o">::</span><span class="n">jointStateCallback</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// Odometry subscriber</span>
+<span class="w">    </span><span class="n">odom_subscriber_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node_</span><span class="o">-&gt;</span><span class="n">create_subscription</span><span class="o">&lt;</span><span class="n">nav_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Odometry</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;/odom&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">LittlebotRqtPlugin</span><span class="o">::</span><span class="n">odometryCallback</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// System status subscriber</span>
+<span class="w">    </span><span class="n">status_subscriber_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node_</span><span class="o">-&gt;</span><span class="n">create_subscription</span><span class="o">&lt;</span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;/robot_status&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">LittlebotRqtPlugin</span><span class="o">::</span><span class="n">statusCallback</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="message-handling">
+<h3>Message Handling<a class="headerlink" href="#message-handling" title="Link to this heading"></a></h3>
+<p><strong>Velocity Command Publishing</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::publishVelocityCommand</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">linear</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">angular</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">twist_msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">Twist</span><span class="p">();</span>
+<span class="w">    </span><span class="n">twist_msg</span><span class="p">.</span><span class="n">linear</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linear</span><span class="p">;</span>
+<span class="w">    </span><span class="n">twist_msg</span><span class="p">.</span><span class="n">angular</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angular</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">cmd_vel_publisher_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">twist_msg</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Update GUI display</span>
+<span class="w">    </span><span class="n">emit</span><span class="w"> </span><span class="n">velocityCommandSent</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span><span class="w"> </span><span class="n">angular</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Status Message Processing</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::statusCallback</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="o">::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">msg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Parse status message</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Update GUI on main thread</span>
+<span class="w">    </span><span class="n">QMetaObject</span><span class="o">::</span><span class="n">invokeMethod</span><span class="p">(</span><span class="n">widget_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;updateStatus&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Qt</span><span class="o">::</span><span class="n">QueuedConnection</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Q_ARG</span><span class="p">(</span><span class="n">QString</span><span class="p">,</span><span class="w"> </span><span class="n">QString</span><span class="o">::</span><span class="n">fromStdString</span><span class="p">(</span><span class="n">status</span><span class="p">)));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-features">
+<h2>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading"></a></h2>
+<section id="parameter-interface">
+<h3>Parameter Interface<a class="headerlink" href="#parameter-interface" title="Link to this heading"></a></h3>
+<p><strong>Dynamic Parameter Control</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Parameter client setup</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::setupParameterInterface</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">parameter_client_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">rclcpp</span><span class="o">::</span><span class="n">SyncParametersClient</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="n">node_</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/diff_drive_controller&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Update parameter values</span>
+<span class="w">    </span><span class="n">connect</span><span class="p">(</span><span class="n">ui_</span><span class="p">.</span><span class="n">max_velocity_spinbox</span><span class="p">,</span><span class="w"> </span><span class="n">QOverload</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">of</span><span class="p">(</span><span class="o">&amp;</span><span class="n">QDoubleSpinBox</span><span class="o">::</span><span class="n">valueChanged</span><span class="p">),</span>
+<span class="w">            </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotRqtPlugin</span><span class="o">::</span><span class="n">updateMaxVelocityParameter</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::updateMaxVelocityParameter</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">parameter_client_</span><span class="o">-&gt;</span><span class="n">set_parameters</span><span class="p">({</span>
+<span class="w">        </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Parameter</span><span class="p">(</span><span class="s">&quot;max_velocity&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="diagnostic-interface">
+<h3>Diagnostic Interface<a class="headerlink" href="#diagnostic-interface" title="Link to this heading"></a></h3>
+<p><strong>System Health Monitoring</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::updateSystemDiagnostics</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Check node status</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">node_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node_</span><span class="o">-&gt;</span><span class="n">get_node_names</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">controller_running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">node_names</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">node_names</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+<span class="w">        </span><span class="s">&quot;/controller_manager&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">node_names</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Update diagnostic display</span>
+<span class="w">    </span><span class="n">widget_</span><span class="o">-&gt;</span><span class="n">updateDiagnostic</span><span class="p">(</span><span class="s">&quot;Controller Manager&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">controller_running</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;Running&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Stopped&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Check topic health</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">topic_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node_</span><span class="o">-&gt;</span><span class="n">get_topic_names_and_types</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">cmd_vel_available</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">topic_names</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;/cmd_vel&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">topic_names</span><span class="p">.</span><span class="n">end</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">widget_</span><span class="o">-&gt;</span><span class="n">updateDiagnostic</span><span class="p">(</span><span class="s">&quot;Command Topic&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">cmd_vel_available</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;Available&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Missing&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="data-logging">
+<h3>Data Logging<a class="headerlink" href="#data-logging" title="Link to this heading"></a></h3>
+<p><strong>Log Message Management</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::setupLogging</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Log file setup</span>
+<span class="w">    </span><span class="n">log_file_</span><span class="p">.</span><span class="n">setFileName</span><span class="p">(</span><span class="n">QDir</span><span class="o">::</span><span class="n">homePath</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;/littlebot_logs.txt&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">log_file_</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">QIODevice</span><span class="o">::</span><span class="n">WriteOnly</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">QIODevice</span><span class="o">::</span><span class="n">Append</span><span class="p">);</span>
+<span class="w">    </span><span class="n">log_stream_</span><span class="p">.</span><span class="n">setDevice</span><span class="p">(</span><span class="o">&amp;</span><span class="n">log_file_</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Connect log signal</span>
+<span class="w">    </span><span class="n">connect</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotRqtPlugin</span><span class="o">::</span><span class="n">logMessageReceived</span><span class="p">,</span>
+<span class="w">            </span><span class="n">widget_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">displayLogMessage</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::logMessage</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">,</span>
+<span class="w">                                   </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">level</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Write to file</span>
+<span class="w">    </span><span class="n">QString</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QDateTime</span><span class="o">::</span><span class="n">currentDateTime</span><span class="p">().</span><span class="n">toString</span><span class="p">(</span><span class="s">&quot;yyyy-MM-dd hh:mm:ss&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">log_stream_</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; [&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">QString</span><span class="o">::</span><span class="n">fromStdString</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+<span class="w">                </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;] &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">QString</span><span class="o">::</span><span class="n">fromStdString</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">Qt</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Display in GUI</span>
+<span class="w">    </span><span class="n">emit</span><span class="w"> </span><span class="n">logMessageReceived</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading"></a></h2>
+<section id="adding-new-controls">
+<h3>Adding New Controls<a class="headerlink" href="#adding-new-controls" title="Link to this heading"></a></h3>
+<p><strong>Custom Widget Integration</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add custom joystick widget</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JoystickWidget</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">QWidget</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">JoystickWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="o">*</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">paintEvent</span><span class="p">(</span><span class="n">QPaintEvent</span><span class="o">*</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">mousePressEvent</span><span class="p">(</span><span class="n">QMouseEvent</span><span class="o">*</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="n">QMouseEvent</span><span class="o">*</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="p">;</span>
+
+<span class="nl">signals</span><span class="p">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">joystickMoved</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="p">);</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">QPoint</span><span class="w"> </span><span class="n">center_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">QPoint</span><span class="w"> </span><span class="n">current_pos_</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">radius_</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><strong>Integration with Main GUI</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotGui::setupCustomWidgets</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Add joystick widget</span>
+<span class="w">    </span><span class="n">joystick_widget_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JoystickWidget</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ui_</span><span class="p">.</span><span class="n">control_layout</span><span class="o">-&gt;</span><span class="n">addWidget</span><span class="p">(</span><span class="n">joystick_widget_</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Connect signals</span>
+<span class="w">    </span><span class="n">connect</span><span class="p">(</span><span class="n">joystick_widget_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">JoystickWidget</span><span class="o">::</span><span class="n">joystickMoved</span><span class="p">,</span>
+<span class="w">            </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">onJoystickMoved</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-themes">
+<h3>Custom Themes<a class="headerlink" href="#custom-themes" title="Link to this heading"></a></h3>
+<p><strong>GUI Styling</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotGui::applyCustomTheme</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">QString</span><span class="w"> </span><span class="n">stylesheet</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="s">&quot;QMainWindow { background-color: #2b2b2b; color: #ffffff; }&quot;</span>
+<span class="w">        </span><span class="s">&quot;QPushButton { &quot;</span>
+<span class="w">        </span><span class="s">&quot;  background-color: #3c3c3c; &quot;</span>
+<span class="w">        </span><span class="s">&quot;  border: 2px solid #555555; &quot;</span>
+<span class="w">        </span><span class="s">&quot;  border-radius: 5px; &quot;</span>
+<span class="w">        </span><span class="s">&quot;  padding: 5px; &quot;</span>
+<span class="w">        </span><span class="s">&quot;}&quot;</span>
+<span class="w">        </span><span class="s">&quot;QPushButton:hover { background-color: #4c4c4c; }&quot;</span>
+<span class="w">        </span><span class="s">&quot;QPushButton:pressed { background-color: #1c1c1c; }&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">stylesheet</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-files">
+<h3>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h3>
+<p><strong>Plugin Settings</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plugin configuration</span>
+<span class="nt">littlebot_rqt_plugin</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Update rates</span>
+<span class="w">    </span><span class="nt">status_update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span><span class="w">    </span><span class="c1"># Hz</span>
+<span class="w">    </span><span class="nt">gui_refresh_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.0</span><span class="w">      </span><span class="c1"># Hz</span>
+
+<span class="w">    </span><span class="c1"># Topic names</span>
+<span class="w">    </span><span class="nt">cmd_vel_topic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/cmd_vel&quot;</span>
+<span class="w">    </span><span class="nt">status_topic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/robot_status&quot;</span>
+<span class="w">    </span><span class="nt">joint_states_topic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/joint_states&quot;</span>
+
+<span class="w">    </span><span class="c1"># GUI settings</span>
+<span class="w">    </span><span class="nt">window_title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;LittleBot</span><span class="nv"> </span><span class="s">Control&quot;</span>
+<span class="w">    </span><span class="nt">enable_logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">log_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;~/littlebot_logs.txt&quot;</span>
+
+<span class="w">    </span><span class="c1"># Control limits</span>
+<span class="w">    </span><span class="nt">max_linear_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w">    </span><span class="c1"># m/s</span>
+<span class="w">    </span><span class="nt">max_angular_velocity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.0</span><span class="w">   </span><span class="c1"># rad/s</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="building-and-installation">
+<h2>Building and Installation<a class="headerlink" href="#building-and-installation" title="Link to this heading"></a></h2>
+<section id="build-requirements">
+<h3>Build Requirements<a class="headerlink" href="#build-requirements" title="Link to this heading"></a></h3>
+<p><strong>Dependencies</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Qt development packages</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>qtbase5-dev<span class="w"> </span>qttools5-dev-tools
+
+<span class="c1"># Install RQT development packages</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ros-humble-rqt-gui-cpp<span class="w"> </span>ros-humble-qt-gui-cpp
+</pre></div>
+</div>
+<p><strong>CMake Configuration</strong>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Find required packages</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">rclcpp</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">rqt_gui_cpp</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">qt_gui_cpp</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Qt5</span><span class="w"> </span><span class="s">REQUIRED</span><span class="w"> </span><span class="s">COMPONENTS</span><span class="w"> </span><span class="s">Core</span><span class="w"> </span><span class="s">Widgets</span><span class="p">)</span>
+
+<span class="c"># Generate UI headers</span>
+<span class="nb">qt5_wrap_ui</span><span class="p">(</span><span class="s">UIC_FILES</span><span class="w"> </span><span class="s">ui/littlebot_gui.ui</span><span class="p">)</span>
+
+<span class="c"># Build plugin library</span>
+<span class="nb">add_library</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="w"> </span><span class="s">SHARED</span>
+<span class="w">  </span><span class="s">src/littlebot_rqt_plugin.cpp</span>
+<span class="w">  </span><span class="s">src/littlebot_gui.cpp</span>
+<span class="w">  </span><span class="o">${</span><span class="nv">UIC_FILES</span><span class="o">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="plugin-installation">
+<h3>Plugin Installation<a class="headerlink" href="#plugin-installation" title="Link to this heading"></a></h3>
+<p><strong>Package Installation</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the plugin</span>
+<span class="nb">cd</span><span class="w"> </span>~/littlebot_ws
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>littlebot_rqt_plugin
+
+<span class="c1"># Source the workspace</span>
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+
+<span class="c1"># Verify plugin installation</span>
+rqt<span class="w"> </span>--list-plugins<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>littlebot
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Plugin Not Found</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Force plugin discovery</span>
+rqt<span class="w"> </span>--force-discover
+
+<span class="c1"># Clear RQT cache</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>~/.config/ros.org/rqt_gui.ini
+
+<span class="c1"># Check plugin registration</span>
+ros2<span class="w"> </span>pkg<span class="w"> </span>xml<span class="w"> </span>littlebot_rqt_plugin
+</pre></div>
+</div>
+<p><strong>GUI Display Issues</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Qt installation</span>
+qmake<span class="w"> </span>--version
+
+<span class="c1"># Verify display environment</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$DISPLAY</span>
+
+<span class="c1"># Test basic Qt functionality</span>
+qtdiag
+</pre></div>
+</div>
+<p><strong>Communication Errors</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check ROS2 node status</span>
+ros2<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>rqt
+
+<span class="c1"># Verify topic connections</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>info<span class="w"> </span>/cmd_vel
+
+<span class="c1"># Monitor message flow</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/robot_status
+</pre></div>
+</div>
+</section>
+<section id="performance-optimization">
+<h3>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h3>
+<p><strong>GUI Responsiveness</strong>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Limit update frequency</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">LittlebotRqtPlugin::setupTimers</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Status update timer (10 Hz)</span>
+<span class="w">    </span><span class="n">status_timer_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QTimer</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="n">connect</span><span class="p">(</span><span class="n">status_timer_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QTimer</span><span class="o">::</span><span class="n">timeout</span><span class="p">,</span>
+<span class="w">            </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotRqtPlugin</span><span class="o">::</span><span class="n">updateStatus</span><span class="p">);</span>
+<span class="w">    </span><span class="n">status_timer_</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w"> </span><span class="c1">// 100ms</span>
+
+<span class="w">    </span><span class="c1">// GUI refresh timer (30 Hz)</span>
+<span class="w">    </span><span class="n">gui_timer_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QTimer</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="n">connect</span><span class="p">(</span><span class="n">gui_timer_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">QTimer</span><span class="o">::</span><span class="n">timeout</span><span class="p">,</span>
+<span class="w">            </span><span class="n">widget_</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">LittlebotGui</span><span class="o">::</span><span class="n">refreshDisplay</span><span class="p">);</span>
+<span class="w">    </span><span class="n">gui_timer_</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">(</span><span class="mi">33</span><span class="p">);</span><span class="w"> </span><span class="c1">// 33ms</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p><strong>ROS2 Packages</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rqt_gui_cpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qt_gui_cpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rclcpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">std_msgs</span></code></p></li>
+</ul>
+<p><strong>System Dependencies</strong>:</p>
+<ul class="simple">
+<li><p>Qt5 development libraries</p></li>
+<li><p>RQT framework</p></li>
+<li><p>C++ compiler with C++17 support</p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>For detailed RQT plugin development and Qt integration, see the RQT documentation and Qt API reference guides.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="littlebot_teleop.html" class="btn btn-neutral float-left" title="littlebot_teleop" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="littlebot_gazebo.html" class="btn btn-neutral float-right" title="littlebot_gazebo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

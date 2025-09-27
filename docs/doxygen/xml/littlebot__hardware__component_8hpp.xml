@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="littlebot__hardware__component_8hpp" kind="file" language="C++">
+    <compoundname>littlebot_hardware_component.hpp</compoundname>
+    <includes local="no">memory</includes>
+    <includes local="no">string</includes>
+    <includes local="no">unordered_map</includes>
+    <includes local="no">utility</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">hardware_interface/handle.hpp</includes>
+    <includes local="no">hardware_interface/hardware_info.hpp</includes>
+    <includes local="no">hardware_interface/system_interface.hpp</includes>
+    <includes local="no">hardware_interface/types/hardware_interface_return_values.hpp</includes>
+    <includes local="no">rclcpp/rclcpp.hpp</includes>
+    <includes local="no">rclcpp_lifecycle/state.hpp</includes>
+    <includedby refid="littlebot__hardware__component_8cpp" local="yes">/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp</label>
+        <link refid="littlebot__hardware__component_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>hardware_interface/handle.hpp</label>
+      </node>
+      <node id="8">
+        <label>hardware_interface/hardware_info.hpp</label>
+      </node>
+      <node id="9">
+        <label>hardware_interface/system_interface.hpp</label>
+      </node>
+      <node id="10">
+        <label>hardware_interface/types/hardware_interface_return_values.hpp</label>
+      </node>
+      <node id="2">
+        <label>memory</label>
+      </node>
+      <node id="11">
+        <label>rclcpp/rclcpp.hpp</label>
+      </node>
+      <node id="12">
+        <label>rclcpp_lifecycle/state.hpp</label>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="4">
+        <label>unordered_map</label>
+      </node>
+      <node id="5">
+        <label>utility</label>
+      </node>
+      <node id="6">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp</label>
+        <link refid="littlebot__hardware__component_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp</label>
+        <link refid="littlebot__hardware__component_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classlittlebot__base_1_1LittlebotHardwareComponent" prot="public">littlebot_base::LittlebotHardwareComponent</innerclass>
+    <innernamespace refid="namespacelittlebot__base">littlebot_base</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>//<sp/><sp/>@<sp/>Copyright<sp/>2023<sp/>Nestor<sp/>Neto</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hardware_interface/handle.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hardware_interface/hardware_info.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hardware_interface/system_interface.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;hardware_interface/types/hardware_interface_return_values.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;rclcpp/rclcpp.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;rclcpp_lifecycle/state.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacelittlebot__base" kindref="compound">littlebot_base</ref></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="classlittlebot__base_1_1LittlebotHardwareComponent" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent" kindref="compound">LittlebotHardwareComponent</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>hardware_interface::SystemInterface</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="28" refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a12e6783d854895b7c92c1d8a4465f41b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a12e6783d854895b7c92c1d8a4465f41b" kindref="member">~LittlebotHardwareComponent</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>hardware_interface::CallbackReturn<sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae5a69999a848159feacc1d7d63c41f42" kindref="member">on_init</ref>(</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>hardware_interface::HardwareInfo<sp/>&amp;<sp/>info)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>hardware_interface::CallbackReturn<sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a84b0c80c82c2f5eaf9b9c596393f33bb" kindref="member">on_activate</ref>(</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>rclcpp_lifecycle::State<sp/>&amp;<sp/>state)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>hardware_interface::CallbackReturn<sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ab448e374330f42845dcd917f24aa0a92" kindref="member">on_deactivate</ref>(</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>rclcpp_lifecycle::State<sp/>&amp;<sp/>state)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>std::vector&lt;hardware_interface::StateInterface&gt;<sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae34070a99bf5ca7e0c716cbf78b1d121" kindref="member">export_state_interfaces</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>std::vector&lt;hardware_interface::CommandInterface&gt;<sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a6cc242abaebaabf647f8ca6e4e4a2d5f" kindref="member">export_command_interfaces</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>hardware_interface::return_type<sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1aaa2acd019e87d3dc9ee113961e89c465" kindref="member">read</ref>(</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>rclcpp::Time<sp/>&amp;<sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>rclcpp::Duration<sp/>&amp;<sp/>period)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>hardware_interface::return_type<sp/><ref refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a2f6bda00829edbbeded56906a7519828" kindref="member">write</ref>(</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>rclcpp::Time<sp/>&amp;<sp/>time,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>rclcpp::Duration<sp/>&amp;<sp/>period)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>hardware_component_name_{</highlight><highlight class="stringliteral">&quot;LittlebotHardwareComponent&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>hw_commands_;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>hw_positions_;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>std::vector&lt;double&gt;<sp/>hw_velocities_;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>kNumCommandInterface_{1};</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>kNumStateInterface_{2};</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>littlebot_base</highlight></codeline>
+    </programlisting>
+    <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp"/>
+  </compounddef>
+</doxygen>

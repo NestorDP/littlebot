@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Package Documentation &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="littlebot_base" href="littlebot_base.html" />
+    <link rel="prev" title="Getting Started" href="../getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Package Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core-packages">Core Packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#navigation-and-localization">Navigation and Localization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#user-interface">User Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#simulation">Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#meta-package">Meta Package</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Package Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/packages/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package-documentation">
+<h1>Package Documentation<a class="headerlink" href="#package-documentation" title="Link to this heading"></a></h1>
+<p>This section contains detailed documentation for each LittleBot package.</p>
+<section id="core-packages">
+<h2>Core Packages<a class="headerlink" href="#core-packages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_base.html">littlebot_base</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#scripts">Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#api-reference">API Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_base.html#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#integration-with-other-packages">Integration with Other Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#development-and-testing">Development and Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_bringup.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_control.html">littlebot_control</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#visualization">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#integration-examples">Integration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#programming-interface">Programming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_control.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_description.html">littlebot_description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#robot-structure">Robot Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#sensors-and-hardware">Sensors and Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#gazebo-integration">Gazebo Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#visualization">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#customization">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#testing-and-validation">Testing and Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_description.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="navigation-and-localization">
+<h2>Navigation and Localization<a class="headerlink" href="#navigation-and-localization" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_localization.html">littlebot_localization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#system-architecture">System Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#integration-examples">Integration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_localization.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#path-planning">Path Planning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#costmaps">Costmaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#behavior-trees">Behavior Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#recovery-behaviors">Recovery Behaviors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#integration-examples">Integration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_navigation.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="user-interface">
+<h2>User Interface<a class="headerlink" href="#user-interface" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#safety-features">Safety Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#programming-interface">Programming Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#integration-examples">Integration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_teleop.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#gui-components">GUI Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#ros2-integration">ROS2 Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#customization">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#building-and-installation">Building and Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_rqt_plugin.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="simulation">
+<h2>Simulation<a class="headerlink" href="#simulation" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#components">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#physics-configuration">Physics Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#sensor-plugins">Sensor Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#ros2-control-integration">ROS2 Control Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#world-environments">World Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#integration-examples">Integration Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="littlebot_gazebo.html#api-reference">API Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="meta-package">
+<h2>Meta Package<a class="headerlink" href="#meta-package" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="littlebot_base.html" class="btn btn-neutral float-right" title="littlebot_base" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

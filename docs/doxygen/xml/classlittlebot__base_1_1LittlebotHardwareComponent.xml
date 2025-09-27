@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classlittlebot__base_1_1LittlebotHardwareComponent" kind="class" language="C++" prot="public">
+    <compoundname>littlebot_base::LittlebotHardwareComponent</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">hardware_interface::SystemInterface</basecompoundref>
+    <includes refid="littlebot__hardware__component_8hpp" local="no">littlebot_hardware_component.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotHardwareComponent_1ae50698b569b4a3e9c4455d53129a07b7" prot="private" static="no" mutable="no">
+        <type>const std::string</type>
+        <definition>const std::string littlebot_base::LittlebotHardwareComponent::hardware_component_name_</definition>
+        <argsstring></argsstring>
+        <name>hardware_component_name_</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::hardware_component_name_</qualifiedname>
+        <initializer>{&quot;LittlebotHardwareComponent&quot;}</initializer>
+        <briefdescription>
+<para>The name of the hardware component. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="75" column="21" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" bodystart="75" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotHardwareComponent_1abd7533f4742f572466e477903cef3916" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; littlebot_base::LittlebotHardwareComponent::hw_commands_</definition>
+        <argsstring></argsstring>
+        <name>hw_commands_</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::hw_commands_</qualifiedname>
+        <briefdescription>
+<para>command interface. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="80" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a90c3b2c0354572e2123fdfd87de22f53" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; littlebot_base::LittlebotHardwareComponent::hw_positions_</definition>
+        <argsstring></argsstring>
+        <name>hw_positions_</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::hw_positions_</qualifiedname>
+        <briefdescription>
+<para>position state interface. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="85" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a30afe76d17c1bce59a4d8c8974b96127" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; littlebot_base::LittlebotHardwareComponent::hw_velocities_</definition>
+        <argsstring></argsstring>
+        <name>hw_velocities_</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::hw_velocities_</qualifiedname>
+        <briefdescription>
+<para>velocity state interface. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="90" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" bodystart="90" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotHardwareComponent_1aed624037758e0dbda38403301ec6b886" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int littlebot_base::LittlebotHardwareComponent::kNumCommandInterface_</definition>
+        <argsstring></argsstring>
+        <name>kNumCommandInterface_</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::kNumCommandInterface_</qualifiedname>
+        <initializer>{1}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="95" column="24" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" bodystart="95" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotHardwareComponent_1adb7ebf224206178b77d83f5701297382" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr int</type>
+        <definition>constexpr int littlebot_base::LittlebotHardwareComponent::kNumStateInterface_</definition>
+        <argsstring></argsstring>
+        <name>kNumStateInterface_</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::kNumStateInterface_</qualifiedname>
+        <initializer>{2}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="100" column="24" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" bodystart="100" bodyend="100"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a12e6783d854895b7c92c1d8a4465f41b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>littlebot_base::LittlebotHardwareComponent::~LittlebotHardwareComponent</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LittlebotHardwareComponent</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::~LittlebotHardwareComponent</qualifiedname>
+        <briefdescription>
+<para>Deconstructor for the <ref refid="classlittlebot__base_1_1LittlebotHardwareComponent" kindref="compound">LittlebotHardwareComponent</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="28" column="3"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1ae5a69999a848159feacc1d7d63c41f42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>hardware_interface::CallbackReturn</type>
+        <definition>hardware_interface::CallbackReturn littlebot_base::LittlebotHardwareComponent::on_init</definition>
+        <argsstring>(const hardware_interface::HardwareInfo &amp;info) override</argsstring>
+        <name>on_init</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::on_init</qualifiedname>
+        <param>
+          <type>const hardware_interface::HardwareInfo &amp;</type>
+          <declname>info</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="33" column="38" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp" bodystart="12" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a84b0c80c82c2f5eaf9b9c596393f33bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>hardware_interface::CallbackReturn</type>
+        <definition>hardware_interface::CallbackReturn littlebot_base::LittlebotHardwareComponent::on_activate</definition>
+        <argsstring>(const rclcpp_lifecycle::State &amp;state) override</argsstring>
+        <name>on_activate</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::on_activate</qualifiedname>
+        <param>
+          <type>const rclcpp_lifecycle::State &amp;</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="39" column="38" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp" bodystart="76" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1ab448e374330f42845dcd917f24aa0a92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>hardware_interface::CallbackReturn</type>
+        <definition>hardware_interface::CallbackReturn littlebot_base::LittlebotHardwareComponent::on_deactivate</definition>
+        <argsstring>(const rclcpp_lifecycle::State &amp;state) override</argsstring>
+        <name>on_deactivate</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::on_deactivate</qualifiedname>
+        <param>
+          <type>const rclcpp_lifecycle::State &amp;</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="45" column="38" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp" bodystart="94" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1ae34070a99bf5ca7e0c716cbf78b1d121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; hardware_interface::StateInterface &gt;</type>
+        <definition>std::vector&lt; hardware_interface::StateInterface &gt; littlebot_base::LittlebotHardwareComponent::export_state_interfaces</definition>
+        <argsstring>() override</argsstring>
+        <name>export_state_interfaces</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::export_state_interfaces</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="51" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp" bodystart="102" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a6cc242abaebaabf647f8ca6e4e4a2d5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; hardware_interface::CommandInterface &gt;</type>
+        <definition>std::vector&lt; hardware_interface::CommandInterface &gt; littlebot_base::LittlebotHardwareComponent::export_command_interfaces</definition>
+        <argsstring>() override</argsstring>
+        <name>export_command_interfaces</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::export_command_interfaces</qualifiedname>
+        <briefdescription>
+<para><linebreak/>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="56" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp" bodystart="116" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1aaa2acd019e87d3dc9ee113961e89c465" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>hardware_interface::return_type</type>
+        <definition>hardware_interface::return_type littlebot_base::LittlebotHardwareComponent::read</definition>
+        <argsstring>(const rclcpp::Time &amp;time, const rclcpp::Duration &amp;period) override</argsstring>
+        <name>read</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::read</qualifiedname>
+        <param>
+          <type>const rclcpp::Time &amp;</type>
+          <declname>time</declname>
+        </param>
+        <param>
+          <type>const rclcpp::Duration &amp;</type>
+          <declname>period</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="61" column="35" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp" bodystart="128" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotHardwareComponent_1a2f6bda00829edbbeded56906a7519828" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>hardware_interface::return_type</type>
+        <definition>hardware_interface::return_type littlebot_base::LittlebotHardwareComponent::write</definition>
+        <argsstring>(const rclcpp::Time &amp;time, const rclcpp::Duration &amp;period) override</argsstring>
+        <name>write</name>
+        <qualifiedname>littlebot_base::LittlebotHardwareComponent::write</qualifiedname>
+        <param>
+          <type>const rclcpp::Time &amp;</type>
+          <declname>time</declname>
+        </param>
+        <param>
+          <type>const rclcpp::Duration &amp;</type>
+          <declname>period</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="67" column="35" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src/littlebot_hardware_component.cpp" bodystart="136" bodyend="141"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>hardware_interface::SystemInterface</label>
+      </node>
+      <node id="1">
+        <label>littlebot_base::LittlebotHardwareComponent</label>
+        <link refid="classlittlebot__base_1_1LittlebotHardwareComponent"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>hardware_interface::SystemInterface</label>
+      </node>
+      <node id="1">
+        <label>littlebot_base::LittlebotHardwareComponent</label>
+        <link refid="classlittlebot__base_1_1LittlebotHardwareComponent"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" line="21" column="1" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_hardware_component.hpp" bodystart="22" bodyend="101"/>
+    <listofallmembers>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a6cc242abaebaabf647f8ca6e4e4a2d5f" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>export_command_interfaces</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae34070a99bf5ca7e0c716cbf78b1d121" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>export_state_interfaces</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae50698b569b4a3e9c4455d53129a07b7" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>hardware_component_name_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1abd7533f4742f572466e477903cef3916" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>hw_commands_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a90c3b2c0354572e2123fdfd87de22f53" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>hw_positions_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a30afe76d17c1bce59a4d8c8974b96127" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>hw_velocities_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1aed624037758e0dbda38403301ec6b886" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>kNumCommandInterface_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1adb7ebf224206178b77d83f5701297382" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>kNumStateInterface_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a84b0c80c82c2f5eaf9b9c596393f33bb" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>on_activate</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ab448e374330f42845dcd917f24aa0a92" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>on_deactivate</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1ae5a69999a848159feacc1d7d63c41f42" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>on_init</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1aaa2acd019e87d3dc9ee113961e89c465" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>read</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a2f6bda00829edbbeded56906a7519828" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>write</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotHardwareComponent_1a12e6783d854895b7c92c1d8a4465f41b" prot="public" virt="non-virtual"><scope>littlebot_base::LittlebotHardwareComponent</scope><name>~LittlebotHardwareComponent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

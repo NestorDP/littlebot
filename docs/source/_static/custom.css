@@ -1,0 +1,141 @@
+/* Custom CSS for LittleBot documentation */
+
+/* Improve code block styling */
+.highlight {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e4e5;
+    border-radius: 4px;
+    padding: 0.5em;
+    margin: 1em 0;
+}
+
+/* Style for note, warning, and tip admonitions */
+.admonition {
+    border-left: 4px solid #ccc;
+    padding: 0.5em 1em;
+    margin: 1em 0;
+    background-color: #f9f9f9;
+}
+
+.admonition.note {
+    border-left-color: #3498db;
+    background-color: #ebf7fd;
+}
+
+.admonition.warning {
+    border-left-color: #f39c12;
+    background-color: #fef9e7;
+}
+
+.admonition.tip {
+    border-left-color: #27ae60;
+    background-color: #e8f5e8;
+}
+
+/* Improve table styling */
+.rst-content table.docutils {
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.rst-content table.docutils th,
+.rst-content table.docutils td {
+    border: 1px solid #e1e4e5;
+    padding: 0.5em;
+}
+
+.rst-content table.docutils th {
+    background-color: #f1f2f3;
+    font-weight: bold;
+}
+
+/* Style for API documentation */
+.rst-content dl.class,
+.rst-content dl.function,
+.rst-content dl.method {
+    border: 1px solid #e1e4e5;
+    border-radius: 4px;
+    margin: 1em 0;
+    padding: 1em;
+    background-color: #fdfdfd;
+}
+
+.rst-content dl.class > dt,
+.rst-content dl.function > dt,
+.rst-content dl.method > dt {
+    background-color: #f1f2f3;
+    border-bottom: 1px solid #e1e4e5;
+    margin: -1em -1em 0.5em -1em;
+    padding: 0.5em 1em;
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+}
+
+/* Improve navigation styling */
+.wy-nav-content-wrap {
+    background-color: #fcfcfc;
+}
+
+/* Custom styling for ROS-specific content */
+.ros-topic {
+    font-family: 'Monaco', 'Consolas', monospace;
+    background-color: #e8f4fd;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.ros-node {
+    font-family: 'Monaco', 'Consolas', monospace;
+    background-color: #f0e8ff;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.ros-package {
+    font-family: 'Monaco', 'Consolas', monospace;
+    background-color: #e8ffe8;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Style for terminal commands */
+.highlight-bash .highlight {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    border-radius: 6px;
+}
+
+.highlight-bash .highlight pre {
+    color: #ecf0f1;
+}
+
+/* Improve mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .rst-content table.docutils {
+        font-size: 0.8em;
+    }
+    
+    .highlight {
+        font-size: 0.8em;
+    }
+}
+
+/* Style for version badges */
+.version-badge {
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    background-color: #3498db;
+    color: white;
+    border-radius: 3px;
+    font-size: 0.8em;
+    text-decoration: none;
+}
+
+.version-badge:hover {
+    background-color: #2980b9;
+    color: white;
+    text-decoration: none;
+}

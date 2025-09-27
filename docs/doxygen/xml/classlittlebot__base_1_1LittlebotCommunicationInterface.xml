@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classlittlebot__base_1_1LittlebotCommunicationInterface" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>littlebot_base::LittlebotCommunicationInterface</compoundname>
+    <derivedcompoundref refid="classlittlebot__base_1_1LittlebotCommunication" prot="public" virt="non-virtual">littlebot_base::LittlebotCommunication</derivedcompoundref>
+    <includes refid="littlebot__communication__interface_8hpp" local="no">littlebot_communication_interface.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1a6191dfef2311faaa73219b2c4a624466" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; littlebot_base::LittlebotCommunicationInterface::command_velocities_</definition>
+        <argsstring></argsstring>
+        <name>command_velocities_</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::command_velocities_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="54" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1a44c6a78b97aaf7f529862f0dec14e0dc" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; littlebot_base::LittlebotCommunicationInterface::status_positions_</definition>
+        <argsstring></argsstring>
+        <name>status_positions_</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::status_positions_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="59" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1ab1a3f007d04a79b0da1a689d43c886ee" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>std::vector&lt;float&gt; littlebot_base::LittlebotCommunicationInterface::status_velocities_</definition>
+        <argsstring></argsstring>
+        <name>status_velocities_</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::status_velocities_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="64" column="15" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1a261ceff58de02d4d8ff6938844d7712f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual littlebot_base::LittlebotCommunicationInterface::~LittlebotCommunicationInterface</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LittlebotCommunicationInterface</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::~LittlebotCommunicationInterface</qualifiedname>
+        <briefdescription>
+<para>Deconstructor for the <ref refid="classlittlebot__base_1_1LittlebotCommunicationInterface" kindref="compound">LittlebotCommunicationInterface</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="17" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1ada866930b91e48d3a5cfc42083aebd51" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void littlebot_base::LittlebotCommunicationInterface::setCommandVelocities</definition>
+        <argsstring>(std::vector&lt; float &gt; velocities)=0</argsstring>
+        <name>setCommandVelocities</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::setCommandVelocities</qualifiedname>
+        <reimplementedby refid="classlittlebot__base_1_1LittlebotCommunication_1a0b95fdaaeb60532058248a7afc38fd7e">setCommandVelocities</reimplementedby>
+        <param>
+          <type>std::vector&lt; float &gt;</type>
+          <declname>velocities</declname>
+        </param>
+        <briefdescription>
+<para>Set the command velocities. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="22" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1a68c3dace2d73f37ca53e2777f4a3c5d1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>virtual std::vector&lt; float &gt; littlebot_base::LittlebotCommunicationInterface::getStatusVelocities</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getStatusVelocities</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::getStatusVelocities</qualifiedname>
+        <reimplementedby refid="classlittlebot__base_1_1LittlebotCommunication_1aeee2bc5ba06e5b3451fd2cd387005c93">getStatusVelocities</reimplementedby>
+        <briefdescription>
+<para>Get the status velocities. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="27" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1ab8c914e44eb2f5d819c01158b4a6e1c7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; float &gt;</type>
+        <definition>virtual std::vector&lt; float &gt; littlebot_base::LittlebotCommunicationInterface::getStatusPositionsStatus</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getStatusPositionsStatus</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::getStatusPositionsStatus</qualifiedname>
+        <reimplementedby refid="classlittlebot__base_1_1LittlebotCommunication_1a49eb9a06191a56e6127d385154978d1b">getStatusPositionsStatus</reimplementedby>
+        <briefdescription>
+<para>Get the status positions. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="32" column="23"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1a6d3de289ac76dc99e2b713cbc6d1e8a2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>littlebot_base::LittlebotCommunicationInterface::LittlebotCommunicationInterface</definition>
+        <argsstring>()=default</argsstring>
+        <name>LittlebotCommunicationInterface</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::LittlebotCommunicationInterface</qualifiedname>
+        <briefdescription>
+<para>Constructor for the LittlebotLittlebotCommunicationInterface class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="38" column="3"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1a5415c804280b8a13d620cd9464ed0cd8" prot="private" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool littlebot_base::LittlebotCommunicationInterface::receive</definition>
+        <argsstring>()=0</argsstring>
+        <name>receive</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::receive</qualifiedname>
+        <reimplementedby refid="classlittlebot__base_1_1LittlebotCommunication_1aed815176514a667f48a30c734a6a9076">receive</reimplementedby>
+        <briefdescription>
+<para>Receive data from the hardware. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="44" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classlittlebot__base_1_1LittlebotCommunicationInterface_1afeb87d44381014633850fafd1853273f" prot="private" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool littlebot_base::LittlebotCommunicationInterface::send</definition>
+        <argsstring>()=0</argsstring>
+        <name>send</name>
+        <qualifiedname>littlebot_base::LittlebotCommunicationInterface::send</qualifiedname>
+        <reimplementedby refid="classlittlebot__base_1_1LittlebotCommunication_1ae9e18e2a81249b54e79e4b404fbc1f32">send</reimplementedby>
+        <briefdescription>
+<para>Send data to the hardware. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="49" column="16"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>littlebot_base::LittlebotCommunication</label>
+        <link refid="classlittlebot__base_1_1LittlebotCommunication"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>littlebot_base::LittlebotCommunicationInterface</label>
+        <link refid="classlittlebot__base_1_1LittlebotCommunicationInterface"/>
+      </node>
+    </inheritancegraph>
+    <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" line="11" column="1" bodyfile="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include/littlebot_base/littlebot_communication_interface.hpp" bodystart="11" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a6191dfef2311faaa73219b2c4a624466" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>command_velocities_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1ab8c914e44eb2f5d819c01158b4a6e1c7" prot="public" virt="pure-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>getStatusPositionsStatus</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a68c3dace2d73f37ca53e2777f4a3c5d1" prot="public" virt="pure-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>getStatusVelocities</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a6d3de289ac76dc99e2b713cbc6d1e8a2" prot="protected" virt="non-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>LittlebotCommunicationInterface</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a5415c804280b8a13d620cd9464ed0cd8" prot="private" virt="pure-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>receive</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1afeb87d44381014633850fafd1853273f" prot="private" virt="pure-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>send</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1ada866930b91e48d3a5cfc42083aebd51" prot="public" virt="pure-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>setCommandVelocities</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a44c6a78b97aaf7f529862f0dec14e0dc" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>status_positions_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1ab1a3f007d04a79b0da1a689d43c886ee" prot="private" virt="non-virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>status_velocities_</name></member>
+      <member refid="classlittlebot__base_1_1LittlebotCommunicationInterface_1a261ceff58de02d4d8ff6938844d7712f" prot="public" virt="virtual"><scope>littlebot_base::LittlebotCommunicationInterface</scope><name>~LittlebotCommunicationInterface</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

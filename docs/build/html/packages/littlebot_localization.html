@@ -1,0 +1,623 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>littlebot_localization &mdash; LittleBot 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fc7ddcec" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="littlebot_navigation" href="littlebot_navigation.html" />
+    <link rel="prev" title="littlebot_description" href="littlebot_description.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980b9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LittleBot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Package Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-packages">Core Packages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#navigation-and-localization">Navigation and Localization</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">littlebot_localization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-architecture">System Architecture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#advanced-features">Advanced Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-examples">Integration Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#user-interface">User Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simulation">Simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#meta-package">Meta Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Package Documentation:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="littlebot_base.html">littlebot_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_bringup.html">littlebot_bringup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_control.html">littlebot_control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_description.html">littlebot_description</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">littlebot_localization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#localization-algorithms">Localization Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-files">Configuration Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-files">Launch Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#starting-localization">Starting Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-initial-pose">Setting Initial Pose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-localization">Monitoring Localization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#system-architecture">System Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#node-structure">Node Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transform-frames">Transform Frames</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#amcl-tuning">AMCL Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ekf-configuration">EKF Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#multi-robot-localization">Multi-Robot Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-reconfiguration">Dynamic Reconfiguration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#localization-quality-assessment">Localization Quality Assessment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-examples">Integration Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#with-navigation">With Navigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-mapping">With Mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-sensor-integration">Custom Sensor Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_navigation.html">littlebot_navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_teleop.html">littlebot_teleop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_gazebo.html">littlebot_gazebo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="littlebot_rqt_plugin.html">littlebot_rqt_plugin</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980b9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LittleBot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Package Documentation</a></li>
+      <li class="breadcrumb-item active">littlebot_localization</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/NestorDP/littlebot/blob/main/docs/source/packages/littlebot_localization.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="littlebot-localization">
+<h1>littlebot_localization<a class="headerlink" href="#littlebot-localization" title="Link to this heading"></a></h1>
+<p>The <cite>littlebot_localization</cite> package provides localization capabilities for the LittleBot robot using various algorithms and sensor fusion techniques.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This package implements:</p>
+<ul class="simple">
+<li><p>AMCL (Adaptive Monte Carlo Localization) for map-based localization</p></li>
+<li><p>Sensor fusion for improved position estimation</p></li>
+<li><p>Launch files for localization system startup</p></li>
+<li><p>Configuration files for different environments</p></li>
+<li><p>Integration with navigation and mapping systems</p></li>
+</ul>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h2>
+<section id="localization-algorithms">
+<h3>Localization Algorithms<a class="headerlink" href="#localization-algorithms" title="Link to this heading"></a></h3>
+<p><strong>AMCL (Adaptive Monte Carlo Localization)</strong></p>
+<p>Primary localization method using particle filters:</p>
+<ul class="simple">
+<li><p>Probabilistic localization in known maps</p></li>
+<li><p>Laser scan matching</p></li>
+<li><p>Odometry integration</p></li>
+<li><p>Adaptive particle count optimization</p></li>
+</ul>
+<p><strong>Sensor Fusion</strong></p>
+<p>Combines multiple sensor inputs:</p>
+<ul class="simple">
+<li><p>Wheel odometry from encoders</p></li>
+<li><p>IMU data for orientation</p></li>
+<li><p>Laser scan data for position correction</p></li>
+<li><p>Visual odometry (optional)</p></li>
+</ul>
+</section>
+<section id="configuration-files">
+<h3>Configuration Files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h3>
+<p><strong>AMCL Configuration</strong>: <cite>config/amcl.yaml</cite></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">amcl</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Filter parameters</span>
+<span class="w">    </span><span class="nt">min_particles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+<span class="w">    </span><span class="nt">max_particles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span>
+<span class="w">    </span><span class="nt">kld_err</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">    </span><span class="nt">kld_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.99</span>
+
+<span class="w">    </span><span class="c1"># Odometry model parameters</span>
+<span class="w">    </span><span class="nt">odom_model_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;diff&quot;</span>
+<span class="w">    </span><span class="nt">odom_alpha1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">    </span><span class="c1"># rotation noise from rotation</span>
+<span class="w">    </span><span class="nt">odom_alpha2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">    </span><span class="c1"># rotation noise from translation</span>
+<span class="w">    </span><span class="nt">odom_alpha3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span><span class="w">    </span><span class="c1"># translation noise from translation</span>
+<span class="w">    </span><span class="nt">odom_alpha4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">    </span><span class="c1"># translation noise from rotation</span>
+
+<span class="w">    </span><span class="c1"># Laser model parameters</span>
+<span class="w">    </span><span class="nt">laser_model_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;likelihood_field&quot;</span>
+<span class="w">    </span><span class="nt">laser_max_beams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">    </span><span class="nt">laser_sigma_hit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span>
+<span class="w">    </span><span class="nt">laser_z_hit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">    </span><span class="nt">laser_z_short</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">    </span><span class="nt">laser_z_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span>
+<span class="w">    </span><span class="nt">laser_z_rand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+</pre></div>
+</div>
+<p><strong>EKF Configuration</strong>: <cite>config/ekf.yaml</cite></p>
+<p>Extended Kalman Filter for sensor fusion:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ekf_filter_node</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30.0</span>
+<span class="w">    </span><span class="nt">sensor_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
+<span class="w">    </span><span class="nt">two_d_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">publish_tf</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="w">    </span><span class="c1"># Odometry input</span>
+<span class="w">    </span><span class="nt">odom0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/odom</span>
+<span class="w">    </span><span class="nt">odom0_config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                   </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                   </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                   </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span>
+<span class="w">                   </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">]</span>
+
+<span class="w">    </span><span class="c1"># IMU input</span>
+<span class="w">    </span><span class="nt">imu0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/imu</span>
+<span class="w">    </span><span class="nt">imu0_config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span>
+<span class="w">                  </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span>
+<span class="w">                  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="launch-files">
+<h3>Launch Files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h3>
+<p><strong>Main Localization Launch</strong>: <cite>launch/littlebot_localization.launch.py</cite></p>
+<p>Starts the complete localization system:</p>
+<ul class="simple">
+<li><p>AMCL node with configuration</p></li>
+<li><p>Map server (if map provided)</p></li>
+<li><p>Transform publishers</p></li>
+<li><p>Sensor fusion nodes</p></li>
+</ul>
+<p><strong>EKF Launch</strong>: <cite>launch/ekf_localization.launch.py</cite></p>
+<p>Launches Extended Kalman Filter for sensor fusion:</p>
+<ul class="simple">
+<li><p>Robot localization EKF node</p></li>
+<li><p>Sensor data subscribers</p></li>
+<li><p>Transform broadcasting</p></li>
+</ul>
+</section>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="starting-localization">
+<h3>Starting Localization<a class="headerlink" href="#starting-localization" title="Link to this heading"></a></h3>
+<p>Launch the localization system:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start with default configuration</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_localization<span class="w"> </span>littlebot_localization.launch.py
+
+<span class="c1"># Start with custom map</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_localization<span class="w"> </span>littlebot_localization.launch.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>map:<span class="o">=</span>/path/to/your/map.yaml
+
+<span class="c1"># Start EKF sensor fusion</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_localization<span class="w"> </span>ekf_localization.launch.py
+</pre></div>
+</div>
+</section>
+<section id="setting-initial-pose">
+<h3>Setting Initial Pose<a class="headerlink" href="#setting-initial-pose" title="Link to this heading"></a></h3>
+<p>Set the robot’s initial position on the map:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using command line</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/initialpose<span class="w"> </span>geometry_msgs/msg/PoseWithCovarianceStamped<span class="w"> </span><span class="se">\</span>
+<span class="s1">&#39;{</span>
+<span class="s1">  header: {frame_id: &quot;map&quot;},</span>
+<span class="s1">  pose: {</span>
+<span class="s1">    pose: {</span>
+<span class="s1">      position: {x: 0.0, y: 0.0, z: 0.0},</span>
+<span class="s1">      orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}</span>
+<span class="s1">    },</span>
+<span class="s1">    covariance: [0.25, 0.0, 0.0, 0.0, 0.0, 0.0,</span>
+<span class="s1">                 0.0, 0.25, 0.0, 0.0, 0.0, 0.0,</span>
+<span class="s1">                 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,</span>
+<span class="s1">                 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,</span>
+<span class="s1">                 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,</span>
+<span class="s1">                 0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892326654787]</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span>
+
+<span class="c1"># Using RViz &quot;2D Pose Estimate&quot; tool</span>
+<span class="c1"># Click the &quot;2D Pose Estimate&quot; button and click/drag on the map</span>
+</pre></div>
+</div>
+</section>
+<section id="monitoring-localization">
+<h3>Monitoring Localization<a class="headerlink" href="#monitoring-localization" title="Link to this heading"></a></h3>
+<p>Check localization status:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Monitor particle cloud</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/particlecloud
+
+<span class="c1"># Check pose estimates</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/amcl_pose
+
+<span class="c1"># Monitor transform quality</span>
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_tools<span class="w"> </span>view_frames.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="system-architecture">
+<h2>System Architecture<a class="headerlink" href="#system-architecture" title="Link to this heading"></a></h2>
+<section id="node-structure">
+<h3>Node Structure<a class="headerlink" href="#node-structure" title="Link to this heading"></a></h3>
+<p><strong>Core Nodes</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">amcl</span></code>: Adaptive Monte Carlo Localization</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map_server</span></code>: Provides map data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ekf_filter_node</span></code>: Extended Kalman Filter for sensor fusion</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">robot_localization</span></code>: Multi-sensor fusion framework</p></li>
+</ul>
+<p><strong>Data Flow</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Sensors</strong> → Raw sensor data (odometry, IMU, laser)</p></li>
+<li><p><strong>Sensor Fusion</strong> → Filtered estimates</p></li>
+<li><p><strong>AMCL</strong> → Map-based localization</p></li>
+<li><p><strong>Transform Publisher</strong> → Global pose estimation</p></li>
+</ol>
+</section>
+<section id="transform-frames">
+<h3>Transform Frames<a class="headerlink" href="#transform-frames" title="Link to this heading"></a></h3>
+<p><strong>Coordinate Frames</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code>: Fixed world coordinate frame</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">odom</span></code>: Odometry coordinate frame (drift-prone)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">base_link</span></code>: Robot body coordinate frame</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">laser</span></code>: Laser scanner coordinate frame</p></li>
+</ul>
+<p><strong>Transform Tree</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>map → odom → base_link → laser
+                 ↓
+             sensors (IMU, etc.)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<section id="amcl-tuning">
+<h3>AMCL Tuning<a class="headerlink" href="#amcl-tuning" title="Link to this heading"></a></h3>
+<p><strong>Particle Filter Parameters</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">amcl</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Particle count adaptation</span>
+<span class="w">    </span><span class="nt">min_particles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span><span class="w">      </span><span class="c1"># Minimum particles</span>
+<span class="w">    </span><span class="nt">max_particles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span><span class="w">     </span><span class="c1"># Maximum particles</span>
+<span class="w">    </span><span class="nt">kld_err</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.01</span><span class="w">          </span><span class="c1"># KLD error threshold</span>
+<span class="w">    </span><span class="nt">kld_z</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.99</span><span class="w">            </span><span class="c1"># KLD z-score</span>
+
+<span class="w">    </span><span class="c1"># Update thresholds</span>
+<span class="w">    </span><span class="nt">update_min_d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">       </span><span class="c1"># Min translation for update</span>
+<span class="w">    </span><span class="nt">update_min_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">       </span><span class="c1"># Min rotation for update</span>
+<span class="w">    </span><span class="nt">resample_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">    </span><span class="c1"># Resampling frequency</span>
+</pre></div>
+</div>
+<p><strong>Motion Model Tuning</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Differential drive model</span>
+<span class="nt">odom_model_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;diff&quot;</span>
+
+<span class="c1"># Noise parameters (tune based on your robot)</span>
+<span class="nt">odom_alpha1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">    </span><span class="c1"># Expected noise in rotation as a function of rotation</span>
+<span class="nt">odom_alpha2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">    </span><span class="c1"># Expected noise in rotation as a function of translation</span>
+<span class="nt">odom_alpha3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.8</span><span class="w">    </span><span class="c1"># Expected noise in translation as a function of translation</span>
+<span class="nt">odom_alpha4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">    </span><span class="c1"># Expected noise in translation as a function of rotation</span>
+</pre></div>
+</div>
+<p><strong>Laser Model Tuning</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">laser_model_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;likelihood_field&quot;</span>
+<span class="nt">laser_max_beams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w">         </span><span class="c1"># Number of laser beams to use</span>
+<span class="nt">laser_sigma_hit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2</span><span class="w">        </span><span class="c1"># Standard deviation for hit</span>
+<span class="nt">laser_z_hit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">           </span><span class="c1"># Mixing parameter for hit</span>
+<span class="nt">laser_z_short</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">        </span><span class="c1"># Mixing parameter for short</span>
+<span class="nt">laser_z_max</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">          </span><span class="c1"># Mixing parameter for max</span>
+<span class="nt">laser_z_rand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">          </span><span class="c1"># Mixing parameter for random</span>
+</pre></div>
+</div>
+</section>
+<section id="ekf-configuration">
+<h3>EKF Configuration<a class="headerlink" href="#ekf-configuration" title="Link to this heading"></a></h3>
+<p><strong>State Vector Configuration</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># State vector: [x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az]</span>
+<span class="c1"># Configuration array specifies which states to estimate from each sensor</span>
+
+<span class="nt">odom0_config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="c1"># position (x,y,z)</span>
+<span class="w">               </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="c1"># orientation (r,p,y)</span>
+<span class="w">               </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="c1"># linear velocity (x,y,z)</span>
+<span class="w">               </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">     </span><span class="c1"># angular velocity (r,p,y)</span>
+<span class="w">               </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">]</span><span class="w">    </span><span class="c1"># linear acceleration (x,y,z)</span>
+</pre></div>
+</div>
+<p><strong>Process Noise</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Process noise covariance (Q matrix)</span>
+<span class="nt">process_noise_covariance</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.05</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">     </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">     </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span>
+<span class="w">                           </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0.05</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">     </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">     </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span>
+<span class="w">                           </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0.06</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">     </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">     </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w">    </span><span class="nv">0</span><span class="p p-Indicator">,</span>
+<span class="w">                           </span><span class="c1"># ... continue for all 15 states</span>
+<span class="w">                           </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="advanced-features">
+<h2>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading"></a></h2>
+<section id="multi-robot-localization">
+<h3>Multi-Robot Localization<a class="headerlink" href="#multi-robot-localization" title="Link to this heading"></a></h3>
+<p>Support for multiple robots:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">amcl</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># Use robot-specific topics</span>
+<span class="w">    </span><span class="nt">scan_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/robot1/scan</span>
+<span class="w">    </span><span class="nt">initial_pose_topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/robot1/initialpose</span>
+
+<span class="w">    </span><span class="c1"># Separate transform frames</span>
+<span class="w">    </span><span class="nt">base_frame_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;robot1/base_link&quot;</span>
+<span class="w">    </span><span class="nt">odom_frame_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;robot1/odom&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="dynamic-reconfiguration">
+<h3>Dynamic Reconfiguration<a class="headerlink" href="#dynamic-reconfiguration" title="Link to this heading"></a></h3>
+<p>Adjust parameters at runtime:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List available parameters</span>
+ros2<span class="w"> </span>param<span class="w"> </span>list<span class="w"> </span>/amcl
+
+<span class="c1"># Change particle count</span>
+ros2<span class="w"> </span>param<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/amcl<span class="w"> </span>min_particles<span class="w"> </span><span class="m">1000</span>
+ros2<span class="w"> </span>param<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/amcl<span class="w"> </span>max_particles<span class="w"> </span><span class="m">3000</span>
+
+<span class="c1"># Update motion model parameters</span>
+ros2<span class="w"> </span>param<span class="w"> </span><span class="nb">set</span><span class="w"> </span>/amcl<span class="w"> </span>odom_alpha1<span class="w"> </span><span class="m">0</span>.1
+</pre></div>
+</div>
+</section>
+<section id="localization-quality-assessment">
+<h3>Localization Quality Assessment<a class="headerlink" href="#localization-quality-assessment" title="Link to this heading"></a></h3>
+<p>Monitor localization performance:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check pose covariance</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/amcl_pose<span class="w"> </span>--field<span class="w"> </span>pose.covariance
+
+<span class="c1"># Monitor particle spread</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/particlecloud<span class="w"> </span>--field<span class="w"> </span>poses
+
+<span class="c1"># Evaluate transform accuracy</span>
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_ros<span class="w"> </span>tf2_echo<span class="w"> </span>map<span class="w"> </span>base_link
+</pre></div>
+</div>
+</section>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading"></a></h3>
+<p><strong>Poor Localization Accuracy</strong>:</p>
+<ul class="simple">
+<li><p>Tune AMCL parameters for your environment</p></li>
+<li><p>Check laser scan quality and range</p></li>
+<li><p>Verify map accuracy and resolution</p></li>
+<li><p>Adjust particle count and update thresholds</p></li>
+</ul>
+<p><strong>Localization Failure</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check sensor data</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/scan
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/odom
+
+<span class="c1"># Verify map loading</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/map
+
+<span class="c1"># Check initial pose setting</span>
+ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/initialpose
+</pre></div>
+</div>
+<p><strong>Transform Issues</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check transform tree</span>
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_tools<span class="w"> </span>view_frames.py
+
+<span class="c1"># Monitor specific transforms</span>
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_ros<span class="w"> </span>tf2_echo<span class="w"> </span>map<span class="w"> </span>odom
+ros2<span class="w"> </span>run<span class="w"> </span>tf2_ros<span class="w"> </span>tf2_echo<span class="w"> </span>odom<span class="w"> </span>base_link
+</pre></div>
+</div>
+</section>
+<section id="performance-optimization">
+<h3>Performance Optimization<a class="headerlink" href="#performance-optimization" title="Link to this heading"></a></h3>
+<p><strong>Computational Efficiency</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reduce particle count for better performance</span>
+<span class="nt">min_particles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="nt">max_particles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+
+<span class="c1"># Reduce laser beam count</span>
+<span class="nt">laser_max_beams</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+
+<span class="c1"># Increase update thresholds</span>
+<span class="nt">update_min_d</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="nt">update_min_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+</pre></div>
+</div>
+<p><strong>Memory Usage</strong>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Limit particle history</span>
+<span class="nt">save_pose_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+
+<span class="c1"># Reduce map resolution if possible</span>
+<span class="c1"># (configure in map server)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="integration-examples">
+<h2>Integration Examples<a class="headerlink" href="#integration-examples" title="Link to this heading"></a></h2>
+<section id="with-navigation">
+<h3>With Navigation<a class="headerlink" href="#with-navigation" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start localization</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_localization<span class="w"> </span>littlebot_localization.launch.py<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># Start navigation (uses localization)</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_navigation<span class="w"> </span>littlebot_navigation.launch.py
+</pre></div>
+</div>
+</section>
+<section id="with-mapping">
+<h3>With Mapping<a class="headerlink" href="#with-mapping" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># SLAM mode (simultaneous localization and mapping)</span>
+ros2<span class="w"> </span>launch<span class="w"> </span>littlebot_localization<span class="w"> </span>slam_localization.launch.py
+</pre></div>
+</div>
+</section>
+<section id="custom-sensor-integration">
+<h3>Custom Sensor Integration<a class="headerlink" href="#custom-sensor-integration" title="Link to this heading"></a></h3>
+<p>Add custom sensors to EKF:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># GPS input (if available)</span>
+<span class="nt">navsat0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/gps/fix</span>
+<span class="nt">navsat0_config</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">true</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w">  </span><span class="c1"># Use x,y from GPS</span>
+<span class="w">                 </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span>
+<span class="w">                 </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">false</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p><strong>ROS2 Packages</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nav2_amcl</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">robot_localization</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nav2_map_server</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tf2_ros</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sensor_msgs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">geometry_msgs</span></code></p></li>
+</ul>
+<p><strong>System Dependencies</strong>:</p>
+<ul class="simple">
+<li><p>Laser scan driver</p></li>
+<li><p>IMU driver</p></li>
+<li><p>Odometry source</p></li>
+</ul>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h2>
+<p>For detailed API documentation, see the Nav2 AMCL and Robot Localization package documentation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="littlebot_description.html" class="btn btn-neutral float-left" title="littlebot_description" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="littlebot_navigation.html" class="btn btn-neutral float-right" title="littlebot_navigation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nestor Neto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

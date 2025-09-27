@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_ab8eec713b782874da7bf54beaead3bd" kind="dir">
+    <compoundname>/home/nestor/littlebot_ws/src/littlebot/littlebot_base</compoundname>
+    <innerdir refid="dir_68f9b4efa9a45af395acbb4168c1cb3c">/home/nestor/littlebot_ws/src/littlebot/littlebot_base/include</innerdir>
+    <innerdir refid="dir_e2a3db92f24a3c68fb6d731b096ce99c">/home/nestor/littlebot_ws/src/littlebot/littlebot_base/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/nestor/littlebot_ws/src/littlebot/littlebot_base/"/>
+  </compounddef>
+</doxygen>
