@@ -1,0 +1,13 @@
+# LittleBot dependencies file for vcstool
+# Usage: vcs import src < littlebot.repos
+
+repositories:
+  libserial:
+    type: git
+    url: https://github.com/NestorDP/libserial.git
+    version: main  # or specify a specific branch/tag
+  
+  protobuf:
+    type: git
+    url: https://github.com/protocolbuffers/protobuf.git
+    version: main  # Latest stable version - you can pin to specific tag like v21.12
