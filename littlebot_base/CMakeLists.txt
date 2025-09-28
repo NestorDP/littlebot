@@ -52,7 +52,7 @@ add_library(littlebot_hardware_component SHARED
   src/firmware_comm.cpp
   ${PROTO_SRCS}
   ${PROTO_HDRS}
-  )
+)
 
 ament_target_dependencies(littlebot_hardware_component
   hardware_interface
@@ -68,7 +68,7 @@ install( TARGETS
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 
-install( 
+install(
   DIRECTORY include/
   DESTINATION include
 )
@@ -90,5 +90,42 @@ ament_export_dependencies(
   pluginlib
   rclcpp
 )
+
+# Testing
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  find_package(ament_cmake_gtest REQUIRED)
+  find_package(ament_cmake_gmock REQUIRED)
+
+  # Lint tests
+  ament_lint_auto_find_test_dependencies()
+
+  # Unit tests for FirmwareComm
+  ament_add_gtest(${PROJECT_NAME}_unit_tests
+    test/test_main.cpp
+    test/test_firmware_comm.cpp
+    src/firmware_comm.cpp
+    ${PROTO_SRCS}
+    ${PROTO_HDRS}
+  )
+
+  if(TARGET ${PROJECT_NAME}_unit_tests)
+    target_include_directories(${PROJECT_NAME}_unit_tests PRIVATE
+      include
+      ${Protobuf_INCLUDE_DIRS}
+      ${CMAKE_CURRENT_BINARY_DIR}
+    )
+
+    target_link_libraries(${PROJECT_NAME}_unit_tests
+      ${Protobuf_LIBRARIES}
+    )
+
+    ament_target_dependencies(${PROJECT_NAME}_unit_tests
+      hardware_interface
+      pluginlib
+      rclcpp
+    )
+  endif()
+endif()
 
 ament_package()

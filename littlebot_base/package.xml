@@ -2,13 +2,11 @@
 <package format="2">
   <name>littlebot_base</name>
   <version>1.0.8</version>
-  <description>Package for comunnication with the littlebot hardware</description>
-
-  <author email="nestor-dp@hotmail.com">Nestor</author>
+  <description>Package for communication with the littlebot hardware</description>
 
   <maintainer email="nestor-dp@hotmail.com">Nestor</maintainer>
 
-  <license>GNU</license>
+  <license>GPL-3.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
@@ -17,6 +15,16 @@
   <depend>rclcpp</depend>
   <depend>rclcpp_components</depend>
   <depend>std_msgs</depend>
+  <depend>libserial</depend>
+  <depend>libprotobuf-dev</depend>
+  <build_depend>protobuf-compiler</build_depend>
+
+  <!-- Test dependencies -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_cmake_gmock</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
