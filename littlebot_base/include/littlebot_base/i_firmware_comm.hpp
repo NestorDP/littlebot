@@ -8,13 +8,14 @@
 namespace littlebot_base
 {
 
-class LittlebotCommunicationInterface{
-public:
+class IFirmwareComm
+{
+ public:
   /**
-   * @brief Deconstructor for the LittlebotCommunicationInterface class
+   * @brief Deconstructor for the IFirmwareComm class
    *
    */
-  virtual ~LittlebotCommunicationInterface() = default;
+  virtual ~IFirmwareComm() = default;
 
   /**
    * @brief Set the command velocities
@@ -31,13 +32,13 @@ public:
    */
   virtual std::vector<float> getStatusPositionsStatus() const = 0;
 
-protected:
+ protected:
   /**
-   * @brief Constructor for the LittlebotLittlebotCommunicationInterface class
+   * @brief Constructor for the IFirmwareComm class
    */
-  LittlebotCommunicationInterface() = default;
+  IFirmwareComm () = default;
   
-private:
+ private:
   /**
    * @brief Receive data from the hardware
    */

@@ -7,23 +7,23 @@
 
 #include <libserial/serial.hpp>
 
-#include "littlebot_base/littlebot_communication_interface.hpp"
+#include "littlebot_base/i_firmware_comm.hpp"
 
 namespace littlebot_base
 {
 
-class LittlebotCommunication : public LittlebotCommunicationInterface
+class FirmwareComm : public IFirmwareComm
 {
 public:
   /**
-   * @brief Constructor for the LittlebotCommunication class
+   * @brief Constructor for the FirmwareComm class
    */
-  LittlebotCommunication(const std::string serial_port);
+  FirmwareComm(const std::string serial_port);
   
   /**
-   * @brief Deconstructor for the LittlebotCommunication class
+   * @brief Deconstructor for the FirmwareComm class
    */
-  ~LittlebotCommunication();
+  ~FirmwareComm();
 
   /**
    * @brief Set the command velocities
