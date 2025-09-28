@@ -104,6 +104,7 @@ if(BUILD_TESTING)
   ament_add_gtest(${PROJECT_NAME}_unit_tests
     test/test_main.cpp
     test/test_firmware_comm.cpp
+    test/teste_littlebot_hardeware_component.cpp
     src/firmware_comm.cpp
     ${PROTO_SRCS}
     ${PROTO_HDRS}

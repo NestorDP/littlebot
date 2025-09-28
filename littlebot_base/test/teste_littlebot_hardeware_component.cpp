@@ -13,8 +13,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-TEST_F(TestGenericSystem, load_generic_system_2dof) {
-  auto urdf = ros2_control_test_assets::urdf_head + hardware_system_2dof_ +
-    ros2_control_test_assets::urdf_tail;
-  ASSERT_NO_THROW(TestableResourceManager rm(urdf));
-}  // NOLINT
+
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include <memory>
+#include <vector>
+#include <string>
+#include <chrono>
+
+#include "littlebot_base/firmware_comm.hpp"
+#include "littlebot_base/i_firmware_comm.hpp"
+
+//
+TEST(TestLittlebotHardwareComponent, TestAdd2)
+{
+  EXPECT_EQ(5, 4);
+}

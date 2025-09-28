@@ -21,6 +21,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 /**
  * @brief Main function that runs all unit tests

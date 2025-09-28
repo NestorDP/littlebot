@@ -22,4 +22,12 @@ colcon test --packages-select littlebot_base
 echo "Test results:"
 colcon test-result --verbose
 
+# List available tests
+echo "Available tests:"
+./build/littlebot_base/littlebot_base_unit_tests --gtest_list_tests
+
+# Run all tests
+echo "Running all tests..."
+./build/littlebot_base/littlebot_base_unit_tests
+
 echo "Unit tests completed!"
