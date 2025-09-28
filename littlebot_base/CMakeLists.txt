@@ -31,7 +31,7 @@ message(STATUS "Protobuf libraries: ${Protobuf_LIBRARIES}")
 
 # Add your proto file
 set(PROTO_FILES
-    src/littlebot_protocol.proto
+    src/littlebot_msg.proto
 )
 
 # Generate sources and headers from .proto
