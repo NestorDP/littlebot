@@ -1,0 +1,28 @@
+# Custom rosdep configuration for LittleBot dependencies
+# This file defines how to install custom dependencies
+
+# Custom rosdep configuration for LittleBot dependencies
+# This file maps custom dependencies to system packages
+
+libserial:
+  ubuntu: [libserial-dev]  # Will be installed from source via our script
+
+libprotobuf-dev:
+  ubuntu: [libprotobuf-dev]
+
+protobuf-compiler:
+  ubuntu: [protobuf-compiler]
+    if [ ! -d "/tmp/libserial_build" ]; then
+      echo "Installing libserial from GitHub..."
+      git clone https://github.com/NestorDP/libserial.git /tmp/libserial_build
+      cd /tmp/libserial_build
+      mkdir -p build && cd build
+      cmake ..
+      make -j$(nproc)
+      sudo make install
+      sudo ldconfig
+      cd / && rm -rf /tmp/libserial_build
+      echo "libserial installation completed"
+    else
+      echo "libserial already being installed"
+    fi

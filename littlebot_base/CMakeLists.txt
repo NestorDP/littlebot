@@ -10,6 +10,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+# Find required packages
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
@@ -18,6 +19,39 @@ find_package(example_interfaces REQUIRED)
 find_package(controller_interface REQUIRED)
 find_package(controller_manager REQUIRED)
 find_package(controller_manager_msgs REQUIRED)
+
+# Find libserial or build it if not found
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBSERIAL libserial)
+
+if(NOT LIBSERIAL_FOUND)
+  message(STATUS "libserial not found, checking for library file...")
+  find_library(LIBSERIAL_LIBRARY 
+    NAMES serial libserial
+    PATHS /usr/local/lib /usr/lib
+    DOC "libserial library"
+  )
+  
+  find_path(LIBSERIAL_INCLUDE_DIR
+    NAMES libserial/SerialPort.h serial/SerialPort.h
+    PATHS /usr/local/include /usr/include
+    DOC "libserial include directory"
+  )
+  
+  if(LIBSERIAL_LIBRARY AND LIBSERIAL_INCLUDE_DIR)
+    message(STATUS "Found libserial library: ${LIBSERIAL_LIBRARY}")
+    message(STATUS "Found libserial headers: ${LIBSERIAL_INCLUDE_DIR}")
+    set(LIBSERIAL_LIBRARIES ${LIBSERIAL_LIBRARY})
+    set(LIBSERIAL_INCLUDE_DIRS ${LIBSERIAL_INCLUDE_DIR})
+  else()
+    message(FATAL_ERROR 
+      "libserial not found! Please install it using:\n"
+      "  Option 1: Run the installation script: ./install_dependencies.sh\n"
+      "  Option 2: Install manually from: https://github.com/NestorDP/libserial\n"
+      "  Option 3: Use vcstool: vcs import src < littlebot.repos"
+    )
+  endif()
+endif()
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(Protobuf REQUIRED)

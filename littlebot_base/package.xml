@@ -17,6 +17,9 @@
   <depend>rclcpp</depend>
   <depend>rclcpp_components</depend>
   <depend>std_msgs</depend>
+  <depend>libserial</depend>
+  <depend>libprotobuf-dev</depend>
+  <build_depend>protobuf-compiler</build_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
