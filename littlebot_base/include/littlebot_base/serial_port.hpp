@@ -13,19 +13,44 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#pragma once
 
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
-#include <memory>
-#include <vector>
 #include <string>
-#include <chrono>
+#include <vector>
 
-#include "littlebot_base/firmware_comm.hpp"
-#include "littlebot_base/i_firmware_comm.hpp"
+#include "littlebot_base/i_serial_port.hpp"
 
-//
-TEST(TestLittlebotHardwareComponent, TestAdd2)
+namespace littlebot_base
 {
-  EXPECT_EQ(5, 4);
-}
+
+class SerialPort : public ISerialPort
+{
+public:
+  /**
+   * @brief Constructor for the SerialPort class
+   */
+  SerialPort() = default;
+
+  /**
+   * @brief Open the serial port
+   */
+  virtual bool open(const std::string& port, int baudrate) override;
+
+  /**
+   * @brief Close the serial port
+   */
+  virtual void close() override;
+
+  /**
+   * @brief Read data from the serial port
+   */
+  virtual int read(std::vector<uint8_t>& buffer) override;
+
+  /**
+   * @brief Write data to the serial port
+   */
+  virtual int write(const std::vector<uint8_t> & buffer) override;
+
+};
+
+}  // namespace littlebot_base

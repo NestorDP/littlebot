@@ -15,18 +15,20 @@
 
 #pragma once
 
+#include <cstdint>
+#include <map>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
-// #include <libserial/serial.hpp>
-
-#include "littlebot_base/i_firmware_comm.hpp"
+#include "littlebot_msg.pb.h"
+#include "littlebot_base/i_serial_port.hpp"
 
 namespace littlebot_base
 {
 
-class FirmwareComm : public IFirmwareComm
+class FirmwareComm
 {
 public:
   /**
@@ -42,17 +44,17 @@ public:
   /**
    * @brief Set the command velocities
    */
-  void setCommandVelocities([[maybe_unused]] std::vector<float> velocities) override;
+  void setCommandVelocities(std::map<std::string, float> velocities);
 
   /**
    * @brief Get the status velocities
    */
-  std::vector<float> getStatusVelocities() const override;
+  std::map<std::string, float> getStatusVelocities() const;
 
   /**
    * @brief Get the status positions
    */
-  std::vector<float> getStatusPositionsStatus() const override;
+  std::map<std::string, float> getStatusPositions() const;
 
   /**
    * @brief Start threads
@@ -68,20 +70,34 @@ public:
    */
   bool stop();
 
+  /**
+   * @brief Get the current input buffer contents (for testing)
+   * 
+   * @return Copy of the input buffer
+   */
+  std::vector<uint8_t> getInputBuffer() const;
+
+  /**
+   * @brief Clear the input buffer (for testing)
+   */
+  void clearInputBuffer();
+
 private:
   /**
    * @brief Receive data from the hardware
    *
-   * This function receives the status positions and velocities from the hardware.
+   * This function receives the available data packets from the hardware.
+   * 
+   * @return Number of bytes read, or -1 on error
    */
-  bool receive() override;
+  int receiveDataPacket();
 
   /**
    * @brief Send data to the hardware
    *
    * This function sends the command velocities to the hardware.
    */
-  bool send() override;
+  bool sendDataPacket();
 
   /**
    * @brief Encode data to be sent to the hardware
@@ -89,7 +105,7 @@ private:
    * This function encodes the command velocities into the protobuf
    * format suitable for transmission to the hardware.
    */
-  bool encode() override;
+  bool encode();
 
   /**
    * @brief Decode data received from the hardware
@@ -97,36 +113,42 @@ private:
    * This function decodes the protobuf data received from the
    * hardware into the status positions and velocities.
    */
-  bool decode() override;
+  bool decode();
+
+  /**
+   * @brief Data structure for wheels
+   *
+   * This structure holds the wheel data including positions and velocities.
+   */
+  littlebot::Wheels wheels_data_;
 
   /**
    * @brief Command velocities for the hardware.
    *
-   * This vector stores the command velocities that are sent to the hardware.
+   * This map stores the command velocities that are sent to the hardware.
    */
-  std::vector<float> command_velocities_;
+  std::map<std::string, float> command_velocities_{{"left_wheel", 0.0f}, {"right_wheel", 0.0f}};
 
   /**
    * @brief Status positions from the hardware.
    *
-   * This vector stores the status positions received from the hardware.
+   * This map stores the status positions received from the hardware.
    */
-  std::vector<float> status_positions_;
+  std::map<std::string, float> status_positions_{{"left_wheel", 0.0f}, {"right_wheel", 0.0f}};
 
   /**
    * @brief Status velocities from the hardware.
    *
-   * This vector stores the status velocities received from the hardware.
+   * This map stores the status velocities received from the hardware.
    */
-  std::vector<float> status_velocities_;
+  std::map<std::string, float> status_velocities_{{"left_wheel", 0.0f}, {"right_wheel", 0.0f}};
 
   /**
-   * @brief Smart pointer to serial port object
+   * @brief Smart pointer to serial_port object
    *
-   * This object is used to communicate with the hardware. To more information
-   * about the serial library used, please visit: https://github.com/NestorDP/libserial
+   * This object is used to communicate with the hardware. 
    */
-  // std::shared_ptr<serial::Serial> serial_;
+  std::shared_ptr<littlebot_base::ISerialPort> serial_port_;
 
   /**
    * @brief Caracter to start the message
@@ -137,6 +159,20 @@ private:
    * @brief Caracter to end the message
    */
   static constexpr char kEndByte{']'};
+
+  /**
+   * @brief Input buffer for assembling incoming messages
+   *
+   * This buffer accumulates incoming bytes until a complete message is formed.
+   */
+  std::vector<uint8_t> input_buffer_;
+
+  /**
+   * @brief Output buffer for sending messages
+   *
+   * This buffer holds the encoded message ready to be sent to the hardware.
+   */
+  std::vector<uint8_t> output_buffer_;
 };
 
 }  // namespace littlebot_base

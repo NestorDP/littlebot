@@ -19,10 +19,7 @@ namespace littlebot_base
 {
 FirmwareComm::FirmwareComm(const std::string & serial_port)
 {
-  std::cout << "FirmwareComm constructor" << serial_port << std::endl;
-
-  // serial_ = std::make_shared<serial::Serial>();
-  // serial_->open(serial_port);
+ 
 }
 
 FirmwareComm::~FirmwareComm()
@@ -30,37 +27,101 @@ FirmwareComm::~FirmwareComm()
   std::cout << "FirmwareComm deconstructor" << std::endl;
 }
 
-void FirmwareComm::setCommandVelocities([[maybe_unused]] std::vector<float> velocities)
+void FirmwareComm::setCommandVelocities(std::map<std::string, float> velocities)
 {
   std::cout << "FirmwareComm setCommandVelocities" << std::endl;
 
-  for (const auto & vel : velocities) {
-    std::cout << vel << " ";
-  }
-  std::cout << std::endl;
+  // Store the velocities in the member variable
+  command_velocities_ = velocities;
+
+  // for (const auto & vel : velocities) {
+  //   std::cout << vel << " ";
+  // }
+  // std::cout << std::endl;
 }
 
-std::vector<float> FirmwareComm::getStatusVelocities() const
+std::map<std::string, float> FirmwareComm::getStatusVelocities() const
 {
   std::cout << "FirmwareComm getStatusVelocities" << std::endl;
-  return std::vector<float>{1.2, 3.4};
+  return {{"left_wheel", 1.2}, {"right_wheel", 3.4}};
 }
 
-std::vector<float> FirmwareComm::getStatusPositionsStatus() const
+std::map<std::string, float> FirmwareComm::getStatusPositions() const
 {
-  std::cout << "FirmwareComm getStatusPositionsStatus" << std::endl;
-  return std::vector<float>{5.6, 7.8};
+  std::cout << "FirmwareComm getStatusPositions" << std::endl;
+  return {{"left_wheel", 5.6}, {"right_wheel", 7.8}};
 }
 
-bool FirmwareComm::receive()
+bool FirmwareComm::start()
 {
-  std::cout << "FirmwareComm receive" << std::endl;
+  std::cout << "FirmwareComm start" << std::endl;
   return true;
 }
 
-bool FirmwareComm::send()
+bool FirmwareComm::stop()
 {
-  std::cout << "FirmwareComm send" << std::endl;
+  std::cout << "FirmwareComm stop" << std::endl;
   return true;
 }
+
+int FirmwareComm::receiveDataPacket()
+{  
+  // // Check if serial port is available
+  // if (!serial_port_) {
+  //   std::cerr << "Serial port not initialized" << std::endl;
+  //   return -1;
+  // }
+  
+  // // Create temporary buffer to receive data
+  // std::vector<uint8_t> temp_buffer;
+  
+  // // Read data from serial port
+  // int bytes_read = serial_port_->read(temp_buffer);
+  
+  // if (bytes_read > 0) {
+  //   // Append received data to input buffer
+  //   input_buffer_.insert(input_buffer_.end(), temp_buffer.begin(), temp_buffer.end());
+    
+  //   std::cout << "Read " << bytes_read << " bytes, input buffer size: " 
+  //             << input_buffer_.size() << std::endl;
+  // } else if (bytes_read == 0) {
+  //   // No data available
+  //   std::cout << "No data available" << std::endl;
+  // } else {
+  //   // Error occurred
+  //   std::cerr << "Error reading from serial port" << std::endl;
+  // }
+  
+  // return bytes_read;
+}
+
+bool FirmwareComm::sendDataPacket()
+{
+  std::cout << "FirmwareComm sendDataPacket" << std::endl;
+  return true;
+}
+
+bool FirmwareComm::encode()
+{
+  std::cout << "FirmwareComm encode" << std::endl;
+  return true;
+}
+
+bool FirmwareComm::decode()
+{
+  std::cout << "FirmwareComm decode" << std::endl;
+  return true;
+}
+
+std::vector<uint8_t> FirmwareComm::getInputBuffer() const
+{
+  return input_buffer_;
+}
+
+void FirmwareComm::clearInputBuffer()
+{
+  input_buffer_.clear();
+  std::cout << "Input buffer cleared" << std::endl;
+}
+
 }  // namespace littlebot_base
