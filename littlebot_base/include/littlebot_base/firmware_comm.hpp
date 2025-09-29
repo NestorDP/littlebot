@@ -84,6 +84,22 @@ private:
   bool send() override;
 
   /**
+   * @brief Encode data to be sent to the hardware
+   *
+   * This function encodes the command velocities into the protobuf
+   * format suitable for transmission to the hardware.
+   */
+  bool encode() override;
+
+  /**
+   * @brief Decode data received from the hardware
+   *
+   * This function decodes the protobuf data received from the
+   * hardware into the status positions and velocities.
+   */
+  bool decode() override;
+
+  /**
    * @brief Command velocities for the hardware.
    *
    * This vector stores the command velocities that are sent to the hardware.
@@ -115,12 +131,12 @@ private:
   /**
    * @brief Caracter to start the message
    */
-  static constexpr char kStartByte{0x3C};
+  static constexpr char kStartByte{'['};
 
   /**
    * @brief Caracter to end the message
    */
-  static constexpr char kEndByte{0x3E};
+  static constexpr char kEndByte{']'};
 };
 
 }  // namespace littlebot_base

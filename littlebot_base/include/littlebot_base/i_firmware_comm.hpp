@@ -63,6 +63,16 @@ private:
   virtual bool send() = 0;
 
   /**
+   * @brief Encode data to be sent to the hardware
+   */
+  virtual bool encode() = 0;
+
+  /**
+   * @brief Decode data received from the hardware
+   */
+  virtual bool decode() = 0;
+
+  /**
    * @brief
    */
   std::vector<float> command_velocities_;
