@@ -15,25 +15,38 @@
 
 /**
  * @file mock_firmware_comm.cpp
- * @brief Mock implementation of IFirmwareComm for unit testing
- *
- * This file contains a mock class for the IFirmwareComm interface,
- * allowing unit tests to simulate firmware communication without
- * requiring actual hardware.
+ * @brief Mock implementation for testing FirmwareComm without actual hardware
  * @author Nestor Neto
  * @date 2025
  */
 
-#include <gmock/gmock.h>
+#include "mock_firmware_comm.hpp"
 
-#include "littlebot_base/i_firmware_comm.hpp"
-
-class MockFirmwareComm : public IFirmwareComm
+MockableFirmwareComm::MockableFirmwareComm(const std::string & serial_port)
+: littlebot_base::FirmwareComm(serial_port)
 {
-public:
-  MOCK_METHOD(void, setCommandVelocities, (std::vector<float> velocities), (override));
-  MOCK_METHOD(std::vector<float>, getStatusVelocities, (), (const, override));
-  MOCK_METHOD(std::vector<float>, getStatusPositionsStatus, (), (const, override));
-  MOCK_METHOD(bool, start, (), (override));
-  MOCK_METHOD(bool, stop, (), (override));
-};
+  // Initialize test data
+  test_command_velocities_ = {0.0f, 0.0f};
+  test_status_velocities_ = {0.0f, 0.0f};
+  test_status_positions_ = {0.0f, 0.0f};
+}
+
+void MockableFirmwareComm::setTestCommandVelocities(const std::vector<float> & velocities)
+{
+  test_command_velocities_ = velocities;
+}
+
+void MockableFirmwareComm::setTestStatusVelocities(const std::vector<float> & velocities)
+{
+  test_status_velocities_ = velocities;
+}
+
+void MockableFirmwareComm::setTestStatusPositions(const std::vector<float> & positions)
+{
+  test_status_positions_ = positions;
+}
+
+std::vector<float> MockableFirmwareComm::getTestCommandVelocities() const
+{
+  return test_command_velocities_;
+}
