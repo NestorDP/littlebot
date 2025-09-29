@@ -90,14 +90,14 @@ private:
    * 
    * @return Number of bytes read, or -1 on error
    */
-  int receiveDataPacket();
+  int receiveData();
 
   /**
    * @brief Send data to the hardware
    *
    * This function sends the command velocities to the hardware.
    */
-  bool sendDataPacket();
+  bool sendData();
 
   /**
    * @brief Encode data to be sent to the hardware

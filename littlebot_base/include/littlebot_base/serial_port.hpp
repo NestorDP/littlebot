@@ -44,12 +44,12 @@ public:
   /**
    * @brief Read data from the serial port
    */
-  virtual int read(std::vector<uint8_t>& buffer) override;
+  virtual int readPacket(std::vector<uint8_t>& buffer) override;
 
   /**
    * @brief Write data to the serial port
    */
-  virtual int write(const std::vector<uint8_t> & buffer) override;
+  virtual int writePacket(const std::vector<uint8_t> & buffer) override;
 
 };
 

@@ -64,7 +64,7 @@ bool FirmwareComm::stop()
   return true;
 }
 
-int FirmwareComm::receiveDataPacket()
+int FirmwareComm::receiveData()
 {  
   // // Check if serial port is available
   // if (!serial_port_) {
@@ -95,9 +95,9 @@ int FirmwareComm::receiveDataPacket()
   // return bytes_read;
 }
 
-bool FirmwareComm::sendDataPacket()
+bool FirmwareComm::sendData()
 {
-  std::cout << "FirmwareComm sendDataPacket" << std::endl;
+  std::cout << "FirmwareComm sendData" << std::endl;
   return true;
 }
 

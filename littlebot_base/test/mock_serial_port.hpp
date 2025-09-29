@@ -43,14 +43,14 @@ public:
 
   void close() override {}
 
-  int read(std::vector<uint8_t>& buffer) override {
+  int readPacket(std::vector<uint8_t>& buffer) override {
     if (readBuffer.empty()) return 0;
     auto resp = readBuffer.front(); readBuffer.pop();
     buffer = resp;
     return buffer.size();
   }
 
-  int write(const std::vector<uint8_t> & buffer) override {
+  int writePacket(const std::vector<uint8_t> & buffer) override {
     writtenBuffer.insert(writtenBuffer.end(), buffer.begin(), buffer.end());
       return buffer.size();
   }

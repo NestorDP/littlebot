@@ -53,12 +53,12 @@ public:
   /**
    * @brief Read data from the serial port
    */
-  virtual int read(std::vector<uint8_t> & buffer) = 0;
+  virtual int readPacket(std::vector<uint8_t> & buffer) = 0;
 
   /**
    * @brief Write data to the serial port
    */
-  virtual int write(const std::vector<uint8_t> & buffer) = 0;
+  virtual int writePacket(const std::vector<uint8_t> & buffer) = 0;
 
 };
 
