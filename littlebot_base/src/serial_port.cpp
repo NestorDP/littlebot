@@ -19,24 +19,42 @@ namespace littlebot_base
 {
     bool SerialPort::open(const std::string& port, int baudrate)
     {
-    std::cout << "SerialPort open on port: " << port << " with baudrate: " << baudrate << std::endl;
-    return true;
+        std::cout << "SerialPort open on port: " << port << " with baudrate: " << baudrate << std::endl;
+        return true;
     }
 
     void SerialPort::close()
     {
-    std::cout << "SerialPort close" << std::endl;
+        std::cout << "SerialPort close" << std::endl;
     }
 
-    int SerialPort::readPacket(std::vector<uint8_t>& buffer)
+    int SerialPort::readPacket([[maybe_unused]] std::vector<uint8_t>& buffer)
     {
-    std::cout << "SerialPort readPacket" << std::endl;
-    return 0;
+        // // Check if we have minimum frame size: [<controller>]
+        // if (input_buffer_.size() < 3) {
+        //     std::cerr << "Received frame too short: " << input_buffer_.size() << " bytes" << std::endl;
+        //     return 0;
+        // }
+
+        // // Check for start byte '['
+        // if (input_buffer_[0] != static_cast<uint8_t>(kStartByte)) {
+        //     std::cerr << "Invalid start byte: expected '[', got " << static_cast<char>(input_buffer_[0]) << std::endl;
+        //     return 0;
+        // }
+        
+        // // Check for end byte ']'
+        // if (input_buffer_.back() != static_cast<uint8_t>(kEndByte)) {
+        //     std::cerr << "Invalid end byte: expected ']', got " << static_cast<char>(input_buffer_.back()) << std::endl;
+        //     return 0;
+        // }
+
+        std::cout << "SerialPort readPacket" << std::endl;
+        return 0;
     }
 
-    int SerialPort::writePacket(const std::vector<uint8_t> & buffer)
+    int SerialPort::writePacket([[maybe_unused]] const std::vector<uint8_t> & buffer)
     {
-    std::cout << "SerialPort writePacket with size: " << buffer.size() << std::endl;
-    return buffer.size();
+        std::cout << "SerialPort writePacket with size: " << buffer.size() << std::endl;
+        return buffer.size();
     }
 }

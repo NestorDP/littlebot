@@ -33,8 +33,10 @@ class FirmwareComm
 public:
   /**
    * @brief Constructor for the FirmwareComm class
+   * 
+   * @param serial_port Shared pointer to the serial port implementation
    */
-  explicit FirmwareComm(const std::string & serial_port);
+  explicit FirmwareComm(std::shared_ptr<littlebot_base::ISerialPort> serial_port);
 
   /**
    * @brief Deconstructor for the FirmwareComm class
@@ -71,33 +73,20 @@ public:
   bool stop();
 
   /**
-   * @brief Get the current input buffer contents (for testing)
-   * 
-   * @return Copy of the input buffer
-   */
-  std::vector<uint8_t> getInputBuffer() const;
-
-  /**
-   * @brief Clear the input buffer (for testing)
-   */
-  void clearInputBuffer();
-
-private:
-  /**
    * @brief Receive data from the hardware
    *
    * This function receives the available data packets from the hardware.
    * 
    * @return Number of bytes read, or -1 on error
    */
-  int receiveData();
+ uint8_t receiveData();
 
   /**
    * @brief Send data to the hardware
    *
    * This function sends the command velocities to the hardware.
    */
-  bool sendData();
+  bool sendData(uint8_t type);
 
   /**
    * @brief Encode data to be sent to the hardware
@@ -115,6 +104,19 @@ private:
    */
   bool decode();
 
+  /**
+   * @brief Get the current input buffer contents (for testing)
+   * 
+   * @return Copy of the input buffer
+   */
+  std::vector<uint8_t> getInputBuffer() const;
+
+  /**
+   * @brief Clear the input buffer (for testing)
+   */
+  void clearInputBuffer();
+
+private:
   /**
    * @brief Data structure for wheels
    *
@@ -173,6 +175,7 @@ private:
    * This buffer holds the encoded message ready to be sent to the hardware.
    */
   std::vector<uint8_t> output_buffer_;
+
 };
 
 }  // namespace littlebot_base

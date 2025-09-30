@@ -22,6 +22,19 @@
 namespace littlebot_base
 {
 
+
+// // Create real serial port
+// auto real_serial = std::make_shared<littlebot_base::SerialPort>();
+// if (!real_serial->open("/dev/ttyUSB0", 115200)) {
+//     std::cerr << "Failed to open serial port" << std::endl;
+//     return -1;
+// }
+
+// // Inject into FirmwareComm
+// auto firmware = std::make_unique<FirmwareComm>(real_serial);
+
+
+
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
   const hardware_interface::HardwareInfo & info)
 {

@@ -43,34 +43,24 @@ public:
 
   void close() override {}
 
-  int readPacket(std::vector<uint8_t>& buffer) override {
-    if (readBuffer.empty()) return 0;
-    auto resp = readBuffer.front(); readBuffer.pop();
-    buffer = resp;
-    return buffer.size();
+  int readPacket(std::vector<uint8_t>& buffer) override { 
+     // ASCII values for the message characters
+    buffer = {
+        '[', 'S', '0', 'a', '0', 'f', '0', 'd',
+        '0', '0', '0', '0', '0', '0', '0', '0',
+        '1', '5', 'a', 'b', 'f', '4', 'b', '4',
+        '4', '0', '1', 'd', '7', '3', '1', 'd',
+        '5', '3', '4', '0', '0', 'a', '0', 'f',
+        '0', 'd', '0', '0', '0', '0', '0', '0',
+        '0', '0', '1', '5', '0', '0', '0', '0',
+        '0', '0', '0', '0', '1', 'd', '0', '0',
+        '0', '0', '0', '0', '0', '0', ']'
+    };
+    
+    return static_cast<int>(buffer.size());
   }
 
   int writePacket(const std::vector<uint8_t> & buffer) override {
-    writtenBuffer.insert(writtenBuffer.end(), buffer.begin(), buffer.end());
-      return buffer.size();
+    return buffer.size();
   }
-
-  /**
-   * @brief Add test data from hex string to read buffer
-   */
-  void addTestData(const std::vector<uint8_t>& data) {
-    readBuffer.push(data);
-  }
-
-  /**
-   * @brief Add complete protobuf message with frame format: [<control_char><hex_data>]
-   */
-  void addCompleteMessage(const std::string& message) {
-    std::vector<uint8_t> data(message.begin(), message.end());
-    readBuffer.push(data);
-  }
-
-  /* Buffers for written and read data */
-  std::vector<uint8_t> writtenBuffer;
-  std::queue<std::vector<uint8_t>> readBuffer;
 };

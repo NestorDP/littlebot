@@ -50,6 +50,7 @@ set(node_plugins "")
 add_library(littlebot_hardware_component SHARED
   src/littlebot_hardware_component.cpp
   src/firmware_comm.cpp
+  src/serial_port.cpp
   ${PROTO_SRCS}
   ${PROTO_HDRS}
 )
@@ -106,6 +107,7 @@ if(BUILD_TESTING)
     test/test_firmware_comm.cpp
     test/test_littlebot_hardware_component.cpp
     src/firmware_comm.cpp
+    src/serial_port.cpp
     ${PROTO_SRCS}
     ${PROTO_HDRS}
   )

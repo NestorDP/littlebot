@@ -41,36 +41,134 @@ protected:
   void SetUp() override
   {
     // Create a test instance with a mock serial port
-    mock_serial_port_ = std::make_unique<MockSerialPort>();
+    mock_serial_port_ = std::make_shared<MockSerialPort>();
+    firmware_comm_ = std::make_unique<littlebot_base::FirmwareComm>(mock_serial_port_);
   }
 
   void TearDown() override
   {
     // Clean up
+    firmware_comm_.reset();
     mock_serial_port_.reset();
   }
 
-  // mock_serial_port_->addCompleteMessage("[S0a0f0d0000000015abf4b4401d731d53400a0f0d0000000015000000001d00000000]");
-
-  // Test instance
-  std::unique_ptr<littlebot_base::ISerialPort> mock_serial_port_;
+  // Test instances
+  std::shared_ptr<MockSerialPort> mock_serial_port_;
+  std::unique_ptr<littlebot_base::FirmwareComm> firmware_comm_;
 };
 
 /**
- * @brief Test that the mock class can be created and used (using fixture)
+ * @brief Test FirmwareComm constructor with valid serial port
  */
-TEST_F(FirmwareCommTest, MockClassCreation)
+TEST_F(FirmwareCommTest, ConstructorWithValidSerialPort)
 {
-  // ASSERT_NE(firmware_comm_, nullptr);
+  // Test that constructor successfully creates object with valid serial port
+  ASSERT_NE(firmware_comm_, nullptr);
+  ASSERT_NE(mock_serial_port_, nullptr);
   
-  // // Test that test helper methods work
-  // std::vector<float> test_velocities = {1.0f, 2.0f};
-  // firmware_comm_->setCommandVelocities(test_velocities);
+  // Test that the object is properly initialized
+  EXPECT_NO_THROW(firmware_comm_->getInputBuffer());
+}
+
+/**
+ * @brief Test FirmwareComm constructor with null serial port
+ */
+TEST(FirmwareCommConstructorTest, ConstructorWithNullSerialPort)
+{
+  // Test that constructor throws exception with null serial port
+  std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
   
-  // auto retrieved_velocities = firmware_comm_->getCommandVelocities();
-  // EXPECT_EQ(retrieved_velocities.size(), 2u);
-  // EXPECT_FLOAT_EQ(retrieved_velocities[0], 1.0f);
-  // EXPECT_FLOAT_EQ(retrieved_velocities[1], 2.0f);
+  EXPECT_THROW({
+    auto firmware = std::make_unique<littlebot_base::FirmwareComm>(null_port);
+  }, std::invalid_argument);
+}
+
+/**
+ * @brief Test FirmwareComm constructor with different serial port implementations
+ */
+TEST(FirmwareCommConstructorTest, ConstructorWithDifferentSerialPorts)
+{
+  // Test with multiple mock serial ports
+  auto mock1 = std::make_shared<MockSerialPort>();
+  auto mock2 = std::make_shared<MockSerialPort>();
+  auto mock3 = std::make_shared<MockSerialPort>();
+  
+  // All should construct successfully
+  EXPECT_NO_THROW({
+    auto firmware1 = std::make_unique<littlebot_base::FirmwareComm>(mock1);
+    auto firmware2 = std::make_unique<littlebot_base::FirmwareComm>(mock2);
+    auto firmware3 = std::make_unique<littlebot_base::FirmwareComm>(mock3);
+  });
+}
+
+/**
+ * @brief Test initial state after construction
+ */
+TEST_F(FirmwareCommTest, InitialStateAfterConstruction)
+{  
+  // Input buffer should be empty initially
+  auto input_buffer = firmware_comm_->getInputBuffer();
+  EXPECT_TRUE(input_buffer.empty());
+  
+  // Status velocities should return initial values (implementation dependent)
+  EXPECT_NO_THROW(firmware_comm_->getStatusVelocities());
+  EXPECT_NO_THROW(firmware_comm_->getStatusPositions());
+}
+
+/**
+ * @brief Test constructor memory management
+ */
+TEST(FirmwareCommConstructorTest, ConstructorMemoryManagement)
+{
+  // Test that constructor properly manages shared_ptr reference counting
+  {
+    auto mock_port = std::make_shared<MockSerialPort>();
+    auto initial_ref_count = mock_port.use_count(); // Should be 1
+    
+    {
+      auto firmware = std::make_unique<littlebot_base::FirmwareComm>(mock_port);
+      auto ref_count_after_construction = mock_port.use_count(); // Should be 2
+      EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
+    }
+    // After firmware goes out of scope, ref count should decrease
+    auto final_ref_count = mock_port.use_count(); // Should be 1 again
+    EXPECT_EQ(final_ref_count, initial_ref_count);
+  }
+}
+
+/**
+ * @brief Test constructor with serial port that has pre-configured state
+ */
+TEST_F(FirmwareCommTest, ConstructorWithPreConfiguredSerialPort)
+{
+  // Create new FirmwareComm with mock (mock has hardcoded response)
+  auto new_mock = std::make_shared<MockSerialPort>();
+  auto firmware = std::make_unique<littlebot_base::FirmwareComm>(new_mock);
+  
+  ASSERT_NE(firmware, nullptr);
+  
+  // Test that it can receive data from the mock (hardcoded '[S.....]')
+  uint8_t controller = firmware->receiveData();
+  EXPECT_EQ(controller, 'S'); // The hardcoded response starts with 'S'
+}
+
+/**
+ * @brief Test constructor exception safety
+ */
+TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
+{
+  // Test that constructor properly throws and doesn't leak memory
+  std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
+  
+  try {
+    auto firmware = std::make_unique<littlebot_base::FirmwareComm>(null_port);
+    FAIL() << "Expected std::invalid_argument exception";
+  } catch (const std::invalid_argument& e) {
+    // Expected exception
+    EXPECT_STREQ(e.what(), "Serial port cannot be null");
+  } catch (...) {
+    FAIL() << "Expected std::invalid_argument, got different exception";
+  }
 }
 
 /**

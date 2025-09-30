@@ -35,22 +35,22 @@ public:
   /**
    * @brief Open the serial port
    */
-  virtual bool open(const std::string& port, int baudrate) override;
+  bool open(const std::string& port, int baudrate) override;
 
   /**
    * @brief Close the serial port
    */
-  virtual void close() override;
+  void close() override;
 
   /**
    * @brief Read data from the serial port
    */
-  virtual int readPacket(std::vector<uint8_t>& buffer) override;
+  int readPacket(std::vector<uint8_t>& buffer) override;
 
   /**
    * @brief Write data to the serial port
    */
-  virtual int writePacket(const std::vector<uint8_t> & buffer) override;
+  int writePacket(const std::vector<uint8_t> & buffer) override;
 
 };
 
