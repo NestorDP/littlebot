@@ -41,7 +41,7 @@ protected:
   void SetUp() override
   {
     // Create a test instance with a mock serial port
-    mock_serial_port_ = std::make_shared<MockSerialPort>();
+    mock_serial_port_ = std::make_shared<MockSerialPort>("/dev/ttyUSB0", 115200);
     firmware_comm_ = std::make_unique<littlebot_base::FirmwareComm>(mock_serial_port_);
   }
 

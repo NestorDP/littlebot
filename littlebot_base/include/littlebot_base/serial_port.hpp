@@ -28,14 +28,20 @@ class SerialPort : public ISerialPort
 {
 public:
   /**
-   * @brief Constructor for the SerialPort class
+   * @brief Constructor that opens the serial port with specified parameters
+   * @param port The serial port device path (e.g., "/dev/ttyUSB0")
+   * @param baudrate The communication speed (e.g., 9600, 115200)
    */
-  SerialPort() = default;
+  SerialPort(const std::string& port, int baudrate);
+
+  SerialPort(const SerialPort&) = delete;
+  SerialPort& operator=(const SerialPort&) = delete;
+
 
   /**
-   * @brief Open the serial port
+   * @brief Open the serial port (uses stored parameters)
    */
-  bool open(const std::string& port, int baudrate) override;
+  bool open() override;
 
   /**
    * @brief Close the serial port
@@ -51,6 +57,40 @@ public:
    * @brief Write data to the serial port
    */
   int writePacket(const std::vector<uint8_t> & buffer) override;
+
+  /**
+   * @brief Get the current port path
+   * @return The serial port device path
+   */
+  const std::string& getPortPath() const;
+
+  /**
+   * @brief Get the current baudrate
+   * @return The communication baudrate
+   */
+  int getBaudrate() const;
+
+  /**
+   * @brief Check if the port is open
+   * @return True if port is open, false otherwise
+   */
+  bool isOpen() const;
+
+private:
+  /**
+   * @brief Serial port device path (e.g., "/dev/ttyUSB0")
+   */
+  std::string port_path_;
+
+  /**
+   * @brief Communication baudrate (e.g., 9600, 115200)
+   */
+  int baudrate_{115200};
+
+  /**
+   * @brief Flag indicating if the port is currently open
+   */
+  bool is_open_{false};
 
 };
 

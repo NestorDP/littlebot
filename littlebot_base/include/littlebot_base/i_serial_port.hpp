@@ -41,9 +41,9 @@ public:
   ISerialPort() = default;
 
   /**
-   * @brief Open the serial port
+   * @brief Open the serial port (uses default or stored parameters)
    */
-  virtual bool open(const std::string& port, int baudrate) = 0;
+  virtual bool open() = 0;
 
   /**
    * @brief Close the serial port

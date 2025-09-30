@@ -17,15 +17,34 @@
 
 namespace littlebot_base
 {
-    bool SerialPort::open(const std::string& port, int baudrate)
+    SerialPort::SerialPort(const std::string& port, int baudrate)
+    : port_path_(port), baudrate_(baudrate), is_open_(false)
     {
-        std::cout << "SerialPort open on port: " << port << " with baudrate: " << baudrate << std::endl;
+        std::cout << "SerialPort constructor: " << port << " @ " << baudrate << " baud" << std::endl;
+        // Automatically open the port during construction
+        is_open_ = open();
+    }
+
+    bool SerialPort::open()
+    {
+        if (port_path_.empty()) {
+            std::cerr << "Error: No port specified. Use constructor with port parameter." << std::endl;
+            return false;
+        }
+        
+        std::cout << "SerialPort open on port: " << port_path_ << " with baudrate: " << baudrate_ << std::endl;
+        is_open_ = true;
         return true;
     }
 
     void SerialPort::close()
     {
-        std::cout << "SerialPort close" << std::endl;
+        if (is_open_) {
+            std::cout << "SerialPort close: " << port_path_ << std::endl;
+            is_open_ = false;
+        } else {
+            std::cout << "SerialPort already closed" << std::endl;
+        }
     }
 
     int SerialPort::readPacket([[maybe_unused]] std::vector<uint8_t>& buffer)
@@ -48,13 +67,37 @@ namespace littlebot_base
         //     return 0;
         // }
 
-        std::cout << "SerialPort readPacket" << std::endl;
+        if (!is_open_) {
+            std::cerr << "Error: Cannot read from closed serial port" << std::endl;
+            return -1;
+        }
+
+        std::cout << "SerialPort readPacket from " << port_path_ << std::endl;
         return 0;
     }
 
     int SerialPort::writePacket([[maybe_unused]] const std::vector<uint8_t> & buffer)
     {
+        if (!is_open_) {
+            std::cerr << "Error: Cannot write to closed serial port" << std::endl;
+            return -1;
+        }
         std::cout << "SerialPort writePacket with size: " << buffer.size() << std::endl;
         return buffer.size();
     }
-}
+
+    const std::string& SerialPort::getPortPath() const
+    {
+        return port_path_;
+    }
+
+    int SerialPort::getBaudrate() const
+    {
+        return baudrate_;
+    }
+
+    bool SerialPort::isOpen() const
+    {
+        return is_open_;
+    }
+}  // namespace littlebot_base

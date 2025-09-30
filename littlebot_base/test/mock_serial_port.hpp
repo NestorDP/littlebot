@@ -39,8 +39,8 @@
 class MockSerialPort : public littlebot_base::ISerialPort
 {
 public:
-  bool open(const std::string&, int) override { return true; }
-
+  bool open() override { return true; }
+  
   void close() override {}
 
   int readPacket(std::vector<uint8_t>& buffer) override { 
