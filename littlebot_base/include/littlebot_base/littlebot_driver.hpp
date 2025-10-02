@@ -109,7 +109,7 @@ public:
    *
    * @return Copy of the input buffer
    */
-  std::vector<uint8_t> getInputBuffer() const;
+  std::shared_ptr<std::string> getInputBuffer() const;
 
   /**
    * @brief Clear the input buffer (for testing)
@@ -153,28 +153,18 @@ private:
   std::shared_ptr<littlebot_base::ISerialPort> serial_port_;
 
   /**
-   * @brief Caracter to start the message
-   */
-  static constexpr char kStartByte{'['};
-
-  /**
-   * @brief Caracter to end the message
-   */
-  static constexpr char kEndByte{']'};
-
-  /**
    * @brief Input buffer for assembling incoming messages
    *
    * This buffer accumulates incoming bytes until a complete message is formed.
    */
-  std::vector<uint8_t> input_buffer_;
+  std::shared_ptr<std::string> input_buffer_;
 
   /**
    * @brief Output buffer for sending messages
    *
    * This buffer holds the encoded message ready to be sent to the hardware.
    */
-  std::vector<uint8_t> output_buffer_;
+  std::shared_ptr<std::string> output_buffer_;
 };
 
 }  // namespace littlebot_base

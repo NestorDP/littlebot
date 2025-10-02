@@ -40,12 +40,12 @@ public:
   /**
    * @brief Read packet data from the serial port
    */
-  int readPacket(std::vector<uint8_t> & buffer) override;
+  int readPacket(std::shared_ptr<std::string> buffer) override;
 
   /**
    * @brief Write packet data to the serial port
    */
-  int writePacket(const std::vector<uint8_t> & buffer) override;
+  int writePacket(std::shared_ptr<std::string> buffer) override;
 
 private:
   /**

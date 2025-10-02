@@ -77,45 +77,45 @@ bool LittlebotDriver::stop()
 
 uint8_t LittlebotDriver::receiveData()
 {
-  int bytes_read = serial_port_->readPacket(input_buffer_);
-  if (bytes_read < 0) {
-    std::cerr << "Failed to read data from serial port" << std::endl;
-    return 0;
-  }
-  // Extract controller character (first byte after start frame)
-  uint8_t controller_character = input_buffer_[1];
+  // int bytes_read = serial_port_->readPacket(input_buffer_);
+  // if (bytes_read < 0) {
+  //   std::cerr << "Failed to read data from serial port" << std::endl;
+  //   return 0;
+  // }
+  // // Extract controller character (first byte after start frame)
+  // uint8_t controller_character = input_buffer_[1];
 
-  // Remove frame bytes and controller character, keeping only the data
-  // Original: [C<data>] -> Result: <data>
-  std::vector<uint8_t> clean_data(input_buffer_.begin() + 2, input_buffer_.end() - 1);
+  // // Remove frame bytes and controller character, keeping only the data
+  // // Original: [C<data>] -> Result: <data>
+  // std::vector<uint8_t> clean_data(input_buffer_.begin() + 2, input_buffer_.end() - 1);
 
-  // Replace input_buffer_ with clean data (without frame and controller)
-  input_buffer_ = clean_data;
+  // // Replace input_buffer_ with clean data (without frame and controller)
+  // input_buffer_ = clean_data;
 
-  return controller_character;
+  // return controller_character;
 }
 
 
 bool LittlebotDriver::sendData(uint8_t type)
 {
-  std::cout << "LittlebotDriver sendData with type: " << static_cast<char>(type) << std::endl;
+  // std::cout << "LittlebotDriver sendData with type: " << static_cast<char>(type) << std::endl;
 
-  // Create the complete message with framing: [<type><data>]
-  std::vector<uint8_t> complete_message;
+  // // Create the complete message with framing: [<type><data>]
+  // std::vector<uint8_t> complete_message;
 
-  complete_message.push_back(static_cast<uint8_t>(kStartByte));
-  complete_message.push_back(type);
-  complete_message.insert(complete_message.end(), output_buffer_.begin(), output_buffer_.end());
-  complete_message.push_back(static_cast<uint8_t>(kEndByte));
+  // complete_message.push_back(static_cast<uint8_t>(kStartByte));
+  // complete_message.push_back(type);
+  // complete_message.insert(complete_message.end(), output_buffer_.begin(), output_buffer_.end());
+  // complete_message.push_back(static_cast<uint8_t>(kEndByte));
 
-  int bytes_written = serial_port_->writePacket(complete_message);
-  if (bytes_written < 0) {
-    std::cerr << "Failed to write data to serial port" << std::endl;
-    return false;
-  }
+  // int bytes_written = serial_port_->writePacket(complete_message);
+  // if (bytes_written < 0) {
+  //   std::cerr << "Failed to write data to serial port" << std::endl;
+  //   return false;
+  // }
 
-  std::cout << "Successfully sent " << bytes_written << " bytes with frame format ["
-            << static_cast<char>(type) << "<data>]" << std::endl;
+  // std::cout << "Successfully sent " << bytes_written << " bytes with frame format ["
+  //           << static_cast<char>(type) << "<data>]" << std::endl;
   return true;
 }
 
@@ -131,14 +131,14 @@ bool LittlebotDriver::decode()
   return true;
 }
 
-std::vector<uint8_t> LittlebotDriver::getInputBuffer() const
+std::shared_ptr<std::string> LittlebotDriver::getInputBuffer() const
 {
   return input_buffer_;
 }
 
 void LittlebotDriver::clearInputBuffer()
 {
-  input_buffer_.clear();
+  input_buffer_->clear();
 }
 
 }  // namespace littlebot_base

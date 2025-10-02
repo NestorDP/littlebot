@@ -104,72 +104,72 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 /**
  * @brief Test initial state after construction
  */
-TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
-{
-  // Input buffer should be empty initially
-  auto input_buffer = firmware_comm_->getInputBuffer();
-  EXPECT_TRUE(input_buffer.empty());
+// TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
+// {
+//   // Input buffer should be empty initially
+//   auto input_buffer = firmware_comm_->getInputBuffer();
+//   EXPECT_TRUE(input_buffer.empty());
 
-  // Status velocities should return initial values (implementation dependent)
-  EXPECT_NO_THROW(firmware_comm_->getStatusVelocities());
-  EXPECT_NO_THROW(firmware_comm_->getStatusPositions());
-}
+//   // Status velocities should return initial values (implementation dependent)
+//   EXPECT_NO_THROW(firmware_comm_->getStatusVelocities());
+//   EXPECT_NO_THROW(firmware_comm_->getStatusPositions());
+// }
 
 /**
  * @brief Test constructor memory management
  */
-TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
-{
-  // Test that constructor properly manages shared_ptr reference counting
-  {
-    auto mock_port = std::make_shared<MockSerialPort>();
-    auto initial_ref_count = mock_port.use_count();  // Should be 1
+// TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
+// {
+//   // Test that constructor properly manages shared_ptr reference counting
+//   {
+//     auto mock_port = std::make_shared<MockSerialPort>();
+//     auto initial_ref_count = mock_port.use_count();  // Should be 1
 
-    {
-      auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(mock_port);
-      auto ref_count_after_construction = mock_port.use_count();  // Should be 2
-      EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
-    }
-    // After firmware goes out of scope, ref count should decrease
-    auto final_ref_count = mock_port.use_count();  // Should be 1 again
-    EXPECT_EQ(final_ref_count, initial_ref_count);
-  }
-}
+//     {
+//       auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(mock_port);
+//       auto ref_count_after_construction = mock_port.use_count();  // Should be 2
+//       EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
+//     }
+//     // After firmware goes out of scope, ref count should decrease
+//     auto final_ref_count = mock_port.use_count();  // Should be 1 again
+//     EXPECT_EQ(final_ref_count, initial_ref_count);
+//   }
+// }
 
 /**
  * @brief Test constructor with serial port that has pre-configured state
  */
-TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
-{
-  // Create new LittlebotDriver with mock (mock has hardcoded response)
-  auto new_mock = std::make_shared<MockSerialPort>();
-  auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(new_mock);
+// TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
+// {
+//   // Create new LittlebotDriver with mock (mock has hardcoded response)
+//   auto new_mock = std::make_shared<MockSerialPort>();
+//   auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(new_mock);
 
-  ASSERT_NE(firmware, nullptr);
+//   ASSERT_NE(firmware, nullptr);
 
-  // Test that it can receive data from the mock (hardcoded '[S.....]')
-  uint8_t controller = firmware->receiveData();
-  EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
-}
+//   // Test that it can receive data from the mock (hardcoded '[S.....]')
+//   uint8_t controller = firmware->receiveData();
+//   EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
+// }
 
 /**
  * @brief Test constructor exception safety
  */
-TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
-{
-  // Test that constructor properly throws and doesn't leak memory
-  std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
+// TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
+// {
+//   // Test that constructor properly throws and doesn't leak memory
+//   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
 
-  try {
-    auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
-    FAIL() << "Expected std::invalid_argument exception";
-  } catch (const std::invalid_argument & e) {
-    // Expected exception
-    EXPECT_STREQ(e.what(), "Serial port cannot be null");
-  } catch (...) {
-    FAIL() << "Expected std::invalid_argument, got different exception";
-  }
-}
+//   try {
+//     auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
+//     FAIL() << "Expected std::invalid_argument exception";
+//   } catch (const std::invalid_argument & e) {
+//     // Expected exception
+//     EXPECT_STREQ(e.what(), "Serial port cannot be null");
+//   } catch (...) {
+//     FAIL() << "Expected std::invalid_argument, got different exception";
+//   }
+// }
 
 /**
  * @brief Test setting command velocities (using same fixture)

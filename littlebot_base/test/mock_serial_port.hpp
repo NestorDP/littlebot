@@ -53,10 +53,10 @@ public:
 
   void close() override {}
 
-  int readPacket(std::vector<uint8_t> & buffer) override
+  int readPacket(std::shared_ptr<std::string> buffer) override
   {
-     // ASCII values for the message characters
-    buffer = {
+    // ASCII values for the message characters
+    buffer = std::make_shared<std::string>(std::initializer_list<char>{
       '[', 'S', '0', 'a', '0', 'f', '0', 'd',
       '0', '0', '0', '0', '0', '0', '0', '0',
       '1', '5', 'a', 'b', 'f', '4', 'b', '4',
@@ -66,13 +66,13 @@ public:
       '0', '0', '1', '5', '0', '0', '0', '0',
       '0', '0', '0', '0', '1', 'd', '0', '0',
       '0', '0', '0', '0', '0', '0', ']'
-    };
+    });
 
-    return static_cast<int>(buffer.size());
+    return static_cast<int>(buffer->size());
   }
 
-  int writePacket(const std::vector<uint8_t> & buffer) override
+  int writePacket(std::shared_ptr<std::string> buffer) override
   {
-    return buffer.size();
+    return static_cast<int>(buffer->size());
   }
 };

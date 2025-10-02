@@ -51,12 +51,12 @@ public:
   /**
    * @brief Read Packet from the serial port
    */
-  virtual int readPacket(std::vector<uint8_t> & buffer) = 0;
+  virtual int readPacket(std::shared_ptr<std::string> buffer) = 0;
 
   /**
    * @brief Write Packet to the serial port
    */
-  virtual int writePacket(const std::vector<uint8_t> & buffer) = 0;
+  virtual int writePacket(std::shared_ptr<std::string> buffer) = 0;
 
   /**
    * @brief Prevent copy and assignment
@@ -70,8 +70,20 @@ protected:
    */
   ISerialPort() = default;
 
-  /** Serial object from libserial */
+  /**
+   * @brief Serial object from libserial
+   */
   libserial::Serial serial_;
+
+  /**
+   * @brief Caracter to start the message
+   */
+  static constexpr char kStartByte{'['};
+
+  /**
+   * @brief Caracter to end the message
+   */
+  static constexpr char kEndByte{']'};
 };
 
 }  // namespace littlebot_base

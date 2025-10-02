@@ -20,6 +20,16 @@ namespace littlebot_base
 
 bool SerialPort::open(std::string port, int baudrate)
 {
+  try
+  {
+    serial_.open(port);
+    serial_.setBaudRate(baudrate);
+  }
+  catch(const std::exception& e)
+  {
+    std::cerr << e.what() << '\n';
+  }
+
   std::cout << "SerialPort open on port: " << port << " with baudrate: "
             << baudrate << std::endl;
   return true;
@@ -27,37 +37,46 @@ bool SerialPort::open(std::string port, int baudrate)
 
 void SerialPort::close()
 {
+  serial_.close();
   std::cout << "SerialPort already closed" << std::endl;
 }
 
-int SerialPort::readPacket([[maybe_unused]] std::vector<uint8_t> & buffer)
+int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
 {
-  // // Check if we have minimum frame size: [<controller>]
-  // if (input_buffer_.size() < 3) {
-  //     std::cerr << "Received frame too short: " << input_buffer_.size()
-  //               << " bytes" << std::endl;
-  //     return 0;
-  // }
+  // Check if we have minimum frame size: [<controller>]
+  int num_characters = serial_.getAvailableData();
+  if (num_characters < 3) {
+      std::cerr << "Received frame too short: " << num_characters
+                << " bytes" << std::endl;
+      return 0;
+  }
 
-  // // Check for start byte '['
-  // if (input_buffer_[0] != static_cast<uint8_t>(kStartByte)) {
-  //     std::cerr << "Invalid start byte: expected '[', got "
-  //               << static_cast<char>(input_buffer_[0]) << std::endl;
-  //     return 0;
-  // }
+  serial_.read(buffer, num_characters);
 
-  // // Check for end byte ']'
-  // if (input_buffer_.back() != static_cast<uint8_t>(kEndByte)) {
-  //     std::cerr << "Invalid end byte: expected ']', got "
-  //               << static_cast<char>(input_buffer_.back()) << std::endl;
-  //     return 0;
-  // }
-  // std::cout << "SerialPort readPacket from " << port_path_ << std::endl;
+  if (buffer->front() == kStartByte) {
+    buffer->erase(0, 1);
+  } else {
+    std::cerr << "Invalid start byte: expected " << kStartByte << ", got "
+              << static_cast<char>(buffer->front()) << std::endl;
+    return 0;
+  }
+
+  if (buffer->back() == kEndByte) {
+    buffer->pop_back();
+  } else {
+    std::cerr << "Invalid end byte: expected " << kEndByte << ", got "
+              << static_cast<char>(buffer->back()) << std::endl;
+    return 0;
+  }
   return 0;
 }
 
-int SerialPort::writePacket([[maybe_unused]] const std::vector<uint8_t> & buffer)
+int SerialPort::writePacket([[maybe_unused]] std::shared_ptr<std::string> buffer)
 {
-  return 0;
+  buffer->insert(buffer->begin(), kStartByte);
+  buffer->push_back(kEndByte);
+
+  serial_.write(buffer);
+  return buffer->size();
 }
 }  // namespace littlebot_base
