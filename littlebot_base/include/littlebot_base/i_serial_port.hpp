@@ -19,9 +19,12 @@
 #include <string>
 #include <vector>
 
+/** 
+ * To more information about the serial library used, 
+ * please visit: https://github.com/NestorDP/libserial
+ */
 #include "libserial/serial.hpp"
-// To more information
-//    * about the serial library used, please visit: https://github.com/NestorDP/libserial
+
 
 namespace littlebot_base
 {
@@ -46,12 +49,12 @@ public:
   virtual void close() = 0;
 
   /**
-   * @brief Read data from the serial port
+   * @brief Read Packet from the serial port
    */
   virtual int readPacket(std::vector<uint8_t> & buffer) = 0;
 
   /**
-   * @brief Write data to the serial port
+   * @brief Write Packet to the serial port
    */
   virtual int writePacket(const std::vector<uint8_t> & buffer) = 0;
 

@@ -75,16 +75,16 @@ public:
   /**
    * @brief Receive data from the hardware
    *
-   * This function receives the available data packets from the hardware.
-   *
    * @return Number of bytes read, or -1 on error
    */
   uint8_t receiveData();
 
   /**
    * @brief Send data to the hardware
-   *
-   * This function sends the command velocities to the hardware.
+   * 
+   * @param type Character indicating the type of data being sent.
+   *             'S' to status and 'C' to command.
+   * @return True if data was sent successfully, false otherwise
    */
   bool sendData(uint8_t type);
 
