@@ -46,19 +46,36 @@ int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
   // Check if we have minimum frame size: [<controller>]
   int num_characters = serial_.getAvailableData();
   if (num_characters < 3) {
-      std::cerr << "Received frame too short: " << num_characters
-                << " bytes" << std::endl;
-      return 0;
+    std::cerr << "Received frame too short: " << num_characters
+              << " bytes" << std::endl;
+    return -1;
   }
 
   serial_.read(buffer, num_characters);
+  int result = this->getPacketData(buffer);
+  if (result < 0) {
+    return -1;
+  }
+  return result;
+}
 
+int SerialPort::writePacket(std::shared_ptr<std::string> buffer)
+{
+  buffer->insert(buffer->begin(), kStartByte);
+  buffer->push_back(kEndByte);
+
+  serial_.write(buffer);
+  return buffer->size();
+}
+
+int SerialPort::getPacketData(std::shared_ptr<std::string> buffer)
+{
   if (buffer->front() == kStartByte) {
     buffer->erase(0, 1);
   } else {
     std::cerr << "Invalid start byte: expected " << kStartByte << ", got "
               << static_cast<char>(buffer->front()) << std::endl;
-    return 0;
+    return -1;
   }
 
   if (buffer->back() == kEndByte) {
@@ -66,17 +83,8 @@ int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
   } else {
     std::cerr << "Invalid end byte: expected " << kEndByte << ", got "
               << static_cast<char>(buffer->back()) << std::endl;
-    return 0;
+    return -1;
   }
-  return 0;
-}
-
-int SerialPort::writePacket([[maybe_unused]] std::shared_ptr<std::string> buffer)
-{
-  buffer->insert(buffer->begin(), kStartByte);
-  buffer->push_back(kEndByte);
-
-  serial_.write(buffer);
   return buffer->size();
 }
 }  // namespace littlebot_base

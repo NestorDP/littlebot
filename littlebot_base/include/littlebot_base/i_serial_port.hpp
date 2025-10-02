@@ -71,6 +71,13 @@ protected:
   ISerialPort() = default;
 
   /**
+   * @brief Get data from the recived packet
+   *
+   * @param buffer Shared pointer to string buffer to store received data
+   */
+  virtual int getPacketData(std::shared_ptr<std::string> buffer) = 0;
+
+  /**
    * @brief Serial object from libserial
    */
   libserial::Serial serial_;

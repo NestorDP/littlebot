@@ -48,6 +48,14 @@ public:
   int writePacket(std::shared_ptr<std::string> buffer) override;
 
 private:
+
+  /**
+   * @brief Get data from the received packet
+   *
+   * @param buffer Shared pointer to string buffer to store received data
+   */
+  int getPacketData(std::shared_ptr<std::string> buffer) override;
+
   /**
    * @brief Serial port device path (e.g., "/dev/ttyUSB0")
    */
