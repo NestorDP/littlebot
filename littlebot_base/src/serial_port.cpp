@@ -63,6 +63,7 @@ int SerialPort::writePacket(std::shared_ptr<std::string> buffer)
 {
   buffer->insert(buffer->begin(), kStartByte);
   buffer->push_back(kEndByte);
+  buffer->push_back('\n');
 
   serial_.write(buffer);
   return buffer->size();

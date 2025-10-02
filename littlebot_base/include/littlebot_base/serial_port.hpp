@@ -27,7 +27,7 @@ namespace littlebot_base
 class SerialPort : public ISerialPort
 {
 public:
-   /**
+  /**
    * @brief Open the serial port (uses stored parameters)
    */
   bool open(std::string port, int baudrate) override;
