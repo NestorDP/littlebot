@@ -75,9 +75,9 @@ public:
   /**
    * @brief Receive data from the hardware
    *
-   * @return Number of bytes read, or -1 on error
+   * @return The controller character indicating the type of data received.
    */
-  uint8_t receiveData();
+  bool receiveData();
 
   /**
    * @brief Send data to the hardware
@@ -86,7 +86,7 @@ public:
    *             'S' to status and 'C' to command.
    * @return True if data was sent successfully, false otherwise
    */
-  bool sendData(uint8_t type);
+  bool sendData(char type);
 
   /**
    * @brief Encode data to be sent to the hardware
