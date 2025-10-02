@@ -39,7 +39,15 @@
 class MockSerialPort : public littlebot_base::ISerialPort
 {
 public:
-  bool open() override { return true; }
+  bool open(std::string port, int baudrate) override {    
+        // Simulate opening the serial port
+        // In a real implementation, you would use libserial to open the port here
+        // e.g., serial_.Open(port_path_, baudrate_);
+        
+        // For this mock implementation, just print and set is_open_ to true
+        std::cout << "SerialPort open on port: " << port << " with baudrate: " << baudrate << std::endl;
+        return true;
+  }
   
   void close() override {}
 

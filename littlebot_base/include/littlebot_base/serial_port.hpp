@@ -30,7 +30,7 @@ public:
    /**
    * @brief Open the serial port (uses stored parameters)
    */
-  bool open() override;
+  bool open(std::string port, int baudrate) override;
 
   /**
    * @brief Close the serial port

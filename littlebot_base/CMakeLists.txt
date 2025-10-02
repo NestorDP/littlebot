@@ -21,6 +21,10 @@ find_package(controller_manager_msgs REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(Protobuf REQUIRED)
+find_package(PkgConfig REQUIRED)
+
+# Find libserial using pkg-config
+pkg_check_modules(LIBSERIAL REQUIRED libserial)
 
 include_directories(include)
 
@@ -59,6 +63,17 @@ ament_target_dependencies(littlebot_hardware_component
   hardware_interface
   pluginlib
   rclcpp)
+
+# Link libserial
+target_link_libraries(littlebot_hardware_component
+  ${LIBSERIAL_LIBRARIES}
+  ${Protobuf_LIBRARIES}
+)
+target_include_directories(littlebot_hardware_component PRIVATE
+  ${LIBSERIAL_INCLUDE_DIRS}
+  ${Protobuf_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_BINARY_DIR}
+)
 
 pluginlib_export_plugin_description_file(hardware_interface littlebot_hardware_component.xml)
 
@@ -118,10 +133,12 @@ if(BUILD_TESTING)
       test
       ${Protobuf_INCLUDE_DIRS}
       ${CMAKE_CURRENT_BINARY_DIR}
+      ${LIBSERIAL_INCLUDE_DIRS}
     )
 
     target_link_libraries(${PROJECT_NAME}_unit_tests
       ${Protobuf_LIBRARIES}
+      ${LIBSERIAL_LIBRARIES}
     )
 
     ament_target_dependencies(${PROJECT_NAME}_unit_tests

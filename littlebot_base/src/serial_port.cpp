@@ -25,14 +25,15 @@ namespace littlebot_base
     //     is_open_ = open();
     // }
 
-    bool SerialPort::open()
+    bool SerialPort::open(std::string port, int baudrate)
     {
-        if (port_path_.empty()) {
-            std::cerr << "Error: No port specified. Use constructor with port parameter." << std::endl;
-            return false;
-        }
+
+        // Simulate opening the serial port
+        // In a real implementation, you would use libserial to open the port here
+        // e.g., serial_.Open(port_path_, baudrate_);
         
-        std::cout << "SerialPort open on port: " << port_path_ << " with baudrate: " << baudrate_ << std::endl;
+        // For this mock implementation, just print and set is_open_ to true
+        std::cout << "SerialPort open on port: " << port << " with baudrate: " << baudrate << std::endl;
         is_open_ = true;
         return true;
     }
