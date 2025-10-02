@@ -31,6 +31,14 @@
 *.out
 *.app
 
+# Debug files
+*.dSYM/
+*.sus
+*.idb
+*.pdb
+
+*.unc-backup~
+*.unc-backup.md5~
 
 .vscode/
 *__pycache__/
