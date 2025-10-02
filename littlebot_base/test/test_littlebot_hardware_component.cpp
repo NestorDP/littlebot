@@ -21,7 +21,7 @@
 #include <string>
 #include <chrono>
 
-#include "littlebot_base/firmware_comm.hpp"
+#include "littlebot_base/littlebot_driver.hpp"
 
 //
 TEST(TestLittlebotHardwareComponent, TestAdd2)

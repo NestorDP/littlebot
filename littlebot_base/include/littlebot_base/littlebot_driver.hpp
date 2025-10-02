@@ -28,20 +28,20 @@
 namespace littlebot_base
 {
 
-class FirmwareComm
+class LittlebotDriver
 {
 public:
   /**
-   * @brief Constructor for the FirmwareComm class
+   * @brief Constructor for the LittlebotDriver class
    *
    * @param serial_port Shared pointer to the serial port implementation
    */
-  explicit FirmwareComm(std::shared_ptr<littlebot_base::ISerialPort> serial_port);
+  explicit LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> serial_port);
 
   /**
-   * @brief Deconstructor for the FirmwareComm class
+   * @brief Deconstructor for the LittlebotDriver class
    */
-  ~FirmwareComm();
+  ~LittlebotDriver();
 
   /**
    * @brief Set the command velocities
@@ -81,7 +81,7 @@ public:
 
   /**
    * @brief Send data to the hardware
-   * 
+   *
    * @param type Character indicating the type of data being sent.
    *             'S' to status and 'C' to command.
    * @return True if data was sent successfully, false otherwise

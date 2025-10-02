@@ -15,7 +15,7 @@
 
 /**
  * @file test_firmware_comm.cpp
- * @brief Unit tests for FirmwareComm class
+ * @brief Unit tests for LittlebotDriver class
  * @author Nestor Neto
  * @date 2024
  */
@@ -27,22 +27,22 @@
 #include <string>
 #include <chrono>
 
-#include "littlebot_base/firmware_comm.hpp"
+#include "littlebot_base/littlebot_driver.hpp"
 #include "mock_serial_port.hpp"
 
 /**
- * @brief Test fixture for FirmwareComm tests
+ * @brief Test fixture for LittlebotDriver tests
  *
- * This class provides common setup and teardown for FirmwareComm tests.
+ * This class provides common setup and teardown for LittlebotDriver tests.
  */
-class FirmwareCommTest : public ::testing::Test
+class TestLittlebotDriver : public ::testing::Test
 {
 protected:
   void SetUp() override
   {
     // Create a test instance with a mock serial port
     mock_serial_port_ = std::make_shared<MockSerialPort>();
-    firmware_comm_ = std::make_unique<littlebot_base::FirmwareComm>(mock_serial_port_);
+    firmware_comm_ = std::make_unique<littlebot_base::LittlebotDriver>(mock_serial_port_);
   }
 
   void TearDown() override
@@ -54,13 +54,13 @@ protected:
 
   // Test instances
   std::shared_ptr<MockSerialPort> mock_serial_port_;
-  std::unique_ptr<littlebot_base::FirmwareComm> firmware_comm_;
+  std::unique_ptr<littlebot_base::LittlebotDriver> firmware_comm_;
 };
 
 /**
- * @brief Test FirmwareComm constructor with valid serial port
+ * @brief Test LittlebotDriver constructor with valid serial port
  */
-TEST_F(FirmwareCommTest, ConstructorWithValidSerialPort)
+TEST_F(TestLittlebotDriver, ConstructorWithValidSerialPort)
 {
   // Test that constructor successfully creates object with valid serial port
   ASSERT_NE(firmware_comm_, nullptr);
@@ -71,22 +71,22 @@ TEST_F(FirmwareCommTest, ConstructorWithValidSerialPort)
 }
 
 /**
- * @brief Test FirmwareComm constructor with null serial port
+ * @brief Test LittlebotDriver constructor with null serial port
  */
-TEST(FirmwareCommConstructorTest, ConstructorWithNullSerialPort)
+TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
 {
   // Test that constructor throws exception with null serial port
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
 
   EXPECT_THROW({
-    auto firmware = std::make_unique<littlebot_base::FirmwareComm>(null_port);
+    auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
   }, std::invalid_argument);
 }
 
 /**
- * @brief Test FirmwareComm constructor with different serial port implementations
+ * @brief Test LittlebotDriver constructor with different serial port implementations
  */
-TEST(FirmwareCommConstructorTest, ConstructorWithDifferentSerialPorts)
+TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 {
   // Test with multiple mock serial ports
   auto mock1 = std::make_shared<MockSerialPort>();
@@ -95,16 +95,16 @@ TEST(FirmwareCommConstructorTest, ConstructorWithDifferentSerialPorts)
 
   // All should construct successfully
   EXPECT_NO_THROW({
-    auto firmware1 = std::make_unique<littlebot_base::FirmwareComm>(mock1);
-    auto firmware2 = std::make_unique<littlebot_base::FirmwareComm>(mock2);
-    auto firmware3 = std::make_unique<littlebot_base::FirmwareComm>(mock3);
+    auto firmware1 = std::make_unique<littlebot_base::LittlebotDriver>(mock1);
+    auto firmware2 = std::make_unique<littlebot_base::LittlebotDriver>(mock2);
+    auto firmware3 = std::make_unique<littlebot_base::LittlebotDriver>(mock3);
   });
 }
 
 /**
  * @brief Test initial state after construction
  */
-TEST_F(FirmwareCommTest, InitialStateAfterConstruction)
+TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
 {
   // Input buffer should be empty initially
   auto input_buffer = firmware_comm_->getInputBuffer();
@@ -118,7 +118,7 @@ TEST_F(FirmwareCommTest, InitialStateAfterConstruction)
 /**
  * @brief Test constructor memory management
  */
-TEST(FirmwareCommConstructorTest, ConstructorMemoryManagement)
+TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
 {
   // Test that constructor properly manages shared_ptr reference counting
   {
@@ -126,7 +126,7 @@ TEST(FirmwareCommConstructorTest, ConstructorMemoryManagement)
     auto initial_ref_count = mock_port.use_count();  // Should be 1
 
     {
-      auto firmware = std::make_unique<littlebot_base::FirmwareComm>(mock_port);
+      auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(mock_port);
       auto ref_count_after_construction = mock_port.use_count();  // Should be 2
       EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
     }
@@ -139,11 +139,11 @@ TEST(FirmwareCommConstructorTest, ConstructorMemoryManagement)
 /**
  * @brief Test constructor with serial port that has pre-configured state
  */
-TEST_F(FirmwareCommTest, ConstructorWithPreConfiguredSerialPort)
+TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
 {
-  // Create new FirmwareComm with mock (mock has hardcoded response)
+  // Create new LittlebotDriver with mock (mock has hardcoded response)
   auto new_mock = std::make_shared<MockSerialPort>();
-  auto firmware = std::make_unique<littlebot_base::FirmwareComm>(new_mock);
+  auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(new_mock);
 
   ASSERT_NE(firmware, nullptr);
 
@@ -155,13 +155,13 @@ TEST_F(FirmwareCommTest, ConstructorWithPreConfiguredSerialPort)
 /**
  * @brief Test constructor exception safety
  */
-TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
+TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
 {
   // Test that constructor properly throws and doesn't leak memory
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
 
   try {
-    auto firmware = std::make_unique<littlebot_base::FirmwareComm>(null_port);
+    auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
     FAIL() << "Expected std::invalid_argument exception";
   } catch (const std::invalid_argument & e) {
     // Expected exception
@@ -174,7 +174,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test setting command velocities (using same fixture)
  */
-// TEST_F(FirmwareCommTest, SetCommandVelocities)
+// TEST_F(TestLittlebotDriver, SetCommandVelocities)
 // {
 //   // The firmware_comm_ is automatically available and initialized
 //   ASSERT_NE(firmware_comm_, nullptr);
@@ -203,7 +203,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test getting status velocities (using same fixture)
  */
-// TEST_F(FirmwareCommTest, GetStatusVelocities)
+// TEST_F(TestLittlebotDriver, GetStatusVelocities)
 // {
 //   // The same firmware_comm_ instance is available here too
 //   ASSERT_NE(firmware_comm_, nullptr);
@@ -221,26 +221,26 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test constructor and destructor
  */
-// TEST_F(FirmwareCommTest, ConstructorDestructor)
+// TEST_F(TestLittlebotDriver, ConstructorDestructor)
 // {
 //   // Test that constructor creates object successfully
 //   ASSERT_NE(firmware_comm_, nullptr);
 
 //   // Test with different serial port names
-//   auto comm1 = std::make_unique<MockableFirmwareComm>("/dev/ttyUSB0");
+//   auto comm1 = std::make_unique<MockableLittlebotDriver>("/dev/ttyUSB0");
 //   ASSERT_NE(comm1, nullptr);
 
-//   auto comm2 = std::make_unique<MockableFirmwareComm>("/dev/ttyUSB1");
+//   auto comm2 = std::make_unique<MockableLittlebotDriver>("/dev/ttyUSB1");
 //   ASSERT_NE(comm2, nullptr);
 
-//   auto comm3 = std::make_unique<MockableFirmwareComm>("/dev/ttyACM0");
+//   auto comm3 = std::make_unique<MockableLittlebotDriver>("/dev/ttyACM0");
 //   ASSERT_NE(comm3, nullptr);
 // }
 
 /**
  * @brief Test setCommandVelocities method
  */
-// TEST_F(FirmwareCommTest, SetCommandVelocities)
+// TEST_F(TestLittlebotDriver, SetCommandVelocities)
 // {
 //   // Test setting valid velocities
 //   std::vector<float> test_velocities = {1.5f, -2.3f};
@@ -262,7 +262,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test setCommandVelocities with different vector sizes
  */
-// TEST_F(FirmwareCommTest, SetCommandVelocitiesDifferentSizes)
+// TEST_F(TestLittlebotDriver, SetCommandVelocitiesDifferentSizes)
 // {
 //   // Test with empty vector
 //   std::vector<float> empty_velocities = {};
@@ -280,7 +280,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test getStatusVelocities method
  */
-// TEST_F(FirmwareCommTest, GetStatusVelocities)
+// TEST_F(TestLittlebotDriver, GetStatusVelocities)
 // {
 //   // Get initial status velocities
 //   std::vector<float> status_velocities = firmware_comm_->getStatusVelocities();
@@ -295,7 +295,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test getStatusPositionsStatus method
  */
-// TEST_F(FirmwareCommTest, GetStatusPositions)
+// TEST_F(TestLittlebotDriver, GetStatusPositions)
 // {
 //   // Get initial status positions
 //   std::vector<float> status_positions = firmware_comm_->getStatusPositionsStatus();
@@ -310,7 +310,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test data consistency between set and get operations
  */
-// TEST_F(FirmwareCommTest, DataConsistency)
+// TEST_F(TestLittlebotDriver, DataConsistency)
 // {
 //   // Set some test velocities
 //   std::vector<float> test_velocities = {2.5f, -1.8f};
@@ -325,7 +325,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test extreme values for velocities
  */
-// TEST_F(FirmwareCommTest, ExtremeValues)
+// TEST_F(TestLittlebotDriver, ExtremeValues)
 // {
 //   // Test with very large positive values
 //   std::vector<float> large_velocities = {1000.0f, 999.9f};
@@ -343,11 +343,11 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test interface compliance
  */
-// TEST_F(FirmwareCommTest, InterfaceCompliance)
+// TEST_F(TestLittlebotDriver, InterfaceCompliance)
 // {
-//   // Test that FirmwareComm can be used through its interface
-//   std::unique_ptr<IFirmwareComm> interface_ptr =
-//     std::make_unique<MockableFirmwareComm>("/dev/null");
+//   // Test that LittlebotDriver can be used through its interface
+//   std::unique_ptr<ILittlebotDriver> interface_ptr =
+//     std::make_unique<MockableLittlebotDriver>("/dev/null");
 
 //   ASSERT_NE(interface_ptr, nullptr);
 
@@ -364,7 +364,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
  * This test verifies that the object can handle rapid successive calls,
  * which is important for thread safety.
  */
-// TEST_F(FirmwareCommTest, RapidCalls)
+// TEST_F(TestLittlebotDriver, RapidCalls)
 // {
 //   const int num_iterations = 100;
 
@@ -383,15 +383,15 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Test memory management
  */
-// TEST_F(FirmwareCommTest, MemoryManagement)
+// TEST_F(TestLittlebotDriver, MemoryManagement)
 // {
 //   // Test creating and destroying multiple instances
 //   const int num_instances = 10;
-//   std::vector<std::unique_ptr<MockableFirmwareComm>> instances;
+//   std::vector<std::unique_ptr<MockableLittlebotDriver>> instances;
 
 //   // Create multiple instances
 //   for (int i = 0; i < num_instances; ++i) {
-//     auto instance = std::make_unique<MockableFirmwareComm>("/dev/null");
+//     auto instance = std::make_unique<MockableLittlebotDriver>("/dev/null");
 //     ASSERT_NE(instance, nullptr);
 //     instances.push_back(std::move(instance));
 //   }
@@ -408,7 +408,7 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 /**
  * @brief Performance test for basic operations
  */
-// TEST_F(FirmwareCommTest, BasicPerformance)
+// TEST_F(TestLittlebotDriver, BasicPerformance)
 // {
 //   const int num_operations = 1000;
 //   std::vector<float> test_velocities = {1.5f, -2.3f};

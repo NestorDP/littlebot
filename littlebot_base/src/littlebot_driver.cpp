@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "littlebot_base/firmware_comm.hpp"
+#include "littlebot_base/littlebot_driver.hpp"
 
 #include <stdexcept>
 
@@ -21,26 +21,26 @@
 
 namespace littlebot_base
 {
-FirmwareComm::FirmwareComm(std::shared_ptr<littlebot_base::ISerialPort> serial_port)
+LittlebotDriver::LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> serial_port)
 : serial_port_(serial_port)
 {
   // Validate that the serial port was provided
   if (!serial_port_) {
-    std::cerr << "Error: Null serial port provided to FirmwareComm constructor" << std::endl;
+    std::cerr << "Error: Null serial port provided to LittlebotDriver constructor" << std::endl;
     throw std::invalid_argument("Serial port cannot be null");
   }
 
-  std::cout << "FirmwareComm initialized with provided serial port" << std::endl;
+  std::cout << "LittlebotDriver initialized with provided serial port" << std::endl;
 }
 
-FirmwareComm::~FirmwareComm()
+LittlebotDriver::~LittlebotDriver()
 {
-  std::cout << "FirmwareComm deconstructor" << std::endl;
+  std::cout << "LittlebotDriver deconstructor" << std::endl;
 }
 
-void FirmwareComm::setCommandVelocities(std::map<std::string, float> velocities)
+void LittlebotDriver::setCommandVelocities(std::map<std::string, float> velocities)
 {
-  std::cout << "FirmwareComm setCommandVelocities" << std::endl;
+  std::cout << "LittlebotDriver setCommandVelocities" << std::endl;
 
   // Store the velocities in the member variable
   command_velocities_ = velocities;
@@ -51,31 +51,31 @@ void FirmwareComm::setCommandVelocities(std::map<std::string, float> velocities)
   // std::cout << std::endl;
 }
 
-std::map<std::string, float> FirmwareComm::getStatusVelocities() const
+std::map<std::string, float> LittlebotDriver::getStatusVelocities() const
 {
-  std::cout << "FirmwareComm getStatusVelocities" << std::endl;
+  std::cout << "LittlebotDriver getStatusVelocities" << std::endl;
   return {{"left_wheel", 1.2}, {"right_wheel", 3.4}};
 }
 
-std::map<std::string, float> FirmwareComm::getStatusPositions() const
+std::map<std::string, float> LittlebotDriver::getStatusPositions() const
 {
-  std::cout << "FirmwareComm getStatusPositions" << std::endl;
+  std::cout << "LittlebotDriver getStatusPositions" << std::endl;
   return {{"left_wheel", 5.6}, {"right_wheel", 7.8}};
 }
 
-bool FirmwareComm::start()
+bool LittlebotDriver::start()
 {
-  std::cout << "FirmwareComm start" << std::endl;
+  std::cout << "LittlebotDriver start" << std::endl;
   return true;
 }
 
-bool FirmwareComm::stop()
+bool LittlebotDriver::stop()
 {
-  std::cout << "FirmwareComm stop" << std::endl;
+  std::cout << "LittlebotDriver stop" << std::endl;
   return true;
 }
 
-uint8_t FirmwareComm::receiveData()
+uint8_t LittlebotDriver::receiveData()
 {
   int bytes_read = serial_port_->readPacket(input_buffer_);
   if (bytes_read < 0) {
@@ -96,9 +96,9 @@ uint8_t FirmwareComm::receiveData()
 }
 
 
-bool FirmwareComm::sendData(uint8_t type)
+bool LittlebotDriver::sendData(uint8_t type)
 {
-  std::cout << "FirmwareComm sendData with type: " << static_cast<char>(type) << std::endl;
+  std::cout << "LittlebotDriver sendData with type: " << static_cast<char>(type) << std::endl;
 
   // Create the complete message with framing: [<type><data>]
   std::vector<uint8_t> complete_message;
@@ -119,24 +119,24 @@ bool FirmwareComm::sendData(uint8_t type)
   return true;
 }
 
-bool FirmwareComm::encode()
+bool LittlebotDriver::encode()
 {
-  std::cout << "FirmwareComm encode" << std::endl;
+  std::cout << "LittlebotDriver encode" << std::endl;
   return true;
 }
 
-bool FirmwareComm::decode()
+bool LittlebotDriver::decode()
 {
-  std::cout << "FirmwareComm decode" << std::endl;
+  std::cout << "LittlebotDriver decode" << std::endl;
   return true;
 }
 
-std::vector<uint8_t> FirmwareComm::getInputBuffer() const
+std::vector<uint8_t> LittlebotDriver::getInputBuffer() const
 {
   return input_buffer_;
 }
 
-void FirmwareComm::clearInputBuffer()
+void LittlebotDriver::clearInputBuffer()
 {
   input_buffer_.clear();
 }

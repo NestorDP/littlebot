@@ -53,7 +53,7 @@ set(node_plugins "")
 # Hardware interface
 add_library(littlebot_hardware_component SHARED
   src/littlebot_hardware_component.cpp
-  src/firmware_comm.cpp
+  src/littlebot_driver.cpp
   src/serial_port.cpp
   ${PROTO_SRCS}
   ${PROTO_HDRS}
@@ -119,9 +119,9 @@ if(BUILD_TESTING)
   # Unit tests for FirmwareComm
   ament_add_gtest(${PROJECT_NAME}_unit_tests
     test/test_main.cpp
-    test/test_firmware_comm.cpp
+    test/test_littlebot_driver.cpp
     test/test_littlebot_hardware_component.cpp
-    src/firmware_comm.cpp
+    src/littlebot_driver.cpp
     src/serial_port.cpp
     ${PROTO_SRCS}
     ${PROTO_HDRS}

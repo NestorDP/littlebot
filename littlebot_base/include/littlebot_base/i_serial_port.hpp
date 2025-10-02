@@ -19,8 +19,8 @@
 #include <string>
 #include <vector>
 
-/** 
- * To more information about the serial library used, 
+/**
+ * To more information about the serial library used,
  * please visit: https://github.com/NestorDP/libserial
  */
 #include "libserial/serial.hpp"
