@@ -38,48 +38,25 @@ public:
   void close() override;
 
   /**
-   * @brief Read data from the serial port
+   * @brief Read packet data from the serial port
    */
   int readPacket(std::vector<uint8_t> & buffer) override;
 
   /**
-   * @brief Write data to the serial port
+   * @brief Write packet data to the serial port
    */
   int writePacket(const std::vector<uint8_t> & buffer) override;
-
-  /**
-   * @brief Get the current port path
-   * @return The serial port device path
-   */
-  const std::string & getPortPath() const;
-
-  /**
-   * @brief Get the current baudrate
-   * @return The communication baudrate
-   */
-  int getBaudrate() const;
-
-  /**
-   * @brief Check if the port is open
-   * @return True if port is open, false otherwise
-   */
-  bool isOpen() const;
 
 private:
   /**
    * @brief Serial port device path (e.g., "/dev/ttyUSB0")
    */
-  std::string port_path_;
+  std::string port_path_{"/dev/rfcomm0"};
 
   /**
    * @brief Communication baudrate (e.g., 9600, 115200)
    */
   int baudrate_{115200};
-
-  /**
-   * @brief Flag indicating if the port is currently open
-   */
-  bool is_open_{false};
 };
 
 }  // namespace littlebot_base
