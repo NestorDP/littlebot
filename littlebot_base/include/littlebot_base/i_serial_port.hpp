@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-
+// #include "libserial/SerialPort.hpp"
 // To more information
 //    * about the serial library used, please visit: https://github.com/NestorDP/libserial
 
@@ -34,11 +34,6 @@ public:
    *
    */
   virtual ~ISerialPort() = default;
-
-  /**
-   * @brief Constructor for the ISerialPort class
-   */
-  ISerialPort() = default;
 
   /**
    * @brief Open the serial port (uses default or stored parameters)
@@ -60,6 +55,17 @@ public:
    */
   virtual int writePacket(const std::vector<uint8_t> & buffer) = 0;
 
+  /** 
+   * @brief Prevent copy and assignment
+   */
+  ISerialPort(const ISerialPort&) = delete;
+  ISerialPort& operator=(const ISerialPort&) = delete;
+
+protected:
+  /**
+   * @brief Constructor for the ISerialPort class
+   */
+  ISerialPort() = default;
 };
 
 }  // namespace littlebot_base

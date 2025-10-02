@@ -17,13 +17,13 @@
 
 namespace littlebot_base
 {
-    SerialPort::SerialPort(const std::string& port, int baudrate)
-    : port_path_(port), baudrate_(baudrate), is_open_(false)
-    {
-        std::cout << "SerialPort constructor: " << port << " @ " << baudrate << " baud" << std::endl;
-        // Automatically open the port during construction
-        is_open_ = open();
-    }
+    // SerialPort::SerialPort(const std::string& port, int baudrate)
+    // : port_path_(port), baudrate_(baudrate), is_open_(false)
+    // {
+    //     std::cout << "SerialPort constructor: " << port << " @ " << baudrate << " baud" << std::endl;
+    //     // Automatically open the port during construction
+    //     is_open_ = open();
+    // }
 
     bool SerialPort::open()
     {

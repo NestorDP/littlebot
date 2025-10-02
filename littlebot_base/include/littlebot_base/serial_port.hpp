@@ -27,18 +27,7 @@ namespace littlebot_base
 class SerialPort : public ISerialPort
 {
 public:
-  /**
-   * @brief Constructor that opens the serial port with specified parameters
-   * @param port The serial port device path (e.g., "/dev/ttyUSB0")
-   * @param baudrate The communication speed (e.g., 9600, 115200)
-   */
-  SerialPort(const std::string& port, int baudrate);
-
-  SerialPort(const SerialPort&) = delete;
-  SerialPort& operator=(const SerialPort&) = delete;
-
-
-  /**
+   /**
    * @brief Open the serial port (uses stored parameters)
    */
   bool open() override;

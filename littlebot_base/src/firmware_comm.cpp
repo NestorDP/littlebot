@@ -22,8 +22,6 @@ namespace littlebot_base
 FirmwareComm::FirmwareComm(std::shared_ptr<littlebot_base::ISerialPort> serial_port)
 : serial_port_(serial_port)
 {
-  serial_port_->open("/dev/ttyUSB0", 115200);
-
   // Validate that the serial port was provided
   if (!serial_port_) {
     std::cerr << "Error: Null serial port provided to FirmwareComm constructor" << std::endl;
