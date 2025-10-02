@@ -22,7 +22,7 @@
 #include <vector>
 #include <memory>
 
-#include "littlebot_msg.pb.h"
+#include "littlebot_msg.pb.h"  // NOLINT(build/include_subdir)
 #include "littlebot_base/i_serial_port.hpp"
 
 namespace littlebot_base
@@ -33,7 +33,7 @@ class FirmwareComm
 public:
   /**
    * @brief Constructor for the FirmwareComm class
-   * 
+   *
    * @param serial_port Shared pointer to the serial port implementation
    */
   explicit FirmwareComm(std::shared_ptr<littlebot_base::ISerialPort> serial_port);
@@ -76,10 +76,10 @@ public:
    * @brief Receive data from the hardware
    *
    * This function receives the available data packets from the hardware.
-   * 
+   *
    * @return Number of bytes read, or -1 on error
    */
- uint8_t receiveData();
+  uint8_t receiveData();
 
   /**
    * @brief Send data to the hardware
@@ -106,7 +106,7 @@ public:
 
   /**
    * @brief Get the current input buffer contents (for testing)
-   * 
+   *
    * @return Copy of the input buffer
    */
   std::vector<uint8_t> getInputBuffer() const;
@@ -148,7 +148,7 @@ private:
   /**
    * @brief Smart pointer to serial_port object
    *
-   * This object is used to communicate with the hardware. 
+   * This object is used to communicate with the hardware.
    */
   std::shared_ptr<littlebot_base::ISerialPort> serial_port_;
 
@@ -175,7 +175,6 @@ private:
    * This buffer holds the encoded message ready to be sent to the hardware.
    */
   std::vector<uint8_t> output_buffer_;
-
 };
 
 }  // namespace littlebot_base

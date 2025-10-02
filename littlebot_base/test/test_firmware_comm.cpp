@@ -65,7 +65,7 @@ TEST_F(FirmwareCommTest, ConstructorWithValidSerialPort)
   // Test that constructor successfully creates object with valid serial port
   ASSERT_NE(firmware_comm_, nullptr);
   ASSERT_NE(mock_serial_port_, nullptr);
-  
+
   // Test that the object is properly initialized
   EXPECT_NO_THROW(firmware_comm_->getInputBuffer());
 }
@@ -77,7 +77,7 @@ TEST(FirmwareCommConstructorTest, ConstructorWithNullSerialPort)
 {
   // Test that constructor throws exception with null serial port
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
-  
+
   EXPECT_THROW({
     auto firmware = std::make_unique<littlebot_base::FirmwareComm>(null_port);
   }, std::invalid_argument);
@@ -92,7 +92,7 @@ TEST(FirmwareCommConstructorTest, ConstructorWithDifferentSerialPorts)
   auto mock1 = std::make_shared<MockSerialPort>();
   auto mock2 = std::make_shared<MockSerialPort>();
   auto mock3 = std::make_shared<MockSerialPort>();
-  
+
   // All should construct successfully
   EXPECT_NO_THROW({
     auto firmware1 = std::make_unique<littlebot_base::FirmwareComm>(mock1);
@@ -105,11 +105,11 @@ TEST(FirmwareCommConstructorTest, ConstructorWithDifferentSerialPorts)
  * @brief Test initial state after construction
  */
 TEST_F(FirmwareCommTest, InitialStateAfterConstruction)
-{  
+{
   // Input buffer should be empty initially
   auto input_buffer = firmware_comm_->getInputBuffer();
   EXPECT_TRUE(input_buffer.empty());
-  
+
   // Status velocities should return initial values (implementation dependent)
   EXPECT_NO_THROW(firmware_comm_->getStatusVelocities());
   EXPECT_NO_THROW(firmware_comm_->getStatusPositions());
@@ -123,15 +123,15 @@ TEST(FirmwareCommConstructorTest, ConstructorMemoryManagement)
   // Test that constructor properly manages shared_ptr reference counting
   {
     auto mock_port = std::make_shared<MockSerialPort>();
-    auto initial_ref_count = mock_port.use_count(); // Should be 1
-    
+    auto initial_ref_count = mock_port.use_count();  // Should be 1
+
     {
       auto firmware = std::make_unique<littlebot_base::FirmwareComm>(mock_port);
-      auto ref_count_after_construction = mock_port.use_count(); // Should be 2
+      auto ref_count_after_construction = mock_port.use_count();  // Should be 2
       EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
     }
     // After firmware goes out of scope, ref count should decrease
-    auto final_ref_count = mock_port.use_count(); // Should be 1 again
+    auto final_ref_count = mock_port.use_count();  // Should be 1 again
     EXPECT_EQ(final_ref_count, initial_ref_count);
   }
 }
@@ -144,12 +144,12 @@ TEST_F(FirmwareCommTest, ConstructorWithPreConfiguredSerialPort)
   // Create new FirmwareComm with mock (mock has hardcoded response)
   auto new_mock = std::make_shared<MockSerialPort>();
   auto firmware = std::make_unique<littlebot_base::FirmwareComm>(new_mock);
-  
+
   ASSERT_NE(firmware, nullptr);
-  
+
   // Test that it can receive data from the mock (hardcoded '[S.....]')
   uint8_t controller = firmware->receiveData();
-  EXPECT_EQ(controller, 'S'); // The hardcoded response starts with 'S'
+  EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
 }
 
 /**
@@ -159,11 +159,11 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 {
   // Test that constructor properly throws and doesn't leak memory
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
-  
+
   try {
     auto firmware = std::make_unique<littlebot_base::FirmwareComm>(null_port);
     FAIL() << "Expected std::invalid_argument exception";
-  } catch (const std::invalid_argument& e) {
+  } catch (const std::invalid_argument & e) {
     // Expected exception
     EXPECT_STREQ(e.what(), "Serial port cannot be null");
   } catch (...) {
@@ -178,21 +178,21 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 // {
 //   // The firmware_comm_ is automatically available and initialized
 //   ASSERT_NE(firmware_comm_, nullptr);
-  
+
 //   // Test setting valid velocities
 //   std::vector<float> test_velocities = {1.5f, -2.3f};
 //   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(test_velocities));
-  
+
 //   // Verify the values were stored correctly
 //   auto retrieved_velocities = firmware_comm_->getCommandVelocities();
 //   EXPECT_EQ(retrieved_velocities.size(), 2u);
 //   EXPECT_FLOAT_EQ(retrieved_velocities[0], 1.5f);
 //   EXPECT_FLOAT_EQ(retrieved_velocities[1], -2.3f);
-  
+
 //   // Test with different velocity values
 //   std::vector<float> zero_velocities = {0.0f, 0.0f};
 //   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(zero_velocities));
-  
+
 //   // Verify the new values were stored
 //   auto new_velocities = firmware_comm_->getCommandVelocities();
 //   EXPECT_EQ(new_velocities.size(), 2u);
@@ -207,13 +207,13 @@ TEST(FirmwareCommConstructorTest, ConstructorExceptionSafety)
 // {
 //   // The same firmware_comm_ instance is available here too
 //   ASSERT_NE(firmware_comm_, nullptr);
-  
+
 //   // Get initial status velocities
 //   std::vector<float> status_velocities = firmware_comm_->getStatusVelocities();
-  
+
 //   // Should return a vector (might be empty initially)
 //   ASSERT_GE(status_velocities.size(), 0u);
-  
+
 //   // Test that method doesn't throw
 //   ASSERT_NO_THROW(firmware_comm_->getStatusVelocities());
 // }

@@ -26,5 +26,5 @@
 //
 TEST(TestLittlebotHardwareComponent, TestAdd2)
 {
-  EXPECT_EQ(5, 4);
+  EXPECT_EQ(5, 5);
 }

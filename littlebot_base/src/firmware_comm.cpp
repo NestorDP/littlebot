@@ -14,8 +14,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "littlebot_base/firmware_comm.hpp"
-#include "littlebot_base/serial_port.hpp"
+
 #include <stdexcept>
+
+#include "littlebot_base/serial_port.hpp"
 
 namespace littlebot_base
 {
@@ -27,7 +29,7 @@ FirmwareComm::FirmwareComm(std::shared_ptr<littlebot_base::ISerialPort> serial_p
     std::cerr << "Error: Null serial port provided to FirmwareComm constructor" << std::endl;
     throw std::invalid_argument("Serial port cannot be null");
   }
-  
+
   std::cout << "FirmwareComm initialized with provided serial port" << std::endl;
 }
 
@@ -74,7 +76,7 @@ bool FirmwareComm::stop()
 }
 
 uint8_t FirmwareComm::receiveData()
-{    
+{
   int bytes_read = serial_port_->readPacket(input_buffer_);
   if (bytes_read < 0) {
     std::cerr << "Failed to read data from serial port" << std::endl;
@@ -86,10 +88,10 @@ uint8_t FirmwareComm::receiveData()
   // Remove frame bytes and controller character, keeping only the data
   // Original: [C<data>] -> Result: <data>
   std::vector<uint8_t> clean_data(input_buffer_.begin() + 2, input_buffer_.end() - 1);
-  
+
   // Replace input_buffer_ with clean data (without frame and controller)
   input_buffer_ = clean_data;
-  
+
   return controller_character;
 }
 
@@ -111,8 +113,8 @@ bool FirmwareComm::sendData(uint8_t type)
     std::cerr << "Failed to write data to serial port" << std::endl;
     return false;
   }
-  
-  std::cout << "Successfully sent " << bytes_written << " bytes with frame format [" 
+
+  std::cout << "Successfully sent " << bytes_written << " bytes with frame format ["
             << static_cast<char>(type) << "<data>]" << std::endl;
   return true;
 }

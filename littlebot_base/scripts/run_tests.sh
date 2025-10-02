@@ -28,6 +28,7 @@ echo "Available tests:"
 
 # Run all tests
 echo "Running all tests..."
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ./build/littlebot_base/littlebot_base_unit_tests
 
 echo "Unit tests completed!"

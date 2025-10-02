@@ -40,7 +40,7 @@ public:
   /**
    * @brief Read data from the serial port
    */
-  int readPacket(std::vector<uint8_t>& buffer) override;
+  int readPacket(std::vector<uint8_t> & buffer) override;
 
   /**
    * @brief Write data to the serial port
@@ -51,7 +51,7 @@ public:
    * @brief Get the current port path
    * @return The serial port device path
    */
-  const std::string& getPortPath() const;
+  const std::string & getPortPath() const;
 
   /**
    * @brief Get the current baudrate
@@ -80,7 +80,6 @@ private:
    * @brief Flag indicating if the port is currently open
    */
   bool is_open_{false};
-
 };
 
 }  // namespace littlebot_base

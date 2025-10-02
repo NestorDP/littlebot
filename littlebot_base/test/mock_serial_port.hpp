@@ -39,36 +39,40 @@
 class MockSerialPort : public littlebot_base::ISerialPort
 {
 public:
-  bool open(std::string port, int baudrate) override {    
+  bool open(std::string port, int baudrate) override
+  {
         // Simulate opening the serial port
         // In a real implementation, you would use libserial to open the port here
         // e.g., serial_.Open(port_path_, baudrate_);
-        
+
         // For this mock implementation, just print and set is_open_ to true
-        std::cout << "SerialPort open on port: " << port << " with baudrate: " << baudrate << std::endl;
-        return true;
+    std::cout     << "SerialPort open on port: " << port << " with baudrate: "
+                  << baudrate << std::endl;
+    return true;
   }
-  
+
   void close() override {}
 
-  int readPacket(std::vector<uint8_t>& buffer) override { 
+  int readPacket(std::vector<uint8_t> & buffer) override
+  {
      // ASCII values for the message characters
     buffer = {
-        '[', 'S', '0', 'a', '0', 'f', '0', 'd',
-        '0', '0', '0', '0', '0', '0', '0', '0',
-        '1', '5', 'a', 'b', 'f', '4', 'b', '4',
-        '4', '0', '1', 'd', '7', '3', '1', 'd',
-        '5', '3', '4', '0', '0', 'a', '0', 'f',
-        '0', 'd', '0', '0', '0', '0', '0', '0',
-        '0', '0', '1', '5', '0', '0', '0', '0',
-        '0', '0', '0', '0', '1', 'd', '0', '0',
-        '0', '0', '0', '0', '0', '0', ']'
+      '[', 'S', '0', 'a', '0', 'f', '0', 'd',
+      '0', '0', '0', '0', '0', '0', '0', '0',
+      '1', '5', 'a', 'b', 'f', '4', 'b', '4',
+      '4', '0', '1', 'd', '7', '3', '1', 'd',
+      '5', '3', '4', '0', '0', 'a', '0', 'f',
+      '0', 'd', '0', '0', '0', '0', '0', '0',
+      '0', '0', '1', '5', '0', '0', '0', '0',
+      '0', '0', '0', '0', '1', 'd', '0', '0',
+      '0', '0', '0', '0', '0', '0', ']'
     };
-    
+
     return static_cast<int>(buffer.size());
   }
 
-  int writePacket(const std::vector<uint8_t> & buffer) override {
+  int writePacket(const std::vector<uint8_t> & buffer) override
+  {
     return buffer.size();
   }
 };

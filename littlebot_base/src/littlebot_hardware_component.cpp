@@ -33,8 +33,6 @@ namespace littlebot_base
 // // Inject into FirmwareComm
 // auto firmware = std::make_unique<FirmwareComm>(real_serial);
 
-
-
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
   const hardware_interface::HardwareInfo & info)
 {
