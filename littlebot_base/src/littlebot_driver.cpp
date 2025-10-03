@@ -30,6 +30,10 @@ LittlebotDriver::LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> se
     throw std::invalid_argument("Serial port cannot be null");
   }
 
+  // Initialize buffers
+  input_buffer_ = std::make_shared<std::string>();
+  output_buffer_ = std::make_shared<std::string>();
+
   std::cout << "LittlebotDriver initialized with provided serial port" << std::endl;
 }
 
@@ -107,7 +111,51 @@ bool LittlebotDriver::sendData(char type)
 bool LittlebotDriver::encode()
 {
   std::cout << "LittlebotDriver encode" << std::endl;
-  return true;
+  
+  try {
+    wheels_data_.Clear();
+    
+    std::vector<std::string> wheel_names = {"left_wheel", "right_wheel"};
+    
+    for (const auto& wheel_name : wheel_names) {
+      littlebot::WheelData* wheel_data = wheels_data_.add_side();
+      
+      // Set command velocity (from command_velocities_ map)
+      auto cmd_vel_it = command_velocities_.find(wheel_name);
+      if (cmd_vel_it != command_velocities_.end()) {
+        wheel_data->set_command_velocity(cmd_vel_it->second);
+      } else {
+        wheel_data->set_command_velocity(0.0f);  // Default value
+      }
+      
+      // Set status velocity (from status_velocities_ map)
+      auto status_vel_it = status_velocities_.find(wheel_name);
+      if (status_vel_it != status_velocities_.end()) {
+        wheel_data->set_status_velocity(status_vel_it->second);
+      } else {
+        wheel_data->set_status_velocity(0.0f);  // Default value
+      }
+      
+      // Set status position (from status_positions_ map)
+      auto status_pos_it = status_positions_.find(wheel_name);
+      if (status_pos_it != status_positions_.end()) {
+        wheel_data->set_status_position(status_pos_it->second);
+      } else {
+        wheel_data->set_status_position(0.0f);  // Default value
+      }
+    }
+    
+    if (!wheels_data_.SerializeToString(output_buffer_.get())) {
+      std::cerr << "Error: Failed to serialize protobuf message" << std::endl;
+      return false;
+    }
+    
+    return true;
+    
+  } catch (const std::exception& e) {
+    std::cerr << "Error during encoding: " << e.what() << std::endl;
+    return false;
+  }
 }
 
 bool LittlebotDriver::decode()
