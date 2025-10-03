@@ -26,7 +26,6 @@ LittlebotDriver::LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> se
 {
   // Validate that the serial port was provided
   if (!serial_port_) {
-    std::cerr << "Error: Null serial port provided to LittlebotDriver constructor" << std::endl;
     throw std::invalid_argument("Serial port cannot be null");
   }
 
