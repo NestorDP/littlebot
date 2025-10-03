@@ -125,25 +125,32 @@ private:
   littlebot::Wheels wheels_data_;
 
   /**
+   * @brief Known wheel names
+   *
+   * This vector defines the known wheel names for mapping purposes.
+   */
+  std::vector<std::string> wheel_names_ = {"left_wheel", "right_wheel"};
+
+  /**
    * @brief Command velocities for the hardware.
    *
    * This map stores the command velocities that are sent to the hardware.
    */
-  std::map<std::string, float> command_velocities_{{"left_wheel", 0.0f}, {"right_wheel", 0.0f}};
+  std::map<std::string, float> command_velocities_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Status positions from the hardware.
    *
    * This map stores the status positions received from the hardware.
    */
-  std::map<std::string, float> status_positions_{{"left_wheel", 0.0f}, {"right_wheel", 0.0f}};
+  std::map<std::string, float> status_positions_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Status velocities from the hardware.
    *
    * This map stores the status velocities received from the hardware.
    */
-  std::map<std::string, float> status_velocities_{{"left_wheel", 0.0f}, {"right_wheel", 0.0f}};
+  std::map<std::string, float> status_velocities_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Smart pointer to serial_port object

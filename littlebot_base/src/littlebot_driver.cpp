@@ -94,7 +94,6 @@ bool LittlebotDriver::receiveData()
   return true;
 }
 
-
 bool LittlebotDriver::sendData(char type)
 {
   // Create the complete message with framing: [<type><data>]
@@ -114,10 +113,8 @@ bool LittlebotDriver::encode()
   
   try {
     wheels_data_.Clear();
-    
-    std::vector<std::string> wheel_names = {"left_wheel", "right_wheel"};
-    
-    for (const auto& wheel_name : wheel_names) {
+
+    for (const auto& wheel_name : wheel_names_) {
       littlebot::WheelData* wheel_data = wheels_data_.add_side();
       
       // Set command velocity (from command_velocities_ map)
@@ -161,7 +158,49 @@ bool LittlebotDriver::encode()
 bool LittlebotDriver::decode()
 {
   std::cout << "LittlebotDriver decode" << std::endl;
-  return true;
+  
+  try {
+    // Check if input buffer has data
+    if (!input_buffer_ || input_buffer_->empty()) {
+      std::cerr << "Error: Input buffer is empty or null" << std::endl;
+      return false;
+    }
+    
+    // Parse the protobuf message from the input buffer
+    littlebot::Wheels received_wheels_data;
+    if (!received_wheels_data.ParseFromString(*input_buffer_)) {
+      std::cerr << "Error: Failed to parse protobuf message from input buffer" << std::endl;
+      return false;
+    }
+    
+    // Extract data from protobuf message
+    int wheel_count = received_wheels_data.side_size();
+    std::cout << "Received data for " << wheel_count << " wheels" << std::endl;
+    
+    for (int i = 0; i < wheel_count && i < static_cast<int>(wheel_names_.size()); ++i) {
+      const littlebot::WheelData& wheel_data = received_wheels_data.side(i);
+      const std::string& wheel_name = wheel_names_[i];
+      
+      // Extract and store the values from protobuf to maps
+      if (wheel_data.has_command_velocity()) {
+        command_velocities_[wheel_name] = wheel_data.command_velocity();
+      }
+      
+      if (wheel_data.has_status_velocity()) {
+        status_velocities_[wheel_name] = wheel_data.status_velocity();
+      }
+      
+      if (wheel_data.has_status_position()) {
+        status_positions_[wheel_name] = wheel_data.status_position();
+      }
+    }
+    
+    return true;
+    
+  } catch (const std::exception& e) {
+    std::cerr << "Error during decoding: " << e.what() << std::endl;
+    return false;
+  }
 }
 
 std::shared_ptr<std::string> LittlebotDriver::getInputBuffer() const
