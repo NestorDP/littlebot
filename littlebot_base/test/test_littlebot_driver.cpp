@@ -40,26 +40,20 @@ class TestLittlebotDriver : public ::testing::Test
 protected:
   void SetUp() override
   {
-    // Create a test instance with a mock serial port
     mock_serial_port_ = std::make_shared<MockSerialPort>();
     firmware_comm_ = std::make_unique<littlebot_base::LittlebotDriver>(mock_serial_port_);
   }
 
   void TearDown() override
   {
-    // Clean up
     firmware_comm_.reset();
     mock_serial_port_.reset();
   }
 
-  // Test instances
   std::shared_ptr<MockSerialPort> mock_serial_port_;
   std::unique_ptr<littlebot_base::LittlebotDriver> firmware_comm_;
 };
 
-/**
- * @brief Test LittlebotDriver constructor with valid serial port
- */
 TEST_F(TestLittlebotDriver, ConstructorWithValidSerialPort)
 {
   // Test that constructor successfully creates object with valid serial port
@@ -70,12 +64,8 @@ TEST_F(TestLittlebotDriver, ConstructorWithValidSerialPort)
   EXPECT_NO_THROW(firmware_comm_->getInputBuffer());
 }
 
-/**
- * @brief Test LittlebotDriver constructor with null serial port
- */
 TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
 {
-  // Test that constructor throws exception with null serial port
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
 
   EXPECT_THROW({
@@ -83,17 +73,12 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
   }, std::invalid_argument);
 }
 
-/**
- * @brief Test LittlebotDriver constructor with different serial port implementations
- */
 TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 {
-  // Test with multiple mock serial ports
   auto mock1 = std::make_shared<MockSerialPort>();
   auto mock2 = std::make_shared<MockSerialPort>();
   auto mock3 = std::make_shared<MockSerialPort>();
-
-  // All should construct successfully
+  
   EXPECT_NO_THROW({
     auto firmware1 = std::make_unique<littlebot_base::LittlebotDriver>(mock1);
     auto firmware2 = std::make_unique<littlebot_base::LittlebotDriver>(mock2);
@@ -101,9 +86,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
   });
 }
 
-/**
- * @brief Test initial state after construction
- */
 // TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
 // {
 //   // Input buffer should be empty initially
@@ -115,9 +97,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   EXPECT_NO_THROW(firmware_comm_->getStatusPositions());
 // }
 
-/**
- * @brief Test constructor memory management
- */
 // TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
 // {
 //   // Test that constructor properly manages shared_ptr reference counting
@@ -136,9 +115,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   }
 // }
 
-/**
- * @brief Test constructor with serial port that has pre-configured state
- */
 // TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
 // {
 //   // Create new LittlebotDriver with mock (mock has hardcoded response)
@@ -152,9 +128,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
 // }
 
-/**
- * @brief Test constructor exception safety
- */
 // TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
 // {
 //   // Test that constructor properly throws and doesn't leak memory
@@ -171,9 +144,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   }
 // }
 
-/**
- * @brief Test setting command velocities (using same fixture)
- */
 // TEST_F(TestLittlebotDriver, SetCommandVelocities)
 // {
 //   // The firmware_comm_ is automatically available and initialized
@@ -200,9 +170,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   EXPECT_FLOAT_EQ(new_velocities[1], 0.0f);
 // }
 
-/**
- * @brief Test getting status velocities (using same fixture)
- */
 // TEST_F(TestLittlebotDriver, GetStatusVelocities)
 // {
 //   // The same firmware_comm_ instance is available here too
@@ -218,9 +185,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(firmware_comm_->getStatusVelocities());
 // }
 
-/**
- * @brief Test constructor and destructor
- */
 // TEST_F(TestLittlebotDriver, ConstructorDestructor)
 // {
 //   // Test that constructor creates object successfully
@@ -237,9 +201,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NE(comm3, nullptr);
 // }
 
-/**
- * @brief Test setCommandVelocities method
- */
 // TEST_F(TestLittlebotDriver, SetCommandVelocities)
 // {
 //   // Test setting valid velocities
@@ -259,9 +220,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(negative_velocities));
 // }
 
-/**
- * @brief Test setCommandVelocities with different vector sizes
- */
 // TEST_F(TestLittlebotDriver, SetCommandVelocitiesDifferentSizes)
 // {
 //   // Test with empty vector
@@ -277,9 +235,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(multi_velocities));
 // }
 
-/**
- * @brief Test getStatusVelocities method
- */
 // TEST_F(TestLittlebotDriver, GetStatusVelocities)
 // {
 //   // Get initial status velocities
@@ -292,9 +247,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(firmware_comm_->getStatusVelocities());
 // }
 
-/**
- * @brief Test getStatusPositionsStatus method
- */
 // TEST_F(TestLittlebotDriver, GetStatusPositions)
 // {
 //   // Get initial status positions
@@ -307,9 +259,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(firmware_comm_->getStatusPositionsStatus());
 // }
 
-/**
- * @brief Test data consistency between set and get operations
- */
 // TEST_F(TestLittlebotDriver, DataConsistency)
 // {
 //   // Set some test velocities
@@ -322,9 +271,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(firmware_comm_->getStatusPositionsStatus());
 // }
 
-/**
- * @brief Test extreme values for velocities
- */
 // TEST_F(TestLittlebotDriver, ExtremeValues)
 // {
 //   // Test with very large positive values
@@ -340,9 +286,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(small_velocities));
 // }
 
-/**
- * @brief Test interface compliance
- */
 // TEST_F(TestLittlebotDriver, InterfaceCompliance)
 // {
 //   // Test that LittlebotDriver can be used through its interface
@@ -358,12 +301,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(interface_ptr->getStatusPositionsStatus());
 // }
 
-/**
- * @brief Test thread safety preparation
- *
- * This test verifies that the object can handle rapid successive calls,
- * which is important for thread safety.
- */
 // TEST_F(TestLittlebotDriver, RapidCalls)
 // {
 //   const int num_iterations = 100;
@@ -380,9 +317,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   }
 // }
 
-/**
- * @brief Test memory management
- */
 // TEST_F(TestLittlebotDriver, MemoryManagement)
 // {
 //   // Test creating and destroying multiple instances
@@ -405,9 +339,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   // Instances will be automatically destroyed when vector goes out of scope
 // }
 
-/**
- * @brief Performance test for basic operations
- */
 // TEST_F(TestLittlebotDriver, BasicPerformance)
 // {
 //   const int num_operations = 1000;
