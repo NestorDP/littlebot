@@ -67,18 +67,6 @@ std::map<std::string, float> LittlebotDriver::getStatusPositions() const
   return {{"left_wheel", 5.6}, {"right_wheel", 7.8}};
 }
 
-bool LittlebotDriver::start()
-{
-  std::cout << "LittlebotDriver start" << std::endl;
-  return true;
-}
-
-bool LittlebotDriver::stop()
-{
-  std::cout << "LittlebotDriver stop" << std::endl;
-  return true;
-}
-
 bool LittlebotDriver::receiveData()
 {
   int bytes_read = serial_port_->readPacket(input_buffer_);
