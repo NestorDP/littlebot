@@ -26,6 +26,7 @@
 #include <memory>
 #include <queue>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "littlebot_base/i_serial_port.hpp"
@@ -56,18 +57,11 @@ public:
   int readPacket(std::shared_ptr<std::string> buffer) override
   {
     // ASCII values for the message characters
-    buffer = std::make_shared<std::string>(std::initializer_list<char>{
-      '[', 'S', '0', 'a', '0', 'f', '0', 'd',
-      '0', '0', '0', '0', '0', '0', '0', '0',
-      '1', '5', 'a', 'b', 'f', '4', 'b', '4',
-      '4', '0', '1', 'd', '7', '3', '1', 'd',
-      '5', '3', '4', '0', '0', 'a', '0', 'f',
-      '0', 'd', '0', '0', '0', '0', '0', '0',
-      '0', '0', '1', '5', '0', '0', '0', '0',
-      '0', '0', '0', '0', '1', 'd', '0', '0',
-      '0', '0', '0', '0', '0', '0', ']'
-    });
+    std::string message{
+      "S0a0f0d0000000015abf4b4401d731d53400a0f0d0000000015000000001d00000000]"
+    };
 
+    *buffer = std::move(message);
     return static_cast<int>(buffer->size());
   }
 

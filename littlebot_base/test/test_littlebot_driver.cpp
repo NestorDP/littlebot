@@ -56,18 +56,18 @@ protected:
 
 TEST(LittlebotDriverConstructorTest, ConstructorWithValidSerialPort)
 {
-  std::shared_ptr<MockSerialPort> mock_serial_port_;
-  std::unique_ptr<littlebot_base::LittlebotDriver> littlebot_driver_;
+  std::shared_ptr<MockSerialPort> serial_port;
+  std::unique_ptr<littlebot_base::LittlebotDriver> driver;
 
-  mock_serial_port_ = std::make_shared<MockSerialPort>();
-  littlebot_driver_ = std::make_unique<littlebot_base::LittlebotDriver>(mock_serial_port_);
+  serial_port = std::make_shared<MockSerialPort>();
+  driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
 
   // Test that constructor successfully creates object with valid serial port
-  ASSERT_NE(mock_serial_port_, nullptr);
-  ASSERT_NE(littlebot_driver_, nullptr);
+  ASSERT_NE(serial_port, nullptr);
+  ASSERT_NE(driver, nullptr);
 
-  littlebot_driver_.reset();
-   mock_serial_port_.reset();
+  driver.reset();
+   serial_port.reset();
 }
 
 TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
@@ -75,64 +75,64 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
 
   EXPECT_THROW({
-    auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
+    auto driver = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
   }, std::invalid_argument);
 }
 
 TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 {
-  auto mock1 = std::make_shared<MockSerialPort>();
-  auto mock2 = std::make_shared<MockSerialPort>();
-  auto mock3 = std::make_shared<MockSerialPort>();
+  auto serial_port_1 = std::make_shared<MockSerialPort>();
+  auto serial_port_2 = std::make_shared<MockSerialPort>();
+  auto serial_port_3 = std::make_shared<MockSerialPort>();
 
   EXPECT_NO_THROW({
-    auto firmware1 = std::make_unique<littlebot_base::LittlebotDriver>(mock1);
-    auto firmware2 = std::make_unique<littlebot_base::LittlebotDriver>(mock2);
-    auto firmware3 = std::make_unique<littlebot_base::LittlebotDriver>(mock3);
+    auto driver_1 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_1);
+    auto driver_2 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_2);
+    auto driver_3 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_3);
   });
 }
 
-// TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
-// {
-//   // Input buffer should be empty initially
-//   auto input_buffer = littlebot_driver_->getInputBuffer();
-//   EXPECT_TRUE(input_buffer.empty());
+TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
+{
+  // Test that constructor properly manages shared_ptr reference counting
+  {
+    auto serial_port = std::make_shared<MockSerialPort>();
+    auto initial_ref_count = serial_port.use_count();  // Should be 1
 
-//   // Status velocities should return initial values (implementation dependent)
-//   EXPECT_NO_THROW(littlebot_driver_->getStatusVelocities());
-//   EXPECT_NO_THROW(littlebot_driver_->getStatusPositions());
-// }
+    {
+      auto driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
+      auto ref_count_after_construction = serial_port.use_count();  // Should be 2
+      EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
+    }
+    // After driver goes out of scope, ref count should decrease
+    auto final_ref_count = serial_port.use_count();  // Should be 1 again
+    EXPECT_EQ(final_ref_count, initial_ref_count);
+  }
+}
 
-// TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
-// {
-//   // Test that constructor properly manages shared_ptr reference counting
-//   {
-//     auto mock_port = std::make_shared<MockSerialPort>();
-//     auto initial_ref_count = mock_port.use_count();  // Should be 1
+TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
+{
+  auto input_buffer = littlebot_driver_->getInputBuffer();
+  EXPECT_TRUE(input_buffer->empty());
 
-//     {
-//       auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(mock_port);
-//       auto ref_count_after_construction = mock_port.use_count();  // Should be 2
-//       EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
-//     }
-//     // After firmware goes out of scope, ref count should decrease
-//     auto final_ref_count = mock_port.use_count();  // Should be 1 again
-//     EXPECT_EQ(final_ref_count, initial_ref_count);
-//   }
-// }
+  // Status velocities should return initial values (implementation dependent)
+  EXPECT_NO_THROW(littlebot_driver_->getStatusVelocities());
+  EXPECT_NO_THROW(littlebot_driver_->getStatusPositions());
+}
 
-// TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
-// {
-//   // Create new LittlebotDriver with mock (mock has hardcoded response)
-//   auto new_mock = std::make_shared<MockSerialPort>();
-//   auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(new_mock);
+TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
+{
+  // Create new LittlebotDriver with mock (mock has hardcoded response)
+  auto serial_port = std::make_shared<MockSerialPort>();
+  auto driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
 
-//   ASSERT_NE(firmware, nullptr);
+  ASSERT_NE(driver, nullptr);
 
-//   // Test that it can receive data from the mock (hardcoded '[S.....]')
-//   uint8_t controller = firmware->receiveData();
-//   EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
-// }
+  // Test that it can receive data from the mock (hardcoded '[S.....]')
+  uint8_t controller = driver->receiveData();
+  std::cout << driver->getInputBuffer();  // For coverage
+  EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
+}
 
 // TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
 // {

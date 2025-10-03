@@ -63,7 +63,7 @@ public:
    *
    * @return The controller character indicating the type of data received.
    */
-  bool receiveData();
+  char receiveData();
 
   /**
    * @brief Send data to the hardware

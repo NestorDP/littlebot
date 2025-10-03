@@ -55,19 +55,19 @@ std::map<std::string, float> LittlebotDriver::getStatusPositions() const
   return status_positions_;
 }
 
-bool LittlebotDriver::receiveData()
+char LittlebotDriver::receiveData()
 {
   int bytes_read = serial_port_->readPacket(input_buffer_);
   if (bytes_read < 0) {
-    std::cerr << "Failed to read data from serial port" << std::endl;
-    return 0;
+    throw std::invalid_argument("Zero bytes read from serial port");
   }
 
   // Extract controller character (first byte after start frame)
+  char controller_char{input_buffer_->front()};
   input_buffer_->erase(0, 1);
   this->decode();
 
-  return true;
+  return controller_char;
 }
 
 bool LittlebotDriver::sendData(char type)
