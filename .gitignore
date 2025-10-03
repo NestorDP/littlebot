@@ -42,3 +42,12 @@
 
 .vscode/
 *__pycache__/
+
+# Coverage files
+*.gcno
+*.gcda
+*.info
+coverage/
+*.coverage
+coverage.xml
+coverage_filtered.info
