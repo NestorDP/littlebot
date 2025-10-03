@@ -33,13 +33,12 @@ LittlebotDriver::LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> se
   // Initialize buffers
   input_buffer_ = std::make_shared<std::string>();
   output_buffer_ = std::make_shared<std::string>();
-
-  std::cout << "LittlebotDriver initialized with provided serial port" << std::endl;
 }
 
 LittlebotDriver::~LittlebotDriver()
 {
-  std::cout << "LittlebotDriver deconstructor" << std::endl;
+  serial_port_->close();
+  serial_port_.reset();
 }
 
 void LittlebotDriver::setCommandVelocities(std::map<std::string, float> velocities)

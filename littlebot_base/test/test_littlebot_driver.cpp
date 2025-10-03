@@ -78,7 +78,7 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
   auto mock1 = std::make_shared<MockSerialPort>();
   auto mock2 = std::make_shared<MockSerialPort>();
   auto mock3 = std::make_shared<MockSerialPort>();
-  
+
   EXPECT_NO_THROW({
     auto firmware1 = std::make_unique<littlebot_base::LittlebotDriver>(mock1);
     auto firmware2 = std::make_unique<littlebot_base::LittlebotDriver>(mock2);
