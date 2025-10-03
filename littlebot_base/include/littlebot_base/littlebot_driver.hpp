@@ -125,14 +125,16 @@ private:
    *
    * This map stores the status positions received from the hardware.
    */
-  std::map<std::string, float> status_positions_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+  std::map<std::string, float> status_positions_{
+    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Status velocities from the hardware.
    *
    * This map stores the status velocities received from the hardware.
    */
-  std::map<std::string, float> status_velocities_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+  std::map<std::string, float> status_velocities_{
+    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Smart pointer to serial_port object

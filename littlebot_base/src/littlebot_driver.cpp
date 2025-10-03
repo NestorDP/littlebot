@@ -44,27 +44,17 @@ LittlebotDriver::~LittlebotDriver()
 
 void LittlebotDriver::setCommandVelocities(std::map<std::string, float> velocities)
 {
-  std::cout << "LittlebotDriver setCommandVelocities" << std::endl;
-
-  // Store the velocities in the member variable
   command_velocities_ = velocities;
-
-  // for (const auto & vel : velocities) {
-  //   std::cout << vel << " ";
-  // }
-  // std::cout << std::endl;
 }
 
 std::map<std::string, float> LittlebotDriver::getStatusVelocities() const
 {
-  std::cout << "LittlebotDriver getStatusVelocities" << std::endl;
-  return {{"left_wheel", 1.2}, {"right_wheel", 3.4}};
+  return status_velocities_;
 }
 
 std::map<std::string, float> LittlebotDriver::getStatusPositions() const
 {
-  std::cout << "LittlebotDriver getStatusPositions" << std::endl;
-  return {{"left_wheel", 5.6}, {"right_wheel", 7.8}};
+  return status_positions_;
 }
 
 bool LittlebotDriver::receiveData()
