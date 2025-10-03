@@ -60,6 +60,13 @@ public:
   virtual int writePacket(std::shared_ptr<std::string> buffer) = 0;
 
   /**
+   * @brief Get data from the recived packet
+   *
+   * @param buffer Shared pointer to string buffer to store received data
+   */
+  virtual int getDataFromPacket(std::shared_ptr<std::string> buffer) = 0;
+
+  /**
    * @brief Prevent copy and assignment
    */
   ISerialPort(const ISerialPort &) = delete;
@@ -70,13 +77,6 @@ protected:
    * @brief Constructor for the ISerialPort class
    */
   ISerialPort() = default;
-
-  /**
-   * @brief Get data from the recived packet
-   *
-   * @param buffer Shared pointer to string buffer to store received data
-   */
-  virtual int getPacketData(std::shared_ptr<std::string> buffer) = 0;
 
   /**
    * @brief Serial object from libserial

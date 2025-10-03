@@ -49,7 +49,7 @@ int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
   }
 
   serial_.read(buffer, num_characters);
-  int result = this->getPacketData(buffer);
+  int result = this->getDataFromPacket(buffer);
   if (result < 0) {
     return -1;
   }
@@ -66,7 +66,7 @@ int SerialPort::writePacket(std::shared_ptr<std::string> buffer)
   return buffer->size();
 }
 
-int SerialPort::getPacketData(std::shared_ptr<std::string> buffer)
+int SerialPort::getDataFromPacket(std::shared_ptr<std::string> buffer)
 {
   if (buffer->front() == kStartByte) {
     buffer->erase(0, 1);
