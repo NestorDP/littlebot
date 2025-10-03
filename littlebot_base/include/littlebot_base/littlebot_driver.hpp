@@ -59,20 +59,6 @@ public:
   std::map<std::string, float> getStatusPositions() const;
 
   /**
-   * @brief Start threads
-   *
-   * This function starts the threads that read and write data to the hardware.
-   */
-  bool start();
-
-  /**
-   * @brief Stop thread that read data from serial port
-   *
-   * This function stops the threads that read and write data to the hardware.
-   */
-  bool stop();
-
-  /**
    * @brief Receive data from the hardware
    *
    * @return The controller character indicating the type of data received.
@@ -89,6 +75,14 @@ public:
   bool sendData(char type);
 
   /**
+   * @brief Get the current input buffer contents (for testing)
+   *
+   * @return Copy of the input buffer
+   */
+  std::shared_ptr<std::string> getInputBuffer() const;
+
+private:
+  /**
    * @brief Encode data to be sent to the hardware
    *
    * This function encodes the command velocities into the protobuf
@@ -104,19 +98,6 @@ public:
    */
   bool decode();
 
-  /**
-   * @brief Get the current input buffer contents (for testing)
-   *
-   * @return Copy of the input buffer
-   */
-  std::shared_ptr<std::string> getInputBuffer() const;
-
-  /**
-   * @brief Clear the input buffer (for testing)
-   */
-  void clearInputBuffer();
-
-private:
   /**
    * @brief Data structure for wheels
    *
