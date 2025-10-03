@@ -98,13 +98,13 @@ bool LittlebotDriver::sendData(char type)
 bool LittlebotDriver::encode()
 {
   std::cout << "LittlebotDriver encode" << std::endl;
-  
+
   try {
     wheels_data_.Clear();
 
-    for (const auto& wheel_name : wheel_names_) {
-      littlebot::WheelData* wheel_data = wheels_data_.add_side();
-      
+    for (const auto & wheel_name : wheel_names_) {
+      littlebot::WheelData * wheel_data = wheels_data_.add_side();
+
       // Set command velocity (from command_velocities_ map)
       auto cmd_vel_it = command_velocities_.find(wheel_name);
       if (cmd_vel_it != command_velocities_.end()) {
@@ -112,7 +112,7 @@ bool LittlebotDriver::encode()
       } else {
         wheel_data->set_command_velocity(0.0f);  // Default value
       }
-      
+
       // Set status velocity (from status_velocities_ map)
       auto status_vel_it = status_velocities_.find(wheel_name);
       if (status_vel_it != status_velocities_.end()) {
@@ -120,7 +120,7 @@ bool LittlebotDriver::encode()
       } else {
         wheel_data->set_status_velocity(0.0f);  // Default value
       }
-      
+
       // Set status position (from status_positions_ map)
       auto status_pos_it = status_positions_.find(wheel_name);
       if (status_pos_it != status_positions_.end()) {
@@ -129,15 +129,14 @@ bool LittlebotDriver::encode()
         wheel_data->set_status_position(0.0f);  // Default value
       }
     }
-    
+
     if (!wheels_data_.SerializeToString(output_buffer_.get())) {
       std::cerr << "Error: Failed to serialize protobuf message" << std::endl;
       return false;
     }
-    
+
     return true;
-    
-  } catch (const std::exception& e) {
+  } catch (const std::exception & e) {
     std::cerr << "Error during encoding: " << e.what() << std::endl;
     return false;
   }
@@ -146,46 +145,45 @@ bool LittlebotDriver::encode()
 bool LittlebotDriver::decode()
 {
   std::cout << "LittlebotDriver decode" << std::endl;
-  
+
   try {
     // Check if input buffer has data
     if (!input_buffer_ || input_buffer_->empty()) {
       std::cerr << "Error: Input buffer is empty or null" << std::endl;
       return false;
     }
-    
+
     // Parse the protobuf message from the input buffer
     littlebot::Wheels received_wheels_data;
     if (!received_wheels_data.ParseFromString(*input_buffer_)) {
       std::cerr << "Error: Failed to parse protobuf message from input buffer" << std::endl;
       return false;
     }
-    
+
     // Extract data from protobuf message
     int wheel_count = received_wheels_data.side_size();
     std::cout << "Received data for " << wheel_count << " wheels" << std::endl;
-    
+
     for (int i = 0; i < wheel_count && i < static_cast<int>(wheel_names_.size()); ++i) {
-      const littlebot::WheelData& wheel_data = received_wheels_data.side(i);
-      const std::string& wheel_name = wheel_names_[i];
-      
+      const littlebot::WheelData & wheel_data = received_wheels_data.side(i);
+      const std::string & wheel_name = wheel_names_[i];
+
       // Extract and store the values from protobuf to maps
       if (wheel_data.has_command_velocity()) {
         command_velocities_[wheel_name] = wheel_data.command_velocity();
       }
-      
+
       if (wheel_data.has_status_velocity()) {
         status_velocities_[wheel_name] = wheel_data.status_velocity();
       }
-      
+
       if (wheel_data.has_status_position()) {
         status_positions_[wheel_name] = wheel_data.status_position();
       }
     }
-    
+
     return true;
-    
-  } catch (const std::exception& e) {
+  } catch (const std::exception & e) {
     std::cerr << "Error during decoding: " << e.what() << std::endl;
     return false;
   }
@@ -195,10 +193,4 @@ std::shared_ptr<std::string> LittlebotDriver::getInputBuffer() const
 {
   return input_buffer_;
 }
-
-void LittlebotDriver::clearInputBuffer()
-{
-  input_buffer_->clear();
-}
-
 }  // namespace littlebot_base

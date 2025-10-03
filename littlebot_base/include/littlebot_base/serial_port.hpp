@@ -16,6 +16,7 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -48,7 +49,6 @@ public:
   int writePacket(std::shared_ptr<std::string> buffer) override;
 
 private:
-
   /**
    * @brief Get data from the received packet
    *

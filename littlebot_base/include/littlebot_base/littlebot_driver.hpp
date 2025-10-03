@@ -117,7 +117,8 @@ private:
    *
    * This map stores the command velocities that are sent to the hardware.
    */
-  std::map<std::string, float> command_velocities_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+  std::map<std::string, float> command_velocities_{
+    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Status positions from the hardware.

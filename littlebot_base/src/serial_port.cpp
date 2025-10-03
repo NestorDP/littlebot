@@ -20,13 +20,10 @@ namespace littlebot_base
 
 bool SerialPort::open(std::string port, int baudrate)
 {
-  try
-  {
+  try {
     serial_.open(port);
     serial_.setBaudRate(baudrate);
-  }
-  catch(const std::exception& e)
-  {
+  } catch(const std::exception & e) {
     std::cerr << e.what() << '\n';
   }
 
