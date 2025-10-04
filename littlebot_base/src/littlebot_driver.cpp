@@ -132,8 +132,6 @@ bool LittlebotDriver::encode()
 
 bool LittlebotDriver::decode()
 {
-  std::cout << "LittlebotDriver decode" << std::endl;
-
   try {
     // Check if input buffer has data
     if (!input_buffer_ || input_buffer_->empty()) {
@@ -148,9 +146,7 @@ bool LittlebotDriver::decode()
       return false;
     }
 
-    // Extract data from protobuf message
     int wheel_count = received_wheels_data.side_size();
-    std::cout << "Received data for " << wheel_count << " wheels" << std::endl;
 
     for (int i = 0; i < wheel_count && i < static_cast<int>(wheel_names_.size()); ++i) {
       const littlebot::WheelData & wheel_data = received_wheels_data.side(i);
@@ -181,4 +177,10 @@ std::shared_ptr<std::string> LittlebotDriver::getInputBuffer() const
 {
   return input_buffer_;
 }
+
+std::vector<std::string> LittlebotDriver::getWheelNames() const
+{
+  return wheel_names_;
+}
+
 }  // namespace littlebot_base

@@ -81,6 +81,13 @@ public:
    */
   std::shared_ptr<std::string> getInputBuffer() const;
 
+  /**
+   * @brief Get the known wheel names
+   *
+   * @return Vector of known wheel names
+   */
+  std::vector<std::string> getWheelNames() const;
+
 private:
   /**
    * @brief Encode data to be sent to the hardware
