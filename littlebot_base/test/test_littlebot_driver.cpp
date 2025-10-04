@@ -120,19 +120,6 @@ TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
   EXPECT_NO_THROW(littlebot_driver_->getStatusPositions());
 }
 
-TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
-{
-  // Create new LittlebotDriver with mock (mock has hardcoded response)
-  auto serial_port = std::make_shared<MockSerialPort>();
-  auto driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
-
-  ASSERT_NE(driver, nullptr);
-
-  // Test that it can receive data from the mock (hardcoded '[S.....]')
-  uint8_t controller = driver->receiveData();
-  EXPECT_EQ(controller, 'S');
-}
-
 // TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
 // {
 //   // Test that constructor properly throws and doesn't leak memory
@@ -168,19 +155,53 @@ TEST_F(TestLittlebotDriver, SetCommandVelocities)
   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
 }
 
-// TEST_F(TestLittlebotDriver, GetStatusVelocities)
-// {
-//   // Get initial status velocities
-//   std::vector<float> status_velocities = littlebot_driver_->getStatusVelocities();
+TEST_F(TestLittlebotDriver, GetStatusVelocities)
+{
+  // Get initial status velocities
+  std::map<std::string, float> status_velocities;
+  ASSERT_NO_THROW(status_velocities = littlebot_driver_->getStatusVelocities());
 
-//   // Should return a vector (might be empty initially)
-//   ASSERT_GE(status_velocities.size(), 0u);
+  ASSERT_GE(status_velocities["left"], 0.0f);
+  ASSERT_GE(status_velocities["right"], 0.0f);
+}
 
-//   // Test that method doesn't throw
-//   ASSERT_NO_THROW(littlebot_driver_->getStatusVelocities());
-// }
+TEST_F(TestLittlebotDriver, GetStatusPositions)
+{
+  // Get initial status positions
+  std::map<std::string, float> status_positions;
+  ASSERT_NO_THROW(status_positions = littlebot_driver_->getStatusPositions());
 
-// TEST_F(TestLittlebotDriver, GetStatusVelocities)
+  // Should return a vector (might be empty initially)
+  ASSERT_GE(status_positions["left"], 0.0f);
+  ASSERT_GE(status_positions["right"], 0.0f);
+}
+
+TEST_F(TestLittlebotDriver, ReceiveDataFromSerialPort)
+{
+  char controller_char;
+  ASSERT_NO_THROW(controller_char = littlebot_driver_->receiveData());
+
+  // Check that controller character is as expected
+  ASSERT_EQ(controller_char, 'S');
+
+  // Check that input buffer is not empty after receiving data
+  auto input_buffer = littlebot_driver_->getInputBuffer();
+  ASSERT_FALSE(input_buffer->empty());
+}
+
+TEST_F(TestLittlebotDriver, SendDataToSerialPort)
+{
+  // The same littlebot_driver_ instance is available here too
+  ASSERT_NE(littlebot_driver_, nullptr);
+
+  // Test that method doesn't throw
+  ASSERT_NO_THROW(littlebot_driver_->sendData('C'));
+  ASSERT_NO_THROW(littlebot_driver_->sendData('S'));
+  auto output_buffer = littlebot_driver_->getOutputBuffer();
+  ASSERT_FALSE(output_buffer->empty());
+}
+
+// TEST_F(TestLittlebotDriver, SendDataToSerialPort)
 // {
 //   // The same littlebot_driver_ instance is available here too
 //   ASSERT_NE(littlebot_driver_, nullptr);
@@ -226,17 +247,6 @@ TEST_F(TestLittlebotDriver, SetCommandVelocities)
 //   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(multi_velocities));
 // }
 
-// TEST_F(TestLittlebotDriver, GetStatusPositions)
-// {
-//   // Get initial status positions
-//   std::vector<float> status_positions = littlebot_driver_->getStatusPositionsStatus();
-
-//   // Should return a vector (might be empty initially)
-//   ASSERT_GE(status_positions.size(), 0u);
-
-//   // Test that method doesn't throw
-//   ASSERT_NO_THROW(littlebot_driver_->getStatusPositionsStatus());
-// }
 
 // TEST_F(TestLittlebotDriver, DataConsistency)
 // {

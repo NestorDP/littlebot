@@ -82,6 +82,13 @@ public:
   std::shared_ptr<std::string> getInputBuffer() const;
 
   /**
+   * @brief Get the current output buffer contents (for testing)
+   *
+   * @return Copy of the output buffer
+   */
+  std::shared_ptr<std::string> getOutputBuffer() const;
+
+  /**
    * @brief Get the known wheel names
    *
    * @return Vector of known wheel names

@@ -85,8 +85,6 @@ bool LittlebotDriver::sendData(char type)
 
 bool LittlebotDriver::encode()
 {
-  std::cout << "LittlebotDriver encode" << std::endl;
-
   try {
     wheels_data_.Clear();
 
@@ -176,6 +174,11 @@ bool LittlebotDriver::decode()
 std::shared_ptr<std::string> LittlebotDriver::getInputBuffer() const
 {
   return input_buffer_;
+}
+
+std::shared_ptr<std::string> LittlebotDriver::getOutputBuffer() const
+{
+  return output_buffer_;
 }
 
 std::vector<std::string> LittlebotDriver::getWheelNames() const
