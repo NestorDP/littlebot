@@ -201,20 +201,49 @@ TEST_F(TestLittlebotDriver, SendDataToSerialPort)
   ASSERT_FALSE(output_buffer->empty());
 }
 
-// TEST_F(TestLittlebotDriver, SendDataToSerialPort)
-// {
-//   // The same littlebot_driver_ instance is available here too
-//   ASSERT_NE(littlebot_driver_, nullptr);
+TEST_F(TestLittlebotDriver, SendCommandData)
+{
+  std::map<std::string, float> test_velocities;
+  auto wheel_names = littlebot_driver_->getWheelNames();
+  ASSERT_EQ(wheel_names.size(), 2u);
 
-//   // Get initial status velocities
-//   std::vector<float> status_velocities = littlebot_driver_->getStatusVelocities();
+  test_velocities[wheel_names[0]] = 1.5f;
+  test_velocities[wheel_names[1]] = -2.3f;
+  littlebot_driver_->setCommandVelocities(test_velocities);
 
-//   // Should return a vector (might be empty initially)
-//   ASSERT_GE(status_velocities.size(), 0u);
+  // Send command data
+  ASSERT_NO_THROW(littlebot_driver_->sendData('C'));
 
-//   // Test that method doesn't throw
-//   ASSERT_NO_THROW(littlebot_driver_->getStatusVelocities());
-// }
+  // Check that output buffer contains the correct command data
+  auto output_buffer = littlebot_driver_->getOutputBuffer();
+  ASSERT_FALSE(output_buffer->empty());
+}
+
+TEST_F(TestLittlebotDriver, ReceiveStatusData)
+{
+  // Receive status data
+  char controller_char;
+  ASSERT_NO_THROW(controller_char = littlebot_driver_->receiveData());
+  ASSERT_EQ(controller_char, 'S');
+
+  // Check that status velocities and positions are updated
+  std::map<std::string, float> status_velocities;
+  std::map<std::string, float> status_positions;
+
+  ASSERT_NO_THROW(status_velocities = littlebot_driver_->getStatusVelocities());
+  ASSERT_NO_THROW(status_positions = littlebot_driver_->getStatusPositions());
+
+  std::cout << "Status Velocities: left=" << status_velocities["left_wheel"]
+            << ", right=" << status_velocities["right_wheel"] << std::endl;
+  std::cout << "Status Positions: left=" << status_positions["left_wheel"]
+            << ", right=" << status_positions["right_wheel"] << std::endl;
+
+  EXPECT_EQ(status_velocities["left_wheel"], 4.56f);
+  EXPECT_EQ(status_velocities["right_wheel"], 5.67f);
+  EXPECT_EQ(status_positions["left_wheel"], 7.89f);
+  EXPECT_EQ(status_positions["right_wheel"], 8.90f);
+}
+
 
 // TEST_F(TestLittlebotDriver, ConstructorDestructor)
 // {
@@ -232,22 +261,6 @@ TEST_F(TestLittlebotDriver, SendDataToSerialPort)
 //   ASSERT_NE(comm3, nullptr);
 // }
 
-// TEST_F(TestLittlebotDriver, SetCommandVelocitiesDifferentSizes)
-// {
-//   // Test with empty vector
-//   std::vector<float> empty_velocities = {};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(empty_velocities));
-
-//   // Test with single element
-//   std::vector<float> single_velocity = {1.0f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(single_velocity));
-
-//   // Test with more than 2 elements
-//   std::vector<float> multi_velocities = {1.0f, 2.0f, 3.0f, 4.0f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(multi_velocities));
-// }
-
-
 // TEST_F(TestLittlebotDriver, DataConsistency)
 // {
 //   // Set some test velocities
@@ -258,21 +271,6 @@ TEST_F(TestLittlebotDriver, SendDataToSerialPort)
 //   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
 //   ASSERT_NO_THROW(littlebot_driver_->getStatusVelocities());
 //   ASSERT_NO_THROW(littlebot_driver_->getStatusPositionsStatus());
-// }
-
-// TEST_F(TestLittlebotDriver, ExtremeValues)
-// {
-//   // Test with very large positive values
-//   std::vector<float> large_velocities = {1000.0f, 999.9f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(large_velocities));
-
-//   // Test with very large negative values
-//   std::vector<float> large_negative_velocities = {-1000.0f, -999.9f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(large_negative_velocities));
-
-//   // Test with very small values
-//   std::vector<float> small_velocities = {0.001f, -0.001f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(small_velocities));
 // }
 
 // TEST_F(TestLittlebotDriver, InterfaceCompliance)
