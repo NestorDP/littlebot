@@ -130,8 +130,7 @@ TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
 
   // Test that it can receive data from the mock (hardcoded '[S.....]')
   uint8_t controller = driver->receiveData();
-  std::cout << driver->getInputBuffer();  // For coverage
-  EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
+  EXPECT_EQ(controller, 'S');
 }
 
 // TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
@@ -150,30 +149,35 @@ TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
 //   }
 // }
 
-// TEST_F(TestLittlebotDriver, SetCommandVelocities)
+TEST_F(TestLittlebotDriver, SetCommandVelocities)
+{
+  std::map<std::string, float> test_velocities;
+  auto wheel_names = littlebot_driver_->getWheelNames();
+  ASSERT_EQ(wheel_names.size(), 2u);
+
+  test_velocities[wheel_names[0]] = 0.0f;
+  test_velocities[wheel_names[1]] = 0.0f;
+  ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
+
+  test_velocities[wheel_names[0]] = 1.5f;
+  test_velocities[wheel_names[1]] = 2.3f;
+  ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
+
+  test_velocities[wheel_names[0]] = -1.5f;
+  test_velocities[wheel_names[1]] = -2.3f;
+  ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
+}
+
+// TEST_F(TestLittlebotDriver, GetStatusVelocities)
 // {
-//   // The littlebot_driver_ is automatically available and initialized
-//   ASSERT_NE(littlebot_driver_, nullptr);
+//   // Get initial status velocities
+//   std::vector<float> status_velocities = littlebot_driver_->getStatusVelocities();
 
-//   // Test setting valid velocities
-//   std::vector<float> test_velocities = {1.5f, -2.3f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
+//   // Should return a vector (might be empty initially)
+//   ASSERT_GE(status_velocities.size(), 0u);
 
-//   // Verify the values were stored correctly
-//   auto retrieved_velocities = littlebot_driver_->getCommandVelocities();
-//   EXPECT_EQ(retrieved_velocities.size(), 2u);
-//   EXPECT_FLOAT_EQ(retrieved_velocities[0], 1.5f);
-//   EXPECT_FLOAT_EQ(retrieved_velocities[1], -2.3f);
-
-//   // Test with different velocity values
-//   std::vector<float> zero_velocities = {0.0f, 0.0f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(zero_velocities));
-
-//   // Verify the new values were stored
-//   auto new_velocities = littlebot_driver_->getCommandVelocities();
-//   EXPECT_EQ(new_velocities.size(), 2u);
-//   EXPECT_FLOAT_EQ(new_velocities[0], 0.0f);
-//   EXPECT_FLOAT_EQ(new_velocities[1], 0.0f);
+//   // Test that method doesn't throw
+//   ASSERT_NO_THROW(littlebot_driver_->getStatusVelocities());
 // }
 
 // TEST_F(TestLittlebotDriver, GetStatusVelocities)
@@ -207,25 +211,6 @@ TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
 //   ASSERT_NE(comm3, nullptr);
 // }
 
-// TEST_F(TestLittlebotDriver, SetCommandVelocities)
-// {
-//   // Test setting valid velocities
-//   std::vector<float> test_velocities = {1.5f, -2.3f};
-
-//   // This should not throw any exceptions
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
-
-//   // Test with different velocity values
-//   std::vector<float> zero_velocities = {0.0f, 0.0f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(zero_velocities));
-
-//   std::vector<float> positive_velocities = {5.0f, 3.2f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(positive_velocities));
-
-//   std::vector<float> negative_velocities = {-1.8f, -4.1f};
-//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(negative_velocities));
-// }
-
 // TEST_F(TestLittlebotDriver, SetCommandVelocitiesDifferentSizes)
 // {
 //   // Test with empty vector
@@ -239,18 +224,6 @@ TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
 //   // Test with more than 2 elements
 //   std::vector<float> multi_velocities = {1.0f, 2.0f, 3.0f, 4.0f};
 //   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(multi_velocities));
-// }
-
-// TEST_F(TestLittlebotDriver, GetStatusVelocities)
-// {
-//   // Get initial status velocities
-//   std::vector<float> status_velocities = littlebot_driver_->getStatusVelocities();
-
-//   // Should return a vector (might be empty initially)
-//   ASSERT_GE(status_velocities.size(), 0u);
-
-//   // Test that method doesn't throw
-//   ASSERT_NO_THROW(littlebot_driver_->getStatusVelocities());
 // }
 
 // TEST_F(TestLittlebotDriver, GetStatusPositions)
