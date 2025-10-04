@@ -30,6 +30,8 @@
 #include <vector>
 
 #include "littlebot_base/i_serial_port.hpp"
+// Include generated protobuf messages for constructing test payloads
+#include "littlebot_msg.pb.h"  // NOLINT(build/include_subdir)
 
 /**
  * @brief Class for testing SerialPort without actual hardware
@@ -56,13 +58,30 @@ public:
 
   int readPacket(std::shared_ptr<std::string> buffer) override
   {
-    // ASCII values for the message characters
-    std::string message{
-      "S0a0f0d0000000015abf4b4401d731d53400a0f0d0000000015000000001d00000000]"
-    };
+    littlebot::Wheels wheels_msg;
 
-    *buffer = std::move(message);
-    return static_cast<int>(buffer->size());
+    littlebot::WheelData * wheel_left = wheels_msg.add_side();
+    wheel_left->set_command_velocity(1.23f);
+    wheel_left->set_status_velocity(4.56f);
+    wheel_left->set_status_position(7.89f);
+
+    littlebot::WheelData * wheel_right = wheels_msg.add_side();
+    wheel_right->set_command_velocity(2.34f);
+    wheel_right->set_status_velocity(5.67f);
+    wheel_right->set_status_position(8.90f);
+
+    std::string proto;
+    if (!wheels_msg.SerializeToString(&proto)) {
+      proto.clear();
+    }
+
+    std::string framed = std::string("S") + proto;
+
+    if (buffer) {
+      *buffer = framed;
+      return static_cast<int>(buffer->size());
+    }
+    return 0;
   }
 
   int writePacket(std::shared_ptr<std::string> buffer) override
