@@ -107,17 +107,14 @@ ament_export_dependencies(
   rclcpp
 )
 
-# Coverage options
 option(ENABLE_COVERAGE "Enable test coverage reporting" OFF)
 
 if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  # Add coverage flags
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -O0 -g")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage -O0 -g")
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
 
-  # Find coverage tools
   find_program(LCOV_PATH lcov)
   find_program(GENHTML_PATH genhtml)
   find_program(GCOVR_PATH gcovr)
@@ -140,7 +137,6 @@ if(BUILD_TESTING)
   # Lint tests
   ament_lint_auto_find_test_dependencies()
 
-  # Unit tests for FirmwareComm
   ament_add_gtest(${PROJECT_NAME}_unit_tests
     test/test_main.cpp
     test/test_littlebot_driver.cpp
@@ -172,14 +168,11 @@ if(BUILD_TESTING)
       rclcpp
     )
   endif()
-
-  # Coverage targets
+ 
   if(ENABLE_COVERAGE)
-    # Create coverage directory
     file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/coverage)
 
     if(LCOV_PATH AND GENHTML_PATH)
-      # LCOV coverage targets
       add_custom_target(coverage_clean
         COMMAND ${LCOV_PATH} --directory . --zerocounters
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -221,7 +214,6 @@ if(BUILD_TESTING)
     endif()
 
     if(GCOVR_PATH)
-      # GCOVR coverage targets
       add_custom_target(coverage_gcovr
         COMMAND ${CMAKE_CTEST_COMMAND} --verbose
         COMMAND ${GCOVR_PATH}
@@ -277,14 +269,6 @@ if(BUILD_TESTING)
         COMMENT "Generate coverage report (using gcovr)"
       )
     endif()
-
-    # Print coverage info
-    add_custom_target(coverage_info
-      COMMAND echo "Coverage report generated at:"
-      COMMAND echo "  HTML: ${CMAKE_BINARY_DIR}/coverage/index.html"
-      COMMAND echo "  XML:  ${CMAKE_BINARY_DIR}/coverage.xml (if gcovr used)"
-      COMMENT "Coverage report locations"
-    )
   endif()
 endif()
 
