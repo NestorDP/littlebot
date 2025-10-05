@@ -63,7 +63,7 @@ public:
    *
    * @return The controller character indicating the type of data received.
    */
-  bool receiveData();
+  char receiveData();
 
   /**
    * @brief Send data to the hardware
@@ -80,6 +80,20 @@ public:
    * @return Copy of the input buffer
    */
   std::shared_ptr<std::string> getInputBuffer() const;
+
+  /**
+   * @brief Get the current output buffer contents (for testing)
+   *
+   * @return Copy of the output buffer
+   */
+  std::shared_ptr<std::string> getOutputBuffer() const;
+
+  /**
+   * @brief Get the known wheel names
+   *
+   * @return Vector of known wheel names
+   */
+  std::vector<std::string> getWheelNames() const;
 
 private:
   /**
@@ -125,14 +139,16 @@ private:
    *
    * This map stores the status positions received from the hardware.
    */
-  std::map<std::string, float> status_positions_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+  std::map<std::string, float> status_positions_{
+    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Status velocities from the hardware.
    *
    * This map stores the status velocities received from the hardware.
    */
-  std::map<std::string, float> status_velocities_{{wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+  std::map<std::string, float> status_velocities_{
+    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
 
   /**
    * @brief Smart pointer to serial_port object

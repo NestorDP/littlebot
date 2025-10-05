@@ -26,60 +26,48 @@ LittlebotDriver::LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> se
 {
   // Validate that the serial port was provided
   if (!serial_port_) {
-    std::cerr << "Error: Null serial port provided to LittlebotDriver constructor" << std::endl;
     throw std::invalid_argument("Serial port cannot be null");
   }
 
   // Initialize buffers
   input_buffer_ = std::make_shared<std::string>();
   output_buffer_ = std::make_shared<std::string>();
-
-  std::cout << "LittlebotDriver initialized with provided serial port" << std::endl;
 }
 
 LittlebotDriver::~LittlebotDriver()
 {
-  std::cout << "LittlebotDriver deconstructor" << std::endl;
+  serial_port_->close();
+  serial_port_.reset();
 }
 
 void LittlebotDriver::setCommandVelocities(std::map<std::string, float> velocities)
 {
-  std::cout << "LittlebotDriver setCommandVelocities" << std::endl;
-
-  // Store the velocities in the member variable
   command_velocities_ = velocities;
-
-  // for (const auto & vel : velocities) {
-  //   std::cout << vel << " ";
-  // }
-  // std::cout << std::endl;
 }
 
 std::map<std::string, float> LittlebotDriver::getStatusVelocities() const
 {
-  std::cout << "LittlebotDriver getStatusVelocities" << std::endl;
-  return {{"left_wheel", 1.2}, {"right_wheel", 3.4}};
+  return status_velocities_;
 }
 
 std::map<std::string, float> LittlebotDriver::getStatusPositions() const
 {
-  std::cout << "LittlebotDriver getStatusPositions" << std::endl;
-  return {{"left_wheel", 5.6}, {"right_wheel", 7.8}};
+  return status_positions_;
 }
 
-bool LittlebotDriver::receiveData()
+char LittlebotDriver::receiveData()
 {
   int bytes_read = serial_port_->readPacket(input_buffer_);
   if (bytes_read < 0) {
-    std::cerr << "Failed to read data from serial port" << std::endl;
-    return 0;
+    throw std::invalid_argument("Zero bytes read from serial port");
   }
 
   // Extract controller character (first byte after start frame)
+  char controller_char{input_buffer_->front()};
   input_buffer_->erase(0, 1);
   this->decode();
 
-  return true;
+  return controller_char;
 }
 
 bool LittlebotDriver::sendData(char type)
@@ -97,8 +85,6 @@ bool LittlebotDriver::sendData(char type)
 
 bool LittlebotDriver::encode()
 {
-  std::cout << "LittlebotDriver encode" << std::endl;
-
   try {
     wheels_data_.Clear();
 
@@ -144,8 +130,6 @@ bool LittlebotDriver::encode()
 
 bool LittlebotDriver::decode()
 {
-  std::cout << "LittlebotDriver decode" << std::endl;
-
   try {
     // Check if input buffer has data
     if (!input_buffer_ || input_buffer_->empty()) {
@@ -160,9 +144,7 @@ bool LittlebotDriver::decode()
       return false;
     }
 
-    // Extract data from protobuf message
     int wheel_count = received_wheels_data.side_size();
-    std::cout << "Received data for " << wheel_count << " wheels" << std::endl;
 
     for (int i = 0; i < wheel_count && i < static_cast<int>(wheel_names_.size()); ++i) {
       const littlebot::WheelData & wheel_data = received_wheels_data.side(i);
@@ -193,4 +175,15 @@ std::shared_ptr<std::string> LittlebotDriver::getInputBuffer() const
 {
   return input_buffer_;
 }
+
+std::shared_ptr<std::string> LittlebotDriver::getOutputBuffer() const
+{
+  return output_buffer_;
+}
+
+std::vector<std::string> LittlebotDriver::getWheelNames() const
+{
+  return wheel_names_;
+}
+
 }  // namespace littlebot_base

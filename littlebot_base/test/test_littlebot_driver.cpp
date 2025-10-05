@@ -40,121 +40,86 @@ class TestLittlebotDriver : public ::testing::Test
 protected:
   void SetUp() override
   {
-    // Create a test instance with a mock serial port
     mock_serial_port_ = std::make_shared<MockSerialPort>();
-    firmware_comm_ = std::make_unique<littlebot_base::LittlebotDriver>(mock_serial_port_);
+    littlebot_driver_ = std::make_unique<littlebot_base::LittlebotDriver>(mock_serial_port_);
   }
 
   void TearDown() override
   {
-    // Clean up
-    firmware_comm_.reset();
+    littlebot_driver_.reset();
     mock_serial_port_.reset();
   }
 
-  // Test instances
   std::shared_ptr<MockSerialPort> mock_serial_port_;
-  std::unique_ptr<littlebot_base::LittlebotDriver> firmware_comm_;
+  std::unique_ptr<littlebot_base::LittlebotDriver> littlebot_driver_;
 };
 
-/**
- * @brief Test LittlebotDriver constructor with valid serial port
- */
-TEST_F(TestLittlebotDriver, ConstructorWithValidSerialPort)
+TEST(LittlebotDriverConstructorTest, ConstructorWithValidSerialPort)
 {
-  // Test that constructor successfully creates object with valid serial port
-  ASSERT_NE(firmware_comm_, nullptr);
-  ASSERT_NE(mock_serial_port_, nullptr);
+  std::shared_ptr<MockSerialPort> serial_port;
+  std::unique_ptr<littlebot_base::LittlebotDriver> driver;
 
-  // Test that the object is properly initialized
-  EXPECT_NO_THROW(firmware_comm_->getInputBuffer());
+  serial_port = std::make_shared<MockSerialPort>();
+  driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
+
+  // Test that constructor successfully creates object with valid serial port
+  ASSERT_NE(serial_port, nullptr);
+  ASSERT_NE(driver, nullptr);
+
+  driver.reset();
+   serial_port.reset();
 }
 
-/**
- * @brief Test LittlebotDriver constructor with null serial port
- */
 TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
 {
-  // Test that constructor throws exception with null serial port
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
 
   EXPECT_THROW({
-    auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
+    auto driver = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
   }, std::invalid_argument);
 }
 
-/**
- * @brief Test LittlebotDriver constructor with different serial port implementations
- */
 TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 {
-  // Test with multiple mock serial ports
-  auto mock1 = std::make_shared<MockSerialPort>();
-  auto mock2 = std::make_shared<MockSerialPort>();
-  auto mock3 = std::make_shared<MockSerialPort>();
+  auto serial_port_1 = std::make_shared<MockSerialPort>();
+  auto serial_port_2 = std::make_shared<MockSerialPort>();
+  auto serial_port_3 = std::make_shared<MockSerialPort>();
 
-  // All should construct successfully
   EXPECT_NO_THROW({
-    auto firmware1 = std::make_unique<littlebot_base::LittlebotDriver>(mock1);
-    auto firmware2 = std::make_unique<littlebot_base::LittlebotDriver>(mock2);
-    auto firmware3 = std::make_unique<littlebot_base::LittlebotDriver>(mock3);
+    auto driver_1 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_1);
+    auto driver_2 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_2);
+    auto driver_3 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_3);
   });
 }
 
-/**
- * @brief Test initial state after construction
- */
-// TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
-// {
-//   // Input buffer should be empty initially
-//   auto input_buffer = firmware_comm_->getInputBuffer();
-//   EXPECT_TRUE(input_buffer.empty());
+TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
+{
+  // Test that constructor properly manages shared_ptr reference counting
+  {
+    auto serial_port = std::make_shared<MockSerialPort>();
+    auto initial_ref_count = serial_port.use_count();  // Should be 1
 
-//   // Status velocities should return initial values (implementation dependent)
-//   EXPECT_NO_THROW(firmware_comm_->getStatusVelocities());
-//   EXPECT_NO_THROW(firmware_comm_->getStatusPositions());
-// }
+    {
+      auto driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
+      auto ref_count_after_construction = serial_port.use_count();  // Should be 2
+      EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
+    }
+    // After driver goes out of scope, ref count should decrease
+    auto final_ref_count = serial_port.use_count();  // Should be 1 again
+    EXPECT_EQ(final_ref_count, initial_ref_count);
+  }
+}
 
-/**
- * @brief Test constructor memory management
- */
-// TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
-// {
-//   // Test that constructor properly manages shared_ptr reference counting
-//   {
-//     auto mock_port = std::make_shared<MockSerialPort>();
-//     auto initial_ref_count = mock_port.use_count();  // Should be 1
+TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
+{
+  auto input_buffer = littlebot_driver_->getInputBuffer();
+  EXPECT_TRUE(input_buffer->empty());
 
-//     {
-//       auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(mock_port);
-//       auto ref_count_after_construction = mock_port.use_count();  // Should be 2
-//       EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
-//     }
-//     // After firmware goes out of scope, ref count should decrease
-//     auto final_ref_count = mock_port.use_count();  // Should be 1 again
-//     EXPECT_EQ(final_ref_count, initial_ref_count);
-//   }
-// }
+  // Status velocities should return initial values (implementation dependent)
+  EXPECT_NO_THROW(littlebot_driver_->getStatusVelocities());
+  EXPECT_NO_THROW(littlebot_driver_->getStatusPositions());
+}
 
-/**
- * @brief Test constructor with serial port that has pre-configured state
- */
-// TEST_F(TestLittlebotDriver, ConstructorWithPreConfiguredSerialPort)
-// {
-//   // Create new LittlebotDriver with mock (mock has hardcoded response)
-//   auto new_mock = std::make_shared<MockSerialPort>();
-//   auto firmware = std::make_unique<littlebot_base::LittlebotDriver>(new_mock);
-
-//   ASSERT_NE(firmware, nullptr);
-
-//   // Test that it can receive data from the mock (hardcoded '[S.....]')
-//   uint8_t controller = firmware->receiveData();
-//   EXPECT_EQ(controller, 'S');  // The hardcoded response starts with 'S'
-// }
-
-/**
- * @brief Test constructor exception safety
- */
 // TEST(LittlebotDriverConstructorTest, ConstructorExceptionSafety)
 // {
 //   // Test that constructor properly throws and doesn't leak memory
@@ -171,60 +136,119 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   }
 // }
 
-/**
- * @brief Test setting command velocities (using same fixture)
- */
-// TEST_F(TestLittlebotDriver, SetCommandVelocities)
-// {
-//   // The firmware_comm_ is automatically available and initialized
-//   ASSERT_NE(firmware_comm_, nullptr);
+TEST_F(TestLittlebotDriver, SetCommandVelocities)
+{
+  std::map<std::string, float> test_velocities;
+  auto wheel_names = littlebot_driver_->getWheelNames();
+  ASSERT_EQ(wheel_names.size(), 2u);
 
-//   // Test setting valid velocities
-//   std::vector<float> test_velocities = {1.5f, -2.3f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(test_velocities));
+  test_velocities[wheel_names[0]] = 0.0f;
+  test_velocities[wheel_names[1]] = 0.0f;
+  ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
 
-//   // Verify the values were stored correctly
-//   auto retrieved_velocities = firmware_comm_->getCommandVelocities();
-//   EXPECT_EQ(retrieved_velocities.size(), 2u);
-//   EXPECT_FLOAT_EQ(retrieved_velocities[0], 1.5f);
-//   EXPECT_FLOAT_EQ(retrieved_velocities[1], -2.3f);
+  test_velocities[wheel_names[0]] = 1.5f;
+  test_velocities[wheel_names[1]] = 2.3f;
+  ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
 
-//   // Test with different velocity values
-//   std::vector<float> zero_velocities = {0.0f, 0.0f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(zero_velocities));
+  test_velocities[wheel_names[0]] = -1.5f;
+  test_velocities[wheel_names[1]] = -2.3f;
+  ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
+}
 
-//   // Verify the new values were stored
-//   auto new_velocities = firmware_comm_->getCommandVelocities();
-//   EXPECT_EQ(new_velocities.size(), 2u);
-//   EXPECT_FLOAT_EQ(new_velocities[0], 0.0f);
-//   EXPECT_FLOAT_EQ(new_velocities[1], 0.0f);
-// }
+TEST_F(TestLittlebotDriver, GetStatusVelocities)
+{
+  // Get initial status velocities
+  std::map<std::string, float> status_velocities;
+  ASSERT_NO_THROW(status_velocities = littlebot_driver_->getStatusVelocities());
 
-/**
- * @brief Test getting status velocities (using same fixture)
- */
-// TEST_F(TestLittlebotDriver, GetStatusVelocities)
-// {
-//   // The same firmware_comm_ instance is available here too
-//   ASSERT_NE(firmware_comm_, nullptr);
+  ASSERT_GE(status_velocities["left"], 0.0f);
+  ASSERT_GE(status_velocities["right"], 0.0f);
+}
 
-//   // Get initial status velocities
-//   std::vector<float> status_velocities = firmware_comm_->getStatusVelocities();
+TEST_F(TestLittlebotDriver, GetStatusPositions)
+{
+  // Get initial status positions
+  std::map<std::string, float> status_positions;
+  ASSERT_NO_THROW(status_positions = littlebot_driver_->getStatusPositions());
 
-//   // Should return a vector (might be empty initially)
-//   ASSERT_GE(status_velocities.size(), 0u);
+  // Should return a vector (might be empty initially)
+  ASSERT_GE(status_positions["left"], 0.0f);
+  ASSERT_GE(status_positions["right"], 0.0f);
+}
 
-//   // Test that method doesn't throw
-//   ASSERT_NO_THROW(firmware_comm_->getStatusVelocities());
-// }
+TEST_F(TestLittlebotDriver, ReceiveDataFromSerialPort)
+{
+  char controller_char;
+  ASSERT_NO_THROW(controller_char = littlebot_driver_->receiveData());
 
-/**
- * @brief Test constructor and destructor
- */
+  // Check that controller character is as expected
+  ASSERT_EQ(controller_char, 'S');
+
+  // Check that input buffer is not empty after receiving data
+  auto input_buffer = littlebot_driver_->getInputBuffer();
+  ASSERT_FALSE(input_buffer->empty());
+}
+
+TEST_F(TestLittlebotDriver, SendDataToSerialPort)
+{
+  // The same littlebot_driver_ instance is available here too
+  ASSERT_NE(littlebot_driver_, nullptr);
+
+  // Test that method doesn't throw
+  ASSERT_NO_THROW(littlebot_driver_->sendData('C'));
+  ASSERT_NO_THROW(littlebot_driver_->sendData('S'));
+  auto output_buffer = littlebot_driver_->getOutputBuffer();
+  ASSERT_FALSE(output_buffer->empty());
+}
+
+TEST_F(TestLittlebotDriver, SendCommandData)
+{
+  std::map<std::string, float> test_velocities;
+  auto wheel_names = littlebot_driver_->getWheelNames();
+  ASSERT_EQ(wheel_names.size(), 2u);
+
+  test_velocities[wheel_names[0]] = 1.5f;
+  test_velocities[wheel_names[1]] = -2.3f;
+  littlebot_driver_->setCommandVelocities(test_velocities);
+
+  // Send command data
+  ASSERT_NO_THROW(littlebot_driver_->sendData('C'));
+
+  // Check that output buffer contains the correct command data
+  auto output_buffer = littlebot_driver_->getOutputBuffer();
+  ASSERT_FALSE(output_buffer->empty());
+}
+
+TEST_F(TestLittlebotDriver, ReceiveStatusData)
+{
+  // Receive status data
+  char controller_char;
+  ASSERT_NO_THROW(controller_char = littlebot_driver_->receiveData());
+  ASSERT_EQ(controller_char, 'S');
+
+  // Check that status velocities and positions are updated
+  std::map<std::string, float> status_velocities;
+  std::map<std::string, float> status_positions;
+
+  ASSERT_NO_THROW(status_velocities = littlebot_driver_->getStatusVelocities());
+  ASSERT_NO_THROW(status_positions = littlebot_driver_->getStatusPositions());
+
+  std::cout << "Status Velocities: left=" << status_velocities["left_wheel"]
+            << ", right=" << status_velocities["right_wheel"] << std::endl;
+  std::cout << "Status Positions: left=" << status_positions["left_wheel"]
+            << ", right=" << status_positions["right_wheel"] << std::endl;
+
+  EXPECT_EQ(status_velocities["left_wheel"], 4.56f);
+  EXPECT_EQ(status_velocities["right_wheel"], 5.67f);
+  EXPECT_EQ(status_positions["left_wheel"], 7.89f);
+  EXPECT_EQ(status_positions["right_wheel"], 8.90f);
+}
+
+
 // TEST_F(TestLittlebotDriver, ConstructorDestructor)
 // {
 //   // Test that constructor creates object successfully
-//   ASSERT_NE(firmware_comm_, nullptr);
+//   ASSERT_NE(littlebot_driver_, nullptr);
 
 //   // Test with different serial port names
 //   auto comm1 = std::make_unique<MockableLittlebotDriver>("/dev/ttyUSB0");
@@ -237,112 +261,18 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NE(comm3, nullptr);
 // }
 
-/**
- * @brief Test setCommandVelocities method
- */
-// TEST_F(TestLittlebotDriver, SetCommandVelocities)
-// {
-//   // Test setting valid velocities
-//   std::vector<float> test_velocities = {1.5f, -2.3f};
-
-//   // This should not throw any exceptions
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(test_velocities));
-
-//   // Test with different velocity values
-//   std::vector<float> zero_velocities = {0.0f, 0.0f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(zero_velocities));
-
-//   std::vector<float> positive_velocities = {5.0f, 3.2f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(positive_velocities));
-
-//   std::vector<float> negative_velocities = {-1.8f, -4.1f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(negative_velocities));
-// }
-
-/**
- * @brief Test setCommandVelocities with different vector sizes
- */
-// TEST_F(TestLittlebotDriver, SetCommandVelocitiesDifferentSizes)
-// {
-//   // Test with empty vector
-//   std::vector<float> empty_velocities = {};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(empty_velocities));
-
-//   // Test with single element
-//   std::vector<float> single_velocity = {1.0f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(single_velocity));
-
-//   // Test with more than 2 elements
-//   std::vector<float> multi_velocities = {1.0f, 2.0f, 3.0f, 4.0f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(multi_velocities));
-// }
-
-/**
- * @brief Test getStatusVelocities method
- */
-// TEST_F(TestLittlebotDriver, GetStatusVelocities)
-// {
-//   // Get initial status velocities
-//   std::vector<float> status_velocities = firmware_comm_->getStatusVelocities();
-
-//   // Should return a vector (might be empty initially)
-//   ASSERT_GE(status_velocities.size(), 0u);
-
-//   // Test that method doesn't throw
-//   ASSERT_NO_THROW(firmware_comm_->getStatusVelocities());
-// }
-
-/**
- * @brief Test getStatusPositionsStatus method
- */
-// TEST_F(TestLittlebotDriver, GetStatusPositions)
-// {
-//   // Get initial status positions
-//   std::vector<float> status_positions = firmware_comm_->getStatusPositionsStatus();
-
-//   // Should return a vector (might be empty initially)
-//   ASSERT_GE(status_positions.size(), 0u);
-
-//   // Test that method doesn't throw
-//   ASSERT_NO_THROW(firmware_comm_->getStatusPositionsStatus());
-// }
-
-/**
- * @brief Test data consistency between set and get operations
- */
 // TEST_F(TestLittlebotDriver, DataConsistency)
 // {
 //   // Set some test velocities
 //   std::vector<float> test_velocities = {2.5f, -1.8f};
-//   firmware_comm_->setCommandVelocities(test_velocities);
+//   littlebot_driver_->setCommandVelocities(test_velocities);
 
 //   // Verify that the object can handle multiple operations
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(test_velocities));
-//   ASSERT_NO_THROW(firmware_comm_->getStatusVelocities());
-//   ASSERT_NO_THROW(firmware_comm_->getStatusPositionsStatus());
+//   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
+//   ASSERT_NO_THROW(littlebot_driver_->getStatusVelocities());
+//   ASSERT_NO_THROW(littlebot_driver_->getStatusPositionsStatus());
 // }
 
-/**
- * @brief Test extreme values for velocities
- */
-// TEST_F(TestLittlebotDriver, ExtremeValues)
-// {
-//   // Test with very large positive values
-//   std::vector<float> large_velocities = {1000.0f, 999.9f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(large_velocities));
-
-//   // Test with very large negative values
-//   std::vector<float> large_negative_velocities = {-1000.0f, -999.9f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(large_negative_velocities));
-
-//   // Test with very small values
-//   std::vector<float> small_velocities = {0.001f, -0.001f};
-//   ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(small_velocities));
-// }
-
-/**
- * @brief Test interface compliance
- */
 // TEST_F(TestLittlebotDriver, InterfaceCompliance)
 // {
 //   // Test that LittlebotDriver can be used through its interface
@@ -358,12 +288,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   ASSERT_NO_THROW(interface_ptr->getStatusPositionsStatus());
 // }
 
-/**
- * @brief Test thread safety preparation
- *
- * This test verifies that the object can handle rapid successive calls,
- * which is important for thread safety.
- */
 // TEST_F(TestLittlebotDriver, RapidCalls)
 // {
 //   const int num_iterations = 100;
@@ -374,15 +298,12 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //       static_cast<float>((i + 1) % 10)
 //     };
 
-//     ASSERT_NO_THROW(firmware_comm_->setCommandVelocities(velocities));
-//     ASSERT_NO_THROW(firmware_comm_->getStatusVelocities());
-//     ASSERT_NO_THROW(firmware_comm_->getStatusPositionsStatus());
+//     ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(velocities));
+//     ASSERT_NO_THROW(littlebot_driver_->getStatusVelocities());
+//     ASSERT_NO_THROW(littlebot_driver_->getStatusPositionsStatus());
 //   }
 // }
 
-/**
- * @brief Test memory management
- */
 // TEST_F(TestLittlebotDriver, MemoryManagement)
 // {
 //   // Test creating and destroying multiple instances
@@ -405,9 +326,6 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   // Instances will be automatically destroyed when vector goes out of scope
 // }
 
-/**
- * @brief Performance test for basic operations
- */
 // TEST_F(TestLittlebotDriver, BasicPerformance)
 // {
 //   const int num_operations = 1000;
@@ -417,9 +335,9 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 //   auto start = std::chrono::high_resolution_clock::now();
 
 //   for (int i = 0; i < num_operations; ++i) {
-//     firmware_comm_->setCommandVelocities(test_velocities);
-//     firmware_comm_->getStatusVelocities();
-//     firmware_comm_->getStatusPositionsStatus();
+//     littlebot_driver_->setCommandVelocities(test_velocities);
+//     littlebot_driver_->getStatusVelocities();
+//     littlebot_driver_->getStatusPositionsStatus();
 //   }
 
 //   auto end = std::chrono::high_resolution_clock::now();

@@ -26,9 +26,12 @@
 #include <memory>
 #include <queue>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "littlebot_base/i_serial_port.hpp"
+// Include generated protobuf messages for constructing test payloads
+#include "littlebot_msg.pb.h"  // NOLINT(build/include_subdir)
 
 /**
  * @brief Class for testing SerialPort without actual hardware
@@ -55,20 +58,30 @@ public:
 
   int readPacket(std::shared_ptr<std::string> buffer) override
   {
-    // ASCII values for the message characters
-    buffer = std::make_shared<std::string>(std::initializer_list<char>{
-      '[', 'S', '0', 'a', '0', 'f', '0', 'd',
-      '0', '0', '0', '0', '0', '0', '0', '0',
-      '1', '5', 'a', 'b', 'f', '4', 'b', '4',
-      '4', '0', '1', 'd', '7', '3', '1', 'd',
-      '5', '3', '4', '0', '0', 'a', '0', 'f',
-      '0', 'd', '0', '0', '0', '0', '0', '0',
-      '0', '0', '1', '5', '0', '0', '0', '0',
-      '0', '0', '0', '0', '1', 'd', '0', '0',
-      '0', '0', '0', '0', '0', '0', ']'
-    });
+    littlebot::Wheels wheels_msg;
 
-    return static_cast<int>(buffer->size());
+    littlebot::WheelData * wheel_left = wheels_msg.add_side();
+    wheel_left->set_command_velocity(1.23f);
+    wheel_left->set_status_velocity(4.56f);
+    wheel_left->set_status_position(7.89f);
+
+    littlebot::WheelData * wheel_right = wheels_msg.add_side();
+    wheel_right->set_command_velocity(2.34f);
+    wheel_right->set_status_velocity(5.67f);
+    wheel_right->set_status_position(8.90f);
+
+    std::string proto;
+    if (!wheels_msg.SerializeToString(&proto)) {
+      proto.clear();
+    }
+
+    std::string framed = std::string("S") + proto;
+
+    if (buffer) {
+      *buffer = framed;
+      return static_cast<int>(buffer->size());
+    }
+    return 0;
   }
 
   int writePacket(std::shared_ptr<std::string> buffer) override

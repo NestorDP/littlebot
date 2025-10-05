@@ -138,7 +138,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 
   ament_add_gtest(${PROJECT_NAME}_unit_tests
-    test/test_main.cpp
+    # test/test_main.cpp
     test/test_littlebot_driver.cpp
     test/test_littlebot_hardware_component.cpp
     test/test_serial_port.cpp
