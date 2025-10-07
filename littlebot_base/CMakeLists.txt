@@ -157,6 +157,7 @@ if(BUILD_TESTING)
     test/test_littlebot_driver.cpp
     test/test_littlebot_hardware_component.cpp
     test/test_serial_port.cpp
+    test/test_parameter_reading.cpp
     src/littlebot_driver.cpp
     src/serial_port.cpp
     ${PROTO_SRCS}
