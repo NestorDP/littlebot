@@ -44,51 +44,76 @@ class LittlebotHardwareComponent : public hardware_interface::SystemInterface
 public:
   /**
    * @brief Constructor for the LittlebotHardwareComponent class
-   *
    */
   LittlebotHardwareComponent() = default;
 
   /**
    * @brief Deconstructor for the LittlebotHardwareComponent class
-   *
    */
   ~LittlebotHardwareComponent() = default;
 
   /**
-   * @brief
+   * @brief Initialize the hardware component with the given parameters
    */
-  hardware_interface::CallbackReturn on_init(
-    const hardware_interface::HardwareComponentInterfaceParams & params) override;
+  hardware_interface::CallbackReturn
+  on_init(const hardware_interface::HardwareComponentInterfaceParams & params)
+  override;
+
+  /**
+   * @brief Configure the hardware communication
+   */
+  hardware_interface::CallbackReturn
+  on_configure(const rclcpp_lifecycle::State & state)
+  override;
 
   /**
    * @brief
    */
-  hardware_interface::CallbackReturn on_configure(
-    const rclcpp_lifecycle::State & state) override;
+  hardware_interface::CallbackReturn
+  on_activate(const rclcpp_lifecycle::State & state)
+  override;
 
   /**
    * @brief
    */
-  hardware_interface::CallbackReturn on_activate(
-    const rclcpp_lifecycle::State & state) override;
+  hardware_interface::CallbackReturn
+  on_deactivate(const rclcpp_lifecycle::State & state)
+  override;
 
   /**
-   * @brief
+   * @brief Export the state interfaces
    */
-  hardware_interface::CallbackReturn on_deactivate(
-    const rclcpp_lifecycle::State & state) override;
+  std::vector<hardware_interface::StateInterface::ConstSharedPtr>
+  on_export_state_interfaces()
+  override;
 
   /**
-   * @brief
+   * @brief Export the command interfaces
    */
-  hardware_interface::return_type read(
-    const rclcpp::Time & time, const rclcpp::Duration & period) override;
+  std::vector<hardware_interface::CommandInterface::SharedPtr>
+  on_export_command_interfaces()
+  override;
 
   /**
-   * @brief
+   * @brief Read the state of the hardware component
    */
-  hardware_interface::return_type write(
-    const rclcpp::Time & time, const rclcpp::Duration & period) override;
+  hardware_interface::return_type
+  read(const rclcpp::Time & time, const rclcpp::Duration & period)
+  override;
+
+  /**
+   * @brief Write the command to the hardware component
+   */
+  hardware_interface::return_type
+  write(const rclcpp::Time & time, const rclcpp::Duration & period)
+  override;
+
+  /**
+   * @brief Setup the Littlebot driver with the given serial port parameters
+   */
+  void setupDriver(
+    std::shared_ptr<littlebot_base::ISerialPort> serial_port,
+    const std::string & port, int baudrate);
 
 private:
   /**
@@ -97,9 +122,19 @@ private:
   const std::string hardware_component_name_{"LittlebotHardwareComponent"};
 
   /**
-   * @brief Shared pointer to the serial port implementation
+   * @brief Shared pointer to the Littlebot driver
    */
-  std::shared_ptr<littlebot_base::ISerialPort> serial_port_;
+  std::shared_ptr<littlebot_base::LittlebotDriver> littlebot_driver_;
+
+  /**
+   * @brief Serial port device name
+   */
+  std::string serial_port_name_;
+
+  /**
+   * @brief Serial port baudrate
+   */
+  int serial_baudrate_{115200};
 
   /**
    * @brief command interface.

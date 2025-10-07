@@ -30,10 +30,6 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
     return hardware_interface::CallbackReturn::FAILURE;
   }
 
-  serial_port_ = std::make_shared<littlebot_base::SerialPort>();
-  auto littlebot_driver = std::make_unique<littlebot_base::LittlebotDriver>(
-    serial_port_, "/dev/ttyUSB0", 115200);
-
   hw_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
@@ -83,6 +79,14 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
+hardware_interface::CallbackReturn LittlebotHardwareComponent::on_configure(
+  const rclcpp_lifecycle::State & /*previous_state*/)
+{
+  auto serial_port = std::make_shared<SerialPort>();
+  this->setupDriver(serial_port, serial_port_name_, serial_baudrate_);
+  return hardware_interface::CallbackReturn::SUCCESS;
+}
+
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_activate(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
@@ -107,6 +111,30 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_deactivate(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
+std::vector<hardware_interface::StateInterface::ConstSharedPtr>
+LittlebotHardwareComponent::on_export_state_interfaces()
+{
+  std::vector<hardware_interface::StateInterface::ConstSharedPtr> state_interfaces;
+  for (auto i = 0u; i < info_.joints.size(); i++) {
+    state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
+        info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_positions_[i]));
+    state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
+        info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_velocities_[i]));
+  }
+  return state_interfaces;
+}
+
+std::vector<hardware_interface::CommandInterface::SharedPtr>
+LittlebotHardwareComponent::on_export_command_interfaces()
+{
+  std::vector<hardware_interface::CommandInterface::SharedPtr> command_interfaces;
+  for (auto i = 0u; i < info_.joints.size(); i++) {
+    command_interfaces.push_back(std::make_shared<hardware_interface::CommandInterface>(
+        info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
+  }
+  return command_interfaces;
+}
+
 hardware_interface::return_type LittlebotHardwareComponent::read(
   [[maybe_unused]] const rclcpp::Time & time,
   [[maybe_unused]] const rclcpp::Duration & period)
@@ -120,6 +148,14 @@ hardware_interface::return_type LittlebotHardwareComponent::write(
   [[maybe_unused]] const rclcpp::Duration & period)
 {
   return hardware_interface::return_type::OK;
+}
+
+void LittlebotHardwareComponent::setupDriver(
+  std::shared_ptr<littlebot_base::ISerialPort> serial_port,
+  const std::string & port, int baudrate)
+{
+  littlebot_driver_ = std::make_shared<littlebot_base::LittlebotDriver>(
+    serial_port, port, baudrate);
 }
 
 }   //  namespace littlebot_base
