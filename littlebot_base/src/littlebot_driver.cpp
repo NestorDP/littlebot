@@ -21,14 +21,20 @@
 
 namespace littlebot_base
 {
-LittlebotDriver::LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> serial_port)
+LittlebotDriver::LittlebotDriver(
+  std::shared_ptr<littlebot_base::ISerialPort> serial_port,
+  std::string port,
+  int baudrate)
 : serial_port_(serial_port)
 {
   // Validate that the serial port was provided
   if (!serial_port_) {
     throw std::invalid_argument("Serial port cannot be null");
   }
-
+  // Open the serial port with default parameters
+  if (!serial_port_->open(port, baudrate)) {
+    throw std::runtime_error("Failed to open serial port");
+  }
   // Initialize buffers
   input_buffer_ = std::make_shared<std::string>();
   output_buffer_ = std::make_shared<std::string>();

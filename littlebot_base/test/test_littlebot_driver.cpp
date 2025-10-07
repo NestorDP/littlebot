@@ -41,7 +41,8 @@ protected:
   void SetUp() override
   {
     mock_serial_port_ = std::make_shared<MockSerialPort>();
-    littlebot_driver_ = std::make_unique<littlebot_base::LittlebotDriver>(mock_serial_port_);
+    littlebot_driver_ = std::make_unique<littlebot_base::LittlebotDriver>(
+      mock_serial_port_, "/dev/ttyUSB0", 115200);
   }
 
   void TearDown() override
@@ -56,18 +57,19 @@ protected:
 
 TEST(LittlebotDriverConstructorTest, ConstructorWithValidSerialPort)
 {
-  std::shared_ptr<MockSerialPort> serial_port;
+  std::shared_ptr<MockSerialPort> mock_serial_port;
   std::unique_ptr<littlebot_base::LittlebotDriver> driver;
 
-  serial_port = std::make_shared<MockSerialPort>();
-  driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
+  mock_serial_port = std::make_shared<MockSerialPort>();
+  driver = std::make_unique<littlebot_base::LittlebotDriver>(
+      mock_serial_port, "/dev/ttyUSB0", 115200);
 
   // Test that constructor successfully creates object with valid serial port
-  ASSERT_NE(serial_port, nullptr);
+  ASSERT_NE(mock_serial_port, nullptr);
   ASSERT_NE(driver, nullptr);
 
   driver.reset();
-   serial_port.reset();
+  mock_serial_port.reset();
 }
 
 TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
@@ -75,20 +77,24 @@ TEST(LittlebotDriverConstructorTest, ConstructorWithNullSerialPort)
   std::shared_ptr<littlebot_base::ISerialPort> null_port = nullptr;
 
   EXPECT_THROW({
-    auto driver = std::make_unique<littlebot_base::LittlebotDriver>(null_port);
+    auto driver = std::make_unique<littlebot_base::LittlebotDriver>(
+      null_port, "/dev/ttyUSB0", 115200);
   }, std::invalid_argument);
 }
 
 TEST(LittlebotDriverConstructorTest, ConstructorWithDifferentSerialPorts)
 {
-  auto serial_port_1 = std::make_shared<MockSerialPort>();
-  auto serial_port_2 = std::make_shared<MockSerialPort>();
-  auto serial_port_3 = std::make_shared<MockSerialPort>();
+  auto mock_serial_port_1 = std::make_shared<MockSerialPort>();
+  auto mock_serial_port_2 = std::make_shared<MockSerialPort>();
+  auto mock_serial_port_3 = std::make_shared<MockSerialPort>();
 
   EXPECT_NO_THROW({
-    auto driver_1 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_1);
-    auto driver_2 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_2);
-    auto driver_3 = std::make_unique<littlebot_base::LittlebotDriver>(serial_port_3);
+    auto driver_1 = std::make_unique<littlebot_base::LittlebotDriver>(
+      mock_serial_port_1, "/dev/ttyUSB0", 115200);
+    auto driver_2 = std::make_unique<littlebot_base::LittlebotDriver>(
+      mock_serial_port_2, "/dev/ttyUSB1", 115200);
+    auto driver_3 = std::make_unique<littlebot_base::LittlebotDriver>(
+      mock_serial_port_3, "/dev/ttyUSB2", 115200);
   });
 }
 
@@ -96,16 +102,17 @@ TEST(LittlebotDriverConstructorTest, ConstructorMemoryManagement)
 {
   // Test that constructor properly manages shared_ptr reference counting
   {
-    auto serial_port = std::make_shared<MockSerialPort>();
-    auto initial_ref_count = serial_port.use_count();  // Should be 1
+    auto mock_serial_port = std::make_shared<MockSerialPort>();
+    auto initial_ref_count = mock_serial_port.use_count();  // Should be 1
 
     {
-      auto driver = std::make_unique<littlebot_base::LittlebotDriver>(serial_port);
-      auto ref_count_after_construction = serial_port.use_count();  // Should be 2
+      auto driver = std::make_unique<littlebot_base::LittlebotDriver>(
+      mock_serial_port, "/dev/ttyUSB0", 115200);
+      auto ref_count_after_construction = mock_serial_port.use_count();  // Should be 2
       EXPECT_EQ(ref_count_after_construction, initial_ref_count + 1);
     }
     // After driver goes out of scope, ref count should decrease
-    auto final_ref_count = serial_port.use_count();  // Should be 1 again
+    auto final_ref_count = mock_serial_port.use_count();  // Should be 1 again
     EXPECT_EQ(final_ref_count, initial_ref_count);
   }
 }

@@ -36,7 +36,11 @@ public:
    *
    * @param serial_port Shared pointer to the serial port implementation
    */
-  explicit LittlebotDriver(std::shared_ptr<littlebot_base::ISerialPort> serial_port);
+  explicit LittlebotDriver(
+    std::shared_ptr<littlebot_base::ISerialPort> serial_port,
+    std::string port,
+    int baudrate);
+
 
   /**
    * @brief Deconstructor for the LittlebotDriver class
