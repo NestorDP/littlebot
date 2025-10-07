@@ -34,13 +34,17 @@ namespace littlebot_base
 // auto firmware = std::make_unique<FirmwareComm>(real_serial);
 
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
-  const hardware_interface::HardwareInfo & info)
+  const hardware_interface::HardwareComponentInterfaceParams & params)
 {
-  if (hardware_interface::SystemInterface::on_init(info) !=
+  if (hardware_interface::SystemInterface::on_init(params) !=
     hardware_interface::CallbackReturn::SUCCESS)
   {
     return hardware_interface::CallbackReturn::FAILURE;
   }
+
+  serial_port_ = std::make_shared<littlebot_base::SerialPort>();
+  auto littlebot_driver = std::make_unique<littlebot_base::LittlebotDriver>(
+    serial_port_, "/dev/ttyUSB0", 115200);
 
   hw_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());

@@ -28,6 +28,10 @@
 #include <rclcpp/rclcpp.hpp>
 #include <rclcpp_lifecycle/state.hpp>
 
+#include "littlebot_base/littlebot_driver.hpp"
+#include "littlebot_base/i_serial_port.hpp"
+#include "littlebot_base/serial_port.hpp"
+
 namespace littlebot_base
 {
 
@@ -44,7 +48,7 @@ public:
    * @brief
    */
   hardware_interface::CallbackReturn on_init(
-    const hardware_interface::HardwareInfo & info) override;
+    const hardware_interface::HardwareComponentInterfaceParams & params) override;
 
   /**
    * @brief
@@ -85,6 +89,11 @@ private:
    * @brief The name of the hardware component.
    */
   const std::string hardware_component_name_{"LittlebotHardwareComponent"};
+
+  /**
+   * @brief Shared pointer to the serial port implementation
+   */
+  std::shared_ptr<littlebot_base::ISerialPort> serial_port_;
 
   /**
    * @brief command interface.
