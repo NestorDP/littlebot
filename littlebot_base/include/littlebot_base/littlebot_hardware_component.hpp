@@ -21,12 +21,16 @@
 #include <utility>
 #include <vector>
 
-#include <hardware_interface/handle.hpp>
-#include <hardware_interface/hardware_info.hpp>
-#include <hardware_interface/system_interface.hpp>
-#include <hardware_interface/types/hardware_interface_return_values.hpp>
-#include <rclcpp/rclcpp.hpp>
-#include <rclcpp_lifecycle/state.hpp>
+#include "hardware_interface/handle.hpp"
+#include "hardware_interface/hardware_info.hpp"
+#include "hardware_interface/system_interface.hpp"
+#include "hardware_interface/types/hardware_interface_return_values.hpp"
+#include "rclcpp/clock.hpp"
+#include "rclcpp/duration.hpp"
+#include "rclcpp/macros.hpp"
+#include "rclcpp/time.hpp"
+#include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
+#include "rclcpp_lifecycle/state.hpp"
 
 #include "littlebot_base/littlebot_driver.hpp"
 #include "littlebot_base/i_serial_port.hpp"
@@ -38,6 +42,12 @@ namespace littlebot_base
 class LittlebotHardwareComponent : public hardware_interface::SystemInterface
 {
 public:
+  /**
+   * @brief Constructor for the LittlebotHardwareComponent class
+   *
+   */
+  LittlebotHardwareComponent() = default;
+
   /**
    * @brief Deconstructor for the LittlebotHardwareComponent class
    *
@@ -53,6 +63,12 @@ public:
   /**
    * @brief
    */
+  hardware_interface::CallbackReturn on_configure(
+    const rclcpp_lifecycle::State & state) override;
+
+  /**
+   * @brief
+   */
   hardware_interface::CallbackReturn on_activate(
     const rclcpp_lifecycle::State & state) override;
 
@@ -61,16 +77,6 @@ public:
    */
   hardware_interface::CallbackReturn on_deactivate(
     const rclcpp_lifecycle::State & state) override;
-
-  /**
-   * @brief
-   */
-  std::vector<hardware_interface::StateInterface> export_state_interfaces() override;
-
-  /**
-   * @brief
-   */
-  std::vector<hardware_interface::CommandInterface> export_command_interfaces() override;
 
   /**
    * @brief
