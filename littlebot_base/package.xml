@@ -9,22 +9,23 @@
   <license>GPL-3.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>protobuf-compiler</build_depend>
 
   <depend>hardware_interface</depend>
+  <depend>libprotobuf-dev</depend>
+  <depend>libserial</depend>
+  <depend>littlebot_description</depend>
   <depend>pluginlib</depend>
   <depend>rclcpp</depend>
   <depend>rclcpp_components</depend>
   <depend>std_msgs</depend>
-  <depend>libserial</depend>
-  <depend>libprotobuf-dev</depend>
-  <build_depend>protobuf-compiler</build_depend>
+  <depend>xacro</depend>
 
-  <!-- Test dependencies -->
+  <test_depend>ament_cmake_gmock</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_copyright</test_depend>
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
-  <test_depend>ament_copyright</test_depend>
-  <test_depend>ament_cmake_gtest</test_depend>
-  <test_depend>ament_cmake_gmock</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
