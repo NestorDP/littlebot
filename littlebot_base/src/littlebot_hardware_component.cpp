@@ -111,27 +111,27 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_deactivate(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-std::vector<hardware_interface::StateInterface::ConstSharedPtr>
-LittlebotHardwareComponent::on_export_state_interfaces()
+std::vector<hardware_interface::StateInterface>
+LittlebotHardwareComponent::export_state_interfaces()
 {
-  std::vector<hardware_interface::StateInterface::ConstSharedPtr> state_interfaces;
-  for (auto i = 0u; i < info_.joints.size(); i++) {
-    state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
-        info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_positions_[i]));
-    state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
-        info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_velocities_[i]));
-  }
+  std::vector<hardware_interface::StateInterface> state_interfaces;
+  // for (auto i = 0u; i < info_.joints.size(); i++) {
+  //   state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
+  //       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_positions_[i]));
+  //   state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
+  //       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_velocities_[i]));
+  // }
   return state_interfaces;
 }
 
-std::vector<hardware_interface::CommandInterface::SharedPtr>
-LittlebotHardwareComponent::on_export_command_interfaces()
+std::vector<hardware_interface::CommandInterface>
+LittlebotHardwareComponent::export_command_interfaces()
 {
-  std::vector<hardware_interface::CommandInterface::SharedPtr> command_interfaces;
-  for (auto i = 0u; i < info_.joints.size(); i++) {
-    command_interfaces.push_back(std::make_shared<hardware_interface::CommandInterface>(
-        info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
-  }
+  std::vector<hardware_interface::CommandInterface> command_interfaces;
+  // for (auto i = 0u; i < info_.joints.size(); i++) {
+  //   command_interfaces.push_back(std::make_shared<hardware_interface::CommandInterface>(
+  //       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
+  // }
   return command_interfaces;
 }
 

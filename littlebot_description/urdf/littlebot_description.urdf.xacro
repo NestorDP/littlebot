@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro"  name="littlebot">
   
   <!-- Default arguments -->
-  <xacro:arg name="use_sim" default="true" />
+  <xacro:arg name="use_sim" default="false" />
   <xacro:arg name="prefix" default="littlebot" />
 
   <!-- Included URDF XACRO Files -->
@@ -15,7 +15,7 @@
   <xacro:include filename="$(find littlebot_description)/gazebo/littlebot.gazebo.xacro" />
 
   <!-- Included ROS2_CONTROL XACRO Files -->
-  <!-- <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" /> -->
+  <xacro:include filename="$(find littlebot_description)/ros2_control/littlebot.ros2_control.xacro" />
   
   <!-- Littlebot's robot description -->
   <!-- =========================================================== -->
@@ -68,8 +68,8 @@
 
   <!-- Load ROS2 Control plugins -->
   <!-- =========================================================== -->
-  <!-- <xacro:unless value="$(arg use_sim)"> -->
-    <!-- <xacro:littlebot_control/> -->
-  <!-- </xacro:unless> -->
+  <xacro:unless value="$(arg use_sim)">
+    <xacro:littlebot_control/>
+  </xacro:unless>
 
 </robot>

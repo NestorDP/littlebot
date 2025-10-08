@@ -83,15 +83,15 @@ public:
   /**
    * @brief Export the state interfaces
    */
-  std::vector<hardware_interface::StateInterface::ConstSharedPtr>
-  on_export_state_interfaces()
+  std::vector<hardware_interface::StateInterface>
+  export_state_interfaces()
   override;
 
   /**
    * @brief Export the command interfaces
    */
-  std::vector<hardware_interface::CommandInterface::SharedPtr>
-  on_export_command_interfaces()
+  std::vector<hardware_interface::CommandInterface>
+  export_command_interfaces()
   override;
 
   /**

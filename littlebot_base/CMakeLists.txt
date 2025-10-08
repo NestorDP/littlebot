@@ -164,10 +164,10 @@ if(BUILD_TESTING)
     ${PROTO_HDRS}
   )
 
-  # Make test depend on URDF generation
-  if(TARGET generate_test_urdf)
-    add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
-  endif()
+  # # Make test depend on URDF generation
+  # if(TARGET generate_test_urdf)
+  #   add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
+  # endif()
 
   if(TARGET ${PROJECT_NAME}_unit_tests)
     target_include_directories(${PROJECT_NAME}_unit_tests PRIVATE
@@ -181,19 +181,8 @@ if(BUILD_TESTING)
     target_link_libraries(${PROJECT_NAME}_unit_tests
       ${Protobuf_LIBRARIES}
       ${LIBSERIAL_LIBRARIES}
+      littlebot_hardware_component
     )
-
-    ament_target_dependencies(${PROJECT_NAME}_unit_tests
-      hardware_interface
-      pluginlib
-      rclcpp
-    )
-
-    # Pass the URDF file path to the test
-    if(LITTLEBOT_URDF_FILE)
-      target_compile_definitions(${PROJECT_NAME}_unit_tests
-        PRIVATE "LITTLEBOT_URDF_FILE=\"${LITTLEBOT_URDF_FILE}\"")
-    endif()
   endif()
 endif()
 
