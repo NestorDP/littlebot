@@ -181,6 +181,23 @@ hardware_interface::return_type LittlebotHardwareComponent::read(
   [[maybe_unused]] const rclcpp::Time & time,
   [[maybe_unused]] const rclcpp::Duration & period)
 {
+  littlebot_driver_->sendData('S');
+  littlebot_driver_->receiveData();
+  auto map_status_positions = littlebot_driver_->getStatusPositions();
+  auto map_status_velocities = littlebot_driver_->getStatusVelocities();
+
+  for (const auto & name : littlebot_driver_->getJointNames()) {
+    for (size_t i = 0; i < info_.joints.size(); i++) {
+      if (info_.joints[i].name == name) {
+        if (map_status_positions.find(name) != map_status_positions.end()) {
+          hw_status_positions_[i] = map_status_positions.at(name);
+        }
+        if (map_status_velocities.find(name) != map_status_velocities.end()) {
+          hw_status_velocities_[i] = map_status_velocities.at(name);
+        }
+      }
+    }
+  }
   return hardware_interface::return_type::OK;
 }
 
@@ -189,6 +206,12 @@ hardware_interface::return_type LittlebotHardwareComponent::write(
   [[maybe_unused]] const rclcpp::Time & time,
   [[maybe_unused]] const rclcpp::Duration & period)
 {
+  std::map<std::string, float> map_command_velocities;
+  for (size_t i = 0; i < info_.joints.size(); i++) {
+    map_command_velocities[info_.joints[i].name] = hw_commands_velocities_[i];
+  }
+  littlebot_driver_->setCommandVelocities(map_command_velocities);
+  littlebot_driver_->sendData('C');
   return hardware_interface::return_type::OK;
 }
 
