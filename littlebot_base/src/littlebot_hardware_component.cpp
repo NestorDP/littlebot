@@ -154,8 +154,12 @@ LittlebotHardwareComponent::export_state_interfaces()
   for (auto i = 0u; i < info_.joints.size(); i++) {
     state_interfaces.emplace_back(
       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_status_positions_[i]);
+    std::cout << "### Exporting state interface for joint: " << info_.joints[i].name
+              << " position: " << hw_status_positions_[i] << std::endl;
     state_interfaces.emplace_back(
       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_status_velocities_[i]);
+    std::cout << "### Exporting state interface for joint: " << info_.joints[i].name
+              << " velocity: " << hw_status_velocities_[i] << std::endl;
   }
   return state_interfaces;
 }
@@ -167,6 +171,8 @@ LittlebotHardwareComponent::export_command_interfaces()
   for (auto i = 0u; i < info_.joints.size(); i++) {
     command_interfaces.emplace_back(
       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_velocities_[i]);
+    std::cout << "### Exporting command interface for joint: " << info_.joints[i].name
+              << " velocity: " << hw_commands_velocities_[i] << std::endl;
   }
   return command_interfaces;
 }
@@ -192,6 +198,9 @@ void LittlebotHardwareComponent::setupDriver(
 {
   littlebot_driver_ = std::make_shared<littlebot_base::LittlebotDriver>(
     serial_port, port, baudrate);
+
+  std::vector<std::string> joint_names{info_.joints[0].name, info_.joints[1].name};
+  littlebot_driver_->setJointNames(joint_names);
 }
 
 }   //  namespace littlebot_base

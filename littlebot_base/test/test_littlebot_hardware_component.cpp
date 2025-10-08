@@ -79,5 +79,7 @@ TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS
   ) << "Failed to initialize LittlebotHardwareComponent from URDF parameters";
 
+  littlebot_hardware_component_->export_command_interfaces();
+  littlebot_hardware_component_->export_state_interfaces();
   in.close();
 }
