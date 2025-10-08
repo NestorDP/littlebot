@@ -30,9 +30,12 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
     return hardware_interface::CallbackReturn::FAILURE;
   }
 
-  hw_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  hw_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
-  hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  hw_status_positions_.resize(
+    info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  hw_status_velocities_.resize(
+    info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  hw_commands_velocities_.resize(
+    info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
 
   for (const hardware_interface::ComponentInfo & joint : info_.joints) {
     if (joint.command_interfaces.size() != kNumCommandInterface_) {
@@ -123,11 +126,11 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_configure(
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_activate(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
-  for (auto i = 0u; i < hw_positions_.size(); i++) {
-    if (std::isnan(hw_positions_[i])) {
-      hw_positions_[i] = 0;
-      hw_velocities_[i] = 0;
-      hw_commands_[i] = 0;
+  for (auto i = 0u; i < hw_status_positions_.size(); i++) {
+    if (std::isnan(hw_status_positions_[i])) {
+      hw_status_positions_[i] = 0;
+      hw_status_velocities_[i] = 0;
+      hw_commands_velocities_[i] = 0;
     }
   }
 
@@ -148,12 +151,12 @@ std::vector<hardware_interface::StateInterface>
 LittlebotHardwareComponent::export_state_interfaces()
 {
   std::vector<hardware_interface::StateInterface> state_interfaces;
-  // for (auto i = 0u; i < info_.joints.size(); i++) {
-  //   state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
-  //       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_positions_[i]));
-  //   state_interfaces.push_back(std::make_shared<hardware_interface::StateInterface>(
-  //       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_velocities_[i]));
-  // }
+  for (auto i = 0u; i < info_.joints.size(); i++) {
+    state_interfaces.emplace_back(
+      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_status_positions_[i]);
+    state_interfaces.emplace_back(
+      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_status_velocities_[i]);
+  }
   return state_interfaces;
 }
 
@@ -161,10 +164,10 @@ std::vector<hardware_interface::CommandInterface>
 LittlebotHardwareComponent::export_command_interfaces()
 {
   std::vector<hardware_interface::CommandInterface> command_interfaces;
-  // for (auto i = 0u; i < info_.joints.size(); i++) {
-  //   command_interfaces.push_back(std::make_shared<hardware_interface::CommandInterface>(
-  //       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
-  // }
+  for (auto i = 0u; i < info_.joints.size(); i++) {
+    command_interfaces.emplace_back(
+      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_velocities_[i]);
+  }
   return command_interfaces;
 }
 

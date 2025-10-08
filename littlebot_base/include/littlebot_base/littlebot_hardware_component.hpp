@@ -139,17 +139,17 @@ private:
   /**
    * @brief command interface.
    */
-  std::vector<double> hw_commands_;
+  std::vector<double> hw_commands_velocities_;
 
   /**
    * @brief position state interface.
    */
-  std::vector<double> hw_positions_;
+  std::vector<double> hw_status_positions_;
 
   /**
    * @brief velocity state interface.
    */
-  std::vector<double> hw_velocities_;
+  std::vector<double> hw_status_velocities_;
 
   /**
    * @brief
