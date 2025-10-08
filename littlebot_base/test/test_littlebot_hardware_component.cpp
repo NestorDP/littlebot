@@ -37,10 +37,15 @@ class TestLittlebotHardwareComponent : public ::testing::Test
 protected:
   void SetUp() override
   {
-    // Do not overwrite the existing URDF; use the file already present at urdf_file_path_
+    littlebot_hardware_component_ = std::make_shared<littlebot_base::LittlebotHardwareComponent>();
   }
 
-  std::string urdf_file_path_{"/home/nestor/littlebot_ws/build/littlebot_base/test_littlebot.urdf"};
+    // Initialize LittlebotHardwareComponent
+  std::shared_ptr<littlebot_base::LittlebotHardwareComponent>
+  littlebot_hardware_component_;
+
+  const std::string urdf_file_path_{
+    "/home/nestor/littlebot_ws/build/littlebot_base/test_littlebot.urdf"};
 };
 
 TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
@@ -68,9 +73,7 @@ TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
   // Check that parameters were read
   EXPECT_GT(hw_info_params.size(), 0u);
 
-  // Initialize LittlebotHardwareComponent
-  auto littlebot_hardware = std::make_shared<littlebot_base::LittlebotHardwareComponent>();
-  auto ret = littlebot_hardware->on_init(params);
+  auto ret = littlebot_hardware_component_->on_init(params);
   EXPECT_EQ(
     ret,
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS
