@@ -74,7 +74,40 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
         joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
       return hardware_interface::CallbackReturn::ERROR;
     }
+    std::cout << "###" << joint.name << " command interfaces: "
+              << joint.command_interfaces[0].name << ", state interfaces: "
+              << joint.state_interfaces[0].name << ", " << joint.state_interfaces[1].name
+              << std::endl;
   }
+
+  // Get parameters from the hardware info
+  if (info_.hardware_parameters.find("serial_port") != info_.hardware_parameters.end()) {
+    serial_port_name_ = info_.hardware_parameters.at("serial_port");
+  } else {
+    RCLCPP_FATAL(
+      rclcpp::get_logger("LittlebotSystemHardware"),
+      "'serial_port' parameter not found in the hardware info");
+    return hardware_interface::CallbackReturn::ERROR;
+  }
+
+  if (info_.hardware_parameters.find("baudrate") != info_.hardware_parameters.end()) {
+    try {
+      serial_baudrate_ = std::stoi(info_.hardware_parameters.at("baudrate"));
+    } catch (const std::exception & e) {
+      RCLCPP_FATAL(
+        rclcpp::get_logger("LittlebotSystemHardware"),
+        "Failed to parse 'baudrate' parameter: %s", e.what());
+      return hardware_interface::CallbackReturn::ERROR;
+    }
+  } else {
+    RCLCPP_FATAL(
+      rclcpp::get_logger("LittlebotSystemHardware"),
+      "'baudrate' parameter not found in the hardware info");
+    return hardware_interface::CallbackReturn::ERROR;
+  }
+
+  std::cout << "### Serial port: " << serial_port_name_
+            << ", Baudrate: " << serial_baudrate_ << std::endl;
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
