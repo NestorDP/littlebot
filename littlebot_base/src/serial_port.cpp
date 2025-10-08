@@ -26,9 +26,6 @@ bool SerialPort::open(std::string port, int baudrate)
   } catch(const std::exception & e) {
     std::cerr << e.what() << '\n';
   }
-
-  std::cout << "SerialPort open on port: " << port << " with baudrate: "
-            << baudrate << std::endl;
   return true;
 }
 

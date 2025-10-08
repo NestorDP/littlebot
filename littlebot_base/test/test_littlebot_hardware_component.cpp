@@ -32,8 +32,6 @@
 #include "littlebot_base/littlebot_hardware_component.hpp"
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 
-
-
 class TestLittlebotHardwareComponent : public ::testing::Test
 {
 protected:
@@ -50,7 +48,7 @@ TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
   // Read the existing URDF file and print its contents for debugging
   std::ifstream in(urdf_file_path_);
   ASSERT_TRUE(in.is_open()) << "Failed to open existing URDF file: " << urdf_file_path_;
-  
+
   // Read the entire file content into a string
   std::ostringstream ss;
   ss << in.rdbuf();
@@ -69,12 +67,6 @@ TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
 
   // Check that parameters were read
   EXPECT_GT(hw_info_params.size(), 0u);
-
-  // Print all parameters key = value
-  std::cout << "Successfully read parameters from URDF! (" << hw_info_params.size() << " entries)" << std::endl;
-  for (const auto & kv : hw_info_params) {
-    std::cout << "  " << kv.first << " = " << kv.second << std::endl;
-  }
 
   // Initialize LittlebotHardwareComponent
   auto littlebot_hardware = std::make_shared<littlebot_base::LittlebotHardwareComponent>();

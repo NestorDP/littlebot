@@ -240,11 +240,6 @@ TEST_F(TestLittlebotDriver, ReceiveStatusData)
   ASSERT_NO_THROW(status_velocities = littlebot_driver_->getStatusVelocities());
   ASSERT_NO_THROW(status_positions = littlebot_driver_->getStatusPositions());
 
-  std::cout << "Status Velocities: left=" << status_velocities["left_wheel"]
-            << ", right=" << status_velocities["right_wheel"] << std::endl;
-  std::cout << "Status Positions: left=" << status_positions["left_wheel"]
-            << ", right=" << status_positions["right_wheel"] << std::endl;
-
   EXPECT_EQ(status_velocities["left_wheel"], 4.56f);
   EXPECT_EQ(status_velocities["right_wheel"], 5.67f);
   EXPECT_EQ(status_positions["left_wheel"], 7.89f);

@@ -165,9 +165,9 @@ if(BUILD_TESTING)
   )
 
   # # Make test depend on URDF generation
-  # if(TARGET generate_test_urdf)
-  #   add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
-  # endif()
+  if(TARGET generate_test_urdf)
+    add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
+  endif()
 
   if(TARGET ${PROJECT_NAME}_unit_tests)
     target_include_directories(${PROJECT_NAME}_unit_tests PRIVATE
