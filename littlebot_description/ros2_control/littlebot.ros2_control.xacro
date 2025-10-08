@@ -9,6 +9,7 @@
         <param name="wheel_diameter">0.065</param>
         <param name="encoder_PPR">40</param>
         <param name="serial_port">/dev/rfcomm0</param>
+        <param name="baudrate">115200</param>
       </hardware>
       <joint name="base_to_left_wheel">
         <command_interface name="velocity">
