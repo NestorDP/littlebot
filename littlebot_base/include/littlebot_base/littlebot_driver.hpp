@@ -93,11 +93,18 @@ public:
   std::shared_ptr<std::string> getOutputBuffer() const;
 
   /**
-   * @brief Get the known wheel names
+   * @brief Get the known Joint names
    *
-   * @return Vector of known wheel names
+   * @return Vector of known Joint names
    */
-  std::vector<std::string> getWheelNames() const;
+  std::vector<std::string> getJointNames() const;
+
+  /**
+   * @brief Set the known Joint names
+   *
+   * @param joint_names Vector of known Joint names
+   */
+  void setJointNames(const std::vector<std::string> & joint_names);
 
 private:
   /**
@@ -124,11 +131,11 @@ private:
   littlebot::Wheels wheels_data_;
 
   /**
-   * @brief Known wheel names
+   * @brief Known joint names
    *
-   * This vector defines the known wheel names for mapping purposes.
+   * This vector defines the known joint names for mapping purposes.
    */
-  std::vector<std::string> wheel_names_ = {"left_wheel", "right_wheel"};
+  std::vector<std::string> joint_names_ = {"left_wheel", "right_wheel"};
 
   /**
    * @brief Command velocities for the hardware.
@@ -136,7 +143,7 @@ private:
    * This map stores the command velocities that are sent to the hardware.
    */
   std::map<std::string, float> command_velocities_{
-    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+    {joint_names_[0], 0.0f}, {joint_names_[1], 0.0f}};
 
   /**
    * @brief Status positions from the hardware.
@@ -144,7 +151,7 @@ private:
    * This map stores the status positions received from the hardware.
    */
   std::map<std::string, float> status_positions_{
-    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+    {joint_names_[0], 0.0f}, {joint_names_[1], 0.0f}};
 
   /**
    * @brief Status velocities from the hardware.
@@ -152,7 +159,7 @@ private:
    * This map stores the status velocities received from the hardware.
    */
   std::map<std::string, float> status_velocities_{
-    {wheel_names_[0], 0.0f}, {wheel_names_[1], 0.0f}};
+    {joint_names_[0], 0.0f}, {joint_names_[1], 0.0f}};
 
   /**
    * @brief Smart pointer to serial_port object

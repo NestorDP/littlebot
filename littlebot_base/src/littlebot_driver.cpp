@@ -94,7 +94,7 @@ bool LittlebotDriver::encode()
   try {
     wheels_data_.Clear();
 
-    for (const auto & wheel_name : wheel_names_) {
+    for (const auto & wheel_name : joint_names_) {
       littlebot::WheelData * wheel_data = wheels_data_.add_side();
 
       // Set command velocity (from command_velocities_ map)
@@ -152,21 +152,21 @@ bool LittlebotDriver::decode()
 
     int wheel_count = received_wheels_data.side_size();
 
-    for (int i = 0; i < wheel_count && i < static_cast<int>(wheel_names_.size()); ++i) {
+    for (int i = 0; i < wheel_count && i < static_cast<int>(joint_names_.size()); ++i) {
       const littlebot::WheelData & wheel_data = received_wheels_data.side(i);
-      const std::string & wheel_name = wheel_names_[i];
+      const std::string & joint_name = joint_names_[i];
 
       // Extract and store the values from protobuf to maps
       if (wheel_data.has_command_velocity()) {
-        command_velocities_[wheel_name] = wheel_data.command_velocity();
+        command_velocities_[joint_name] = wheel_data.command_velocity();
       }
 
       if (wheel_data.has_status_velocity()) {
-        status_velocities_[wheel_name] = wheel_data.status_velocity();
+        status_velocities_[joint_name] = wheel_data.status_velocity();
       }
 
       if (wheel_data.has_status_position()) {
-        status_positions_[wheel_name] = wheel_data.status_position();
+        status_positions_[joint_name] = wheel_data.status_position();
       }
     }
 
@@ -187,9 +187,24 @@ std::shared_ptr<std::string> LittlebotDriver::getOutputBuffer() const
   return output_buffer_;
 }
 
-std::vector<std::string> LittlebotDriver::getWheelNames() const
+std::vector<std::string> LittlebotDriver::getJointNames() const
 {
-  return wheel_names_;
+  return joint_names_;
 }
 
+void LittlebotDriver::setJointNames(const std::vector<std::string> & joint_names)
+{
+  joint_names_ = joint_names;
+
+  // Initialize command and status maps with zero values for new joint names
+  command_velocities_.clear();
+  status_velocities_.clear();
+  status_positions_.clear();
+
+  for (const auto & name : joint_names_) {
+    command_velocities_[name] = 0.0f;
+    status_velocities_[name] = 0.0f;
+    status_positions_[name] = 0.0f;
+  }
+}
 }  // namespace littlebot_base

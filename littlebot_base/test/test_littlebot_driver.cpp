@@ -146,19 +146,19 @@ TEST_F(TestLittlebotDriver, InitialStateAfterConstruction)
 TEST_F(TestLittlebotDriver, SetCommandVelocities)
 {
   std::map<std::string, float> test_velocities;
-  auto wheel_names = littlebot_driver_->getWheelNames();
-  ASSERT_EQ(wheel_names.size(), 2u);
+  auto joint_names = littlebot_driver_->getJointNames();
+  ASSERT_EQ(joint_names.size(), 2u);
 
-  test_velocities[wheel_names[0]] = 0.0f;
-  test_velocities[wheel_names[1]] = 0.0f;
+  test_velocities[joint_names[0]] = 0.0f;
+  test_velocities[joint_names[1]] = 0.0f;
   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
 
-  test_velocities[wheel_names[0]] = 1.5f;
-  test_velocities[wheel_names[1]] = 2.3f;
+  test_velocities[joint_names[0]] = 1.5f;
+  test_velocities[joint_names[1]] = 2.3f;
   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
 
-  test_velocities[wheel_names[0]] = -1.5f;
-  test_velocities[wheel_names[1]] = -2.3f;
+  test_velocities[joint_names[0]] = -1.5f;
+  test_velocities[joint_names[1]] = -2.3f;
   ASSERT_NO_THROW(littlebot_driver_->setCommandVelocities(test_velocities));
 }
 
@@ -211,11 +211,11 @@ TEST_F(TestLittlebotDriver, SendDataToSerialPort)
 TEST_F(TestLittlebotDriver, SendCommandData)
 {
   std::map<std::string, float> test_velocities;
-  auto wheel_names = littlebot_driver_->getWheelNames();
-  ASSERT_EQ(wheel_names.size(), 2u);
+  auto joint_names = littlebot_driver_->getJointNames();
+  ASSERT_EQ(joint_names.size(), 2u);
 
-  test_velocities[wheel_names[0]] = 1.5f;
-  test_velocities[wheel_names[1]] = -2.3f;
+  test_velocities[joint_names[0]] = 1.5f;
+  test_velocities[joint_names[1]] = -2.3f;
   littlebot_driver_->setCommandVelocities(test_velocities);
 
   // Send command data
