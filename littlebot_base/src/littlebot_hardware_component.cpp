@@ -201,7 +201,6 @@ hardware_interface::return_type LittlebotHardwareComponent::read(
   return hardware_interface::return_type::OK;
 }
 
-
 hardware_interface::return_type LittlebotHardwareComponent::write(
   [[maybe_unused]] const rclcpp::Time & time,
   [[maybe_unused]] const rclcpp::Duration & period)
