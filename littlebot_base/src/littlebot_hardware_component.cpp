@@ -77,10 +77,6 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
         joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
       return hardware_interface::CallbackReturn::ERROR;
     }
-    std::cout << "###" << joint.name << " command interfaces: "
-              << joint.command_interfaces[0].name << ", state interfaces: "
-              << joint.state_interfaces[0].name << ", " << joint.state_interfaces[1].name
-              << std::endl;
   }
 
   // Get parameters from the hardware info
@@ -108,9 +104,6 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
       "'baudrate' parameter not found in the hardware info");
     return hardware_interface::CallbackReturn::ERROR;
   }
-
-  std::cout << "### Serial port: " << serial_port_name_
-            << ", Baudrate: " << serial_baudrate_ << std::endl;
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
@@ -154,12 +147,8 @@ LittlebotHardwareComponent::export_state_interfaces()
   for (auto i = 0u; i < info_.joints.size(); i++) {
     state_interfaces.emplace_back(
       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_status_positions_[i]);
-    std::cout << "### Exporting state interface for joint: " << info_.joints[i].name
-              << " position: " << hw_status_positions_[i] << std::endl;
     state_interfaces.emplace_back(
       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_status_velocities_[i]);
-    std::cout << "### Exporting state interface for joint: " << info_.joints[i].name
-              << " velocity: " << hw_status_velocities_[i] << std::endl;
   }
   return state_interfaces;
 }
@@ -171,8 +160,6 @@ LittlebotHardwareComponent::export_command_interfaces()
   for (auto i = 0u; i < info_.joints.size(); i++) {
     command_interfaces.emplace_back(
       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_velocities_[i]);
-    std::cout << "### Exporting command interface for joint: " << info_.joints[i].name
-              << " velocity: " << hw_commands_velocities_[i] << std::endl;
   }
   return command_interfaces;
 }
