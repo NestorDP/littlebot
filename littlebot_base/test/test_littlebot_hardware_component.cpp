@@ -55,6 +55,8 @@ protected:
   std::shared_ptr<littlebot_base::LittlebotHardwareComponent>
   littlebot_hardware_component_;
 
+  hardware_interface::HardwareInfo hardware_info_;
+
   const std::string urdf_file_path_{
     "/home/nestor/littlebot_ws/build/littlebot_base/test_littlebot.urdf"};
 };
@@ -72,14 +74,13 @@ TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
 
   // Parse URDF
   auto control_resources = hardware_interface::parse_control_resources_from_urdf(urdf_content);
-  auto hardware_info = control_resources.front();
+  hardware_info_ = control_resources.front();
 
   // Check parameters
-  // In this ROS2 / hardware_interface version parameters are on HardwareInfo directly
-  const auto & hw_info_params = hardware_info.hardware_parameters;
+  const auto & hw_info_params = hardware_info_.hardware_parameters;
 
   hardware_interface::HardwareComponentInterfaceParams params;
-  params.hardware_info = hardware_info;
+  params.hardware_info = hardware_info_;
 
   // Check that parameters were read
   EXPECT_GT(hw_info_params.size(), 0u);
@@ -94,4 +95,42 @@ TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
     mock_serial_port_, "/dev/hwcom", 1000);
 
   in.close();
+}
+
+TEST_F(TestLittlebotHardwareComponent, InterfacesAreExportedCorrectly)
+{
+  // Export interfaces
+  auto state_interfaces = littlebot_hardware_component_->export_state_interfaces();
+  auto command_interfaces = littlebot_hardware_component_->export_command_interfaces();
+
+  // Check that the correct number of interfaces are exported
+  EXPECT_EQ(state_interfaces.size(), hardware_info_.joints.size() * 2)
+    << "Unexpected number of state interfaces exported";
+  EXPECT_EQ(command_interfaces.size(), hardware_info_.joints.size())
+    << "Unexpected number of command interfaces exported";
+
+  // Check that the interfaces have the correct names and types
+  for (size_t i = 0; i < hardware_info_.joints.size(); ++i) {
+    const auto & joint_name = hardware_info_.joints[i].name;
+
+    // State interfaces
+    EXPECT_EQ(state_interfaces[i * 2].get_name(), joint_name)
+      << "State interface name mismatch for joint: " << joint_name;
+    EXPECT_EQ(state_interfaces[i * 2].get_interface_name(), hardware_interface::HW_IF_POSITION)
+      << "State interface type mismatch for joint: " << joint_name;
+
+    EXPECT_EQ(state_interfaces[i * 2 + 1].get_name(), joint_name)
+      << "State interface name mismatch for joint: " << joint_name;
+    EXPECT_EQ(state_interfaces[i * 2 + 1].get_interface_name(), hardware_interface::HW_IF_VELOCITY)
+      << "State interface type mismatch for joint: " << joint_name;
+  }
+
+  // Command interfaces
+  for (size_t i = 0; i < hardware_info_.joints.size(); ++i) {
+    const auto & joint_name = hardware_info_.joints[i].name;
+    EXPECT_EQ(command_interfaces[i].get_name(), joint_name)
+      << "Command interface name mismatch for joint: " << joint_name;
+    EXPECT_EQ(command_interfaces[i].get_interface_name(), hardware_interface::HW_IF_POSITION)
+      << "Command interface type mismatch for joint: " << joint_name;
+  }
 }
