@@ -51,13 +51,13 @@ protected:
     mock_serial_port_.reset();
   }
 
-  std::shared_ptr<MockSerialPort> mock_serial_port_;
+  std::shared_ptr<littlebot_base::ISerialPort> mock_serial_port_;
   std::unique_ptr<littlebot_base::LittlebotDriver> littlebot_driver_;
 };
 
 TEST(LittlebotDriverConstructorTest, ConstructorWithValidSerialPort)
 {
-  std::shared_ptr<MockSerialPort> mock_serial_port;
+  std::shared_ptr<littlebot_base::ISerialPort> mock_serial_port;
   std::unique_ptr<littlebot_base::LittlebotDriver> driver;
 
   mock_serial_port = std::make_shared<MockSerialPort>();

@@ -32,15 +32,26 @@
 #include "littlebot_base/littlebot_hardware_component.hpp"
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 
+#include "mock_serial_port.hpp"
+
 class TestLittlebotHardwareComponent : public ::testing::Test
 {
 protected:
   void SetUp() override
   {
-    littlebot_hardware_component_ = std::make_shared<littlebot_base::LittlebotHardwareComponent>();
+    mock_serial_port_ = std::make_shared<MockSerialPort>();
+    littlebot_hardware_component_ =
+      std::make_shared<littlebot_base::LittlebotHardwareComponent>();
   }
 
-    // Initialize LittlebotHardwareComponent
+  void TearDown() override
+  {
+    littlebot_hardware_component_.reset();
+    // mock_serial_port_.reset();
+  }
+
+  std::shared_ptr<littlebot_base::ISerialPort> mock_serial_port_;
+
   std::shared_ptr<littlebot_base::LittlebotHardwareComponent>
   littlebot_hardware_component_;
 
@@ -79,7 +90,8 @@ TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::SUCCESS
   ) << "Failed to initialize LittlebotHardwareComponent from URDF parameters";
 
-  littlebot_hardware_component_->export_command_interfaces();
-  littlebot_hardware_component_->export_state_interfaces();
+  littlebot_hardware_component_->setupDriver(
+    mock_serial_port_, "/dev/hwcom", 1000);
+
   in.close();
 }

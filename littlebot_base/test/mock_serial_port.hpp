@@ -44,6 +44,8 @@ class MockSerialPort : public littlebot_base::ISerialPort
 public:
   bool open([[maybe_unused]] std::string port, [[maybe_unused]] int baudrate) override
   {
+    std::cout << "MockSerialPort opened on port " << port
+              << " with baudrate " << baudrate << std::endl;
     return true;
   }
 
