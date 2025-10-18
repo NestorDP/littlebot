@@ -49,11 +49,17 @@ include_directories(
 # create ament index resource which references the libraries in the binary dir
 set(node_plugins "")
 
+# Create library
+add_library(littlebot_driver SHARED
+  src/littlebot_driver.cpp
+  src/serial_port.cpp)
+
+# Export the library so other packages can find it
+ament_export_libraries(littlebot_driver)
+
 # Hardware interface
 add_library(littlebot_hardware_component SHARED
   src/littlebot_hardware_component.cpp
-  src/littlebot_driver.cpp
-  src/serial_port.cpp
   ${PROTO_SRCS}
   ${PROTO_HDRS}
 )
@@ -65,10 +71,12 @@ ament_target_dependencies(littlebot_hardware_component
 
 # Link libserial
 target_link_libraries(littlebot_hardware_component
+  littlebot_driver
   ${LIBSERIAL_LIBRARIES}
   ${Protobuf_LIBRARIES}
 )
 target_include_directories(littlebot_hardware_component PRIVATE
+  include
   ${LIBSERIAL_INCLUDE_DIRS}
   ${Protobuf_INCLUDE_DIRS}
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -79,6 +87,7 @@ pluginlib_export_plugin_description_file(hardware_interface littlebot_hardware_c
 ## INSTALL
 install( TARGETS
   littlebot_hardware_component
+  littlebot_driver
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
