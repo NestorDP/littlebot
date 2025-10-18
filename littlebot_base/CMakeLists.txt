@@ -15,6 +15,7 @@ find_package(controller_manager REQUIRED)
 find_package(controller_manager_msgs REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(littlebot_description REQUIRED)
+find_package(littlebot_base REQUIRED)
 find_package(PkgConfig REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(Protobuf REQUIRED)
@@ -52,10 +53,27 @@ set(node_plugins "")
 # Create library
 add_library(littlebot_driver SHARED
   src/littlebot_driver.cpp
-  src/serial_port.cpp)
+  src/serial_port.cpp
+  ${PROTO_SRCS}
+  ${PROTO_HDRS}
+)
+
+target_include_directories(littlebot_driver PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+  $<INSTALL_INTERFACE:include>
+  ${LIBSERIAL_INCLUDE_DIRS}
+  ${Protobuf_INCLUDE_DIRS}
+)
+
+target_link_libraries(littlebot_driver PUBLIC
+  ${LIBSERIAL_LIBRARIES}
+  ${Protobuf_LIBRARIES}
+)
 
 # Export the library so other packages can find it
 ament_export_libraries(littlebot_driver)
+ament_export_targets(littlebot_driver_targets HAS_LIBRARY_TARGET)
 
 # Hardware interface
 add_library(littlebot_hardware_component SHARED
@@ -85,9 +103,10 @@ target_include_directories(littlebot_hardware_component PRIVATE
 pluginlib_export_plugin_description_file(hardware_interface littlebot_hardware_component.xml)
 
 ## INSTALL
-install( TARGETS
+install(TARGETS
   littlebot_hardware_component
   littlebot_driver
+  EXPORT littlebot_driver_targets
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
@@ -96,6 +115,12 @@ install(
   DIRECTORY include/
   DESTINATION include
 )
+
+# Install generated protobuf headers so downstream packages can include them
+if(PROTO_HDRS)
+  install(FILES ${PROTO_HDRS}
+    DESTINATION include)
+endif()
 
 install(DIRECTORY
   launch
