@@ -15,7 +15,6 @@ find_package(controller_manager REQUIRED)
 find_package(controller_manager_msgs REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(littlebot_description REQUIRED)
-find_package(littlebot_base REQUIRED)
 find_package(PkgConfig REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(Protobuf REQUIRED)
@@ -50,10 +49,24 @@ include_directories(
 # create ament index resource which references the libraries in the binary dir
 set(node_plugins "")
 
-# Create library
+# Create serial_port library (standalone)
+add_library(serial_port SHARED
+  src/serial_port.cpp
+)
+
+target_include_directories(serial_port PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  ${LIBSERIAL_INCLUDE_DIRS}
+)
+
+target_link_libraries(serial_port PUBLIC
+  ${LIBSERIAL_LIBRARIES}
+)
+
+# Create littlebot_driver library (depends on serial_port and protobuf)
 add_library(littlebot_driver SHARED
   src/littlebot_driver.cpp
-  src/serial_port.cpp
   ${PROTO_SRCS}
   ${PROTO_HDRS}
 )
@@ -62,16 +75,16 @@ target_include_directories(littlebot_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
   $<INSTALL_INTERFACE:include>
-  ${LIBSERIAL_INCLUDE_DIRS}
   ${Protobuf_INCLUDE_DIRS}
 )
 
 target_link_libraries(littlebot_driver PUBLIC
-  ${LIBSERIAL_LIBRARIES}
+  serial_port
   ${Protobuf_LIBRARIES}
 )
 
-# Export the library so other packages can find it
+# Export the libraries so other packages can find them
+ament_export_libraries(serial_port)
 ament_export_libraries(littlebot_driver)
 ament_export_targets(littlebot_driver_targets HAS_LIBRARY_TARGET)
 
@@ -90,7 +103,6 @@ ament_target_dependencies(littlebot_hardware_component
 # Link libserial
 target_link_libraries(littlebot_hardware_component
   littlebot_driver
-  ${LIBSERIAL_LIBRARIES}
   ${Protobuf_LIBRARIES}
 )
 target_include_directories(littlebot_hardware_component PRIVATE
@@ -104,8 +116,9 @@ pluginlib_export_plugin_description_file(hardware_interface littlebot_hardware_c
 
 ## INSTALL
 install(TARGETS
-  littlebot_hardware_component
+  serial_port
   littlebot_driver
+  littlebot_hardware_component
   EXPORT littlebot_driver_targets
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
@@ -131,9 +144,7 @@ install(DIRECTORY
 ament_export_include_directories(
   include
 )
-ament_export_libraries(
-  littlebot_hardware_component
-)
+ament_export_libraries(littlebot_hardware_component)
 ament_export_dependencies(
   hardware_interface
   pluginlib
@@ -186,15 +197,9 @@ if(BUILD_TESTING)
 
   # Unit tests for FirmwareComm
   ament_add_gtest(${PROJECT_NAME}_unit_tests
-    # test/test_main.cpp
     test/test_littlebot_driver.cpp
     test/test_littlebot_hardware_component.cpp
     test/test_serial_port.cpp
-    src/littlebot_hardware_component.cpp
-    src/littlebot_driver.cpp
-    src/serial_port.cpp
-    ${PROTO_SRCS}
-    ${PROTO_HDRS}
   )
 
   # # Make test depend on URDF generation
@@ -212,9 +217,10 @@ if(BUILD_TESTING)
     )
 
     target_link_libraries(${PROJECT_NAME}_unit_tests
-      ${Protobuf_LIBRARIES}
-      ${LIBSERIAL_LIBRARIES}
       littlebot_hardware_component
+      littlebot_driver
+      serial_port
+      ${Protobuf_LIBRARIES}
     )
   endif()
 endif()
