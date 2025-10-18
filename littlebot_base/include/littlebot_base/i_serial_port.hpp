@@ -22,7 +22,7 @@
 
 /**
  * To more information about the serial library used,
- * please visit: https://github.com/NestorDP/libserial
+ * please visit: https://github.com/NestorDP/cppserial
  */
 #include "libserial/serial.hpp"
 
