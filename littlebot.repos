@@ -1,0 +1,9 @@
+repositories:
+  cppserial:
+    type: git
+    url: https://github.com/NestorDP/cppserial.git
+    version: main
+  protobuf:
+    type: git
+    url: https://github.com/protocolbuffers/protobuf.git
+    version: main
