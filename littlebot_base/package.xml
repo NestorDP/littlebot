@@ -12,8 +12,6 @@
   <build_depend>protobuf-compiler</build_depend>
 
   <depend>hardware_interface</depend>
-  <depend>libprotobuf-dev</depend>
-  <depend>libserial</depend>
   <depend>littlebot_description</depend>
   <depend>pluginlib</depend>
   <depend>rclcpp</depend>
