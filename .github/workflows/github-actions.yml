@@ -13,7 +13,8 @@ jobs:
   ros-tests:
     name: Run ROS Tests
     runs-on: ubuntu-24.04
-
+    env:
+      ROS_DISTRO: humble
     steps:
       # 1. Check out the repository
       - name: Checkout repository
@@ -26,15 +27,16 @@ jobs:
         with:
           python-version: 3.12
 
-      # 2. Set up ROS 2 (e.g., Jazzy)
+      # 2. Set up ROS 2
       - name: Set up ROS 2
         uses: ros-tooling/setup-ros@v0.7
         with:
-          required-ros-distributions: jazzy
+          required-ros-distributions: ${{ env.ROS_DISTRO }}
 
       # 3. Install dependencies with rosdep
       - name: Install dependencies
         run: |
+          source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
           sudo rosdep init || true
           rosdep update
