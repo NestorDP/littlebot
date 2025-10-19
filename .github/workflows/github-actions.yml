@@ -14,7 +14,7 @@ jobs:
     name: Run ROS Tests
     runs-on: ubuntu-24.04
     env:
-      ROS_DISTRO: humble
+      ROS_DISTRO: jazzy
     steps:
       # 1. Check out the repository
       - name: Checkout repository
