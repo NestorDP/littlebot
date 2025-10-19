@@ -24,12 +24,11 @@ jobs:
         with:
           python-version: 3.12
 
-      # 2. Set up ROS 2 (e.g., Humble)
+      # 2. Set up ROS 2 (e.g., Jazzy)
       - name: Set up ROS 2
-        uses: ros-tooling/setup-ros@v0.7.15
+        uses: ros-tooling/setup-ros@v0.7
         with:
-          version: humble
-          packages: ros-base  # minimal ROS 2 packages
+          required-ros-distributions: jazzy
 
       # 3. Install dependencies with rosdep
       - name: Install dependencies
