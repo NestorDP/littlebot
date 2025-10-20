@@ -24,7 +24,7 @@ bool SerialPort::open(std::string port, int baudrate)
     serial_.open(port);
     serial_.setBaudRate(baudrate);
   } catch(const std::exception & e) {
-    std::cerr << e.what() << '\n';
+     throw;
   }
   return true;
 }
