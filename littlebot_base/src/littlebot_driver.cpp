@@ -68,10 +68,22 @@ char LittlebotDriver::receiveData()
     throw std::invalid_argument("Zero bytes read from serial port");
   }
 
+  std::cout << "Reading buffer (" << input_buffer_->size() << " bytes): ";
+  for (unsigned char c : *input_buffer_) {
+    std::printf("%02X ", c);
+  }
+  std::printf("\n");
+
   // Extract controller character (first byte after start frame)
   char controller_char{input_buffer_->front()};
   input_buffer_->erase(0, 1);
-  this->decode();
+
+  std::cout << "Reading buffer without 53 (" << input_buffer_->size() << " bytes): ";
+  for (unsigned char c : *input_buffer_) {
+    std::printf("%02X ", c);
+  }
+  std::printf("\n");
+  // this->decode();
 
   return controller_char;
 }
@@ -83,10 +95,10 @@ bool LittlebotDriver::sendData(char type)
 
   // Encode the data to protobuf into the output buffer
   this->encode();
-  
+
   // Prepend the type character to the protobuf payload
   output_buffer_->insert(output_buffer_->begin(), type);
-  
+
   int bytes_written = serial_port_->writePacket(output_buffer_);
   if (bytes_written < 0) {
     throw std::runtime_error("Failed to write data to serial port");
@@ -130,7 +142,6 @@ void LittlebotDriver::encode()
     if (!wheels_data_.SerializeToString(output_buffer_.get())) {
       throw std::runtime_error("Failed to serialize protobuf message");
     }
-
   } catch (const std::exception & e) {
     throw std::runtime_error("Error during encoding: " + std::string(e.what()));
   }
