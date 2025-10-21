@@ -113,7 +113,7 @@ private:
    * This function encodes the command velocities into the protobuf
    * format suitable for transmission to the hardware.
    */
-  bool encode();
+  void encode();
 
   /**
    * @brief Decode data received from the hardware
@@ -121,7 +121,7 @@ private:
    * This function decodes the protobuf data received from the
    * hardware into the status positions and velocities.
    */
-  bool decode();
+  void decode();
 
   /**
    * @brief Data structure for wheels

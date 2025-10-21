@@ -78,18 +78,23 @@ char LittlebotDriver::receiveData()
 
 bool LittlebotDriver::sendData(char type)
 {
-  // Create the complete message with framing: [<type><data>]
-  output_buffer_->push_back(type);
+  // Clear buffer and encode protobuf data
+  output_buffer_->clear();
+
+  // Encode the data to protobuf into the output buffer
   this->encode();
+  
+  // Prepend the type character to the protobuf payload
+  output_buffer_->insert(output_buffer_->begin(), type);
+  
   int bytes_written = serial_port_->writePacket(output_buffer_);
   if (bytes_written < 0) {
-    std::cerr << "Failed to write data to serial port" << std::endl;
-    return false;
+    throw std::runtime_error("Failed to write data to serial port");
   }
   return true;
 }
 
-bool LittlebotDriver::encode()
+void LittlebotDriver::encode()
 {
   try {
     wheels_data_.Clear();
@@ -123,31 +128,26 @@ bool LittlebotDriver::encode()
     }
 
     if (!wheels_data_.SerializeToString(output_buffer_.get())) {
-      std::cerr << "Error: Failed to serialize protobuf message" << std::endl;
-      return false;
+      throw std::runtime_error("Failed to serialize protobuf message");
     }
 
-    return true;
   } catch (const std::exception & e) {
-    std::cerr << "Error during encoding: " << e.what() << std::endl;
-    return false;
+    throw std::runtime_error("Error during encoding: " + std::string(e.what()));
   }
 }
 
-bool LittlebotDriver::decode()
+void LittlebotDriver::decode()
 {
   try {
     // Check if input buffer has data
     if (!input_buffer_ || input_buffer_->empty()) {
-      std::cerr << "Error: Input buffer is empty or null" << std::endl;
-      return false;
+      throw std::runtime_error("Error: Input buffer is empty or null");
     }
 
     // Parse the protobuf message from the input buffer
     littlebot::Wheels received_wheels_data;
     if (!received_wheels_data.ParseFromString(*input_buffer_)) {
-      std::cerr << "Error: Failed to parse protobuf message from input buffer" << std::endl;
-      return false;
+      throw std::runtime_error("Error: Failed to parse protobuf message from input buffer");
     }
 
     int wheel_count = received_wheels_data.side_size();
@@ -169,11 +169,8 @@ bool LittlebotDriver::decode()
         status_positions_[joint_name] = wheel_data.status_position();
       }
     }
-
-    return true;
   } catch (const std::exception & e) {
-    std::cerr << "Error during decoding: " << e.what() << std::endl;
-    return false;
+    throw std::runtime_error("Error during decoding: " + std::string(e.what()));
   }
 }
 
