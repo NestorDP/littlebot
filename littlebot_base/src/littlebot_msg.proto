@@ -18,9 +18,9 @@ syntax = "proto2";
 package littlebot;
 
 message WheelData {
-  required float command_velocity = 1;
-  required float status_velocity = 2;
-  required float status_position = 3;
+  optional float command_velocity = 1;
+  optional float status_velocity = 2;
+  optional float status_position = 3;
 }
 
 message Wheels {
