@@ -3,7 +3,7 @@ repositories:
     type: git
     url: https://github.com/NestorDP/cppserial.git
     version: v1.0.0
-  protobuf:
+  nanopb:
     type: git
-    url: https://github.com/protocolbuffers/protobuf.git
-    version: v3.21.12
+    url: https://github.com/nanopb/nanopb
+    version: 0.4.9.1
