@@ -83,7 +83,7 @@ char LittlebotDriver::receiveData()
     std::printf("%02X ", c);
   }
   std::printf("\n");
-  // this->decode();
+  this->decode();
 
   return controller_char;
 }

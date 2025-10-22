@@ -53,24 +53,18 @@ public:
 
   int readPacket(std::shared_ptr<std::string> buffer) override
   {
-    littlebot::Wheels wheels_msg;
+    // Construct a mock protobuf message
+    std::string proto_msg{""};
 
-    littlebot::WheelData * wheel_left = wheels_msg.add_side();
-    wheel_left->set_command_velocity(1.23f);
-    wheel_left->set_status_velocity(4.56f);
-    wheel_left->set_status_position(7.89f);
-
-    littlebot::WheelData * wheel_right = wheels_msg.add_side();
-    wheel_right->set_command_velocity(2.34f);
-    wheel_right->set_status_velocity(5.67f);
-    wheel_right->set_status_position(8.90f);
-
-    std::string proto;
-    if (!wheels_msg.SerializeToString(&proto)) {
-      proto.clear();
+    // Example protobuf message in hex generated for nanopb
+    std::string hex_data{"0A0F0A0000000015DB0FC93F1D81B787400A0F0A00000000153B46713F1DDB0FC93F"};
+    for (size_t i = 0; i < hex_data.length(); i += 2) {
+        auto byte = std::stoi(hex_data.substr(i, 2), nullptr, 16);
+        proto_msg.push_back(byte);
     }
 
-    std::string framed = std::string("S") + proto;
+    // Add controller type character at the start of the message
+    std::string framed = std::string("S") + proto_msg;
 
     if (buffer) {
       *buffer = framed;
