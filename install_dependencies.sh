@@ -20,7 +20,6 @@ else
   echo "[WARN] littlebot.repos not found. Skipping vcs import."
 fi
 
-
 # Initialize and update rosdep
 if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
   echo "[INFO] Initializing rosdep..."
@@ -34,28 +33,24 @@ rosdep update
 echo "[INFO] Installing dependencies with rosdep..."
 rosdep install --from-paths src --ignore-src -r -y
 
-# Optionally build/install protobuf and cppserial if not available as system packages
+# Optionally build/install nanopb and cppserial if not available as system packages
 # (Assumes their repos were imported to src/)
 
-PROTOBUF_DIR="src/protobuf"
+NANOPB_DIR="src/nanopb"
 CPPSERIAL_DIR="src/cppserial"
 
-if [ -d "$PROTOBUF_DIR" ]; then
-  echo "[INFO] Building and installing protobuf from source..."
-  cd "$PROTOBUF_DIR"
-  mkdir -p build && cd build
-  cmake ..
+if [ -d "$NANOPB_DIR" ]; then
+  echo "[INFO] Building and installing nanopb from source..."
+  mkdir -p build/nanopb && cd build/nanopb
+  cmake ../../$NANOPB_DIR
   make -j$(nproc)
-  sudo make install
-  sudo ldconfig
   cd ../..
 fi
 
 if [ -d "$CPPSERIAL_DIR" ]; then
   echo "[INFO] Building and installing cppserial from source..."
-  cd "$CPPSERIAL_DIR"
-  mkdir -p build && cd build
-  cmake ..
+  mkdir -p build/cppserial && cd build/cppserial
+  cmake ../../$CPPSERIAL_DIR
   make -j$(nproc)
   sudo make install
   sudo ldconfig
