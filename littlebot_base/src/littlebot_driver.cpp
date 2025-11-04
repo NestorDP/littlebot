@@ -141,13 +141,13 @@ void LittlebotDriver::decode()
   try {
     // Check if input buffer has data
     if (!input_buffer_ || input_buffer_->empty()) {
-      throw std::runtime_error("Error: Input buffer is empty or null");
+      throw std::runtime_error("Input buffer is empty or null");
     }
 
     // Parse the protobuf message from the input buffer
     littlebot::Wheels received_wheels_data;
     if (!received_wheels_data.ParseFromString(*input_buffer_)) {
-      throw std::runtime_error("Error: Failed to parse protobuf message from input buffer");
+      throw std::runtime_error("Failed to parse protobuf message from input buffer");
     }
 
     int wheel_count = received_wheels_data.side_size();
