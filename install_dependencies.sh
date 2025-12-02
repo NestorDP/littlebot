@@ -55,8 +55,6 @@ sudo cp lib/*.a /usr/lib/
 
 cd ~/littlebot_ws  # Return to littlebot directory
 
-ls
-
 # Optionally build/install protobuf and cppserial if not available as system packages
 # (Assumes their repos were imported to src/)
 
@@ -72,7 +70,7 @@ if [ -d "$PROTOBUF_DIR" ]; then
   make -j$(nproc)
   sudo make install
   sudo ldconfig
-  cd ../..
+  cd ../../..
 fi
 
 if [ -d "$CPPSERIAL_DIR" ]; then
@@ -83,7 +81,8 @@ if [ -d "$CPPSERIAL_DIR" ]; then
   make -j$(nproc)
   sudo make install
   sudo ldconfig
-  cd ../..
+  cd ../../..
 fi
 
 echo "[INFO] All dependencies installed. You can now build the workspace with colcon build."
+ls
