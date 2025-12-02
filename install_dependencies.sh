@@ -42,24 +42,30 @@ sudo apt-get install -y \
     cmake \
     git \
     libqwt-qt5-6 \
-    libqwt-qt5-dev
-
-echo "[INFO] Instaling gtest..."
-sudo apt-get install -y libgtest-dev
-# Build and install gtest
-cd /usr/src/gtest
-sudo mkdir -p build && cd build
-sudo cmake ..
-sudo make
-sudo cp lib/*.a /usr/lib/
-
-cd ~/littlebot_ws  # Return to littlebot directory
+    libqwt-qt5-dev \
+    libgtest-dev \
+    libgmock-dev
 
 # Optionally build/install protobuf and cppserial if not available as system packages
 # (Assumes their repos were imported to src/)
 
 PROTOBUF_DIR="src/protobuf"
 CPPSERIAL_DIR="src/cppserial"
+GTEST_DIR="src/googletest"
+
+echo "[INFO] Instaling gtest..."
+sudo apt-get install -y libgtest-dev
+
+if [ -d "$GTEST_DIR" ]; then
+  echo "[INFO] Building and installing gtest from source..."
+  cd "$GTEST_DIR"
+  mkdir -p build && cd build
+  cmake .. -DBUILD_SHARED_LIBS=ON -DINSTALL_GTEST=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr
+  make -j8
+  sudo make install
+  sudo ldconfig
+  cd ../../..
+fi
 
 if [ -d "$PROTOBUF_DIR" ]; then
   echo "[INFO] Building and installing protobuf from source..."
