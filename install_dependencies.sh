@@ -34,6 +34,29 @@ rosdep update
 echo "[INFO] Installing dependencies with rosdep..."
 rosdep install --from-paths src --ignore-src -r -y
 
+
+# Install any additional system dependencies not covered by rosdep
+echo "[INFO] Installing system dependencies..."
+sudo apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    libqwt-qt5-6 \
+    libqwt-qt5-dev
+
+echo "[INFO] Instaling gtest..."
+sudo apt-get install -y libgtest-dev
+# Build and install gtest
+cd /usr/src/gtest
+sudo mkdir -p build && cd build
+sudo cmake ..
+sudo make
+sudo cp lib/*.a /usr/lib/
+
+cd ~/littlebot_ws  # Return to littlebot directory
+
+ls
+
 # Optionally build/install protobuf and cppserial if not available as system packages
 # (Assumes their repos were imported to src/)
 
@@ -43,6 +66,7 @@ CPPSERIAL_DIR="src/cppserial"
 if [ -d "$PROTOBUF_DIR" ]; then
   echo "[INFO] Building and installing protobuf from source..."
   cd "$PROTOBUF_DIR"
+  git submodule update --init --recursive
   mkdir -p build && cd build
   cmake ..
   make -j$(nproc)
