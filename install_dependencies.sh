@@ -85,4 +85,3 @@ if [ -d "$CPPSERIAL_DIR" ]; then
 fi
 
 echo "[INFO] All dependencies installed. You can now build the workspace with colcon build."
-ls
