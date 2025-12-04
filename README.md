@@ -1,7 +1,7 @@
 # littleBOT
 ![Prints simulação LittleBOT](https://user-images.githubusercontent.com/37759765/128800773-a2714fbc-2218-4c7c-a7a5-e6070d67b1a1.png)
 
-<!-- [![Documentation Status](https://readthedocs.org/projects/cppserial/badge/?version=latest)](https://cppserial.readthedocs.io/en/latest/?badge=latest) -->
+[![Documentation Status](https://readthedocs.org/projects/littlebot/badge/?version=latest)](https://littlebot.readthedocs.io/en/latest/?badge=latest)
 
 The Littlebot stack is an exciting and versatile package group to configure the Littlebot robot - a low-cost educational robot developed specifically for learning the principles of robotics. With a focus on simplicity, affordability, and educational value, the Littlebot robot serves as an ideal platform for students, hobbyists, and educators to delve into the fascinating world of robotics.
 
