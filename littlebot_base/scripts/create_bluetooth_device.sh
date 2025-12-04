@@ -46,7 +46,7 @@ fi
 
 # Create RFCOMM connection
 echo "Connecting to littleBOT via RFCOMM..."
-sudo rfcomm connect /dev/rfcomm0 "$MAC_ADDRESS" &
+sudo rfcomm connect /dev/rfcomm0 "$MAC_ADDRESS"
 
 # Wait a moment for connection to establish
 sleep 3
