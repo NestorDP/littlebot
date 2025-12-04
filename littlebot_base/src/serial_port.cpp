@@ -24,7 +24,7 @@ bool SerialPort::open(std::string port, int baudrate)
     serial_.open(port);
     serial_.setBaudRate(baudrate);
   } catch(const std::exception & e) {
-     throw;
+    throw;
   }
   return true;
 }
@@ -40,13 +40,14 @@ int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
   // Check if we have minimum frame size: [<controller>]
   int num_characters = serial_.getAvailableData();
   if (num_characters < 3) {
-    throw std::runtime_error("Received frame too short: " + std::to_string(num_characters) + " bytes");
+    throw std::runtime_error(
+      "Received frame too short: " + std::to_string(num_characters) + " bytes");
   }
 
   serial_.read(buffer, num_characters);
 
   // Remove newline character
-  buffer->pop_back(); 
+  buffer->pop_back();
   int result = this->getDataFromPacket(buffer);
   if (result < 0) {
     return -1;
@@ -69,14 +70,16 @@ int SerialPort::getDataFromPacket(std::shared_ptr<std::string> buffer)
     buffer->erase(0, 1);
   } else {
     throw std::runtime_error(
-      "Invalid start byte: expected " + std::string(1, kStartByte) + ", got " + std::string(1, buffer->front()));
+      "Invalid start byte: expected " + std::string(1, kStartByte) +
+      ", got " + std::string(1, buffer->front()));
   }
 
   if (buffer->back() == kEndByte) {
     buffer->pop_back();
   } else {
     throw std::runtime_error(
-      "Invalid end byte: expected " + std::string(1, kEndByte) + ", got " + std::string(1, buffer->back()));
+      "Invalid end byte: expected " + std::string(1, kEndByte) +
+      ", got " + std::string(1, buffer->back()));
   }
   return buffer->size();
 }
