@@ -35,7 +35,7 @@ void SerialPort::close()
   std::cout << "SerialPort already closed" << std::endl;
 }
 
-int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
+int SerialPort::read(std::shared_ptr<std::string> buffer)
 {
   // Check if we have minimum frame size: [<controller>]
   int num_characters = serial_.getAvailableData();
@@ -45,27 +45,32 @@ int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
   }
 
   serial_.read(buffer, num_characters);
+  
+  int result = this->extractPayload(buffer);
 
-  // Remove newline character
-  buffer->pop_back();
-  int result = this->getDataFromPacket(buffer);
-  if (result < 0) {
-    return -1;
-  }
   return result;
 }
 
-int SerialPort::writePacket(std::shared_ptr<std::string> buffer)
+int SerialPort::write(std::shared_ptr<std::string> buffer)
+{
+  serial_.write(buffer);
+  this->buildPacket(buffer);
+  return buffer->size();
+}
+
+bool SerialPort::buildPacket(std::shared_ptr<std::string> buffer)
 {
   buffer->insert(buffer->begin(), kStartByte);
   buffer->push_back(kEndByte);
   buffer->push_back('\n');
-  serial_.write(buffer);
-  return buffer->size();
+  return true;
 }
 
-int SerialPort::getDataFromPacket(std::shared_ptr<std::string> buffer)
+int SerialPort::extractPayload(std::shared_ptr<std::string> buffer)
 {
+  // Remove newline character
+  buffer->pop_back();
+
   if (buffer->front() == kStartByte) {
     buffer->erase(0, 1);
   } else {

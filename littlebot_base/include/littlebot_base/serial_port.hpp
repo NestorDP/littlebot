@@ -41,19 +41,26 @@ public:
   /**
    * @brief Read packet data from the serial port
    */
-  int readPacket(std::shared_ptr<std::string> buffer) override;
+  int read(std::shared_ptr<std::string> buffer) override;
 
   /**
    * @brief Write packet data to the serial port
    */
-  int writePacket(std::shared_ptr<std::string> buffer) override;
+  int write(std::shared_ptr<std::string> buffer) override;
 
     /**
    * @brief Get data from the received packet
    *
    * @param buffer Shared pointer to string buffer to store received data
    */
-  int getDataFromPacket(std::shared_ptr<std::string> buffer) override;
+  int extractPayload(std::shared_ptr<std::string> buffer) override;
+
+  /**
+   * @brief Build packet to be sent through serial port
+   * 
+   * @param buffer Shared pointer to string buffer to store data to be sent
+   */
+  bool buildPacket(std::shared_ptr<std::string> buffer) override;
 
 private:
   /**

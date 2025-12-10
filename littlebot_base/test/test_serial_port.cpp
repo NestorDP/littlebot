@@ -34,6 +34,6 @@ TEST(TestSerialPort, GetDataFromPacket)
     packet.erase(0, 1);
     packet.pop_back();
 
-    serial_port.getDataFromPacket(input_buffer);
+    serial_port.extractPayload(input_buffer);
     EXPECT_STREQ(input_buffer->c_str(), packet.c_str());
 }

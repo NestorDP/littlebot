@@ -63,7 +63,7 @@ std::map<std::string, float> LittlebotDriver::getStatusPositions() const
 
 char LittlebotDriver::receiveData()
 {
-  int bytes_read = serial_port_->readPacket(input_buffer_);
+  int bytes_read = serial_port_->read(input_buffer_);
   if (bytes_read < 0) {
     throw std::invalid_argument("Zero bytes read from serial port");
   }
@@ -87,7 +87,7 @@ bool LittlebotDriver::sendData(char type)
   // Prepend the type character to the protobuf payload
   output_buffer_->insert(output_buffer_->begin(), type);
 
-  int bytes_written = serial_port_->writePacket(output_buffer_);
+  int bytes_written = serial_port_->write(output_buffer_);
   if (bytes_written < 0) {
     throw std::runtime_error("Failed to write data to serial port");
   }
