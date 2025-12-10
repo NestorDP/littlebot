@@ -35,7 +35,7 @@ void SerialPort::close()
   std::cout << "SerialPort already closed" << std::endl;
 }
 
-int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
+int SerialPort::read(std::shared_ptr<std::string> buffer)
 {
   // Check if we have minimum frame size: [<controller>]
   int num_characters = serial_.getAvailableData();
@@ -51,7 +51,7 @@ int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
   return result;
 }
 
-int SerialPort::writePacket(std::shared_ptr<std::string> buffer)
+int SerialPort::write(std::shared_ptr<std::string> buffer)
 {
   serial_.write(buffer);
   this->buildPacket(buffer);

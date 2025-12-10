@@ -41,12 +41,12 @@ public:
   /**
    * @brief Read packet data from the serial port
    */
-  int readPacket(std::shared_ptr<std::string> buffer) override;
+  int read(std::shared_ptr<std::string> buffer) override;
 
   /**
    * @brief Write packet data to the serial port
    */
-  int writePacket(std::shared_ptr<std::string> buffer) override;
+  int write(std::shared_ptr<std::string> buffer) override;
 
     /**
    * @brief Get data from the received packet

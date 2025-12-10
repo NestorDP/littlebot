@@ -51,7 +51,7 @@ public:
 
   void close() override {}
 
-  int readPacket(std::shared_ptr<std::string> buffer) override
+  int read(std::shared_ptr<std::string> buffer) override
   {
     littlebot::Wheels wheels_msg;
 
@@ -79,7 +79,7 @@ public:
     return 0;
   }
 
-  int writePacket(std::shared_ptr<std::string> buffer) override
+  int write(std::shared_ptr<std::string> buffer) override
   {
     return static_cast<int>(buffer->size());
   }

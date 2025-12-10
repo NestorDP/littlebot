@@ -1,7 +1,12 @@
-# littleBOT
+<!-- [![release](https://img.shields.io/github/v/release/NestorDP/littlebot)](https://github.com/NestorDP/littlebot/releases) -->
+<!-- [![unit-tests](https://github.com/NestorDP/littlebot/actions/workflows/github-actions.yml/badge.svg)](https://github.com/NestorDP/littlebot/actions/workflows/unit-tests.yml)
+[![codecov](https://codecov.io/gh/NestorDP/littlebot/branch/main/graph/badge.svg)](https://codecov.io/gh/NestorDP/littlebot)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3759133c01204a5c880d0dd65e6175bc)](https://app.codacy.com/gh/NestorDP/littlebot/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) -->
+[![Documentation Status](https://readthedocs.org/projects/littlebot/badge/?version=latest)](https://littlebot.readthedocs.io/en/latest/?badge=latest)
+
+# littleBOT 
 ![Prints simulação LittleBOT](https://user-images.githubusercontent.com/37759765/128800773-a2714fbc-2218-4c7c-a7a5-e6070d67b1a1.png)
 
-[![Documentation Status](https://readthedocs.org/projects/littlebot/badge/?version=latest)](https://littlebot.readthedocs.io/en/latest/?badge=latest)
 
 The Littlebot stack is an exciting and versatile package group to configure the Littlebot robot - a low-cost educational robot developed specifically for learning the principles of robotics. With a focus on simplicity, affordability, and educational value, the Littlebot robot serves as an ideal platform for students, hobbyists, and educators to delve into the fascinating world of robotics.
 

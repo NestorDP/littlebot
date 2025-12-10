@@ -52,12 +52,12 @@ public:
   /**
    * @brief Read Packet from the serial port
    */
-  virtual int readPacket(std::shared_ptr<std::string> buffer) = 0;
+  virtual int read(std::shared_ptr<std::string> buffer) = 0;
 
   /**
    * @brief Write Packet to the serial port
    */
-  virtual int writePacket(std::shared_ptr<std::string> buffer) = 0;
+  virtual int write(std::shared_ptr<std::string> buffer) = 0;
 
   /**
    * @brief Get data from the recived packet
