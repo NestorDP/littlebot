@@ -64,7 +64,14 @@ public:
    *
    * @param buffer Shared pointer to string buffer to store received data
    */
-  virtual int getDataFromPacket(std::shared_ptr<std::string> buffer) = 0;
+  virtual int extractPayload(std::shared_ptr<std::string> buffer) = 0;
+
+  /**
+   * @brief Build packet to be sent through serial port
+   * 
+   * @param buffer Shared pointer to string buffer to store data to be sent
+   */
+  virtual bool buildPacket(std::shared_ptr<std::string> buffer) = 0;
 
   /**
    * @brief Prevent copy and assignment

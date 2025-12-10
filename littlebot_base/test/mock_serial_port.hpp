@@ -84,8 +84,13 @@ public:
     return static_cast<int>(buffer->size());
   }
 
-  int getDataFromPacket(std::shared_ptr<std::string> buffer) override
+  int extractPayload(std::shared_ptr<std::string> buffer) override
   {
     return static_cast<int>(buffer->size());
+  }
+
+  bool buildPacket(std::shared_ptr<std::string> buffer) override
+  {
+    return true;
   }
 };

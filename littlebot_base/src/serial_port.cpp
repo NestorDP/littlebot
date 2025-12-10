@@ -45,27 +45,32 @@ int SerialPort::readPacket(std::shared_ptr<std::string> buffer)
   }
 
   serial_.read(buffer, num_characters);
+  
+  int result = this->extractPayload(buffer);
 
-  // Remove newline character
-  buffer->pop_back();
-  int result = this->getDataFromPacket(buffer);
-  if (result < 0) {
-    return -1;
-  }
   return result;
 }
 
 int SerialPort::writePacket(std::shared_ptr<std::string> buffer)
 {
-  buffer->insert(buffer->begin(), kStartByte);
-  buffer->push_back(kEndByte);
-  buffer->push_back('\n');
   serial_.write(buffer);
+  this->buildPacket(buffer);
   return buffer->size();
 }
 
-int SerialPort::getDataFromPacket(std::shared_ptr<std::string> buffer)
+bool SerialPort::buildPacket(std::shared_ptr<std::string> buffer)
 {
+  buffer->insert(buffer->begin(), kStartByte);
+  buffer->push_back(kEndByte);
+  buffer->push_back('\n');
+  return true;
+}
+
+int SerialPort::extractPayload(std::shared_ptr<std::string> buffer)
+{
+  // Remove newline character
+  buffer->pop_back();
+
   if (buffer->front() == kStartByte) {
     buffer->erase(0, 1);
   } else {
