@@ -23,10 +23,20 @@ jobs:
         with:
           python-version: 3.12
 
+      # 2. Set up ROS 2 (lightweight)
       - name: Set up ROS 2
         uses: ros-tooling/setup-ros@v0.7
         with:
           required-ros-distributions: ${{ env.ROS_DISTRO }}
+          skip-rosdep: true
+
+      # 3. Install only ROS base + tools you actually need
+      - name: Install ROS base and build tools
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            ros-${ROS_DISTRO}-ros-base \
+            python3-colcon-common-extensions
 
       - name: Install dependencies
         run: |
