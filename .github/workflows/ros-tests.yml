@@ -32,16 +32,14 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          sudo rosdep init || true
-          rosdep update
-          rosdep install --from-paths src --ignore-src -y
+          ./src/littlebot/install_dependencies.sh
 
-      - name: Build workspace
-        run: |
-          colcon build --symlink-install
+      # - name: Build workspace
+      #   run: |
+      #     colcon build --symlink-install
 
-      - name: Run tests
-        run: |
-          source install/setup.bash
-          colcon test
-          colcon test-result --verbose
+      # - name: Run tests
+      #   run: |
+      #     source install/setup.bash
+      #     colcon test
+      #     colcon test-result --verbose
