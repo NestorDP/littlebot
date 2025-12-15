@@ -30,12 +30,20 @@ jobs:
           required-ros-distributions: ${{ env.ROS_DISTRO }}
           skip-rosdep: true
 
+      # 3. Install only ROS base + tools you actually need
+      - name: Install ROS base and build tools
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            ros-${ROS_DISTRO}-ros-base \
+            python3-colcon-common-extensions
+
       - name: Install dependencies
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
           pwd
-          ./src/littlebot/install_dependencies.sh
+      # ./src/littlebot/install_dependencies.sh
 
       # - name: Build workspace
       #   run: |
