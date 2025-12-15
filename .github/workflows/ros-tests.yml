@@ -42,6 +42,7 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
+          ls
           pwd
       # ./src/littlebot/install_dependencies.sh
 
