@@ -45,7 +45,7 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          colcon build --symlink-install --packages-select littlebot_description
+          colcon build --symlink-install
 
       # - name: Run tests
       #   run: |
