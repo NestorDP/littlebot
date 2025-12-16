@@ -45,7 +45,8 @@ sudo apt-get install -y \
     libqwt-qt5-6 \
     libqwt-qt5-dev \
     libgtest-dev \
-    libgmock-dev
+    libgmock-dev \
+    python3-catkin-pkg
 
 # Optionally build/install protobuf and cppserial if not available as system packages
 # (Assumes their repos were imported to src/)

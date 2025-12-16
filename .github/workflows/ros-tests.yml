@@ -33,7 +33,6 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          sudo apt install -y ros-${{ env.ROS_DISTRO }}-ament-cmake
           ./src/install_dependencies.sh
 
       - name: Build workspace
