@@ -34,9 +34,7 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          ls src
-          pwd
-      # ./src/littlebot/install_dependencies.sh
+          ./src/install_dependencies.sh
 
       # - name: Build workspace
       #   run: |
