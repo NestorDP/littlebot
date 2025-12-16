@@ -35,9 +35,9 @@ jobs:
           cd ros_ws
           ./src/install_dependencies.sh
 
-      # - name: Build workspace
-      #   run: |
-      #     colcon build --symlink-install
+      - name: Build workspace
+        run: |
+          colcon build --symlink-install
 
       # - name: Run tests
       #   run: |

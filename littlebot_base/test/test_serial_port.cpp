@@ -31,7 +31,7 @@ TEST(TestSerialPort, GetDataFromPacket)
     std::string packet{"[TEST_DATA]\n"};
     std::shared_ptr<std::string> input_buffer = std::make_shared<std::string>(packet);
 
-    packet.erase(0, 1); // remove start byte
+    packet.erase(0, 1);  // remove start byte
     packet.pop_back();  // remove newline
     packet.pop_back();  // remove end byte
 
