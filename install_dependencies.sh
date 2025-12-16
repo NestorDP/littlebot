@@ -11,7 +11,8 @@ if ! command -v rosdep &> /dev/null; then
   echo "[INFO] Installing python3-rosdep..."
   sudo apt-get update && sudo apt-get install -y python3-rosdep
 fi
- 
+echo "CURRENT DIR: $(pwd)"
+ls
 # Import external sources (protobuf, cppserial, etc.)
 if [ -f littlebot.repos ]; then
   echo "[INFO] Importing external sources with vcs..."
