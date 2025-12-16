@@ -13,9 +13,9 @@ if ! command -v rosdep &> /dev/null; then
 fi
  
 # Import external sources (protobuf, cppserial, etc.)
-if [ -f src/littlebot/littlebot.repos ]; then
+if [ -f littlebot.repos ]; then
   echo "[INFO] Importing external sources with vcs..."
-  vcs import src < src/littlebot.repos
+  vcs import src < littlebot.repos
 else
   echo "[WARN] littlebot.repos not found. Skipping vcs import."
 fi
