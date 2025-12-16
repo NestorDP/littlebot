@@ -14,9 +14,9 @@ fi
 echo "CURRENT DIR: $(pwd)"
 ls
 # Import external sources (protobuf, cppserial, etc.)
-if [ -f littlebot.repos ]; then
+if [ -f src/littlebot.repos ]; then
   echo "[INFO] Importing external sources with vcs..."
-  vcs import src < littlebot.repos
+  vcs import src < src/littlebot.repos
 else
   echo "[WARN] littlebot.repos not found. Skipping vcs import."
 fi
