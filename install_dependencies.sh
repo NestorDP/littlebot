@@ -15,7 +15,7 @@ fi
 # Import external sources (protobuf, cppserial, etc.)
 if [ -f src/littlebot/littlebot.repos ]; then
   echo "[INFO] Importing external sources with vcs..."
-  vcs import src < src/littlebot/littlebot.repos
+  vcs import src < src/littlebot.repos
 else
   echo "[WARN] littlebot.repos not found. Skipping vcs import."
 fi
