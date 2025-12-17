@@ -190,7 +190,9 @@ if(BUILD_TESTING)
   )
 
   # Add custom target for the URDF generation
-  add_custom_target(generate_test_urdf DEPENDS ${TEST_URDF_FILE})
+  add_custom_target(generate_test_urdf ALL
+    DEPENDS ${TEST_URDF_FILE}
+  )
 
   # Lint tests
   ament_lint_auto_find_test_dependencies()
@@ -202,12 +204,16 @@ if(BUILD_TESTING)
     test/test_serial_port.cpp
   )
 
-  # # Make test depend on URDF generation
+  # Make test depend on URDF generation
   if(TARGET generate_test_urdf)
     add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
   endif()
 
   if(TARGET ${PROJECT_NAME}_unit_tests)
+    target_compile_definitions(${PROJECT_NAME}_unit_tests
+      PRIVATE TEST_URDF_FILE_PATH="${TEST_URDF_FILE}"
+    )
+
     target_include_directories(${PROJECT_NAME}_unit_tests PRIVATE
       include
       test

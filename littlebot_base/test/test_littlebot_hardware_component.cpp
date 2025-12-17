@@ -57,8 +57,11 @@ protected:
 
   hardware_interface::HardwareInfo hardware_info_;
 
-  const std::string urdf_file_path_{
-    "/home/nestor/littlebot_ws/build/littlebot_base/test_littlebot.urdf"};
+  #ifndef TEST_URDF_FILE_PATH
+    #error "TEST_URDF_FILE_PATH is not defined"
+  #endif
+
+  const char urdf_file_path_[]{TEST_URDF_FILE_PATH};
 };
 
 TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
