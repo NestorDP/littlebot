@@ -12,6 +12,15 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       ROS_DISTRO: jazzy
+      COLCON_PACKAGES: >
+        littlebot
+        littlebot_base
+        littlebot_bringup
+        littlebot_control
+        littlebot_description
+        littlebot_localization
+        littlebot_navigation
+        littlebot_teleop
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -45,7 +54,7 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          colcon build --symlink-install
+          colcon build --symlink-install --select-packages $COLCON_PACKAGES
 
       # - name: Run tests
       #   run: |
