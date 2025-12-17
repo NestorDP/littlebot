@@ -54,12 +54,33 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          colcon build --symlink-install --packages-select $COLCON_PACKAGES
+          colcon build \
+           --symlink-install \
+           --packages-select $COLCON_PACKAGES \
+            --cmake-args -DCMAKE_BUILD_TYPE=Debug \
+                         -DCMAKE_CXX_FLAGS="--coverage" \
+                         -DCMAKE_C_FLAGS="--coverage" \
 
       - name: Run tests
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
           source install/setup.bash
-          colcon test --packages-select $COLCON_PACKAGES
+          colcon test \
+            --packages-select $COLCON_PACKAGES \
+            --event-handlers console_direct+ \
           colcon test-result --verbose
+      
+      - name: Generate code coverage report
+        run: |
+          source /opt/ros/$ROS_DISTRO/setup.sh
+          cd ros_ws
+          lcov --directory . --capture --output-file coverage.info --ignore-errors mismatch,mismatch,gcov
+          lcov --extract coverage.info "src/littlebot*" --output-file coverage.info.cleaned --ignore-errors unused
+
+# colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_C_FLAGS="--coverage"
+# colcon test --event-handlers console_direct+
+# lcov --directory . --capture --output-file coverage.info --ignore-errors mismatch,mismatch,gcov
+# lcov --extract coverage.info "src/littlebot*" --output-file coverage.info.cleaned --ignore-errors unused
+# genhtml coverage.info.cleaned --output-directory coverage_html
+# xdg-open coverage_html/index.html
