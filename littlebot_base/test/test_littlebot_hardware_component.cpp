@@ -61,7 +61,7 @@ protected:
     #error "TEST_URDF_FILE_PATH is not defined"
   #endif
 
-  const char urdf_file_path_[]{TEST_URDF_FILE_PATH};
+  const std::string urdf_file_path_ = TEST_URDF_FILE_PATH;
 };
 
 TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
