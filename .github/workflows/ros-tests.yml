@@ -55,11 +55,9 @@ jobs:
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
           colcon build \
-           --symlink-install \
-           --packages-select $COLCON_PACKAGES \
-            --cmake-args -DCMAKE_BUILD_TYPE=Debug \
-                         -DCMAKE_CXX_FLAGS="--coverage" \
-                         -DCMAKE_C_FLAGS="--coverage" \
+            --symlink-install \
+            --packages-select $COLCON_PACKAGES \
+            --cmake-args -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_C_FLAGS="--coverage" \
 
       - name: Run tests
         run: |
@@ -69,7 +67,6 @@ jobs:
           colcon test \
             --packages-select $COLCON_PACKAGES \
             --event-handlers console_direct+ \
-          colcon test-result --verbose
       
       - name: Generate code coverage report
         run: |
