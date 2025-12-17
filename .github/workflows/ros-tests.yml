@@ -61,5 +61,5 @@ jobs:
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
           source install/setup.bash
-          colcon test --packages-select littlebot_base
+          colcon test --packages-select $COLCON_PACKAGES
           colcon test-result --verbose
