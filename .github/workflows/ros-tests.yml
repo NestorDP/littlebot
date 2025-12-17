@@ -54,7 +54,7 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          colcon build --symlink-install --select-packages $COLCON_PACKAGES
+          colcon build --symlink-install --packages-select $COLCON_PACKAGES
 
       # - name: Run tests
       #   run: |
