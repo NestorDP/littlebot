@@ -44,8 +44,8 @@ sudo apt-get install -y \
     git \
     libqwt-qt5-6 \
     libqwt-qt5-dev \
-    libgtest-dev \
-    libgmock-dev \
+    # libgtest-dev \
+    # libgmock-dev \
     python3-catkin-pkg
 
 # Optionally build/install protobuf and cppserial if not available as system packages
@@ -53,10 +53,10 @@ sudo apt-get install -y \
 
 PROTOBUF_DIR="src/protobuf"
 CPPSERIAL_DIR="src/cppserial"
-GTEST_DIR="src/googletest"
+# GTEST_DIR="src/googletest"
 
 echo "[INFO] Instaling gtest..."
-sudo apt-get install -y libgtest-dev
+# sudo apt-get install -y libgtest-dev
 
 if [ -d "$GTEST_DIR" ]; then
   echo "[INFO] Building and installing gtest from source..."

@@ -50,10 +50,6 @@ jobs:
           cd ros_ws
           ./src/install_dependencies.sh
       
-      - name: Remove system gtest/gmock
-        run: |
-          sudo apt remove -y libgtest-dev libgmock-dev || true
-
       - name: Build workspace
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
