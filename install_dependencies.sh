@@ -74,7 +74,7 @@ if [ -d "$PROTOBUF_DIR" ]; then
   cd "$PROTOBUF_DIR"
   git submodule update --init --recursive
   mkdir -p build && cd build
-  cmake ..
+  cmake .. -Dprotobuf_BUILD_SHARED_LIBS=ON
   make -j$(nproc)
   sudo make install
   sudo ldconfig
