@@ -28,12 +28,14 @@ TEST(TestSerialPort, GetDataFromPacket)
 {
     littlebot_base::SerialPort serial_port;
 
-    std::string packet{"[TEST_DATA]"};
+    std::string packet{"[TEST_DATA]\n"};
     std::shared_ptr<std::string> input_buffer = std::make_shared<std::string>(packet);
 
-    packet.erase(0, 1);
-    packet.pop_back();
+    packet.erase(0, 1);  // remove start byte
+    packet.pop_back();  // remove newline
+    packet.pop_back();  // remove end byte
 
     serial_port.extractPayload(input_buffer);
+
     EXPECT_STREQ(input_buffer->c_str(), packet.c_str());
 }

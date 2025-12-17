@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.20)
 project(littlebot_base)
 
 if(NOT CMAKE_CXX_STANDARD)
@@ -190,24 +190,30 @@ if(BUILD_TESTING)
   )
 
   # Add custom target for the URDF generation
-  add_custom_target(generate_test_urdf DEPENDS ${TEST_URDF_FILE})
+  add_custom_target(generate_test_urdf ALL
+    DEPENDS ${TEST_URDF_FILE}
+  )
 
   # Lint tests
   ament_lint_auto_find_test_dependencies()
 
   # Unit tests for FirmwareComm
-  ament_add_gtest(${PROJECT_NAME}_unit_tests
+  ament_add_gmock(${PROJECT_NAME}_unit_tests
     test/test_littlebot_driver.cpp
     test/test_littlebot_hardware_component.cpp
     test/test_serial_port.cpp
   )
 
-  # # Make test depend on URDF generation
+  # Make test depend on URDF generation
   if(TARGET generate_test_urdf)
     add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
   endif()
 
   if(TARGET ${PROJECT_NAME}_unit_tests)
+    target_compile_definitions(${PROJECT_NAME}_unit_tests
+      PRIVATE TEST_URDF_FILE_PATH="${TEST_URDF_FILE}"
+    )
+
     target_include_directories(${PROJECT_NAME}_unit_tests PRIVATE
       include
       test

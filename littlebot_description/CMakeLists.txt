@@ -1,10 +1,10 @@
-  cmake_minimum_required(VERSION 3.5)
+  cmake_minimum_required(VERSION 3.20)
   project(littlebot_description)
   
   find_package(ament_cmake REQUIRED)
   
   install(
-    DIRECTORY config gazebo launch meshes ros2_control urdf
+    DIRECTORY config gazebo launch meshes ros2_control urdf   
     DESTINATION share/${PROJECT_NAME}
   )
   

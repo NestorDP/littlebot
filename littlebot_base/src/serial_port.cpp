@@ -45,7 +45,7 @@ int SerialPort::read(std::shared_ptr<std::string> buffer)
   }
 
   serial_.read(buffer, num_characters);
-  
+
   int result = this->extractPayload(buffer);
 
   return result;

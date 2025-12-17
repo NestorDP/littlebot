@@ -11,15 +11,14 @@ if ! command -v rosdep &> /dev/null; then
   echo "[INFO] Installing python3-rosdep..."
   sudo apt-get update && sudo apt-get install -y python3-rosdep
 fi
- 
+
 # Import external sources (protobuf, cppserial, etc.)
-if [ -f src/littlebot/littlebot.repos ]; then
+if [ -f src/littlebot.repos ]; then
   echo "[INFO] Importing external sources with vcs..."
-  vcs import src < src/littlebot/littlebot.repos
+  vcs import src < src/littlebot.repos
 else
   echo "[WARN] littlebot.repos not found. Skipping vcs import."
 fi
-
 
 # Initialize and update rosdep
 if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then
@@ -34,7 +33,6 @@ rosdep update
 echo "[INFO] Installing dependencies with rosdep..."
 rosdep install --from-paths src --ignore-src -r -y
 
-
 # Install any additional system dependencies not covered by rosdep
 echo "[INFO] Installing system dependencies..."
 sudo apt-get install -y \
@@ -43,36 +41,20 @@ sudo apt-get install -y \
     git \
     libqwt-qt5-6 \
     libqwt-qt5-dev \
-    libgtest-dev \
-    libgmock-dev
+    python3-catkin-pkg
 
 # Optionally build/install protobuf and cppserial if not available as system packages
 # (Assumes their repos were imported to src/)
 
 PROTOBUF_DIR="src/protobuf"
 CPPSERIAL_DIR="src/cppserial"
-GTEST_DIR="src/googletest"
-
-echo "[INFO] Instaling gtest..."
-sudo apt-get install -y libgtest-dev
-
-if [ -d "$GTEST_DIR" ]; then
-  echo "[INFO] Building and installing gtest from source..."
-  cd "$GTEST_DIR"
-  mkdir -p build && cd build
-  cmake .. -DBUILD_SHARED_LIBS=ON -DINSTALL_GTEST=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr
-  make -j8
-  sudo make install
-  sudo ldconfig
-  cd ../../..
-fi
 
 if [ -d "$PROTOBUF_DIR" ]; then
   echo "[INFO] Building and installing protobuf from source..."
   cd "$PROTOBUF_DIR"
   git submodule update --init --recursive
   mkdir -p build && cd build
-  cmake ..
+  cmake .. -Dprotobuf_BUILD_SHARED_LIBS=ON
   make -j$(nproc)
   sudo make install
   sudo ldconfig

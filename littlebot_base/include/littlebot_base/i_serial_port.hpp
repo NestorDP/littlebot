@@ -68,7 +68,7 @@ public:
 
   /**
    * @brief Build packet to be sent through serial port
-   * 
+   *
    * @param buffer Shared pointer to string buffer to store data to be sent
    */
   virtual bool buildPacket(std::shared_ptr<std::string> buffer) = 0;
