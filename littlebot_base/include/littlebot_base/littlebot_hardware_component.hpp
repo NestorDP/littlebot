@@ -152,12 +152,12 @@ private:
   std::vector<double> hw_status_velocities_;
 
   /**
-   * @brief
+   * @brief constant for number of command interfaces.
    */
   static constexpr int kNumCommandInterface_{1};
 
   /**
-   * @brief
+   * @brief constant for number of state interfaces.
    */
   static constexpr int kNumStateInterface_{2};
 };
