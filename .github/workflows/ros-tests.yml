@@ -72,8 +72,22 @@ jobs:
         run: |
           source /opt/ros/$ROS_DISTRO/setup.sh
           cd ros_ws
-          lcov --directory . --capture --output-file coverage.info --ignore-errors mismatch,mismatch,gcov
-          lcov --extract coverage.info "src/littlebot*" --output-file coverage.info.cleaned --ignore-errors unused
+          lcov \
+            --capture \
+            --directory . \
+            --base-directory src \
+            --output-file coverage.info \
+            --ignore-errors mismatch,mismatch,gcov
+          lcov \
+            --extract coverage.info "littlebot*" \
+            --output-file coverage.info.cleaned \
+            --ignore-errors unused
+          lcov \
+            --remove coverage.info.cleaned \
+            "*/install/*" \
+            "*/build/*" \
+            --output-file coverage.info.cleaned \
+            --ignore-errors unused
       
       - name: Upload coverage to Codecov (optional)
         if: github.event_name == 'push' || github.event_name == 'pull_request'
