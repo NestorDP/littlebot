@@ -78,7 +78,7 @@ jobs:
             --base-directory src \
             --output-file coverage.info \
             --ignore-errors mismatch,mismatch,gcov
-          lcov \  
+          lcov \
             --extract coverage.info "littlebot*" \
             --output-file coverage.info.cleaned \
             --ignore-errors unused
