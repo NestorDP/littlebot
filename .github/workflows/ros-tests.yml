@@ -75,14 +75,15 @@ jobs:
           lcov \
             --capture \
             --directory . \
+            --base-directory src \
             --output-file coverage.info \
             --ignore-errors mismatch,mismatch,gcov
           lcov \  
-            --extract coverage.info "src/littlebot*" \
+            --extract coverage.info "littlebot*" \
             --output-file coverage.info.cleaned \
             --ignore-errors unused
           lcov \
-            --remove coverage.info.cleaned\
+            --remove coverage.info.cleaned \
             "*/install/*" \
             "*/build/*" \
             --output-file coverage.info.cleaned \
