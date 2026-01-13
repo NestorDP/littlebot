@@ -52,26 +52,12 @@ public:
   /**
    * @brief Read Packet from the serial port
    */
-  virtual int read(std::shared_ptr<std::string> buffer) = 0;
+  virtual int read(std::string & payload) = 0;
 
   /**
    * @brief Write Packet to the serial port
    */
-  virtual int write(std::shared_ptr<std::string> buffer) = 0;
-
-  /**
-   * @brief Get data from the recived packet
-   *
-   * @param buffer Shared pointer to string buffer to store received data
-   */
-  virtual int extractPayload(std::shared_ptr<std::string> buffer) = 0;
-
-  /**
-   * @brief Build packet to be sent through serial port
-   *
-   * @param buffer Shared pointer to string buffer to store data to be sent
-   */
-  virtual bool buildPacket(std::shared_ptr<std::string> buffer) = 0;
+  virtual int write(const std::string & payload) = 0;
 
   /**
    * @brief Prevent copy and assignment
@@ -80,10 +66,28 @@ public:
   ISerialPort & operator=(const ISerialPort &) = delete;
 
 protected:
+  virtual void readStream() = 0;
+  /**
+   * @brief Get data from the recived packet
+   *
+   * @param buffer Shared pointer to string buffer to store received data
+   */
+  virtual bool tryExtractFrame(std::string & payload) = 0;
+
+  /**
+   * @brief Build packet to be sent through serial port
+   *
+   * @param buffer Shared pointer to string buffer to store data to be sent
+   */
+  virtual void buildFrame(const std::string & payload,
+  std::string & frame) = 0;
+
   /**
    * @brief Constructor for the ISerialPort class
    */
   ISerialPort() = default;
+
+  std::string rx_buffer_;
 
   /**
    * @brief Serial object from libserial
@@ -99,6 +103,8 @@ protected:
    * @brief Caracter to end the message
    */
   static constexpr char kEndByte{']'};
+
+  bool is_open_{false};
 };
 
 }  // namespace littlebot_base

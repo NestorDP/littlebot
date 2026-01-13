@@ -20,72 +20,104 @@ namespace littlebot_base
 
 bool SerialPort::open(std::string port, int baudrate)
 {
-  try {
-    serial_.open(port);
-    serial_.setBaudRate(baudrate);
-  } catch(const std::exception & e) {
-    throw;
-  }
+  serial_.setBaudRate(baudrate);
+  serial_.open(port);
+  is_open_ = true;
   return true;
 }
 
 void SerialPort::close()
 {
   serial_.close();
-  std::cout << "SerialPort already closed" << std::endl;
+  is_open_ = false;
 }
 
-int SerialPort::read(std::shared_ptr<std::string> buffer)
+int SerialPort::read(std::string & payload)
 {
-  // Check if we have minimum frame size: [<controller>]
-  int num_characters = serial_.getAvailableData();
-  if (num_characters < 3) {
-    throw std::runtime_error(
-      "Received frame too short: " + std::to_string(num_characters) + " bytes");
+  if (is_open_){
+    readStream();
   }
 
-  serial_.read(buffer, num_characters);
+  if (this->tryExtractFrame(payload)) {
+    return payload.size();
+  }
 
-  int result = this->extractPayload(buffer);
-
-  return result;
+  return 0;  // no complete frame yet
 }
 
-int SerialPort::write(std::shared_ptr<std::string> buffer)
+int SerialPort::write(const std::string & payload)
 {
-  serial_.write(buffer);
-  this->buildPacket(buffer);
-  return buffer->size();
+  auto frame = std::make_shared<std::string>();
+  buildFrame(payload, *frame);
+
+  if (is_open_) {
+    serial_.write(frame);
+  }
+
+  return static_cast<int>(frame->size());
 }
 
-bool SerialPort::buildPacket(std::shared_ptr<std::string> buffer)
+void SerialPort::readStream()
 {
-  buffer->insert(buffer->begin(), kStartByte);
-  buffer->push_back(kEndByte);
-  buffer->push_back('\n');
+  constexpr size_t kMaxReadChunk = 256;
+
+  auto tmp = std::make_shared<std::string>();
+  size_t n = serial_.read(tmp, kMaxReadChunk);
+
+  if (n > 0) {
+    rx_buffer_.append(*tmp);
+  }
+}
+
+void SerialPort::buildFrame(const std::string & payload,
+  std::string & frame)
+{
+  frame.clear();
+  frame.reserve(payload.size() + 3);
+
+  frame.push_back(kStartByte);
+  frame.append(payload);
+  frame.push_back(kEndByte);
+  frame.push_back('\n');
+}
+
+bool SerialPort::tryExtractFrame(std::string & payload)
+{
+  while (!rx_buffer_.empty() && rx_buffer_.front() == '\r') {
+    rx_buffer_.erase(0, 1);
+  }
+
+  auto start = rx_buffer_.find(kStartByte);
+  if (start == std::string::npos) {
+    rx_buffer_.clear();
+    return false;
+  }
+
+  if (start > 0) {
+    rx_buffer_.erase(0, start);
+  }
+
+  auto end = rx_buffer_.find(kEndByte, 1);
+  if (end == std::string::npos) {
+    return false;
+  }
+
+  payload.assign(
+    rx_buffer_.begin() + 1,
+    rx_buffer_.begin() + end);
+
+  size_t consume_len = end + 1;
+
+  if (consume_len < rx_buffer_.size() && rx_buffer_[consume_len] == '\n') {
+    ++consume_len;
+  }
+
+  if (consume_len < rx_buffer_.size() && rx_buffer_[consume_len] == '\r') {
+    ++consume_len;
+  }
+
+  rx_buffer_.erase(0, consume_len);
+
   return true;
-}
-
-int SerialPort::extractPayload(std::shared_ptr<std::string> buffer)
-{
-  // Remove newline character
-  buffer->pop_back();
-
-  if (buffer->front() == kStartByte) {
-    buffer->erase(0, 1);
-  } else {
-    throw std::runtime_error(
-      "Invalid start byte: expected " + std::string(1, kStartByte) +
-      ", got " + std::string(1, buffer->front()));
-  }
-
-  if (buffer->back() == kEndByte) {
-    buffer->pop_back();
-  } else {
-    throw std::runtime_error(
-      "Invalid end byte: expected " + std::string(1, kEndByte) +
-      ", got " + std::string(1, buffer->back()));
-  }
-  return buffer->size();
 }
 }  // namespace littlebot_base

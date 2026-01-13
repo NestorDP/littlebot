@@ -41,28 +41,38 @@ public:
   /**
    * @brief Read packet data from the serial port
    */
-  int read(std::shared_ptr<std::string> buffer) override;
+  int read(std::string & payload) override;
 
   /**
    * @brief Write packet data to the serial port
    */
-  int write(std::shared_ptr<std::string> buffer) override;
+  int write(const std::string & payload) override;
 
-    /**
+  #ifdef UNIT_TEST
+    void injectRxData(const std::string & data)
+    {
+      rx_buffer_.append(data);
+    }
+  #endif
+
+private:
+  void readStream() override;
+
+  /**
    * @brief Get data from the received packet
    *
    * @param buffer Shared pointer to string buffer to store received data
    */
-  int extractPayload(std::shared_ptr<std::string> buffer) override;
+  bool tryExtractFrame(std::string & payload) override;
 
   /**
    * @brief Build packet to be sent through serial port
    *
    * @param buffer Shared pointer to string buffer to store data to be sent
    */
-  bool buildPacket(std::shared_ptr<std::string> buffer) override;
+  void buildFrame(const std::string & payload,
+  std::string & frame) override;
 
-private:
   /**
    * @brief Serial port device path (e.g., "/dev/ttyUSB0")
    */
