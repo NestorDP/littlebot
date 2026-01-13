@@ -18,6 +18,7 @@ find_package(littlebot_description REQUIRED)
 find_package(PkgConfig REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(Protobuf REQUIRED)
+find_package(realtime_tools REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -82,6 +83,10 @@ target_include_directories(littlebot_driver PUBLIC
 target_link_libraries(littlebot_driver PUBLIC
   serial_port
   ${Protobuf_LIBRARIES}
+)
+
+ament_target_dependencies(littlebot_driver PUBLIC
+  realtime_tools
 )
 
 # Export the libraries so other packages can find them
