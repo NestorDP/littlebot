@@ -56,6 +56,9 @@ public:
   #endif
 
 private:
+  /**
+   * @brief Read data stream from the serial port
+   */
   void readStream() override;
 
   /**

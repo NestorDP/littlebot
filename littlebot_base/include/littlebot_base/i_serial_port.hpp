@@ -87,6 +87,9 @@ protected:
    */
   ISerialPort() = default;
 
+  /**
+   * @brief Buffer to store received data
+   */
   std::string rx_buffer_;
 
   /**
@@ -104,6 +107,9 @@ protected:
    */
   static constexpr char kEndByte{']'};
 
+  /**
+   * @brief Flag to indicate if the serial port is open
+   */
   bool is_open_{false};
 };
 
