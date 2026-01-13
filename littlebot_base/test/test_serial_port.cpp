@@ -13,29 +13,111 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+#define UNIT_TEST
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
-#include <memory>
-#include <vector>
-#include <string>
-#include <chrono>
 
 #include "littlebot_base/serial_port.hpp"
 
-//
-TEST(TestSerialPort, GetDataFromPacket)
+
+TEST(SerialPortTest, ExtractsValidFrame)
 {
-    littlebot_base::SerialPort serial_port;
+  littlebot_base::SerialPort port;
 
-    std::string packet{"[TEST_DATA]\n"};
-    std::shared_ptr<std::string> input_buffer = std::make_shared<std::string>(packet);
+  std::string payload;
+  port.injectRxData("[TEST_DATA]\n");
 
-    packet.erase(0, 1);  // remove start byte
-    packet.pop_back();  // remove newline
-    packet.pop_back();  // remove end byte
+  int n = port.read(payload);
 
-    serial_port.extractPayload(input_buffer);
+  ASSERT_GT(n, 0);
+  EXPECT_EQ(payload, "TEST_DATA");
+}
 
-    EXPECT_STREQ(input_buffer->c_str(), packet.c_str());
+TEST(SerialPortTest, DiscardsGarbageBeforeFrame)
+{
+  littlebot_base::SerialPort port;
+
+  std::string payload;
+  port.injectRxData("xxxxxx[HELLO]\n");
+
+  int n = port.read(payload);
+
+  ASSERT_GT(n, 0);
+  EXPECT_EQ(payload, "HELLO");
+}
+
+TEST(SerialPortTest, DoesNotExtractPartialFrame)
+{
+  littlebot_base::SerialPort port;
+
+  std::string payload;
+  port.injectRxData("[PARTIAL");
+
+  int n = port.read(payload);
+
+  EXPECT_EQ(n, 0);
+}
+
+TEST(SerialPortTest, ExtractsFrameSplitAcrossReads)
+{
+  littlebot_base::SerialPort port;
+  std::string payload;
+
+  port.injectRxData("[SPLIT");
+  EXPECT_EQ(port.read(payload), 0);
+
+  port.injectRxData("_FRAME]\n");
+  EXPECT_GT(port.read(payload), 0);
+
+  EXPECT_EQ(payload, "SPLIT_FRAME");
+}
+
+TEST(SerialPortTest, ExtractsMultipleFramesSequentially)
+{
+  littlebot_base::SerialPort port;
+  std::string payload;
+
+  port.injectRxData("[ONE]\n[TWO]\n");
+
+  ASSERT_GT(port.read(payload), 0);
+  EXPECT_EQ(payload, "ONE");
+
+  ASSERT_GT(port.read(payload), 0);
+  EXPECT_EQ(payload, "TWO");
+}
+
+// TEST(SerialPortTest, ThrowsOnMalformedFrame)
+// {
+//   littlebot_base::SerialPort port;
+//   std::string payload;
+
+//   port.injectRxData("[BAD]");
+
+//   EXPECT_THROW(
+//     port.read(payload),
+//     std::runtime_error
+//   );
+// }
+
+TEST(SerialPortTest, IgnoresLeadingCarriageReturns)
+{
+  littlebot_base::SerialPort port;
+  std::string payload;
+
+  port.injectRxData("\r\r\r[OK]\n");
+
+  ASSERT_GT(port.read(payload), 0);
+  EXPECT_EQ(payload, "OK");
+}
+
+TEST(SerialPortTest, NoFrameDoesNotThrow)
+{
+  littlebot_base::SerialPort port;
+  std::string payload;
+
+  port.injectRxData("random noise");
+
+  EXPECT_NO_THROW({
+    EXPECT_EQ(port.read(payload), 0);
+  });
 }

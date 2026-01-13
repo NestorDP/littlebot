@@ -42,55 +42,123 @@
 class MockSerialPort : public littlebot_base::ISerialPort
 {
 public:
-  bool open([[maybe_unused]] std::string port, [[maybe_unused]] int baudrate) override
+  bool open(std::string port, int baudrate) override
   {
-    std::cout << "MockSerialPort opened on port " << port
-              << " with baudrate " << baudrate << std::endl;
+    (void)port;
+    (void)baudrate;
+    opened_ = true;
+    rx_buffer_.clear();
     return true;
   }
 
-  void close() override {}
-
-  int read(std::shared_ptr<std::string> buffer) override
+  void close() override
   {
-    littlebot::Wheels wheels_msg;
+    opened_ = false;
+  }
 
-    littlebot::WheelData * wheel_left = wheels_msg.add_side();
-    wheel_left->set_command_velocity(1.23f);
-    wheel_left->set_status_velocity(4.56f);
-    wheel_left->set_status_position(7.89f);
-
-    littlebot::WheelData * wheel_right = wheels_msg.add_side();
-    wheel_right->set_command_velocity(2.34f);
-    wheel_right->set_status_velocity(5.67f);
-    wheel_right->set_status_position(8.90f);
-
-    std::string proto;
-    if (!wheels_msg.SerializeToString(&proto)) {
-      proto.clear();
+  int read(std::string & payload) override
+  {
+    if (!opened_) {
+      return 0;
     }
 
-    std::string framed = std::string("S") + proto;
-
-    if (buffer) {
-      *buffer = framed;
-      return static_cast<int>(buffer->size());
+    // Simulate receiving data from hardware once
+    if (!data_injected_) {
+      injectWheelFrame();
+      data_injected_ = true;
     }
+
+    // Try to extract a frame exactly like SerialPort does
+    if (tryExtractFrame(payload)) {
+      return static_cast<int>(payload.size());
+    }
+
     return 0;
   }
 
-  int write(std::shared_ptr<std::string> buffer) override
+  int write(const std::string & payload) override
   {
-    return static_cast<int>(buffer->size());
+    if (!opened_) {
+      return 0;
+    }
+
+    last_written_payload_ = payload;
+    return static_cast<int>(payload.size());
   }
 
-  int extractPayload(std::shared_ptr<std::string> buffer) override
+  // For test assertions
+  const std::string & lastWritten() const
   {
-    return static_cast<int>(buffer->size());
+    return last_written_payload_;
   }
 
-  bool buildPacket(std::shared_ptr<std::string> buffer) override
+private:
+  // ---- helpers ----
+
+  void injectWheelFrame()
   {
+    littlebot::Wheels wheels_msg;
+
+    auto * left = wheels_msg.add_side();
+    left->set_command_velocity(1.23f);
+    left->set_status_velocity(4.56f);
+    left->set_status_position(7.89f);
+
+    auto * right = wheels_msg.add_side();
+    right->set_command_velocity(2.34f);
+    right->set_status_velocity(5.67f);
+    right->set_status_position(8.90f);
+
+    std::string proto;
+    wheels_msg.SerializeToString(&proto);
+
+    std::string frame;
+    buildFrame(proto, frame);
+
+    // Simulate stream arrival
+    rx_buffer_.append(frame);
+  }
+
+  void buildFrame(const std::string & payload, std::string & frame)
+  {
+    frame.clear();
+    frame.reserve(payload.size() + 3);
+
+    frame.push_back(kStartByte);        // kStartByte
+    frame.append(payload);
+    frame.push_back(kEndByte);        // kEndByte
+    frame.push_back('\n');
+  }
+
+  bool tryExtractFrame(std::string & payload)
+  {
+    auto start = rx_buffer_.find(kStartByte);
+    if (start == std::string::npos) {
+      rx_buffer_.clear();
+      return false;
+    }
+
+    auto end = rx_buffer_.find(kEndByte, start + 1);
+    if (end == std::string::npos) {
+      return false;
+    }
+
+    if (end + 1 >= rx_buffer_.size() || rx_buffer_[end + 1] != '\n') {
+      throw std::runtime_error("Malformed mock frame");
+    }
+
+    payload.assign(
+      rx_buffer_.begin() + start + 1,
+      rx_buffer_.begin() + end);
+
+    rx_buffer_.erase(0, end + 2);
     return true;
   }
+
+private:
+  bool opened_{false};
+  bool data_injected_{false};
+
+  std::string rx_buffer_;
+  std::string last_written_payload_;
 };
