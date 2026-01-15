@@ -1,4 +1,4 @@
-// @ Copyright 2025 Nestor Neto
+// @ Copyright 2025-2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,186 +18,95 @@
 
 namespace littlebot_base
 {
+
 LittlebotDriver::LittlebotDriver(
-  std::shared_ptr<littlebot_base::ISerialPort> serial_port,
-  std::string port,
-  int baudrate)
-: serial_port_(serial_port)
+  std::shared_ptr<ISerialPort> serial_port,
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer)
+: serial_port_(std::move(serial_port)),
+  rt_state_buffer_(std::move(rt_state_buffer)),
+  rt_command_buffer_(std::move(rt_command_buffer))
 {
-  // Validate that the serial port was provided
-  if (!serial_port_) {
-    throw std::invalid_argument("Serial port cannot be null");
+}
+
+void LittlebotDriver::readRTData(WheelRTData & state) const noexcept
+{
+  const WheelRTData* data = rt_state_buffer_->readRT();
+  if (data) {
+    state = *data;
   }
-  // Open the serial port with default parameters
-  if (!serial_port_->open(port, baudrate)) {
-    throw std::runtime_error("Failed to open serial port");
-  }
-  // Initialize buffers
-  input_buffer_ = std::make_shared<std::string>();
-  output_buffer_ = std::make_shared<std::string>();
 }
 
-LittlebotDriver::~LittlebotDriver()
+void LittlebotDriver::writeRTData(const WheelRTData & command) noexcept
 {
-  serial_port_->close();
-  serial_port_.reset();
+  rt_command_buffer_->writeNonRT(command);
 }
 
-void LittlebotDriver::setCommandVelocities(std::map<std::string, float> velocities)
+bool LittlebotDriver::requestStatus()
 {
-  command_velocities_ = velocities;
-}
+  std::string payload{kStatusChar};
 
-std::map<std::string, float> LittlebotDriver::getStatusVelocities() const
-{
-  return status_velocities_;
-}
-
-std::map<std::string, float> LittlebotDriver::getStatusPositions() const
-{
-  return status_positions_;
-}
-
-char LittlebotDriver::receiveData()
-{
-  int bytes_read = serial_port_->read(input_buffer_);
-  if (bytes_read < 0) {
-    throw std::invalid_argument("Zero bytes read from serial port");
+  // Send status request
+  if (serial_port_->write(payload) <= 0) {
+    return false;
   }
 
-  // Extract controller character (first byte after start frame)
-  char controller_char{input_buffer_->front()};
-  input_buffer_->erase(0, 1);
-  this->decode();
-
-  return controller_char;
-}
-
-bool LittlebotDriver::sendData(char type)
-{
-  // Clear buffer and encode protobuf data
-  output_buffer_->clear();
-
-  // Encode the data to protobuf into the output buffer
-  this->encode();
-
-  // Prepend the type character to the protobuf payload
-  output_buffer_->insert(output_buffer_->begin(), type);
-
-  int bytes_written = serial_port_->write(output_buffer_);
-  if (bytes_written < 0) {
-    throw std::runtime_error("Failed to write data to serial port");
+  int num_chars_read = 0;
+  try {
+    num_chars_read = serial_port_->read(payload);
+  } catch (...) {
+    ++error_counters_.serial_read_error;
+    last_error_ = DriverError::SerialReadError;
+    return false;
   }
+
+  if (num_chars_read <= 0) {
+    ++error_counters_.no_data;
+    last_error_ = DriverError::NoData;
+    return false;
+  }
+
+  try {
+    codec::decode(payload, wheels_);
+  } catch (...) {
+    ++error_counters_.decode_failure;
+    last_error_ = DriverError::DecodeFailure;
+    return false;
+  }
+
+  if (wheels_.size() != kNumWheels) {
+    ++error_counters_.size_mismatch;
+    last_error_ = DriverError::SizeMismatch;
+    return false;
+  }
+
+  WheelRTData rt_data{};
+  for (size_t i = 0; i < kNumWheels; ++i) {
+    rt_data.status_position[i] = wheels_[i].getStatusPosition();
+    rt_data.status_velocity[i] = wheels_[i].getStatusVelocity();
+  }
+
+  rt_state_buffer_->writeNonRT(rt_data);
+  last_error_ = DriverError::None;
   return true;
 }
 
-void LittlebotDriver::encode()
+bool LittlebotDriver::sendCommand()
 {
-  try {
-    wheels_data_.Clear();
+  auto rt_data = rt_command_buffer_->readRT();
 
-    for (const auto & wheel_name : joint_names_) {
-      littlebot::WheelData * wheel_data = wheels_data_.add_side();
-
-      // Set command velocity (from command_velocities_ map)
-      auto cmd_vel_it = command_velocities_.find(wheel_name);
-      if (cmd_vel_it != command_velocities_.end()) {
-        wheel_data->set_command_velocity(cmd_vel_it->second);
-      } else {
-        wheel_data->set_command_velocity(0.0f);  // Default value
-      }
-
-      // Set status velocity (from status_velocities_ map)
-      auto status_vel_it = status_velocities_.find(wheel_name);
-      if (status_vel_it != status_velocities_.end()) {
-        wheel_data->set_status_velocity(status_vel_it->second);
-      } else {
-        wheel_data->set_status_velocity(0.0f);  // Default value
-      }
-
-      // Set status position (from status_positions_ map)
-      auto status_pos_it = status_positions_.find(wheel_name);
-      if (status_pos_it != status_positions_.end()) {
-        wheel_data->set_status_position(status_pos_it->second);
-      } else {
-        wheel_data->set_status_position(0.0f);  // Default value
-      }
-    }
-
-    if (!wheels_data_.SerializeToString(output_buffer_.get())) {
-      throw std::runtime_error("Failed to serialize protobuf message");
-    }
-  } catch (const std::exception & e) {
-    throw std::runtime_error("Error during encoding: " + std::string(e.what()));
+  // Update wheels_ from RT command
+  for (size_t i = 0; i < kNumWheels; ++i) {
+    wheels_[i].setCommandVelocity(rt_data->command_velocity[i]);
   }
-}
 
-void LittlebotDriver::decode()
-{
-  try {
-    // Check if input buffer has data
-    if (!input_buffer_ || input_buffer_->empty()) {
-      throw std::runtime_error("Input buffer is empty or null");
-    }
+  // Encode protobuf
+  std::string payload;
+  codec::encode(payload, wheels_);
 
-    // Parse the protobuf message from the input buffer
-    littlebot::Wheels received_wheels_data;
-    if (!received_wheels_data.ParseFromString(*input_buffer_)) {
-      throw std::runtime_error("Failed to parse protobuf message from input buffer");
-    }
+  // Prepend control char
+  payload.insert(payload.begin(), kCommandChar);
 
-    int wheel_count = received_wheels_data.side_size();
-
-    for (int i = 0; i < wheel_count && i < static_cast<int>(joint_names_.size()); ++i) {
-      const littlebot::WheelData & wheel_data = received_wheels_data.side(i);
-      const std::string & joint_name = joint_names_[i];
-
-      // Extract and store the values from protobuf to maps
-      if (wheel_data.has_command_velocity()) {
-        command_velocities_[joint_name] = wheel_data.command_velocity();
-      }
-
-      if (wheel_data.has_status_velocity()) {
-        status_velocities_[joint_name] = wheel_data.status_velocity();
-      }
-
-      if (wheel_data.has_status_position()) {
-        status_positions_[joint_name] = wheel_data.status_position();
-      }
-    }
-  } catch (const std::exception & e) {
-    throw std::runtime_error("Error during decoding: " + std::string(e.what()));
-  }
-}
-
-std::shared_ptr<std::string> LittlebotDriver::getInputBuffer() const
-{
-  return input_buffer_;
-}
-
-std::shared_ptr<std::string> LittlebotDriver::getOutputBuffer() const
-{
-  return output_buffer_;
-}
-
-std::vector<std::string> LittlebotDriver::getJointNames() const
-{
-  return joint_names_;
-}
-
-void LittlebotDriver::setJointNames(const std::vector<std::string> & joint_names)
-{
-  joint_names_ = joint_names;
-
-  // Initialize command and status maps with zero values for new joint names
-  command_velocities_.clear();
-  status_velocities_.clear();
-  status_positions_.clear();
-
-  for (const auto & name : joint_names_) {
-    command_velocities_[name] = 0.0f;
-    status_velocities_[name] = 0.0f;
-    status_positions_[name] = 0.0f;
-  }
+  return serial_port_->write(payload) > 0;
 }
 }  // namespace littlebot_base

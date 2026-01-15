@@ -37,7 +37,8 @@ public:
    */
   LittlebotDriver(
     std::shared_ptr<ISerialPort> serial_port,
-    std::shared_ptr<IRTBuffer<WheelRTData>> rt_buffer);
+    std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
+    std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer);
 
   /**
    * @brief Read the current state from the RT buffer
@@ -46,7 +47,7 @@ public:
    * 
    * @note This method is RT-safe (control loop)
    */
-  void read(WheelRTData & state) const noexcept;
+  void readRTData(WheelRTData & state) const noexcept;
 
   /**
    * @brief Write the command to the RT buffer
@@ -55,7 +56,7 @@ public:
    * 
    * @note This method is RT-safe (control loop)
    */
-  void write(const WheelRTData & command) noexcept;
+  void writeRTData(const WheelRTData & command) noexcept;
 
   /**
    * @brief Receive data from the hardware and update the RT buffer
@@ -65,7 +66,7 @@ public:
    * 
    * @note This method is NOT RT-safe (executor / IO thread)
    */
-  bool receiveDataFromHardware();
+  bool requestStatus();
 
   /**
    * @brief Send command data to the hardware
@@ -75,7 +76,7 @@ public:
    * 
    * @note This method is NOT RT-safe (executor / IO thread)
    */
-  bool sendDataToHardware();
+  bool sendCommand();
 
   /**
    * @brief Get the last error that occurred
@@ -111,24 +112,22 @@ private:
   std::shared_ptr<ISerialPort> serial_port_;
 
   /**
-   * @brief RT buffer interface for wheel data
+   * @brief RT buffer interface for wheel data states
    */
-  std::shared_ptr<IRTBuffer<WheelRTData>> rt_buffer_;
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer_;
 
   /**
-   * @brief Input buffer for non-RT operations
+   * @brief RT buffer interface for wheel data commands
    */
-  std::string input_buffer_;
-
-  /**
-   * @brief Output buffer for non-RT operations
-   */
-  std::string output_buffer_;
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer_;
 
   /**
    * @brief Vector of wheels (Not RT-safe)
    */
   std::vector<littlebot_base::Wheel> wheels_;
+
+  static constexpr char kCommandChar = 'C';
+  static constexpr char kStatusChar = 'S';
 };
 
 }  // namespace littlebot_base
