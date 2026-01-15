@@ -15,15 +15,13 @@
 
 #pragma once
 
-#include <cstdint>
-#include <map>
-#include <iostream>
-#include <string>
-#include <vector>
 #include <memory>
+#include <string>
 
-#include "littlebot_msg.pb.h"  // NOLINT(build/include_subdir)
 #include "littlebot_base/i_serial_port.hpp"
+#include "littlebot_base/i_rt_buffer.hpp"
+#include "littlebot_base/types.hpp"
+#include "littlebot_base/wheel.hpp"
 
 namespace littlebot_base
 {
@@ -32,155 +30,105 @@ class LittlebotDriver
 {
 public:
   /**
-   * @brief Constructor for the LittlebotDriver class
-   *
-   * @param serial_port Shared pointer to the serial port implementation
+   * @brief Construct a new Littlebot Driver object
+   * 
+   * @param serial_port Shared pointer to the serial port interface
+   * @param rt_buffer Shared pointer to the real-time buffer interface for wheel data
    */
-  explicit LittlebotDriver(
-    std::shared_ptr<littlebot_base::ISerialPort> serial_port,
-    std::string port,
-    int baudrate);
-
+  LittlebotDriver(
+    std::shared_ptr<ISerialPort> serial_port,
+    std::shared_ptr<IRTBuffer<WheelRTData>> rt_buffer);
 
   /**
-   * @brief Deconstructor for the LittlebotDriver class
+   * @brief Read the current state from the RT buffer
+   * 
+   * @param state Reference to WheelRTData structure to store the read data
+   * 
+   * @note This method is RT-safe (control loop)
    */
-  ~LittlebotDriver();
+  void read(WheelRTData & state) const noexcept;
 
   /**
-   * @brief Set the command velocities
+   * @brief Write the command to the RT buffer
+   * 
+   * @param command Reference to WheelRTData structure containing the command data
+   * 
+   * @note This method is RT-safe (control loop)
    */
-  void setCommandVelocities(std::map<std::string, float> velocities);
+  void write(const WheelRTData & command) noexcept;
 
   /**
-   * @brief Get the status velocities
+   * @brief Receive data from the hardware and update the RT buffer
+   * 
+   * @return true if data was received successfully
+   * @return false if an error occurred
+   * 
+   * @note This method is NOT RT-safe (executor / IO thread)
    */
-  std::map<std::string, float> getStatusVelocities() const;
+  bool receiveDataFromHardware();
 
   /**
-   * @brief Get the status positions
+   * @brief Send command data to the hardware
+   * 
+   * @return true if data was sent successfully
+   * @return false if an error occurred
+   * 
+   * @note This method is NOT RT-safe (executor / IO thread)
    */
-  std::map<std::string, float> getStatusPositions() const;
+  bool sendDataToHardware();
 
   /**
-   * @brief Receive data from the hardware
-   *
-   * @return The controller character indicating the type of data received.
+   * @brief Get the last error that occurred
+   * 
+   * @return DriverError The last error code
    */
-  char receiveData();
+  DriverError getLastError() const noexcept { return last_error_; }
 
   /**
-   * @brief Send data to the hardware
-   *
-   * @param type Character indicating the type of data being sent.
-   *             'S' to status and 'C' to command.
-   * @return True if data was sent successfully, false otherwise
+   * @brief Get the error counters
+   * 
+   * @return const DriverErrorCounters& Reference to the error counters structure
    */
-  bool sendData(char type);
-
-  /**
-   * @brief Get the current input buffer contents (for testing)
-   *
-   * @return Copy of the input buffer
-   */
-  std::shared_ptr<std::string> getInputBuffer() const;
-
-  /**
-   * @brief Get the current output buffer contents (for testing)
-   *
-   * @return Copy of the output buffer
-   */
-  std::shared_ptr<std::string> getOutputBuffer() const;
-
-  /**
-   * @brief Get the known Joint names
-   *
-   * @return Vector of known Joint names
-   */
-  std::vector<std::string> getJointNames() const;
-
-  /**
-   * @brief Set the known Joint names
-   *
-   * @param joint_names Vector of known Joint names
-   */
-  void setJointNames(const std::vector<std::string> & joint_names);
-
+  const DriverErrorCounters & getErrorCounters() const noexcept
+  {
+    return error_counters_;
+  }
+  
 private:
   /**
-   * @brief Encode data to be sent to the hardware
-   *
-   * This function encodes the command velocities into the protobuf
-   * format suitable for transmission to the hardware.
+   * @brief Error counters for the driver
    */
-  void encode();
+  DriverErrorCounters error_counters_;
 
   /**
-   * @brief Decode data received from the hardware
-   *
-   * This function decodes the protobuf data received from the
-   * hardware into the status positions and velocities.
+   * @brief Last error that occurred
    */
-  void decode();
+  DriverError last_error_{DriverError::None};
 
   /**
-   * @brief Data structure for wheels
-   *
-   * This structure holds the wheel data including positions and velocities.
+   * @brief Serial port interface
    */
-  littlebot::Wheels wheels_data_;
+  std::shared_ptr<ISerialPort> serial_port_;
 
   /**
-   * @brief Known joint names
-   *
-   * This vector defines the known joint names for mapping purposes.
+   * @brief RT buffer interface for wheel data
    */
-  std::vector<std::string> joint_names_ = {"left_wheel", "right_wheel"};
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_buffer_;
 
   /**
-   * @brief Command velocities for the hardware.
-   *
-   * This map stores the command velocities that are sent to the hardware.
+   * @brief Input buffer for non-RT operations
    */
-  std::map<std::string, float> command_velocities_{
-    {joint_names_[0], 0.0f}, {joint_names_[1], 0.0f}};
+  std::string input_buffer_;
 
   /**
-   * @brief Status positions from the hardware.
-   *
-   * This map stores the status positions received from the hardware.
+   * @brief Output buffer for non-RT operations
    */
-  std::map<std::string, float> status_positions_{
-    {joint_names_[0], 0.0f}, {joint_names_[1], 0.0f}};
+  std::string output_buffer_;
 
   /**
-   * @brief Status velocities from the hardware.
-   *
-   * This map stores the status velocities received from the hardware.
+   * @brief Vector of wheels (Not RT-safe)
    */
-  std::map<std::string, float> status_velocities_{
-    {joint_names_[0], 0.0f}, {joint_names_[1], 0.0f}};
-
-  /**
-   * @brief Smart pointer to serial_port object
-   *
-   * This object is used to communicate with the hardware.
-   */
-  std::shared_ptr<littlebot_base::ISerialPort> serial_port_;
-
-  /**
-   * @brief Input buffer for assembling incoming messages
-   *
-   * This buffer accumulates incoming bytes until a complete message is formed.
-   */
-  std::shared_ptr<std::string> input_buffer_;
-
-  /**
-   * @brief Output buffer for sending messages
-   *
-   * This buffer holds the encoded message ready to be sent to the hardware.
-   */
-  std::shared_ptr<std::string> output_buffer_;
+  std::vector<littlebot_base::Wheel> wheels_;
 };
 
 }  // namespace littlebot_base
