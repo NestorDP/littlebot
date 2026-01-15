@@ -14,10 +14,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #include "littlebot_base/littlebot_driver.hpp"
-
-#include <stdexcept>
-
-#include "littlebot_base/serial_port.hpp"
+#include "littlebot_base/codec.hpp"
 
 namespace littlebot_base
 {

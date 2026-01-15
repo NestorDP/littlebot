@@ -15,11 +15,11 @@
 
 #include <stdexcept>
 
-#include "littlebot_base/protobuf_codec.hpp"
+#include "littlebot_base/codec.hpp"
 
 namespace littlebot_base::codec
 {
-void encode(std::string & buffer,
+void encode(std::string & payload,
     const std::vector<Wheel> & wheels)
 {
   littlebot::Wheels send_wheels_data;
@@ -30,25 +30,23 @@ void encode(std::string & buffer,
     auto * wheel_data = send_wheels_data.add_side();
     
     wheel_data->set_command_velocity(wheel.getCommandVelocity());
-    wheel_data->set_status_velocity(0.0f);
-    wheel_data->set_status_position(0.0f);
   }
 
-  if (!send_wheels_data.SerializeToString(&buffer)) {
+  if (!send_wheels_data.SerializeToString(&payload)) {
     throw std::runtime_error("Failed to serialize protobuf message");
   }
 }
 
-void decode(const std::string & buffer,
+void decode(const std::string & payload,
     std::vector<Wheel> & wheels)
 {
-  if (buffer.empty()) {
-    throw std::runtime_error("Input buffer is empty");
+  if (payload.empty()) {
+    throw std::runtime_error("Input payload is empty");
   }
 
   littlebot::Wheels received_wheels_data;
-  if (!received_wheels_data.ParseFromString(buffer)) {
-    throw std::runtime_error("Failed to parse protobuf message from input buffer");
+  if (!received_wheels_data.ParseFromString(payload)) {
+    throw std::runtime_error("Failed to parse protobuf message from input payload");
   }
 
   if (received_wheels_data.side_size() != static_cast<int>(wheels.size())) {
@@ -59,7 +57,6 @@ void decode(const std::string & buffer,
   for (int i = 0; i < n; ++i) {
     const auto & wheel_data = received_wheels_data.side(i);
 
-    wheels[i].setCommandVelocity(wheel_data.command_velocity());
     wheels[i].setStatusVelocity(wheel_data.status_velocity());
     wheels[i].setStatusPosition(wheel_data.status_position());
   }
