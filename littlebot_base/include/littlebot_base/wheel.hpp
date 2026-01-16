@@ -36,28 +36,28 @@ public:
 
   /**
    * @brief Set the command velocity for the wheel
-   * 
+   *
    * @param velocity Desired command velocity
    */
   void setCommandVelocity(double velocity) {command_vel_ = velocity;}
 
   /**
    * @brief Set the joint name for the wheel
-   * 
+   *
    * @param joint_name Name of the joint
    */
   void setJointName(const std::string & joint_name) {joint_name_ = joint_name;}
 
   /**
    * @brief Set the status velocity for the wheel
-   * 
+   *
    * @param velocity Measured status velocity
    */
   void setStatusVelocity(double velocity) {status_vel_ = velocity;}
 
   /**
    * @brief Set the status position for the wheel
-   * 
+   *
    * @param position Measured status position
    */
   void setStatusPosition(double position) {status_pos_ = position;}
