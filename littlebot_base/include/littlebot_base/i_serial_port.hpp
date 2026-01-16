@@ -88,8 +88,9 @@ protected:
    *
    * @param buffer Shared pointer to string buffer to store data to be sent
    */
-  virtual void buildFrame(const std::string & payload,
-  std::string & frame) = 0;
+  virtual void buildFrame(
+    const std::string & payload,
+    std::string & frame) = 0;
 
   /**
    * @brief Buffer to store received data

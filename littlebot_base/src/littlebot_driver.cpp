@@ -31,7 +31,7 @@ LittlebotDriver::LittlebotDriver(
 
 void LittlebotDriver::readRTData(WheelRTData & state) const noexcept
 {
-  const WheelRTData* data = rt_state_buffer_->readRT();
+  const WheelRTData * data = rt_state_buffer_->readRT();
   if (data) {
     state = *data;
   }
@@ -93,7 +93,7 @@ bool LittlebotDriver::requestStatus()
 
 bool LittlebotDriver::sendCommand()
 {
-  const auto* rt_data = rt_command_buffer_->readRT();
+  const auto * rt_data = rt_command_buffer_->readRT();
   if (!rt_data) {
     ++error_counters_.no_command;
     last_error_ = DriverError::NoCommand;

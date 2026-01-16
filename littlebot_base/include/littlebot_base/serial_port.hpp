@@ -73,8 +73,9 @@ private:
    *
    * @param buffer Shared pointer to string buffer to store data to be sent
    */
-  void buildFrame(const std::string & payload,
-  std::string & frame) override;
+  void buildFrame(
+    const std::string & payload,
+    std::string & frame) override;
 
   /**
    * @brief Serial port device path (e.g., "/dev/ttyUSB0")

@@ -19,8 +19,9 @@
 
 namespace littlebot_base::codec
 {
-void encode(std::string & payload,
-    const std::vector<Wheel> & wheels)
+void encode(
+  std::string & payload,
+  const std::vector<Wheel> & wheels)
 {
   littlebot::Wheels send_wheels_data;
 
@@ -37,8 +38,9 @@ void encode(std::string & payload,
   }
 }
 
-void decode(const std::string & payload,
-    std::vector<Wheel> & wheels)
+void decode(
+  const std::string & payload,
+  std::vector<Wheel> & wheels)
 {
   if (payload.empty()) {
     throw std::runtime_error("Input payload is empty");

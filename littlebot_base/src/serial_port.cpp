@@ -34,7 +34,7 @@ void SerialPort::close()
 
 int SerialPort::read(std::string & payload)
 {
-  if (is_open_){
+  if (is_open_) {
     readStream();
   }
 
@@ -69,7 +69,8 @@ void SerialPort::readStream()
   }
 }
 
-void SerialPort::buildFrame(const std::string & payload,
+void SerialPort::buildFrame(
+  const std::string & payload,
   std::string & frame)
 {
   frame.clear();

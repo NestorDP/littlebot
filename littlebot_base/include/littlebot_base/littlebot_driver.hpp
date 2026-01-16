@@ -35,7 +35,7 @@ public:
 
   /**
    * @brief Construct a new Littlebot Driver object
-   * 
+   *
    * @param serial_port Shared pointer to the serial port interface
    * @param rt_buffer Shared pointer to the real-time buffer interface for wheel data
    */
@@ -87,7 +87,7 @@ public:
    * 
    * @return DriverError The last error code
    */
-  DriverError getLastError() const noexcept { return last_error_; }
+  DriverError getLastError() const noexcept {return last_error_;}
 
   /**
    * @brief Get the error counters

@@ -35,14 +35,14 @@ public:
   ~Wheel() = default;
 
   /**
-   * @brief 
+   * @brief
    */
-  void setCommandVelocity(double velocity){ command_vel_ = velocity;}
+  void setCommandVelocity(double velocity) {command_vel_ = velocity;}
 
   /**
-   * @brief 
+   * @brief
    */
-  void setJointName(const std::string & joint_name){ joint_name_ = joint_name; }
+  void setJointName(const std::string & joint_name) {joint_name_ = joint_name;}
 
   /**
    * @brief

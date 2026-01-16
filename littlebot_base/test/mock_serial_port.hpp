@@ -23,6 +23,7 @@
 #pragma once
 
 #include <gmock/gmock.h>
+#include <string>
 #include "littlebot_base/i_serial_port.hpp"
 
 class MockSerialPort : public littlebot_base::ISerialPort
@@ -38,6 +39,6 @@ public:
   
   // Provide default implementations for pure virtual methods
   void readStream() override {}
-  bool tryExtractFrame([[maybe_unused]] std::string & payload) override { return true; }
-  void buildFrame(const std::string & payload, std::string & frame) override { frame = payload; }
+  bool tryExtractFrame([[maybe_unused]] std::string & payload) override {return true;}
+  void buildFrame(const std::string & payload, std::string & frame) override {frame = payload;}
 };

@@ -23,17 +23,17 @@ namespace littlebot_ros2
 {
 
 class RosRTBuffer final
-: public littlebot_base::IRTBuffer<littlebot_base::WheelRTData>
+  : public littlebot_base::IRTBuffer<littlebot_base::WheelRTData>
 {
 public:
-  const littlebot_base::WheelRTData*
+  const littlebot_base::WheelRTData *
   readRT() const noexcept override
   {
     return buffer_.readFromRT();
   }
 
   void writeNonRT(
-    const littlebot_base::WheelRTData& data) override
+    const littlebot_base::WheelRTData & data) override
   {
     buffer_.writeFromNonRT(data);
   }
