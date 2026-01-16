@@ -168,23 +168,23 @@ hardware_interface::return_type LittlebotHardwareComponent::read(
   [[maybe_unused]] const rclcpp::Time & time,
   [[maybe_unused]] const rclcpp::Duration & period)
 {
-  littlebot_driver_->sendData('S');
-  littlebot_driver_->receiveData();
-  auto map_status_positions = littlebot_driver_->getStatusPositions();
-  auto map_status_velocities = littlebot_driver_->getStatusVelocities();
+  // littlebot_driver_->sendDataToHardware();
+  // littlebot_driver_->receiveDataFromHardware();
+  // auto map_status_positions = littlebot_driver_->getStatusPositions();
+  // auto map_status_velocities = littlebot_driver_->getStatusVelocities();
 
-  for (const auto & name : littlebot_driver_->getJointNames()) {
-    for (size_t i = 0; i < info_.joints.size(); i++) {
-      if (info_.joints[i].name == name) {
-        if (map_status_positions.find(name) != map_status_positions.end()) {
-          hw_status_positions_[i] = map_status_positions.at(name);
-        }
-        if (map_status_velocities.find(name) != map_status_velocities.end()) {
-          hw_status_velocities_[i] = map_status_velocities.at(name);
-        }
-      }
-    }
-  }
+  // for (const auto & name : littlebot_driver_->getJointNames()) {
+  //   for (size_t i = 0; i < info_.joints.size(); i++) {
+  //     if (info_.joints[i].name == name) {
+  //       if (map_status_positions.find(name) != map_status_positions.end()) {
+  //         hw_status_positions_[i] = map_status_positions.at(name);
+  //       }
+  //       if (map_status_velocities.find(name) != map_status_velocities.end()) {
+  //         hw_status_velocities_[i] = map_status_velocities.at(name);
+  //       }
+  //     }
+  //   }
+  // }
   return hardware_interface::return_type::OK;
 }
 
@@ -196,8 +196,8 @@ hardware_interface::return_type LittlebotHardwareComponent::write(
   for (size_t i = 0; i < info_.joints.size(); i++) {
     map_command_velocities[info_.joints[i].name] = hw_commands_velocities_[i];
   }
-  littlebot_driver_->setCommandVelocities(map_command_velocities);
-  littlebot_driver_->sendData('C');
+  // littlebot_driver_->setCommandVelocities(map_command_velocities);
+  // littlebot_driver_->sendDataToHardware();
   return hardware_interface::return_type::OK;
 }
 
@@ -205,11 +205,11 @@ void LittlebotHardwareComponent::setupDriver(
   std::shared_ptr<littlebot_base::ISerialPort> serial_port,
   const std::string & port, int baudrate)
 {
-  littlebot_driver_ = std::make_shared<littlebot_base::LittlebotDriver>(
-    serial_port, port, baudrate);
+  // littlebot_driver_ = std::make_shared<littlebot_base::LittlebotDriver>(
+  //   serial_port, port, baudrate);
 
   std::vector<std::string> joint_names{info_.joints[0].name, info_.joints[1].name};
-  littlebot_driver_->setJointNames(joint_names);
+  // littlebot_driver_->setJointNames(joint_names);
 }
 
 }   //  namespace littlebot_base
