@@ -17,7 +17,7 @@
 
 #include <memory>
 #include <string>
-
+#include <vector>
 
 #include "littlebot_base/i_serial_port.hpp"
 #include "littlebot_base/i_rt_buffer.hpp"

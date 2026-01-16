@@ -75,7 +75,7 @@ protected:
    * @brief Read data stream from the serial port
    */
   virtual void readStream() = 0;
-  
+
   /**
    * @brief Get data from the recived packet
    *

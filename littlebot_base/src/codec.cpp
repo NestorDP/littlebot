@@ -28,7 +28,7 @@ void encode(std::string & payload,
 
   for (const auto & wheel : wheels) {
     auto * wheel_data = send_wheels_data.add_side();
-    
+
     wheel_data->set_command_velocity(wheel.getCommandVelocity());
   }
 
