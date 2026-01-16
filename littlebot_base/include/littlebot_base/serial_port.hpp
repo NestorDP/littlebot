@@ -86,6 +86,11 @@ private:
    * @brief Communication baudrate (e.g., 9600, 115200)
    */
   int baudrate_{115200};
+
+  /**
+   * @brief Maximum number of bytes to read in one chunk
+   */
+  static constexpr size_t kMaxReadChunk{256};
 };
 
 }  // namespace littlebot_base

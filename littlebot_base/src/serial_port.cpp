@@ -59,8 +59,6 @@ int SerialPort::write(const std::string & payload)
 
 void SerialPort::readStream()
 {
-  constexpr size_t kMaxReadChunk = 256;
-
   auto tmp = std::make_shared<std::string>();
   size_t n = serial_.read(tmp, kMaxReadChunk);
 
