@@ -77,7 +77,7 @@ protected:
   virtual void readStream() = 0;
 
   /**
-   * @brief Get data from the recived packet
+   * @brief Get data from the received packet
    *
    * @param buffer Shared pointer to string buffer to store received data
    */
