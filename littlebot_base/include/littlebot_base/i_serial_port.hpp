@@ -59,14 +59,23 @@ public:
    */
   virtual int write(const std::string & payload) = 0;
 
+protected:
+  /**
+   * @brief Constructor for the ISerialPort class
+   */
+  ISerialPort() = default;
+
   /**
    * @brief Prevent copy and assignment
    */
   ISerialPort(const ISerialPort &) = delete;
   ISerialPort & operator=(const ISerialPort &) = delete;
 
-protected:
+  /**
+   * @brief Read data stream from the serial port
+   */
   virtual void readStream() = 0;
+  
   /**
    * @brief Get data from the recived packet
    *
@@ -81,11 +90,6 @@ protected:
    */
   virtual void buildFrame(const std::string & payload,
   std::string & frame) = 0;
-
-  /**
-   * @brief Constructor for the ISerialPort class
-   */
-  ISerialPort() = default;
 
   /**
    * @brief Buffer to store received data
