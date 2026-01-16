@@ -93,7 +93,12 @@ bool LittlebotDriver::requestStatus()
 
 bool LittlebotDriver::sendCommand()
 {
-  auto rt_data = rt_command_buffer_->readRT();
+  const auto* rt_data = rt_command_buffer_->readRT();
+  if (!rt_data) {
+    ++error_counters_.no_command;
+    last_error_ = DriverError::NoCommand;
+    return false;
+  }
 
   // Update wheels_ from RT command
   for (size_t i = 0; i < kNumWheels; ++i) {
