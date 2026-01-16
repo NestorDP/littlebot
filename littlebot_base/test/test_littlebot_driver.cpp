@@ -73,7 +73,6 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
 
   // Encode the payload to a protobuf valid message
   littlebot_base::codec::encode(rx_payload, wheels);
-
   
   EXPECT_CALL(*serial_, write(std::string(1, littlebot_base::LittlebotDriver::kStatusChar)))
   .WillOnce(testing::Return(1));
