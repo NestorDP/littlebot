@@ -17,7 +17,7 @@
 
 #include "realtime_tools/realtime_buffer.h"
 #include "littlebot_base/i_rt_buffer.hpp"
-#include "littlebot_base/wheel_rt_data.hpp"
+#include "littlebot_base/types.hpp"
 
 namespace littlebot_ros2
 {
