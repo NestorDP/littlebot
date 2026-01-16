@@ -22,11 +22,16 @@ namespace littlebot_base
 LittlebotDriver::LittlebotDriver(
   std::shared_ptr<ISerialPort> serial_port,
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
-  std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer)
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
+  const std::vector<std::string> & joint_names)
 : serial_port_(std::move(serial_port)),
   rt_state_buffer_(std::move(rt_state_buffer)),
   rt_command_buffer_(std::move(rt_command_buffer))
 {
+  wheels_.reserve(joint_names.size());
+  for (const auto & name : joint_names) {
+    wheels_.emplace_back(name);
+  }
 }
 
 void LittlebotDriver::readRTData(WheelRTData & state) const noexcept
@@ -46,7 +51,6 @@ bool LittlebotDriver::requestStatus()
 {
   std::string payload{kStatusChar};
 
-  // Send status request
   if (serial_port_->write(payload) <= 0) {
     return false;
   }
