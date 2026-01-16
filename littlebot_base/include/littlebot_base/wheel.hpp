@@ -26,6 +26,8 @@ namespace littlebot_base
 class Wheel
 {
 public:
+  Wheel() = default;
+
   explicit Wheel(std::string joint_name)
   : joint_name_(std::move(joint_name)) {}
 
