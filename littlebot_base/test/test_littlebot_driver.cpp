@@ -73,21 +73,21 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
   littlebot_base::codec::encode(rx_payload, wheels);
 
   EXPECT_CALL(*serial, write(std::string(1, littlebot_base::LittlebotDriver::kStatusChar)))
-      .WillOnce(testing::Return(1));
+  .WillOnce(testing::Return(1));
 
   EXPECT_CALL(*serial, read(testing::_))
-      .WillOnce(testing::DoAll(
-        testing::SetArgReferee<0>(rx_payload),
-        testing::Return(rx_payload.size())));
+  .WillOnce(testing::DoAll(
+    testing::SetArgReferee<0>(rx_payload),
+    testing::Return(rx_payload.size())));
 
   EXPECT_CALL(*state_buffer, writeNonRT(testing::_))
-      .WillOnce([](const littlebot_base::WheelRTData & data) {
-        EXPECT_FLOAT_EQ(data.status_velocity[0], 1.0f);
-        EXPECT_FLOAT_EQ(data.status_position[0], 2.0f);
-        EXPECT_FLOAT_EQ(data.status_velocity[1], 3.0f);
-        EXPECT_FLOAT_EQ(data.status_position[1], 4.0f);
-        return true;
-      });
+  .WillOnce([](const littlebot_base::WheelRTData & data) {
+      EXPECT_FLOAT_EQ(data.status_velocity[0], 1.0f);
+      EXPECT_FLOAT_EQ(data.status_position[0], 2.0f);
+      EXPECT_FLOAT_EQ(data.status_velocity[1], 3.0f);
+      EXPECT_FLOAT_EQ(data.status_position[1], 4.0f);
+      return true;
+  });
 
   EXPECT_TRUE(driver->requestStatus());
   EXPECT_EQ(driver->getLastError(), littlebot_base::DriverError::None);

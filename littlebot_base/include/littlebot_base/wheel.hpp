@@ -47,51 +47,51 @@ public:
   /**
    * @brief
    */
-  void setStatusVelocity(double velocity){ status_vel_ = velocity; }
+  void setStatusVelocity(double velocity) {status_vel_ = velocity;}
 
   /**
    * @brief
    */
-  void setStatusPosition(double position){ status_pos_ = position; }
+  void setStatusPosition(double position) {status_pos_ = position;}
 
   /**
    * @brief
    */
-  double getCommandVelocity() const { return command_vel_; }
+  double getCommandVelocity() const {return command_vel_;}
 
   /**
    * @brief
    */
-  double getStatusPosition() const { return status_pos_; }
+  double getStatusPosition() const {return status_pos_;}
 
   /**
    * @brief
    */
-  double getStatusVelocity() const { return status_vel_; }
+  double getStatusVelocity() const {return status_vel_;}
 
   /**
    * @brief
    */
-  std::string getJointName() const { return joint_name_; }
+  std::string getJointName() const {return joint_name_;}
 
 private:
   /**
-   * @brief 
+   * @brief
    */
   double status_vel_{0.0};
 
   /**
-   * @brief 
+   * @brief
    */
   double status_pos_{0.0};
 
   /**
-   * @brief 
+   * @brief
    */
   double command_vel_{0.0};
 
   /**
-   * @brief 
+   * @brief
    */
   std::string joint_name_{"wheel"};
 };

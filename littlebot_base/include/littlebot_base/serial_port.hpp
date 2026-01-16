@@ -49,10 +49,10 @@ public:
   int write(const std::string & payload) override;
 
   #ifdef UNIT_TEST
-    void injectRxData(const std::string & data)
-    {
-      rx_buffer_.append(data);
-    }
+  void injectRxData(const std::string & data)
+  {
+    rx_buffer_.append(data);
+  }
   #endif
 
 private:

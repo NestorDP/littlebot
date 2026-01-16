@@ -31,12 +31,12 @@ class MockSerialPort : public littlebot_base::ISerialPort
 public:
   MockSerialPort() {}
   ~MockSerialPort() override = default;
-  
+
   MOCK_METHOD(bool, open, (std::string port, int baudrate), (override));
   MOCK_METHOD(void, close, (), (override));
   MOCK_METHOD(int, write, (const std::string &), (override));
   MOCK_METHOD(int, read, (std::string &), (override));
-  
+
   // Provide default implementations for pure virtual methods
   void readStream() override {}
   bool tryExtractFrame([[maybe_unused]] std::string & payload) override {return true;}

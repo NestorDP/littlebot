@@ -46,59 +46,59 @@ public:
 
   /**
    * @brief Read the current state from the RT buffer
-   * 
+   *
    * @param state Reference to WheelRTData structure to store the read data
-   * 
+   *
    * @note This method is RT-safe (control loop)
    */
   void readRTData(WheelRTData & state) const noexcept;
 
   /**
    * @brief Write the command to the RT buffer
-   * 
+   *
    * @param command Reference to WheelRTData structure containing the command data
-   * 
+   *
    * @note This method is RT-safe (control loop)
    */
   void writeRTData(const WheelRTData & command) noexcept;
 
   /**
    * @brief Receive data from the hardware and update the RT buffer
-   * 
+   *
    * @return true if data was received successfully
    * @return false if an error occurred
-   * 
+   *
    * @note This method is NOT RT-safe (executor / IO thread)
    */
   bool requestStatus();
 
   /**
    * @brief Send command data to the hardware
-   * 
+   *
    * @return true if data was sent successfully
    * @return false if an error occurred
-   * 
+   *
    * @note This method is NOT RT-safe (executor / IO thread)
    */
   bool sendCommand();
 
   /**
    * @brief Get the last error that occurred
-   * 
+   *
    * @return DriverError The last error code
    */
   DriverError getLastError() const noexcept {return last_error_;}
 
   /**
    * @brief Get the error counters
-   * 
+   *
    * @return const DriverErrorCounters& Reference to the error counters structure
    */
   const DriverErrorCounters & getErrorCounters() const noexcept
   {
     return error_counters_;
   }
-  
+
 private:
   /**
    * @brief Error counters for the driver

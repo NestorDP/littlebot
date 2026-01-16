@@ -25,34 +25,34 @@
 
 namespace littlebot_base::codec
 {
-  /**
-   * @brief Encode wheel command data into a protobuf payload
-   *
-   * This function serializes the command velocities of the wheels
-   * into a protobuf message suitable for transmission to the hardware.
-   *
-   * @param payload Output payload that will contain the serialized protobuf message
-   * @param wheels Vector of wheels providing command data
-   *
-   * @throws std::runtime_error if serialization fails
-   */
-  void encode(
-    std::string & payload,
-    const std::vector<Wheel> & wheels);
+/**
+ * @brief Encode wheel command data into a protobuf payload
+ *
+ * This function serializes the command velocities of the wheels
+ * into a protobuf message suitable for transmission to the hardware.
+ *
+ * @param payload Output payload that will contain the serialized protobuf message
+ * @param wheels Vector of wheels providing command data
+ *
+ * @throws std::runtime_error if serialization fails
+ */
+void encode(
+  std::string & payload,
+  const std::vector<Wheel> & wheels);
 
-  /**
-   * @brief Decode wheel state data from a protobuf payload
-   *
-   * This function deserializes a protobuf message received from the
-   * hardware and updates the wheel status fields. Existing wheel
-   * metadata (e.g., joint names) is preserved.
-   *
-   * @param payload Input payload containing the serialized protobuf message
-   * @param wheels Vector of wheels to be updated with decoded state data
-   *
-   * @throws std::runtime_error if parsing fails or data size mismatches
-   */
-  void decode(
-    const std::string & payload,
-    std::vector<Wheel> & wheels);
+/**
+ * @brief Decode wheel state data from a protobuf payload
+ *
+ * This function deserializes a protobuf message received from the
+ * hardware and updates the wheel status fields. Existing wheel
+ * metadata (e.g., joint names) is preserved.
+ *
+ * @param payload Input payload containing the serialized protobuf message
+ * @param wheels Vector of wheels to be updated with decoded state data
+ *
+ * @throws std::runtime_error if parsing fails or data size mismatches
+ */
+void decode(
+  const std::string & payload,
+  std::vector<Wheel> & wheels);
 }  // namespace littlebot_base::codec
