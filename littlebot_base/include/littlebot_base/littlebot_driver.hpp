@@ -18,6 +18,7 @@
 #include <memory>
 #include <string>
 
+
 #include "littlebot_base/i_serial_port.hpp"
 #include "littlebot_base/i_rt_buffer.hpp"
 #include "littlebot_base/types.hpp"
@@ -29,6 +30,9 @@ namespace littlebot_base
 class LittlebotDriver
 {
 public:
+  static constexpr char kCommandChar = 'C';
+  static constexpr char kStatusChar = 'S';
+
   /**
    * @brief Construct a new Littlebot Driver object
    * 
@@ -125,9 +129,6 @@ private:
    * @brief Vector of wheels (Not RT-safe)
    */
   std::vector<littlebot_base::Wheel> wheels_;
-
-  static constexpr char kCommandChar = 'C';
-  static constexpr char kStatusChar = 'S';
 };
 
 }  // namespace littlebot_base
