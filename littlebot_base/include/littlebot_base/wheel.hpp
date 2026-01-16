@@ -35,63 +35,71 @@ public:
   ~Wheel() = default;
 
   /**
-   * @brief
+   * @brief Set the command velocity for the wheel
+   * 
+   * @param velocity Desired command velocity
    */
   void setCommandVelocity(double velocity) {command_vel_ = velocity;}
 
   /**
-   * @brief
+   * @brief Set the joint name for the wheel
+   * 
+   * @param joint_name Name of the joint
    */
   void setJointName(const std::string & joint_name) {joint_name_ = joint_name;}
 
   /**
-   * @brief
+   * @brief Set the status velocity for the wheel
+   * 
+   * @param velocity Measured status velocity
    */
   void setStatusVelocity(double velocity) {status_vel_ = velocity;}
 
   /**
-   * @brief
+   * @brief Set the status position for the wheel
+   * 
+   * @param position Measured status position
    */
   void setStatusPosition(double position) {status_pos_ = position;}
 
   /**
-   * @brief
+   * @brief Get the command velocity for the wheel
    */
   double getCommandVelocity() const {return command_vel_;}
 
   /**
-   * @brief
+   * @brief Get the status position for the wheel
    */
   double getStatusPosition() const {return status_pos_;}
 
   /**
-   * @brief
+   * @brief Get the status velocity for the wheel
    */
   double getStatusVelocity() const {return status_vel_;}
 
   /**
-   * @brief
+   * @brief Get the joint name for the wheel
    */
   std::string getJointName() const {return joint_name_;}
 
 private:
   /**
-   * @brief
+   * @brief Status velocity of the wheel
    */
   double status_vel_{0.0};
 
   /**
-   * @brief
+   * @brief Status position of the wheel
    */
   double status_pos_{0.0};
 
   /**
-   * @brief
+   * @brief Command velocity of the wheel
    */
   double command_vel_{0.0};
 
   /**
-   * @brief
+   * @brief Joint name of the wheel
    */
   std::string joint_name_{"wheel"};
 };
