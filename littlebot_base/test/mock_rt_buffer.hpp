@@ -1,28 +1,34 @@
-// @ Copyright 2025 Nestor Neto
+// @ Copyright 2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-syntax = "proto2";
+/**
+ * @file mock_rt_buffer.hpp
+ * @brief Mock class for testing RTBuffer without actual real-time context
+ * @author Nestor Neto
+ * @date 2026
+ */
 
-package littlebot;
+#pragma once
 
-message WheelData {
-  optional float command_velocity = 1;
-  optional float status_velocity = 2;
-  optional float status_position = 3;
-}
+#include <gmock/gmock.h>
+#include "littlebot_base/i_rt_buffer.hpp"
 
-message Wheels {
-  repeated WheelData side = 1;
-}
+template<typename T>
+class MockRTBuffer : public littlebot_base::IRTBuffer<T>
+{
+public:
+  MOCK_METHOD(const T *, readRT, (), (const, noexcept, override));
+  MOCK_METHOD(void, writeNonRT, (const T &), (override));
+};

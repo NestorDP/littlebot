@@ -52,26 +52,18 @@ public:
   /**
    * @brief Read Packet from the serial port
    */
-  virtual int read(std::shared_ptr<std::string> buffer) = 0;
+  virtual int read(std::string & payload) = 0;
 
   /**
    * @brief Write Packet to the serial port
    */
-  virtual int write(std::shared_ptr<std::string> buffer) = 0;
+  virtual int write(const std::string & payload) = 0;
 
+protected:
   /**
-   * @brief Get data from the recived packet
-   *
-   * @param buffer Shared pointer to string buffer to store received data
+   * @brief Constructor for the ISerialPort class
    */
-  virtual int extractPayload(std::shared_ptr<std::string> buffer) = 0;
-
-  /**
-   * @brief Build packet to be sent through serial port
-   *
-   * @param buffer Shared pointer to string buffer to store data to be sent
-   */
-  virtual bool buildPacket(std::shared_ptr<std::string> buffer) = 0;
+  ISerialPort() = default;
 
   /**
    * @brief Prevent copy and assignment
@@ -79,11 +71,31 @@ public:
   ISerialPort(const ISerialPort &) = delete;
   ISerialPort & operator=(const ISerialPort &) = delete;
 
-protected:
   /**
-   * @brief Constructor for the ISerialPort class
+   * @brief Read data stream from the serial port
    */
-  ISerialPort() = default;
+  virtual void readStream() = 0;
+
+  /**
+   * @brief Get data from the received packet
+   *
+   * @param buffer Shared pointer to string buffer to store received data
+   */
+  virtual bool tryExtractFrame(std::string & payload) = 0;
+
+  /**
+   * @brief Build packet to be sent through serial port
+   *
+   * @param buffer Shared pointer to string buffer to store data to be sent
+   */
+  virtual void buildFrame(
+    const std::string & payload,
+    std::string & frame) = 0;
+
+  /**
+   * @brief Buffer to store received data
+   */
+  std::string rx_buffer_;
 
   /**
    * @brief Serial object from libserial
@@ -99,6 +111,11 @@ protected:
    * @brief Caracter to end the message
    */
   static constexpr char kEndByte{']'};
+
+  /**
+   * @brief Flag to indicate if the serial port is open
+   */
+  bool is_open_{false};
 };
 
 }  // namespace littlebot_base

@@ -1,4 +1,4 @@
-// @ Copyright 2025 Nestor Neto
+// @ Copyright 2025-2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,75 +22,23 @@
 
 #pragma once
 
-#include <cstdint>
-#include <memory>
-#include <queue>
+#include <gmock/gmock.h>
 #include <string>
-#include <utility>
-#include <vector>
-
 #include "littlebot_base/i_serial_port.hpp"
-// Include generated protobuf messages for constructing test payloads
-#include "littlebot_msg.pb.h"  // NOLINT(build/include_subdir)
 
-/**
- * @brief Class for testing SerialPort without actual hardware
- *
- * This class extends SerialPort to allow testing without requiring
- * actual serial hardware connection.
- */
 class MockSerialPort : public littlebot_base::ISerialPort
 {
 public:
-  bool open([[maybe_unused]] std::string port, [[maybe_unused]] int baudrate) override
-  {
-    std::cout << "MockSerialPort opened on port " << port
-              << " with baudrate " << baudrate << std::endl;
-    return true;
-  }
+  MockSerialPort() {}
+  ~MockSerialPort() override = default;
 
-  void close() override {}
+  MOCK_METHOD(bool, open, (std::string port, int baudrate), (override));
+  MOCK_METHOD(void, close, (), (override));
+  MOCK_METHOD(int, write, (const std::string &), (override));
+  MOCK_METHOD(int, read, (std::string &), (override));
 
-  int read(std::shared_ptr<std::string> buffer) override
-  {
-    littlebot::Wheels wheels_msg;
-
-    littlebot::WheelData * wheel_left = wheels_msg.add_side();
-    wheel_left->set_command_velocity(1.23f);
-    wheel_left->set_status_velocity(4.56f);
-    wheel_left->set_status_position(7.89f);
-
-    littlebot::WheelData * wheel_right = wheels_msg.add_side();
-    wheel_right->set_command_velocity(2.34f);
-    wheel_right->set_status_velocity(5.67f);
-    wheel_right->set_status_position(8.90f);
-
-    std::string proto;
-    if (!wheels_msg.SerializeToString(&proto)) {
-      proto.clear();
-    }
-
-    std::string framed = std::string("S") + proto;
-
-    if (buffer) {
-      *buffer = framed;
-      return static_cast<int>(buffer->size());
-    }
-    return 0;
-  }
-
-  int write(std::shared_ptr<std::string> buffer) override
-  {
-    return static_cast<int>(buffer->size());
-  }
-
-  int extractPayload(std::shared_ptr<std::string> buffer) override
-  {
-    return static_cast<int>(buffer->size());
-  }
-
-  bool buildPacket(std::shared_ptr<std::string> buffer) override
-  {
-    return true;
-  }
+  // Provide default implementations for pure virtual methods
+  void readStream() override {}
+  bool tryExtractFrame([[maybe_unused]] std::string & payload) override {return true;}
+  void buildFrame(const std::string & payload, std::string & frame) override {frame = payload;}
 };
