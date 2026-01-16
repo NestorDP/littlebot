@@ -45,18 +45,19 @@ class LittlebotDriverTest : public ::testing::Test
 protected:
   void SetUp() override
   {
-    serial = std::make_shared<MockSerialPort>();
-    state_buffer = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
-    command_buffer = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
+    serial_ = std::make_shared<MockSerialPort>();
+    state_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
+    command_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
 
     driver = std::make_unique<littlebot_base::LittlebotDriver>(
-      serial, state_buffer, command_buffer);
+      serial_, state_buffer_, command_buffer_, joint_names_);
   }
 
-  std::shared_ptr<MockSerialPort> serial;
-  std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> state_buffer;
-  std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> command_buffer;
+  std::shared_ptr<MockSerialPort> serial_;
+  std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> state_buffer_;
+  std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> command_buffer_;
   std::unique_ptr<littlebot_base::LittlebotDriver> driver;
+  std::vector<std::string> joint_names_{"left_wheel", "right_wheel"};
 };
 
 TEST_F(LittlebotDriverTest, RequestStatusSuccess)
@@ -70,17 +71,19 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
   wheels[1].setStatusVelocity(3.0f);
   wheels[1].setStatusPosition(4.0f);
 
+  // Encode the payload to a protobuf valid message
   littlebot_base::codec::encode(rx_payload, wheels);
 
-  EXPECT_CALL(*serial, write(std::string(1, littlebot_base::LittlebotDriver::kStatusChar)))
+  
+  EXPECT_CALL(*serial_, write(std::string(1, littlebot_base::LittlebotDriver::kStatusChar)))
   .WillOnce(testing::Return(1));
 
-  EXPECT_CALL(*serial, read(testing::_))
+  EXPECT_CALL(*serial_, read(testing::_))
   .WillOnce(testing::DoAll(
     testing::SetArgReferee<0>(rx_payload),
     testing::Return(rx_payload.size())));
 
-  EXPECT_CALL(*state_buffer, writeNonRT(testing::_))
+  EXPECT_CALL(*state_buffer_, writeNonRT(testing::_))
   .WillOnce([](const littlebot_base::WheelRTData & data) {
       EXPECT_FLOAT_EQ(data.status_velocity[0], 1.0f);
       EXPECT_FLOAT_EQ(data.status_position[0], 2.0f);
