@@ -88,7 +88,6 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
       EXPECT_FLOAT_EQ(data.status_position[0], 2.0f);
       EXPECT_FLOAT_EQ(data.status_velocity[1], 3.0f);
       EXPECT_FLOAT_EQ(data.status_position[1], 4.0f);
-      return true;
   });
 
   EXPECT_TRUE(driver->requestStatus());
