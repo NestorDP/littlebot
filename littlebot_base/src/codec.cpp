@@ -31,6 +31,8 @@ void encode(
     auto * wheel_data = send_wheels_data.add_side();
 
     wheel_data->set_command_velocity(wheel.getCommandVelocity());
+    wheel_data->set_status_velocity(wheel.getStatusVelocity());
+    wheel_data->set_status_position(wheel.getStatusPosition());
   }
 
   if (!send_wheels_data.SerializeToString(&payload)) {
@@ -58,7 +60,7 @@ void decode(
   const int n = received_wheels_data.side_size();
   for (int i = 0; i < n; ++i) {
     const auto & wheel_data = received_wheels_data.side(i);
-
+    wheels[i].setCommandVelocity(wheel_data.command_velocity());
     wheels[i].setStatusVelocity(wheel_data.status_velocity());
     wheels[i].setStatusPosition(wheel_data.status_position());
   }
