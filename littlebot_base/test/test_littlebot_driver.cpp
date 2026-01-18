@@ -117,3 +117,21 @@ TEST_F(LittlebotDriverTest, RequestStatusDecodeFailure)
   EXPECT_FALSE(driver_->requestStatus());
   EXPECT_EQ(driver_->getLastError(), littlebot_base::DriverError::DecodeFailure);
 }
+
+TEST_F(LittlebotDriverTest, SendCommandSuccess)
+{
+  littlebot_base::WheelRTData cmd{};
+  cmd.command_velocity[0] = 5.0f;
+  cmd.command_velocity[1] = 6.0f;
+
+  EXPECT_CALL(*command_buffer_, readRT())
+  .WillOnce(testing::Return(&cmd));
+
+  EXPECT_CALL(*serial_, write(testing::_))
+  .WillOnce([](const std::string & payload) {
+      EXPECT_EQ(payload[0], littlebot_base::LittlebotDriver::kCommandChar);
+      return payload.size();
+  });
+
+  EXPECT_TRUE(driver_->sendCommand());
+}
