@@ -71,6 +71,17 @@ bool LittlebotDriver::requestStatus()
     return false;
   }
 
+  // Check and strip control character
+  const char control = payload.front();
+  if (control != kStatusChar && control != kCommandChar) {
+    ++error_counters_.invalid_control_char;
+    last_error_ = DriverError::InvalidControlChar;
+    return false;
+  }
+
+  // Remove first character (S or C)
+  payload.erase(payload.begin());
+
   try {
     codec::decode(payload, wheels_);
   } catch (...) {

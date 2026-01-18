@@ -65,6 +65,9 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
 
   littlebot_base::codec::encode(rx_payload, wheels);
 
+  // Add control character at the beginning of the payload
+  rx_payload = std::string(1, littlebot_base::LittlebotDriver::kStatusChar) + rx_payload;
+
   EXPECT_CALL(*serial_, write(std::string(1, littlebot_base::LittlebotDriver::kStatusChar)))
   .WillOnce(testing::Return(1));
 
@@ -95,7 +98,8 @@ TEST_F(LittlebotDriverTest, RequestStatusWriteFails)
 
 TEST_F(LittlebotDriverTest, RequestStatusDecodeFailure)
 {
-  std::string garbage = "invalid_payload";
+  std::string garbage = std::string(1,
+    littlebot_base::LittlebotDriver::kStatusChar) + "invalid_protobuf_payload";
 
   EXPECT_CALL(*serial_, write(testing::_))
   .WillOnce(testing::Return(1));
