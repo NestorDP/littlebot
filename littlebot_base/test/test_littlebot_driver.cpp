@@ -101,3 +101,19 @@ TEST_F(LittlebotDriverTest, RequestStatusWriteFails)
 
   EXPECT_FALSE(driver_->requestStatus());
 }
+
+TEST_F(LittlebotDriverTest, RequestStatusDecodeFailure)
+{
+  std::string garbage = "invalid_payload";
+
+  EXPECT_CALL(*serial_, write(testing::_))
+  .WillOnce(testing::Return(1));
+
+  EXPECT_CALL(*serial_, read(testing::_))
+  .WillOnce(testing::DoAll(
+    testing::SetArgReferee<0>(garbage),
+    testing::Return(garbage.size())));
+
+  EXPECT_FALSE(driver_->requestStatus());
+  EXPECT_EQ(driver_->getLastError(), littlebot_base::DriverError::DecodeFailure);
+}
