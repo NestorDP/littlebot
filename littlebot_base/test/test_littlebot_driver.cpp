@@ -1,4 +1,4 @@
-// @ Copyright 2025 Nestor Neto
+// @ Copyright 2025-2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,13 +12,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-/**
- * @file test_firmware_comm.cpp
- * @brief Unit tests for LittlebotDriver class
- * @author Nestor Neto
- * @date 2024
- */
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
@@ -35,11 +28,11 @@
 #include "mock_serial_port.hpp"
 #include "mock_rt_buffer.hpp"
 
-// /**
-//  * @brief Test fixture for LittlebotDriver tests
-//  *
-//  * This class provides common setup and teardown for LittlebotDriver tests.
-//  */
+/**
+ * @brief Test fixture for LittlebotDriver tests
+ *
+ * This class provides common setup and teardown for LittlebotDriver tests.
+ */
 class LittlebotDriverTest : public ::testing::Test
 {
 protected:
@@ -49,14 +42,14 @@ protected:
     state_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
     command_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
 
-    driver = std::make_unique<littlebot_base::LittlebotDriver>(
+    driver_ = std::make_unique<littlebot_base::LittlebotDriver>(
       serial_, state_buffer_, command_buffer_, joint_names_);
   }
 
   std::shared_ptr<MockSerialPort> serial_;
   std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> state_buffer_;
   std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> command_buffer_;
-  std::unique_ptr<littlebot_base::LittlebotDriver> driver;
+  std::unique_ptr<littlebot_base::LittlebotDriver> driver_;
   std::vector<std::string> joint_names_{"left_wheel", "right_wheel"};
 };
 
@@ -64,14 +57,12 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
 {
   std::string rx_payload;
 
-  // Prepare a valid protobuf payload
   std::vector<littlebot_base::Wheel> wheels(2);
   wheels[0].setStatusVelocity(1.0f);
   wheels[0].setStatusPosition(2.0f);
   wheels[1].setStatusVelocity(3.0f);
   wheels[1].setStatusPosition(4.0f);
 
-  // Encode the payload to a protobuf valid message
   littlebot_base::codec::encode(rx_payload, wheels);
 
   EXPECT_CALL(*serial_, write(std::string(1, littlebot_base::LittlebotDriver::kStatusChar)))
@@ -88,9 +79,59 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
       EXPECT_FLOAT_EQ(data.status_position[0], 2.0f);
       EXPECT_FLOAT_EQ(data.status_velocity[1], 3.0f);
       EXPECT_FLOAT_EQ(data.status_position[1], 4.0f);
-      return true;
   });
 
-  EXPECT_TRUE(driver->requestStatus());
-  EXPECT_EQ(driver->getLastError(), littlebot_base::DriverError::None);
+  EXPECT_TRUE(driver_->requestStatus());
+  EXPECT_EQ(driver_->getLastError(), littlebot_base::DriverError::None);
+}
+
+TEST_F(LittlebotDriverTest, RequestStatusWriteFails)
+{
+  EXPECT_CALL(*serial_, write(testing::_))
+  .WillOnce(testing::Return(0));
+
+  EXPECT_FALSE(driver_->requestStatus());
+}
+
+TEST_F(LittlebotDriverTest, RequestStatusDecodeFailure)
+{
+  std::string garbage = "invalid_payload";
+
+  EXPECT_CALL(*serial_, write(testing::_))
+  .WillOnce(testing::Return(1));
+
+  EXPECT_CALL(*serial_, read(testing::_))
+  .WillOnce(testing::DoAll(
+    testing::SetArgReferee<0>(garbage),
+    testing::Return(garbage.size())));
+
+  EXPECT_FALSE(driver_->requestStatus());
+  EXPECT_EQ(driver_->getLastError(), littlebot_base::DriverError::DecodeFailure);
+}
+
+TEST_F(LittlebotDriverTest, SendCommandSuccess)
+{
+  littlebot_base::WheelRTData cmd{};
+  cmd.command_velocity[0] = 5.0f;
+  cmd.command_velocity[1] = 6.0f;
+
+  EXPECT_CALL(*command_buffer_, readRT())
+  .WillOnce(testing::Return(&cmd));
+
+  EXPECT_CALL(*serial_, write(testing::_))
+  .WillOnce([](const std::string & payload) {
+      EXPECT_EQ(payload[0], littlebot_base::LittlebotDriver::kCommandChar);
+      return payload.size();
+  });
+
+  EXPECT_TRUE(driver_->sendCommand());
+}
+
+TEST_F(LittlebotDriverTest, SendCommandNoRTData)
+{
+  EXPECT_CALL(*command_buffer_, readRT())
+  .WillOnce(testing::Return(nullptr));
+
+  EXPECT_FALSE(driver_->sendCommand());
+  EXPECT_EQ(driver_->getLastError(), littlebot_base::DriverError::NoCommand);
 }

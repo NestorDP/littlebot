@@ -49,6 +49,7 @@ void LittlebotDriver::writeRTData(const WheelRTData & command) noexcept
 
 bool LittlebotDriver::requestStatus()
 {
+  // Add control char to request status in payload
   std::string payload{kStatusChar};
 
   if (serial_port_->write(payload) <= 0) {
