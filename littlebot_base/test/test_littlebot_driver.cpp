@@ -35,11 +35,11 @@
 #include "mock_serial_port.hpp"
 #include "mock_rt_buffer.hpp"
 
-// /**
-//  * @brief Test fixture for LittlebotDriver tests
-//  *
-//  * This class provides common setup and teardown for LittlebotDriver tests.
-//  */
+/**
+ * @brief Test fixture for LittlebotDriver tests
+ *
+ * This class provides common setup and teardown for LittlebotDriver tests.
+ */
 class LittlebotDriverTest : public ::testing::Test
 {
 protected:
@@ -134,4 +134,13 @@ TEST_F(LittlebotDriverTest, SendCommandSuccess)
   });
 
   EXPECT_TRUE(driver_->sendCommand());
+}
+
+TEST_F(LittlebotDriverTest, SendCommandNoRTData)
+{
+  EXPECT_CALL(*command_buffer_, readRT())
+  .WillOnce(testing::Return(nullptr));
+
+  EXPECT_FALSE(driver_->sendCommand());
+  EXPECT_EQ(driver_->getLastError(), littlebot_base::DriverError::NoCommand);
 }
