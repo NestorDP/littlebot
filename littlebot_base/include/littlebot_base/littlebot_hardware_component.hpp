@@ -33,8 +33,9 @@
 #include "rclcpp_lifecycle/state.hpp"
 
 #include "littlebot_base/littlebot_driver.hpp"
-#include "littlebot_base/i_serial_port.hpp"
 #include "littlebot_base/serial_port.hpp"
+#include "littlebot_base/ros_rt_buffer.hpp"
+
 
 namespace littlebot_base
 {
@@ -108,13 +109,6 @@ public:
   write(const rclcpp::Time & time, const rclcpp::Duration & period)
   override;
 
-  /**
-   * @brief Setup the Littlebot driver with the given serial port parameters
-   */
-  void setupDriver(
-    std::shared_ptr<littlebot_base::ISerialPort> serial_port,
-    const std::string & port, int baudrate);
-
 private:
   /**
    * @brief The name of the hardware component.
@@ -125,6 +119,21 @@ private:
    * @brief Shared pointer to the Littlebot driver
    */
   std::shared_ptr<littlebot_base::LittlebotDriver> littlebot_driver_;
+
+  /**
+   * @brief Shared pointer to the RT buffer for wheel states
+   */
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer_;
+
+  /**
+   * @brief Shared pointer to the RT buffer for wheel commands
+   */
+  std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer_;
+
+  /**
+   * @brief Non-RT IO timer
+   */
+  rclcpp::TimerBase::SharedPtr io_timer_;
 
   /**
    * @brief Serial port device name
