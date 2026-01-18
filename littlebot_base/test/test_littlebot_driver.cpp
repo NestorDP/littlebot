@@ -1,4 +1,4 @@
-// @ Copyright 2025 Nestor Neto
+// @ Copyright 2025-2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
