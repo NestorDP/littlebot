@@ -49,14 +49,14 @@ protected:
     state_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
     command_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
 
-    driver = std::make_unique<littlebot_base::LittlebotDriver>(
+    driver_ = std::make_unique<littlebot_base::LittlebotDriver>(
       serial_, state_buffer_, command_buffer_, joint_names_);
   }
 
   std::shared_ptr<MockSerialPort> serial_;
   std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> state_buffer_;
   std::shared_ptr<MockRTBuffer<littlebot_base::WheelRTData>> command_buffer_;
-  std::unique_ptr<littlebot_base::LittlebotDriver> driver;
+  std::unique_ptr<littlebot_base::LittlebotDriver> driver_;
   std::vector<std::string> joint_names_{"left_wheel", "right_wheel"};
 };
 
@@ -90,6 +90,14 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
       EXPECT_FLOAT_EQ(data.status_position[1], 4.0f);
   });
 
-  EXPECT_TRUE(driver->requestStatus());
-  EXPECT_EQ(driver->getLastError(), littlebot_base::DriverError::None);
+  EXPECT_TRUE(driver_->requestStatus());
+  EXPECT_EQ(driver_->getLastError(), littlebot_base::DriverError::None);
+}
+
+TEST_F(LittlebotDriverTest, RequestStatusWriteFails)
+{
+  EXPECT_CALL(*serial_, write(testing::_))
+  .WillOnce(testing::Return(0));
+
+  EXPECT_FALSE(driver_->requestStatus());
 }
