@@ -13,13 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-/**
- * @file test_firmware_comm.cpp
- * @brief Unit tests for LittlebotDriver class
- * @author Nestor Neto
- * @date 2024
- */
-
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <memory>
@@ -64,14 +57,12 @@ TEST_F(LittlebotDriverTest, RequestStatusSuccess)
 {
   std::string rx_payload;
 
-  // Prepare a valid protobuf payload
   std::vector<littlebot_base::Wheel> wheels(2);
   wheels[0].setStatusVelocity(1.0f);
   wheels[0].setStatusPosition(2.0f);
   wheels[1].setStatusVelocity(3.0f);
   wheels[1].setStatusPosition(4.0f);
 
-  // Encode the payload to a protobuf valid message
   littlebot_base::codec::encode(rx_payload, wheels);
 
   EXPECT_CALL(*serial_, write(std::string(1, littlebot_base::LittlebotDriver::kStatusChar)))
