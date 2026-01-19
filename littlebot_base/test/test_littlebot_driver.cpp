@@ -42,13 +42,8 @@ protected:
     state_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
     command_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
 
-    ON_CALL(*serial_, open(testing::_, testing::_))
-    .WillByDefault(testing::Return(true));
-    EXPECT_CALL(*serial_, open(testing::_, testing::_))
-    .Times(testing::AnyNumber());
-
     driver_ = std::make_unique<littlebot_base::LittlebotDriver>(
-      serial_, state_buffer_, command_buffer_, joint_names_, "/dev/test_port", 9600);
+      serial_, state_buffer_, command_buffer_, joint_names_);
   }
 
   std::shared_ptr<MockSerialPort> serial_;

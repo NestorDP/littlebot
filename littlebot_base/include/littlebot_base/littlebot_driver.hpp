@@ -43,9 +43,7 @@ public:
     std::shared_ptr<ISerialPort> serial_port,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
-    const std::vector<std::string> & joint_names,
-    const std::string & port,
-    int baudrate);
+    const std::vector<std::string> & joint_names);
 
   /**
    * @brief Read the current state from the RT buffer

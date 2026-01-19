@@ -140,9 +140,7 @@ LittlebotHardwareComponent::on_configure(
       serial_port,
       rt_state_buffer_,
       rt_command_buffer_,
-      joint_names,
-      serial_port_name_,
-      serial_baudrate_);
+      joint_names);
 
   // Start non-RT IO loop
   io_timer_ = get_node()->create_wall_timer(

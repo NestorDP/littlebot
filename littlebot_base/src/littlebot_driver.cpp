@@ -23,9 +23,7 @@ LittlebotDriver::LittlebotDriver(
   std::shared_ptr<ISerialPort> serial_port,
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
-  const std::vector<std::string> & joint_names,
-  const std::string & port,
-  int baudrate)
+  const std::vector<std::string> & joint_names)
 : serial_port_(std::move(serial_port)),
   rt_state_buffer_(std::move(rt_state_buffer)),
   rt_command_buffer_(std::move(rt_command_buffer))
@@ -34,7 +32,6 @@ LittlebotDriver::LittlebotDriver(
   for (const auto & name : joint_names) {
     wheels_.emplace_back(name);
   }
-  serial_port_->open(port, baudrate);
 }
 
 void LittlebotDriver::readRTData(WheelRTData & state) const noexcept

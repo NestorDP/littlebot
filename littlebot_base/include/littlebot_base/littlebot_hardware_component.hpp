@@ -138,7 +138,7 @@ private:
   /**
    * @brief Serial port device name
    */
-  std::string serial_port_name_{"/dev/rfcomm0"};
+  std::string serial_port_name_;
 
   /**
    * @brief Serial port baudrate
