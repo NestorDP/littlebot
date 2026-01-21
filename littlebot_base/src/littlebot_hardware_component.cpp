@@ -117,7 +117,7 @@ LittlebotHardwareComponent::on_configure(
 
   // Open the serial port and check for errors
   if (!serial_port->open(serial_port_name_, serial_baudrate_)) {
-    RCLCPP_FATAL(get_logger(), "Failed to open serial port");
+    RCLCPP_FATAL(rclcpp::get_logger("LittlebotSystemHardware"), "Failed to open serial port");
     return hardware_interface::CallbackReturn::ERROR;
   }
 
