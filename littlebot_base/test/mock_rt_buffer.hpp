@@ -29,6 +29,6 @@ template<typename T>
 class MockRTBuffer : public littlebot_base::IRTBuffer<T>
 {
 public:
-  MOCK_METHOD(const T *, readRT, (), (const, noexcept, override));
+  MOCK_METHOD(const T *, readRT, (), (noexcept, override));
   MOCK_METHOD(void, writeNonRT, (const T &), (override));
 };

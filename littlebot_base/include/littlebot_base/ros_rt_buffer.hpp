@@ -15,11 +15,11 @@
 
 #pragma once
 
-#include "realtime_tools/realtime_buffer.h"
+#include "realtime_tools/realtime_buffer.hpp"
 #include "littlebot_base/i_rt_buffer.hpp"
 #include "littlebot_base/types.hpp"
 
-namespace littlebot_ros2
+namespace littlebot_base
 {
 
 class RosRTBuffer final
@@ -27,7 +27,7 @@ class RosRTBuffer final
 {
 public:
   const littlebot_base::WheelRTData *
-  readRT() const noexcept override
+  readRT() noexcept override
   {
     return buffer_.readFromRT();
   }
@@ -42,4 +42,4 @@ private:
   realtime_tools::RealtimeBuffer<littlebot_base::WheelRTData> buffer_;
 };
 
-}  // namespace littlebot_ros2
+}  // namespace littlebot_base

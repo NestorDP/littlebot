@@ -35,13 +35,14 @@ enum class DriverError
 {
   None = 0,
 
-  NoData,             // no frame available yet
-  DecodeFailure,      // Deserialize error
-  EncodeFailure,      // Serialize error
-  SizeMismatch,       // wrong number of wheels
-  SerialReadError,    // IO error
-  SerialWriteError,   // IO error
-  NoCommand           // no new command available
+  NoData,              // no frame available yet
+  DecodeFailure,       // Deserialize error
+  EncodeFailure,       // Serialize error
+  SizeMismatch,        // wrong number of wheels
+  SerialReadError,     // IO error
+  SerialWriteError,    // IO error
+  InvalidControlChar,  // unexpected control character
+  NoCommand            // no new command available
 };
 
 struct DriverErrorCounters
@@ -52,6 +53,7 @@ struct DriverErrorCounters
   uint64_t size_mismatch = 0;
   uint64_t serial_read_error = 0;
   uint64_t serial_write_error = 0;
+  uint64_t invalid_control_char = 0;
   uint64_t no_command = 0;
 
   void reset()

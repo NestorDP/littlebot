@@ -1,4 +1,4 @@
-// @ Copyright 2024-2025 Nestor Neto
+// @ Copyright 2024-2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -108,13 +108,51 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::CallbackReturn LittlebotHardwareComponent::on_configure(
-  const rclcpp_lifecycle::State & /*previous_state*/)
+hardware_interface::CallbackReturn
+LittlebotHardwareComponent::on_configure(
+  const rclcpp_lifecycle::State &)
 {
-  auto serial_port = std::make_shared<SerialPort>();
-  this->setupDriver(serial_port, serial_port_name_, serial_baudrate_);
+  // Create a pointer to the serial port
+  auto serial_port = std::make_shared<littlebot_base::SerialPort>();
+
+  // Open the serial port and check for errors
+  if (!serial_port->open(serial_port_name_, serial_baudrate_)) {
+    RCLCPP_FATAL(rclcpp::get_logger("LittlebotSystemHardware"), "Failed to open serial port");
+    return hardware_interface::CallbackReturn::ERROR;
+  }
+
+  // Create RT buffers for state and command data
+  rt_state_buffer_ =
+    std::make_shared<littlebot_base::RosRTBuffer>();
+  rt_command_buffer_ =
+    std::make_shared<littlebot_base::RosRTBuffer>();
+
+  // Create a vector of joint names and get them from the hardware info
+  std::vector<std::string> joint_names;
+  for (const auto & joint : info_.joints) {
+    joint_names.push_back(joint.name);
+  }
+
+  // Create the Littlebot driver instance and pass the serial port, RT buffers
+  // and joint names
+  littlebot_driver_ =
+    std::make_shared<littlebot_base::LittlebotDriver>(
+      serial_port,
+      rt_state_buffer_,
+      rt_command_buffer_,
+      joint_names);
+
+  // Start non-RT IO loop
+  io_timer_ = get_node()->create_wall_timer(
+    std::chrono::milliseconds(10),
+    [this]() {
+      littlebot_driver_->sendCommand();
+      littlebot_driver_->requestStatus();
+    });
+
   return hardware_interface::CallbackReturn::SUCCESS;
 }
+
 
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_activate(
   const rclcpp_lifecycle::State & /*previous_state*/)
@@ -168,23 +206,14 @@ hardware_interface::return_type LittlebotHardwareComponent::read(
   [[maybe_unused]] const rclcpp::Time & time,
   [[maybe_unused]] const rclcpp::Duration & period)
 {
-  // littlebot_driver_->sendDataToHardware();
-  // littlebot_driver_->receiveDataFromHardware();
-  // auto map_status_positions = littlebot_driver_->getStatusPositions();
-  // auto map_status_velocities = littlebot_driver_->getStatusVelocities();
+  WheelRTData state;
+  littlebot_driver_->readRTData(state);
 
-  // for (const auto & name : littlebot_driver_->getJointNames()) {
-  //   for (size_t i = 0; i < info_.joints.size(); i++) {
-  //     if (info_.joints[i].name == name) {
-  //       if (map_status_positions.find(name) != map_status_positions.end()) {
-  //         hw_status_positions_[i] = map_status_positions.at(name);
-  //       }
-  //       if (map_status_velocities.find(name) != map_status_velocities.end()) {
-  //         hw_status_velocities_[i] = map_status_velocities.at(name);
-  //       }
-  //     }
-  //   }
-  // }
+  for (size_t i = 0; i < info_.joints.size(); ++i) {
+    hw_status_positions_[i] = state.status_position[i];
+    hw_status_velocities_[i] = state.status_velocity[i];
+  }
+
   return hardware_interface::return_type::OK;
 }
 
@@ -192,26 +221,16 @@ hardware_interface::return_type LittlebotHardwareComponent::write(
   [[maybe_unused]] const rclcpp::Time & time,
   [[maybe_unused]] const rclcpp::Duration & period)
 {
-  std::map<std::string, float> map_command_velocities;
-  for (size_t i = 0; i < info_.joints.size(); i++) {
-    map_command_velocities[info_.joints[i].name] = hw_commands_velocities_[i];
+  WheelRTData cmd;
+
+  for (size_t i = 0; i < info_.joints.size(); ++i) {
+    cmd.command_velocity[i] = hw_commands_velocities_[i];
   }
-  // littlebot_driver_->setCommandVelocities(map_command_velocities);
-  // littlebot_driver_->sendDataToHardware();
+
+  littlebot_driver_->writeRTData(cmd);
+
   return hardware_interface::return_type::OK;
 }
-
-void LittlebotHardwareComponent::setupDriver(
-  std::shared_ptr<littlebot_base::ISerialPort> serial_port,
-  const std::string & port, int baudrate)
-{
-  // littlebot_driver_ = std::make_shared<littlebot_base::LittlebotDriver>(
-  //   serial_port, port, baudrate);
-
-  std::vector<std::string> joint_names{info_.joints[0].name, info_.joints[1].name};
-  // littlebot_driver_->setJointNames(joint_names);
-}
-
 }   //  namespace littlebot_base
 
 #include "pluginlib/class_list_macros.hpp"
