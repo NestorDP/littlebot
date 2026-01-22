@@ -20,8 +20,9 @@ namespace littlebot_base
 
 bool SerialPort::open(std::string port, int baudrate)
 {
-  serial_.setBaudRate(baudrate);
+  //TODO: Add error handling
   serial_.open(port);
+  serial_.setBaudRate(baudrate);
   is_open_ = true;
   return true;
 }
