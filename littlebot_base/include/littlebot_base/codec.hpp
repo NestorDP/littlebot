@@ -37,7 +37,7 @@ namespace littlebot_base::codec
  * @throws std::runtime_error if serialization fails
  */
 void encode(
-  std::string & payload,
+  std::vector<uint8_t> & payload,
   const std::vector<Wheel> & wheels);
 
 /**
@@ -53,6 +53,6 @@ void encode(
  * @throws std::runtime_error if parsing fails or data size mismatches
  */
 void decode(
-  const std::string & payload,
+  const std::vector<uint8_t> & payload,
   std::vector<Wheel> & wheels);
 }  // namespace littlebot_base::codec

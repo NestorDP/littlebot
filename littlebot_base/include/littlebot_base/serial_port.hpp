@@ -41,17 +41,17 @@ public:
   /**
    * @brief Read packet data from the serial port
    */
-  int read(std::string & payload) override;
+  int read(std::vector<uint8_t> & payload) override;
 
   /**
    * @brief Write packet data to the serial port
    */
-  int write(const std::string & payload) override;
+  int write(const std::vector<uint8_t> & payload) override;
 
   #ifdef UNIT_TEST
   void injectRxData(const std::string & data)
   {
-    rx_buffer_.append(data);
+    rx_buffer_.insert(rx_buffer_.end(), data.begin(), data.end());
   }
   #endif
 
@@ -66,7 +66,7 @@ private:
    *
    * @param buffer Shared pointer to string buffer to store received data
    */
-  bool tryExtractFrame(std::string & payload) override;
+  bool tryExtractFrame(std::vector<uint8_t> & payload) override;
 
   /**
    * @brief Build packet to be sent through serial port
@@ -74,7 +74,7 @@ private:
    * @param buffer Shared pointer to string buffer to store data to be sent
    */
   void buildFrame(
-    const std::string & payload,
+    const std::vector<uint8_t> & payload,
     std::string & frame) override;
 
   /**

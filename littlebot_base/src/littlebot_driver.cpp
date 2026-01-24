@@ -50,7 +50,7 @@ void LittlebotDriver::writeRTData(const WheelRTData & command) noexcept
 bool LittlebotDriver::requestStatus()
 {
   // Add control char to request status in payload
-  std::string payload{kStatusChar};
+  std::vector<uint8_t> payload{kStatusChar};
 
   if (serial_port_->write(payload) <= 0) {
     return false;
@@ -122,7 +122,7 @@ bool LittlebotDriver::sendCommand()
   }
 
   // Encode protobuf
-  std::string payload;
+  std::vector<uint8_t> payload;
   codec::encode(payload, wheels_);
 
   // Prepend control char

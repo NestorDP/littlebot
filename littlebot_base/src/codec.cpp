@@ -20,7 +20,7 @@
 namespace littlebot_base::codec
 {
 void encode(
-  std::string & payload,
+  std::vector<uint8_t> & payload,
   const std::vector<Wheel> & wheels)
 {
   littlebot::Wheels send_wheels_data;
@@ -35,13 +35,13 @@ void encode(
     wheel_data->set_status_position(wheel.getStatusPosition());
   }
 
-  if (!send_wheels_data.SerializeToString(&payload)) {
+  if (!send_wheels_data.SerializePartialToArray(payload.data(), static_cast<int>(payload.size()))) {
     throw std::runtime_error("Failed to serialize protobuf message");
   }
 }
 
 void decode(
-  const std::string & payload,
+  const std::vector<uint8_t> & payload,
   std::vector<Wheel> & wheels)
 {
   if (payload.empty()) {
@@ -49,7 +49,7 @@ void decode(
   }
 
   littlebot::Wheels received_wheels_data;
-  if (!received_wheels_data.ParseFromString(payload)) {
+  if (!received_wheels_data.ParseFromArray(payload.data(), static_cast<int>(payload.size()))) {
     throw std::runtime_error("Failed to parse protobuf message from input payload");
   }
 

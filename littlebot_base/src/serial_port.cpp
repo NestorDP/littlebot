@@ -33,7 +33,7 @@ void SerialPort::close()
   is_open_ = false;
 }
 
-int SerialPort::read(std::string & payload)
+int SerialPort::read(std::vector<uint8_t> & payload)
 {
   if (is_open_) {
     readStream();
@@ -46,7 +46,7 @@ int SerialPort::read(std::string & payload)
   return 0;  // no complete frame yet
 }
 
-int SerialPort::write(const std::string & payload)
+int SerialPort::write(const std::vector<uint8_t> & payload)
 {
   auto frame = std::make_shared<std::string>();
   buildFrame(payload, *frame);
@@ -60,63 +60,43 @@ int SerialPort::write(const std::string & payload)
 
 void SerialPort::readStream()
 {
-  auto tmp = std::make_shared<std::string>();
-  size_t n = serial_.read(tmp, kMaxReadChunk);
+  auto tmp_buffer = std::make_shared<std::string>();
+  size_t n = serial_.read(tmp_buffer, kMaxReadChunk);
 
   if (n > 0) {
-    rx_buffer_.append(*tmp);
+    rx_buffer_.insert(rx_buffer_.end(), tmp_buffer->begin(), tmp_buffer->end());
   }
 }
 
 void SerialPort::buildFrame(
-  const std::string & payload,
+  const std::vector<uint8_t> & payload,
   std::string & frame)
 {
   frame.clear();
   frame.reserve(payload.size() + 3);
 
   frame.push_back(kStartByte);
-  frame.append(payload);
+  frame.insert(frame.end(), payload.begin(), payload.end());
   frame.push_back(kEndByte);
-  frame.push_back('\n');
+  // frame.push_back('\n');
 }
 
-bool SerialPort::tryExtractFrame(std::string & payload)
+bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload)
 {
-  while (!rx_buffer_.empty() && rx_buffer_.front() == '\r') {
-    rx_buffer_.erase(0, 1);
-  }
-
-  auto start = rx_buffer_.find(kStartByte);
-  if (start == std::string::npos) {
-    rx_buffer_.clear();
+  auto start = std::find(rx_buffer_.begin(), rx_buffer_.end(), kStartByte);
+  if (start == rx_buffer_.end()) {
     return false;
   }
 
-  if (start > 0) {
-    rx_buffer_.erase(0, start);
-  }
-
-  auto end = rx_buffer_.find(kEndByte, 1);
-  if (end == std::string::npos) {
+  auto end = std::find(start + 1, rx_buffer_.end(), kEndByte);
+  if (end == rx_buffer_.end()) {
     return false;
   }
 
-  payload.assign(
-    rx_buffer_.begin() + 1,
-    rx_buffer_.begin() + end);
+  payload.assign(start + 1, end);
 
-  size_t consume_len = end + 1;
-
-  if (consume_len < rx_buffer_.size() && rx_buffer_[consume_len] == '\n') {
-    ++consume_len;
-  }
-
-  if (consume_len < rx_buffer_.size() && rx_buffer_[consume_len] == '\r') {
-    ++consume_len;
-  }
-
-  rx_buffer_.erase(0, consume_len);
+  // Drop everything up to and including the end byte
+  rx_buffer_.erase(rx_buffer_.begin(), end + 1);
 
   return true;
 }
