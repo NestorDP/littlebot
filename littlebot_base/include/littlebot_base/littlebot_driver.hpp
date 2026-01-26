@@ -30,8 +30,8 @@ namespace littlebot_base
 class LittlebotDriver
 {
 public:
-  static constexpr char kCommandChar = 'C';
-  static constexpr char kStatusChar = 'S';
+  static constexpr char kCommandChar{'C'};
+  static constexpr char kStatusChar{'S'};
 
   /**
    * @brief Construct a new Littlebot Driver object
