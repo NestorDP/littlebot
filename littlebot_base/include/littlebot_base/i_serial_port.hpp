@@ -59,6 +59,11 @@ public:
    */
   virtual int write(const std::vector<uint8_t> & payload) = 0;
 
+  virtual bool isOpen() const noexcept
+  {
+    return is_open_;
+  }
+
 protected:
   /**
    * @brief Constructor for the ISerialPort class
