@@ -20,7 +20,7 @@ namespace littlebot_base
 
 bool SerialPort::open(std::string port, int baudrate)
 {
-  //TODO: Add error handling
+  // TODO(NestorDP): Add error handling
   serial_.open(port);
   serial_.setBaudRate(baudrate);
   is_open_ = true;

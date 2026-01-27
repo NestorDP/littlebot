@@ -59,6 +59,12 @@ public:
    */
   virtual int write(const std::vector<uint8_t> & payload) = 0;
 
+  /**
+   * @brief Check if the serial port is open
+   *
+   * @return true if the serial port is open
+   * @return false if the serial port is closed
+   */
   virtual bool isOpen() const noexcept
   {
     return is_open_;
