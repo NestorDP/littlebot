@@ -40,6 +40,8 @@ public:
 
   // Provide default implementations for pure virtual methods
   void readStream() override {}
-  bool tryExtractFrame([[maybe_unused]] std::vector<uint8_t> & payload) override {return true;}
-  void buildFrame(const std::vector<uint8_t> & payload, std::string& frame) override {frame = std::string(payload.begin(), payload.end());}
+  bool tryExtractFrame([[maybe_unused]] std::vector<uint8_t> & payload) override
+  {return true;}
+  void buildFrame(const std::vector<uint8_t> & payload, std::string & frame) override
+  {frame = std::string(payload.begin(), payload.end());}
 };

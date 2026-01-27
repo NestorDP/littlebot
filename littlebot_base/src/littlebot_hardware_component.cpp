@@ -153,7 +153,6 @@ LittlebotHardwareComponent::on_configure(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_activate(
   const rclcpp_lifecycle::State & /*previous_state*/)
 {
