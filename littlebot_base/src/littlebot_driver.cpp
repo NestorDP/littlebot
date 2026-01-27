@@ -24,11 +24,17 @@ LittlebotDriver::LittlebotDriver(
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
   const std::vector<std::string> & joint_names)
-: serial_port_(std::move(serial_port)),
+: ILittlebotDriver(
+    serial_port,
+    rt_state_buffer,
+    rt_command_buffer,
+    joint_names),
+  serial_port_(std::move(serial_port)),
   rt_state_buffer_(std::move(rt_state_buffer)),
   rt_command_buffer_(std::move(rt_command_buffer))
 {
   wheels_.reserve(joint_names.size());
+
   for (const auto & name : joint_names) {
     wheels_.emplace_back(name);
   }
@@ -47,7 +53,7 @@ void LittlebotDriver::writeRTData(const WheelRTData & command) noexcept
   rt_command_buffer_->writeNonRT(command);
 }
 
-bool LittlebotDriver::requestStatus()
+bool LittlebotDriver::requestStatus() noexcept
 {
   // Add control char to request status in payload
   std::vector<uint8_t> payload{kStatusChar};
@@ -107,7 +113,7 @@ bool LittlebotDriver::requestStatus()
   return true;
 }
 
-bool LittlebotDriver::sendCommand()
+bool LittlebotDriver::sendCommand() noexcept
 {
   const auto * rt_data = rt_command_buffer_->readRT();
   if (!rt_data) {

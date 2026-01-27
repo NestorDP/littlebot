@@ -1,4 +1,4 @@
-// @ Copyright 2025 Nestor Neto
+// @ Copyright 2025-2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 
+#include "littlebot_base/i_littlebot_driver.hpp"
 #include "littlebot_base/i_serial_port.hpp"
 #include "littlebot_base/i_rt_buffer.hpp"
 #include "littlebot_base/types.hpp"
@@ -27,12 +28,9 @@
 namespace littlebot_base
 {
 
-class LittlebotDriver
+class LittlebotDriver : public ILittlebotDriver
 {
 public:
-  static constexpr char kCommandChar{'C'};
-  static constexpr char kStatusChar{'S'};
-
   /**
    * @brief Construct a new Littlebot Driver object
    *
@@ -45,6 +43,8 @@ public:
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
     const std::vector<std::string> & joint_names);
 
+  ~LittlebotDriver() override = default;
+
   /**
    * @brief Read the current state from the RT buffer
    *
@@ -52,7 +52,7 @@ public:
    *
    * @note This method is RT-safe (control loop)
    */
-  void readRTData(WheelRTData & state) const noexcept;
+  void readRTData(WheelRTData & state) const noexcept override;
 
   /**
    * @brief Write the command to the RT buffer
@@ -61,7 +61,7 @@ public:
    *
    * @note This method is RT-safe (control loop)
    */
-  void writeRTData(const WheelRTData & command) noexcept;
+  void writeRTData(const WheelRTData & command) noexcept override;
 
   /**
    * @brief Receive data from the hardware and update the RT buffer
@@ -71,7 +71,7 @@ public:
    *
    * @note This method is NOT RT-safe (executor / IO thread)
    */
-  bool requestStatus();
+  bool requestStatus() noexcept override;
 
   /**
    * @brief Send command data to the hardware
@@ -81,21 +81,21 @@ public:
    *
    * @note This method is NOT RT-safe (executor / IO thread)
    */
-  bool sendCommand();
+  bool sendCommand() noexcept override;
 
   /**
    * @brief Get the last error that occurred
    *
    * @return DriverError The last error code
    */
-  DriverError getLastError() const noexcept {return last_error_;}
+  DriverError getLastError() const noexcept override {return last_error_;}
 
   /**
    * @brief Get the error counters
    *
    * @return const DriverErrorCounters& Reference to the error counters structure
    */
-  const DriverErrorCounters & getErrorCounters() const noexcept
+  const DriverErrorCounters & getErrorCounters() const noexcept override
   {
     return error_counters_;
   }
