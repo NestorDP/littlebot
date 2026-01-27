@@ -13,30 +13,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "littlebot_base/littlebot_driver_factory.hpp"
-#include "littlebot_base/littlebot_driver.hpp"
-#include "littlebot_base/serial_port.hpp"
-#include "littlebot_base/ros_rt_buffer.hpp"
+#pragma once
+
+#include <gmock/gmock.h>
+#include "littlebot_base/i_littlebot_driver.hpp"
 
 namespace littlebot_base
 {
 
-std::shared_ptr<ILittlebotDriver>
-createLittlebotDriver(
-  const std::string & port,
-  int baudrate,
-  const std::vector<std::string> & joint_names)
+class MockLittlebotDriver : public ILittlebotDriver
 {
-  auto serial = std::make_shared<SerialPort>();
-  auto state_buffer = std::make_shared<RosRTBuffer>();
-  auto cmd_buffer = std::make_shared<RosRTBuffer>();
-
-  if (!serial->open(port, baudrate)) {
-    return nullptr;
-  }
-
-  return std::make_shared<LittlebotDriver>(
-    serial, state_buffer, cmd_buffer, joint_names);
-}
+public:
+  MOCK_METHOD(void, readRTData, (WheelRTData &), (const, noexcept, override));
+  MOCK_METHOD(void, writeRTData, (const WheelRTData &), (noexcept, override));
+  MOCK_METHOD(bool, requestStatus, (), (noexcept, override));
+  MOCK_METHOD(bool, sendCommand, (), (noexcept, override));
+  MOCK_METHOD(DriverError, getLastError, (), (const, noexcept, override));
+  MOCK_METHOD(const DriverErrorCounters &, getErrorCounters,
+    (), (const, noexcept, override));
+};
 
 }  // namespace littlebot_base

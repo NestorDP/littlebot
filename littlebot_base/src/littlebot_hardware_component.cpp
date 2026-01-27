@@ -112,7 +112,7 @@ hardware_interface::CallbackReturn LittlebotHardwareComponent::on_init(
 hardware_interface::CallbackReturn
 LittlebotHardwareComponent::on_configure(
   const rclcpp_lifecycle::State &)
-{ 
+{
   // Create a vector of joint names and get them from the hardware info
   std::vector<std::string> joint_names;
   for (const auto & joint : info_.joints) {

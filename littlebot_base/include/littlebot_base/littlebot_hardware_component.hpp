@@ -50,7 +50,7 @@ public:
 
   /**
    * @brief Constructor for the LittlebotHardwareComponent class
-   * 
+   *
    * @param driver Shared pointer to the Littlebot driver
    * @note This constructor is mainly used for testing purposes
    */
