@@ -44,9 +44,19 @@ class LittlebotHardwareComponent : public hardware_interface::SystemInterface
 {
 public:
   /**
-   * @brief Constructor for the LittlebotHardwareComponent class
+   * @brief Default constructor for the LittlebotHardwareComponent class
    */
   LittlebotHardwareComponent() = default;
+
+  /**
+   * @brief Constructor for the LittlebotHardwareComponent class
+   * 
+   * @param driver Shared pointer to the Littlebot driver
+   * @note This constructor is mainly used for testing purposes
+   */
+  explicit LittlebotHardwareComponent(
+    std::shared_ptr<ILittlebotDriver> driver)
+  : littlebot_driver_(std::move(driver)) {}
 
   /**
    * @brief Deconstructor for the LittlebotHardwareComponent class
@@ -118,7 +128,7 @@ private:
   /**
    * @brief Shared pointer to the Littlebot driver
    */
-  std::shared_ptr<littlebot_base::LittlebotDriver> littlebot_driver_;
+  std::shared_ptr<littlebot_base::ILittlebotDriver> littlebot_driver_;
 
   /**
    * @brief Shared pointer to the RT buffer for wheel states

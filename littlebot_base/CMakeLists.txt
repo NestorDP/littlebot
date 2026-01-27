@@ -68,6 +68,7 @@ target_link_libraries(serial_port PUBLIC
 # Create littlebot_driver library (depends on serial_port and protobuf)
 add_library(littlebot_driver SHARED
   src/littlebot_driver.cpp
+  src/littlebot_driver_factory.cpp
   src/codec.cpp
   ${PROTO_SRCS}
   ${PROTO_HDRS}
