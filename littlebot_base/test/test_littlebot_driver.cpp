@@ -19,6 +19,7 @@
 #include <vector>
 #include <string>
 #include <chrono>
+#include <cstring>
 
 #include "littlebot_base/littlebot_driver.hpp"
 #include "littlebot_base/types.hpp"
