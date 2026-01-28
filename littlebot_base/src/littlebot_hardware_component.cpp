@@ -119,9 +119,11 @@ LittlebotHardwareComponent::on_configure(
     joint_names.push_back(joint.name);
   }
 
-  // Create the Littlebot driver
-  littlebot_driver_ = littlebot_base::createLittlebotDriver(
-    serial_port_name_, serial_baudrate_, joint_names);
+  // Create the Littlebot driver if it has not been injected (e.g. for tests)
+  if (!littlebot_driver_) {
+    littlebot_driver_ = littlebot_base::createLittlebotDriver(
+      serial_port_name_, serial_baudrate_, joint_names);
+  }
 
   if (!littlebot_driver_) {
     RCLCPP_FATAL(
