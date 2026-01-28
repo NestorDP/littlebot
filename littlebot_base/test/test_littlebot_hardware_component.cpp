@@ -32,7 +32,7 @@
 #include "littlebot_base/littlebot_hardware_component.hpp"
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
 
-#include "mock_serial_port.hpp"
+#include "mocks/mock_serial_port.hpp"
 
 class TestLittlebotHardwareComponent : public ::testing::Test
 {

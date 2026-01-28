@@ -26,8 +26,8 @@
 #include "littlebot_base/wheel.hpp"
 #include "littlebot_base/codec.hpp"
 
-#include "mock_serial_port.hpp"
-#include "mock_rt_buffer.hpp"
+#include "mocks/mock_serial_port.hpp"
+#include "mocks/mock_rt_buffer.hpp"
 
 /**
  * @brief Test fixture for LittlebotDriver tests
