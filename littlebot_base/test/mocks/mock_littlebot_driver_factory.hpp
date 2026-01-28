@@ -13,30 +13,23 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "littlebot_base/littlebot_driver_factory.hpp"
-#include "littlebot_base/littlebot_driver.hpp"
-#include "littlebot_base/serial_port.hpp"
-#include "littlebot_base/ros_rt_buffer.hpp"
+#pragma once
+
+#include <gmock/gmock.h>
+#include <memory>
+#include <string>
+#include <vector>
+#include "littlebot_base/i_littlebot_driver_factory.hpp"
 
 namespace littlebot_base
 {
 
-std::shared_ptr<ILittlebotDriver>
-LittlebotDriverFactory::create(
-  const std::string & port,
-  int baudrate,
-  const std::vector<std::string> & joint_names)
+class MockLittlebotDriverFactory : public ILittlebotDriverFactory
 {
-  auto serial = std::make_shared<SerialPort>();
-  auto state_buffer = std::make_shared<RosRTBuffer>();
-  auto cmd_buffer = std::make_shared<RosRTBuffer>();
-
-  if (!serial->open(port, baudrate)) {
-    return nullptr;
-  }
-
-  return std::make_shared<LittlebotDriver>(
-    serial, state_buffer, cmd_buffer, joint_names);
-}
+public:
+  MOCK_METHOD(std::shared_ptr<ILittlebotDriver>, create,
+    (const std::string &, int, const std::vector<std::string> &),
+    (override));
+};
 
 }  // namespace littlebot_base

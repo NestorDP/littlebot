@@ -35,7 +35,9 @@
 #include "littlebot_base/littlebot_driver.hpp"
 #include "littlebot_base/serial_port.hpp"
 #include "littlebot_base/ros_rt_buffer.hpp"
-
+#include "littlebot_base/i_littlebot_driver_factory.hpp"
+#include "littlebot_base/i_rt_buffer.hpp"
+#include "littlebot_base/types.hpp"
 
 namespace littlebot_base
 {
@@ -119,6 +121,17 @@ public:
   write(const rclcpp::Time & time, const rclcpp::Duration & period)
   override;
 
+  /**
+   * @brief Set the Littlebot driver factory
+   *
+   * @param factory Shared pointer to the Littlebot driver factory
+   * @note This method is mainly used for testing purposes
+   */
+  void setDriverFactory(std::shared_ptr<ILittlebotDriverFactory> factory)
+  {
+    driver_factory_ = std::move(factory);
+  }
+
 private:
   /**
    * @brief The name of the hardware component.
@@ -129,6 +142,11 @@ private:
    * @brief Shared pointer to the Littlebot driver
    */
   std::shared_ptr<littlebot_base::ILittlebotDriver> littlebot_driver_;
+
+  /**
+   * @brief Shared pointer to the Littlebot driver factory
+   */
+  std::shared_ptr<ILittlebotDriverFactory> driver_factory_;
 
   /**
    * @brief Shared pointer to the RT buffer for wheel states
