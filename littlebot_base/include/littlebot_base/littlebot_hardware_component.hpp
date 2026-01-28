@@ -51,16 +51,6 @@ public:
   LittlebotHardwareComponent() = default;
 
   /**
-   * @brief Constructor for the LittlebotHardwareComponent class
-   *
-   * @param driver Shared pointer to the Littlebot driver
-   * @note This constructor is mainly used for testing purposes
-   */
-  explicit LittlebotHardwareComponent(
-    std::shared_ptr<ILittlebotDriver> driver)
-  : littlebot_driver_(std::move(driver)) {}
-
-  /**
    * @brief Deconstructor for the LittlebotHardwareComponent class
    */
   ~LittlebotHardwareComponent() = default;
