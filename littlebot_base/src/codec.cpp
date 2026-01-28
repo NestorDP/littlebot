@@ -20,7 +20,7 @@
 namespace littlebot_base::codec
 {
 void encode(
-  std::string & payload,
+  std::vector<uint8_t> & payload,
   const std::vector<Wheel> & wheels)
 {
   littlebot::Wheels send_wheels_data;
@@ -35,13 +35,16 @@ void encode(
     wheel_data->set_status_position(wheel.getStatusPosition());
   }
 
-  if (!send_wheels_data.SerializeToString(&payload)) {
+  const size_t size = send_wheels_data.ByteSizeLong();
+  payload.resize(size);
+
+  if (!send_wheels_data.SerializeToArray(payload.data(), static_cast<int>(payload.size()))) {
     throw std::runtime_error("Failed to serialize protobuf message");
   }
 }
 
 void decode(
-  const std::string & payload,
+  const std::vector<uint8_t> & payload,
   std::vector<Wheel> & wheels)
 {
   if (payload.empty()) {
@@ -49,16 +52,14 @@ void decode(
   }
 
   littlebot::Wheels received_wheels_data;
-  if (!received_wheels_data.ParseFromString(payload)) {
+  if (!received_wheels_data.ParseFromArray(payload.data(), static_cast<int>(payload.size()))) {
     throw std::runtime_error("Failed to parse protobuf message from input payload");
   }
 
-  if (received_wheels_data.side_size() != static_cast<int>(wheels.size())) {
-    throw std::runtime_error("Received wheels data size does not match expected size");
-  }
+  const int num_of_side_wheels = received_wheels_data.side_size();
+  wheels.resize(num_of_side_wheels);
 
-  const int n = received_wheels_data.side_size();
-  for (int i = 0; i < n; ++i) {
+  for (int i = 0; i < num_of_side_wheels; ++i) {
     const auto & wheel_data = received_wheels_data.side(i);
     wheels[i].setCommandVelocity(wheel_data.command_velocity());
     wheels[i].setStatusVelocity(wheel_data.status_velocity());

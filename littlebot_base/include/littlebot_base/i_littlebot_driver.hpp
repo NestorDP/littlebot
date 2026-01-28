@@ -1,4 +1,4 @@
-// @ Copyright 2025-2026 Nestor Neto
+// @ Copyright 2026 Nestor Neto
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 #include <string>
 #include <vector>
 
-#include "littlebot_base/i_littlebot_driver.hpp"
 #include "littlebot_base/i_serial_port.hpp"
 #include "littlebot_base/i_rt_buffer.hpp"
 #include "littlebot_base/types.hpp"
@@ -28,22 +27,47 @@
 namespace littlebot_base
 {
 
-class LittlebotDriver : public ILittlebotDriver
+class ILittlebotDriver
 {
 public:
+  /**
+   * @brief Command control characters
+   */
+  static constexpr char kCommandChar{'C'};
+
+  /**
+   * @brief Status control characters
+   */
+  static constexpr char kStatusChar{'S'};
+
   /**
    * @brief Construct a new Littlebot Driver object
    *
    * @param serial_port Shared pointer to the serial port interface
    * @param rt_buffer Shared pointer to the real-time buffer interface for wheel data
    */
-  LittlebotDriver(
+  ILittlebotDriver(
     std::shared_ptr<ISerialPort> serial_port,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
-    const std::vector<std::string> & joint_names);
+    const std::vector<std::string> & joint_names)
+  {
+    (void)serial_port;
+    (void)rt_state_buffer;
+    (void)rt_command_buffer;
+    (void)joint_names;
+  }
 
-  ~LittlebotDriver() override = default;
+  /**
+   * @brief Prevent copy and assignment
+   */
+  ILittlebotDriver(const ILittlebotDriver &) = delete;
+  ILittlebotDriver & operator=(const ILittlebotDriver &) = delete;
+
+  /**
+   * @brief Deconstructor for the ILittlebotDriver class
+   */
+  virtual ~ILittlebotDriver() = default;
 
   /**
    * @brief Read the current state from the RT buffer
@@ -52,7 +76,7 @@ public:
    *
    * @note This method is RT-safe (control loop)
    */
-  void readRTData(WheelRTData & state) const noexcept override;
+  virtual void readRTData(WheelRTData & state) const noexcept = 0;
 
   /**
    * @brief Write the command to the RT buffer
@@ -61,7 +85,7 @@ public:
    *
    * @note This method is RT-safe (control loop)
    */
-  void writeRTData(const WheelRTData & command) noexcept override;
+  virtual void writeRTData(const WheelRTData & command) noexcept = 0;
 
   /**
    * @brief Receive data from the hardware and update the RT buffer
@@ -71,7 +95,7 @@ public:
    *
    * @note This method is NOT RT-safe (executor / IO thread)
    */
-  bool requestStatus() noexcept override;
+  virtual bool requestStatus() noexcept = 0;
 
   /**
    * @brief Send command data to the hardware
@@ -81,55 +105,21 @@ public:
    *
    * @note This method is NOT RT-safe (executor / IO thread)
    */
-  bool sendCommand() noexcept override;
+  virtual bool sendCommand() noexcept = 0;
 
   /**
    * @brief Get the last error that occurred
    *
    * @return DriverError The last error code
    */
-  DriverError getLastError() const noexcept override {return last_error_;}
+  virtual DriverError getLastError() const noexcept = 0;
 
   /**
    * @brief Get the error counters
    *
    * @return const DriverErrorCounters& Reference to the error counters structure
    */
-  const DriverErrorCounters & getErrorCounters() const noexcept override
-  {
-    return error_counters_;
-  }
-
-private:
-  /**
-   * @brief Error counters for the driver
-   */
-  DriverErrorCounters error_counters_;
-
-  /**
-   * @brief Last error that occurred
-   */
-  DriverError last_error_{DriverError::None};
-
-  /**
-   * @brief Serial port interface
-   */
-  std::shared_ptr<ISerialPort> serial_port_;
-
-  /**
-   * @brief RT buffer interface for wheel data states
-   */
-  std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer_;
-
-  /**
-   * @brief RT buffer interface for wheel data commands
-   */
-  std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer_;
-
-  /**
-   * @brief Vector of wheels (Not RT-safe)
-   */
-  std::vector<littlebot_base::Wheel> wheels_;
+  virtual const DriverErrorCounters & getErrorCounters() const noexcept = 0;
 };
 
 }  // namespace littlebot_base

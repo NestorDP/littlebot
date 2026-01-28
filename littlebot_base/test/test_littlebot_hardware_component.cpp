@@ -34,68 +34,70 @@
 
 #include "mock_serial_port.hpp"
 
-// class TestLittlebotHardwareComponent : public ::testing::Test
-// {
-// protected:
-//   void SetUp() override
-//   {
-//     mock_serial_port_ = std::make_shared<MockSerialPort>();
-//     littlebot_hardware_component_ =
-//       std::make_shared<littlebot_base::LittlebotHardwareComponent>();
-//   }
+class TestLittlebotHardwareComponent : public ::testing::Test
+{
+protected:
+  void SetUp() override
+  {
+    hw_ = std::make_unique<littlebot_base::LittlebotHardwareComponent>();
+    params_ = makeValidParams();
+  }
 
-//   void TearDown() override
-//   {
-//     littlebot_hardware_component_.reset();
-//     // mock_serial_port_.reset();
-//   }
+  hardware_interface::HardwareComponentInterfaceParams makeValidParams()
+  {
+    hardware_interface::HardwareComponentInterfaceParams params;
+    auto & info = params.hardware_info;
 
-//   std::shared_ptr<littlebot_base::ISerialPort> mock_serial_port_;
+    info.name = "littlebot";
+    info.type = "system";
 
-//   std::shared_ptr<littlebot_base::LittlebotHardwareComponent>
-//   littlebot_hardware_component_;
+    info.joints.push_back(makeJoint("left_wheel_joint"));
+    info.joints.push_back(makeJoint("right_wheel_joint"));
 
-//   hardware_interface::HardwareInfo hardware_info_;
+    info.hardware_parameters["serial_port"] = "/dev/ttyUSB_FAKE";
+    info.hardware_parameters["baudrate"] = "115200";
 
-//   #ifndef TEST_URDF_FILE_PATH
-//     #error "TEST_URDF_FILE_PATH is not defined"
-//   #endif
+    return params;
+  }
 
-//   const std::string urdf_file_path_ = TEST_URDF_FILE_PATH;
-// };
+  hardware_interface::ComponentInfo makeJoint(const std::string & name)
+  {
+    hardware_interface::ComponentInfo joint;
+    joint.name = name;
 
-// TEST_F(TestLittlebotHardwareComponent, InitializeFromURDF)
-// {
-//   // Read the existing URDF file and print its contents for debugging
-//   std::ifstream in(urdf_file_path_);
-//   ASSERT_TRUE(in.is_open()) << "Failed to open existing URDF file: " << urdf_file_path_;
+    hardware_interface::InterfaceInfo cmd_interface;
+    cmd_interface.name = hardware_interface::HW_IF_VELOCITY;
+    cmd_interface.size = 1;
+    cmd_interface.enable_limits = false;
+    joint.command_interfaces.push_back(cmd_interface);
 
-//   // Read the entire file content into a string
-//   std::ostringstream ss;
-//   ss << in.rdbuf();
-//   const std::string urdf_content = ss.str();
+    hardware_interface::InterfaceInfo pos_interface;
+    pos_interface.name = hardware_interface::HW_IF_POSITION;
+    pos_interface.size = 1;
+    pos_interface.enable_limits = false;
+    joint.state_interfaces.push_back(pos_interface);
 
-//   // Parse URDF
-//   auto control_resources = hardware_interface::parse_control_resources_from_urdf(urdf_content);
-//   hardware_info_ = control_resources.front();
+    hardware_interface::InterfaceInfo vel_interface;
+    vel_interface.name = hardware_interface::HW_IF_VELOCITY;
+    vel_interface.size = 1;
+    vel_interface.enable_limits = false;
+    joint.state_interfaces.push_back(vel_interface);
 
-//   // Check parameters
-//   const auto & hw_info_params = hardware_info_.hardware_parameters;
+    return joint;
+  }
 
-//   hardware_interface::HardwareComponentInterfaceParams params;
-//   params.hardware_info = hardware_info_;
+  std::unique_ptr<littlebot_base::LittlebotHardwareComponent> hw_;
+  hardware_interface::HardwareComponentInterfaceParams params_;
+};
 
-//   // Check that parameters were read
-//   EXPECT_GT(hw_info_params.size(), 0u);
+TEST_F(TestLittlebotHardwareComponent, InitSucceedsWithValidParams)
+{
+  auto params = makeValidParams();
 
-//   auto ret = littlebot_hardware_component_->on_init(params);
-//   EXPECT_EQ(ret,
-//     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::
-//     CallbackReturn::SUCCESS)
-//     << "Failed to initialize LittlebotHardwareComponent from URDF parameters";
+  auto ret = hw_->on_init(params);
 
-//   littlebot_hardware_component_->setupDriver(
-//     mock_serial_port_, "/dev/hwcom", 1000);
-
-//   in.close();
-// }
+  EXPECT_EQ(
+    ret,
+    hardware_interface::CallbackReturn::SUCCESS
+  );
+}

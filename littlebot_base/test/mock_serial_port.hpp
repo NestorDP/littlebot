@@ -24,6 +24,7 @@
 
 #include <gmock/gmock.h>
 #include <string>
+#include <vector>
 #include "littlebot_base/i_serial_port.hpp"
 
 class MockSerialPort : public littlebot_base::ISerialPort
@@ -34,11 +35,13 @@ public:
 
   MOCK_METHOD(bool, open, (std::string port, int baudrate), (override));
   MOCK_METHOD(void, close, (), (override));
-  MOCK_METHOD(int, write, (const std::string &), (override));
-  MOCK_METHOD(int, read, (std::string &), (override));
+  MOCK_METHOD(int, write, (const std::vector<uint8_t> &), (override));
+  MOCK_METHOD(int, read, (std::vector<uint8_t> &), (override));
 
   // Provide default implementations for pure virtual methods
   void readStream() override {}
-  bool tryExtractFrame([[maybe_unused]] std::string & payload) override {return true;}
-  void buildFrame(const std::string & payload, std::string & frame) override {frame = payload;}
+  bool tryExtractFrame([[maybe_unused]] std::vector<uint8_t> & payload) override
+  {return true;}
+  void buildFrame(const std::vector<uint8_t> & payload, std::string & frame) override
+  {frame = std::string(payload.begin(), payload.end());}
 };

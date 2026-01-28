@@ -18,6 +18,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include "littlebot_base/littlebot_hardware_component.hpp"
+#include "littlebot_base/littlebot_driver_factory.hpp"
 
 namespace littlebot_base
 {
@@ -112,35 +113,24 @@ hardware_interface::CallbackReturn
 LittlebotHardwareComponent::on_configure(
   const rclcpp_lifecycle::State &)
 {
-  // Create a pointer to the serial port
-  auto serial_port = std::make_shared<littlebot_base::SerialPort>();
-
-  // Open the serial port and check for errors
-  if (!serial_port->open(serial_port_name_, serial_baudrate_)) {
-    RCLCPP_FATAL(rclcpp::get_logger("LittlebotSystemHardware"), "Failed to open serial port");
-    return hardware_interface::CallbackReturn::ERROR;
-  }
-
-  // Create RT buffers for state and command data
-  rt_state_buffer_ =
-    std::make_shared<littlebot_base::RosRTBuffer>();
-  rt_command_buffer_ =
-    std::make_shared<littlebot_base::RosRTBuffer>();
-
   // Create a vector of joint names and get them from the hardware info
   std::vector<std::string> joint_names;
   for (const auto & joint : info_.joints) {
     joint_names.push_back(joint.name);
   }
 
-  // Create the Littlebot driver instance and pass the serial port, RT buffers
-  // and joint names
-  littlebot_driver_ =
-    std::make_shared<littlebot_base::LittlebotDriver>(
-      serial_port,
-      rt_state_buffer_,
-      rt_command_buffer_,
-      joint_names);
+  // Create the Littlebot driver if it has not been injected (e.g. for tests)
+  if (!littlebot_driver_) {
+    littlebot_driver_ = littlebot_base::createLittlebotDriver(
+      serial_port_name_, serial_baudrate_, joint_names);
+  }
+
+  if (!littlebot_driver_) {
+    RCLCPP_FATAL(
+      rclcpp::get_logger("LittlebotSystemHardware"),
+      "Failed to create Littlebot driver");
+    return hardware_interface::CallbackReturn::ERROR;
+  }
 
   // Start non-RT IO loop
   io_timer_ = get_node()->create_wall_timer(
@@ -152,7 +142,6 @@ LittlebotHardwareComponent::on_configure(
 
   return hardware_interface::CallbackReturn::SUCCESS;
 }
-
 
 hardware_interface::CallbackReturn LittlebotHardwareComponent::on_activate(
   const rclcpp_lifecycle::State & /*previous_state*/)

@@ -52,12 +52,23 @@ public:
   /**
    * @brief Read Packet from the serial port
    */
-  virtual int read(std::string & payload) = 0;
+  virtual int read(std::vector<uint8_t> & payload) = 0;
 
   /**
    * @brief Write Packet to the serial port
    */
-  virtual int write(const std::string & payload) = 0;
+  virtual int write(const std::vector<uint8_t> & payload) = 0;
+
+  /**
+   * @brief Check if the serial port is open
+   *
+   * @return true if the serial port is open
+   * @return false if the serial port is closed
+   */
+  virtual bool isOpen() const noexcept
+  {
+    return is_open_;
+  }
 
 protected:
   /**
@@ -81,7 +92,7 @@ protected:
    *
    * @param buffer Shared pointer to string buffer to store received data
    */
-  virtual bool tryExtractFrame(std::string & payload) = 0;
+  virtual bool tryExtractFrame(std::vector<uint8_t> & payload) = 0;
 
   /**
    * @brief Build packet to be sent through serial port
@@ -89,13 +100,13 @@ protected:
    * @param buffer Shared pointer to string buffer to store data to be sent
    */
   virtual void buildFrame(
-    const std::string & payload,
+    const std::vector<uint8_t> & payload,
     std::string & frame) = 0;
 
   /**
    * @brief Buffer to store received data
    */
-  std::string rx_buffer_;
+  std::vector<uint8_t> rx_buffer_;
 
   /**
    * @brief Serial object from libserial
