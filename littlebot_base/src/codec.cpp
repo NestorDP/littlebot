@@ -38,7 +38,7 @@ void encode(
   const size_t size = send_wheels_data.ByteSizeLong();
   payload.resize(size);
 
-  if (!send_wheels_data.SerializePartialToArray(payload.data(), static_cast<int>(payload.size()))) {
+  if (!send_wheels_data.SerializeToArray(payload.data(), static_cast<int>(payload.size()))) {
     throw std::runtime_error("Failed to serialize protobuf message");
   }
 }
