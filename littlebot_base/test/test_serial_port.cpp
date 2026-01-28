@@ -19,7 +19,7 @@
 
 #include "littlebot_base/serial_port.hpp"
 
-std::vector<uint8_t> toBytes(const std::string & str)
+static std::vector<uint8_t> toBytes(const std::string & str)
 {
   return std::vector<uint8_t>(str.begin(), str.end());
 }
