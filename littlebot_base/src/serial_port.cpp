@@ -83,13 +83,22 @@ void SerialPort::buildFrame(
 
 bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload)
 {
+  // Safety: prevent unbounded growth
+  if (rx_buffer_.size() > kMaxReadChunk) {
+    rx_buffer_.erase(rx_buffer_.begin(),
+                     rx_buffer_.end() - kMaxReadChunk);
+  }
+
   auto start = std::find(rx_buffer_.begin(), rx_buffer_.end(), kStartByte);
   if (start == rx_buffer_.end()) {
+    // No frame start: discard garbage
+    rx_buffer_.clear();
     return false;
   }
 
   auto end = std::find(start + 1, rx_buffer_.end(), kEndByte);
   if (end == rx_buffer_.end()) {
+    // Start found, but frame not complete yet
     return false;
   }
 
@@ -97,6 +106,13 @@ bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload)
 
   // Drop everything up to and including the end byte
   rx_buffer_.erase(rx_buffer_.begin(), end + 1);
+
+  // Remove trailing delimiters
+  while (!rx_buffer_.empty() &&
+    (rx_buffer_.front() == '\n' || rx_buffer_.front() == '\r'))
+  {
+    rx_buffer_.erase(rx_buffer_.begin());
+  }
 
   return true;
 }
