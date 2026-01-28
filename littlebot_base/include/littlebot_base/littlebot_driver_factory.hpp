@@ -18,16 +18,16 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "littlebot_base/i_littlebot_driver_factory.hpp"
 
 namespace littlebot_base
 {
-
-class ILittlebotDriver;
-
-std::shared_ptr<ILittlebotDriver>
-createLittlebotDriver(
-  const std::string & port,
-  int baudrate,
-  const std::vector<std::string> & joint_names);
-
+class LittlebotDriverFactory : public ILittlebotDriverFactory
+{
+public:
+  std::shared_ptr<ILittlebotDriver> create(
+    const std::string & port,
+    int baudrate,
+    const std::vector<std::string> & joint_names) override;
+};
 }  // namespace littlebot_base

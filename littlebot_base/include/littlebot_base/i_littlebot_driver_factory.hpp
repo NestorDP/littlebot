@@ -13,30 +13,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#include "littlebot_base/littlebot_driver_factory.hpp"
-#include "littlebot_base/littlebot_driver.hpp"
-#include "littlebot_base/serial_port.hpp"
-#include "littlebot_base/ros_rt_buffer.hpp"
+#pragma once
+
+#include <memory>
+#include <string>
+#include <vector>
 
 namespace littlebot_base
 {
 
-std::shared_ptr<ILittlebotDriver>
-LittlebotDriverFactory::create(
-  const std::string & port,
-  int baudrate,
-  const std::vector<std::string> & joint_names)
+class ILittlebotDriver;
+
+class ILittlebotDriverFactory
 {
-  auto serial = std::make_shared<SerialPort>();
-  auto state_buffer = std::make_shared<RosRTBuffer>();
-  auto cmd_buffer = std::make_shared<RosRTBuffer>();
+public:
+  virtual ~ILittlebotDriverFactory() = default;
 
-  if (!serial->open(port, baudrate)) {
-    return nullptr;
-  }
-
-  return std::make_shared<LittlebotDriver>(
-    serial, state_buffer, cmd_buffer, joint_names);
-}
+  virtual std::shared_ptr<ILittlebotDriver> create(
+    const std::string & port,
+    int baudrate,
+    const std::vector<std::string> & joint_names) = 0;
+};
 
 }  // namespace littlebot_base
