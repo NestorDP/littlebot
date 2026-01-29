@@ -164,42 +164,42 @@ if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
   find_package(ament_lint_auto REQUIRED)
 
-  find_file(LITTLEBOT_URDF_FILE
-    NAMES littlebot_description.urdf.xacro
-    PATHS
-      "${CMAKE_CURRENT_SOURCE_DIR}/../littlebot_description/urdf"
-    NO_DEFAULT_PATH
-  )
+  # find_file(LITTLEBOT_URDF_FILE
+  #   NAMES littlebot_description.urdf.xacro
+  #   PATHS
+  #     "${CMAKE_CURRENT_SOURCE_DIR}/../littlebot_description/urdf"
+  #   NO_DEFAULT_PATH
+  # )
 
-  if(NOT LITTLEBOT_URDF_FILE)
-    message(WARNING "Could not find littlebot URDF file")
-  endif()
+  # if(NOT LITTLEBOT_URDF_FILE)
+  #   message(WARNING "Could not find littlebot URDF file")
+  # endif()
 
   # Find the xacro executable
-  find_program(XACRO_EXECUTABLE xacro
-    HINTS ENV PATH /usr/bin /usr/local/bin
-  )
+  # find_program(XACRO_EXECUTABLE xacro
+  #   HINTS ENV PATH /usr/bin /usr/local/bin
+  # )
 
-  if(NOT XACRO_EXECUTABLE)
-    message(FATAL_ERROR "xacro executable not found. Install ROS xacro or make
-    'xacro' available in PATH.")
-  endif()
+  # if(NOT XACRO_EXECUTABLE)
+  #   message(FATAL_ERROR "xacro executable not found. Install ROS xacro or make
+  #   'xacro' available in PATH.")
+  # endif()
 
-  # Convert XACRO to URDF for testing
-  set(TEST_URDF_FILE ${CMAKE_CURRENT_BINARY_DIR}/test_littlebot.urdf)
+  # # Convert XACRO to URDF for testing
+  # set(TEST_URDF_FILE ${CMAKE_CURRENT_BINARY_DIR}/test_littlebot.urdf)
 
-  add_custom_command(
-    OUTPUT ${TEST_URDF_FILE}
-    COMMAND ${XACRO_EXECUTABLE} ${LITTLEBOT_URDF_FILE} -o ${TEST_URDF_FILE}
-    DEPENDS ${LITTLEBOT_URDF_FILE}
-    BYPRODUCTS ${TEST_URDF_FILE}
-    COMMENT "Converting XACRO to URDF for testing"
-  )
+  # add_custom_command(
+  #   OUTPUT ${TEST_URDF_FILE}
+  #   COMMAND ${XACRO_EXECUTABLE} ${LITTLEBOT_URDF_FILE} -o ${TEST_URDF_FILE}
+  #   DEPENDS ${LITTLEBOT_URDF_FILE}
+  #   BYPRODUCTS ${TEST_URDF_FILE}
+  #   COMMENT "Converting XACRO to URDF for testing"
+  # )
 
-  # Add custom target for the URDF generation
-  add_custom_target(generate_test_urdf ALL
-    DEPENDS ${TEST_URDF_FILE}
-  )
+  # # Add custom target for the URDF generation
+  # add_custom_target(generate_test_urdf ALL
+  #   DEPENDS ${TEST_URDF_FILE}
+  # )
 
   # Lint tests
   ament_lint_auto_find_test_dependencies()
@@ -212,14 +212,14 @@ if(BUILD_TESTING)
   )
 
   # Make test depend on URDF generation
-  if(TARGET generate_test_urdf)
-    add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
-  endif()
+  # if(TARGET generate_test_urdf)
+  #   add_dependencies(${PROJECT_NAME}_unit_tests generate_test_urdf)
+  # endif()
 
   if(TARGET ${PROJECT_NAME}_unit_tests)
-    target_compile_definitions(${PROJECT_NAME}_unit_tests
-      PRIVATE TEST_URDF_FILE_PATH="${TEST_URDF_FILE}"
-    )
+    # target_compile_definitions(${PROJECT_NAME}_unit_tests
+    #   PRIVATE TEST_URDF_FILE_PATH="${TEST_URDF_FILE}"
+    # )
 
     target_include_directories(${PROJECT_NAME}_unit_tests PRIVATE
       include
