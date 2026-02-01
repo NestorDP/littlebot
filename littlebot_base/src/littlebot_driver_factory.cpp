@@ -31,12 +31,8 @@ LittlebotDriverFactory::create(
   auto state_buffer = std::make_shared<RosRTBuffer>();
   auto cmd_buffer = std::make_shared<RosRTBuffer>();
 
-  if (!serial->open(port, baudrate)) {
-    return nullptr;
-  }
-
   return std::make_shared<LittlebotDriver>(
-    serial, state_buffer, cmd_buffer, joint_names);
+    serial, state_buffer, cmd_buffer, joint_names, port, baudrate);
 }
 
 }  // namespace littlebot_base

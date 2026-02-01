@@ -41,7 +41,9 @@ public:
     std::shared_ptr<ISerialPort> serial_port,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
-    const std::vector<std::string> & joint_names);
+    const std::vector<std::string> & joint_names,
+    std::string port,
+    int baudrate);
 
   ~LittlebotDriver() override = default;
 
@@ -115,6 +117,16 @@ private:
    * @brief Serial port interface
    */
   std::shared_ptr<ISerialPort> serial_port_;
+
+  /**
+   * @brief Serial port name
+   */
+  std::string port_;
+
+  /**
+   * @brief Serial port baudrate
+   */
+  int baudrate_{0};
 
   /**
    * @brief RT buffer interface for wheel data states
