@@ -35,7 +35,11 @@ public:
    * @brief Construct a new Littlebot Driver object
    *
    * @param serial_port Shared pointer to the serial port interface
-   * @param rt_buffer Shared pointer to the real-time buffer interface for wheel data
+   * @param rt_state_buffer Shared pointer to the real-time buffer interface for wheel state data
+   * @param rt_command_buffer Shared pointer to the real-time buffer interface for wheel command data
+   * @param joint_names Vector of joint names
+   * @param port Serial port name
+   * @param baudrate Serial port baudrate
    */
   LittlebotDriver(
     std::shared_ptr<ISerialPort> serial_port,
@@ -119,16 +123,6 @@ private:
   std::shared_ptr<ISerialPort> serial_port_;
 
   /**
-   * @brief Serial port name
-   */
-  std::string port_;
-
-  /**
-   * @brief Serial port baudrate
-   */
-  int baudrate_{0};
-
-  /**
    * @brief RT buffer interface for wheel data states
    */
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer_;
@@ -137,6 +131,16 @@ private:
    * @brief RT buffer interface for wheel data commands
    */
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer_;
+
+  /**
+   * @brief Serial port name
+   */
+  std::string port_;
+
+  /**
+   * @brief Serial port baudrate
+   */
+  int baudrate_{0};
 
   /**
    * @brief Vector of wheels (Not RT-safe)

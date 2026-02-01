@@ -26,12 +26,7 @@ LittlebotDriver::LittlebotDriver(
   const std::vector<std::string> & joint_names,
   std::string port,
   int baudrate)
-: ILittlebotDriver(
-    serial_port,
-    rt_state_buffer,
-    rt_command_buffer,
-    joint_names),
-  serial_port_(std::move(serial_port)),
+: serial_port_(std::move(serial_port)),
   rt_state_buffer_(std::move(rt_state_buffer)),
   rt_command_buffer_(std::move(rt_command_buffer)),
   port_(std::move(port)),
