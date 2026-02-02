@@ -110,6 +110,14 @@ public:
 
 private:
   /**
+   * @brief Map SerialError to DriverError
+   *
+   * @param e SerialError to map
+   * @return DriverError Mapped DriverError
+   */
+  static DriverError mapSerialError(SerialError error) noexcept;
+
+  /**
    * @brief Error counters for the driver
    */
   DriverErrorCounters error_counters_;

@@ -137,4 +137,15 @@ bool LittlebotDriver::sendCommand() noexcept
 
   return serial_port_->write(payload) > 0;
 }
+
+static DriverError mapSerialError(SerialError error) noexcept
+{
+  switch (error) {
+    case SerialError::None:        return DriverError::None;
+    // case SerialError::ReadFailed:  return DriverError::SerialReadError;
+    // case SerialError::WriteFailed: return DriverError::SerialWriteError;
+    // case SerialError::OpenFailed:  return DriverError::SerialOpenError;
+    default:                       return DriverError::None;
+  }
+}
 }  // namespace littlebot_base
