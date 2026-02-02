@@ -54,52 +54,54 @@ public:
   /**
    * @brief Read the current state from the RT buffer
    *
-   * @param state Reference to WheelRTData structure to store the read data
-   *
-   * @note This method is RT-safe (control loop)
+   * \inheritdoc
+   * 
+   * Override the virtual method from ILittlebotDriver
    */
   void readRTData(WheelRTData & state) const noexcept override;
 
   /**
    * @brief Write the command to the RT buffer
    *
-   * @param command Reference to WheelRTData structure containing the command data
+   * \inheritdoc
    *
-   * @note This method is RT-safe (control loop)
+   * Override the virtual method from ILittlebotDriver
    */
   void writeRTData(const WheelRTData & command) noexcept override;
 
   /**
    * @brief Receive data from the hardware and update the RT buffer
    *
-   * @return true if data was received successfully
-   * @return false if an error occurred
+   * \inheritdoc
    *
-   * @note This method is NOT RT-safe (executor / IO thread)
+   * Override the virtual method from ILittlebotDriver
    */
   bool requestStatus() noexcept override;
 
   /**
    * @brief Send command data to the hardware
    *
-   * @return true if data was sent successfully
-   * @return false if an error occurred
+   * \inheritdoc
    *
-   * @note This method is NOT RT-safe (executor / IO thread)
+   * Override the virtual method from ILittlebotDriver
    */
   bool sendCommand() noexcept override;
 
   /**
    * @brief Get the last error that occurred
    *
-   * @return DriverError The last error code
+   * \inheritedoc
+   *
+   * Override the virtual method from ILittlebotDriver
    */
   DriverError getLastError() const noexcept override {return last_error_;}
 
   /**
    * @brief Get the error counters
    *
-   * @return const DriverErrorCounters& Reference to the error counters structure
+   * \inheritedoc
+   *
+   * Override the virtual method from ILittlebotDriver
    */
   const DriverErrorCounters & getErrorCounters() const noexcept override
   {
