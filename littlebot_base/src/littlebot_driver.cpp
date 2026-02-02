@@ -38,7 +38,7 @@ LittlebotDriver::LittlebotDriver(
     wheels_.emplace_back(name);
   }
 
-  !serial_port_->open(port_, baudrate_);
+  serial_port_->open(port_, baudrate_);
 }
 
 void LittlebotDriver::readRTData(WheelRTData & state) const noexcept

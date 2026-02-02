@@ -30,6 +30,18 @@
 namespace littlebot_base
 {
 
+enum class SerialError
+{
+  None,
+  OpenFailed,
+  ConfigFailed,
+  ReadFailed,
+  WriteFailed,
+  AlreadyOpen,
+  NotOpen,
+  Unknown
+};
+
 class ISerialPort
 {
 public:
@@ -40,24 +52,36 @@ public:
   virtual ~ISerialPort() = default;
 
   /**
-   * @brief Open the serial port (uses default or stored parameters)
+   * @brief Open the serial port
+   *
+   * @param port Serial port device path (e.g., "/dev/ttyUSB0")
+   * @param baudrate Baud rate for the serial communication
+   * @return SerialError indicating success or type of failure
    */
-  virtual bool open(std::string port, int baudrate) = 0;
+  virtual SerialError open(std::string port, int baudrate) noexcept = 0;
 
   /**
    * @brief Close the serial port
+   *
+   * @return SerialError indicating success or type of failure
    */
-  virtual void close() = 0;
+  virtual SerialError close() noexcept = 0;
 
   /**
    * @brief Read Packet from the serial port
+   *
+   * @param payload Vector to store the read packet data
+   * @return Number of bytes read
    */
-  virtual int read(std::vector<uint8_t> & payload) = 0;
+  virtual int read(std::vector<uint8_t> & payload) noexcept = 0;
 
   /**
    * @brief Write Packet to the serial port
+   *
+   * @param payload Vector containing the packet data to write
+   * @return Number of bytes written
    */
-  virtual int write(const std::vector<uint8_t> & payload) = 0;
+  virtual int write(const std::vector<uint8_t> & payload) noexcept = 0;
 
   /**
    * @brief Check if the serial port is open
@@ -85,23 +109,26 @@ protected:
   /**
    * @brief Read data stream from the serial port
    */
-  virtual void readStream() = 0;
+  virtual void readStream() noexcept = 0;
 
   /**
    * @brief Get data from the received packet
    *
    * @param buffer Shared pointer to string buffer to store received data
+   * @return true if a complete frame was extracted
+   * @return false if no complete frame was available
    */
-  virtual bool tryExtractFrame(std::vector<uint8_t> & payload) = 0;
+  virtual bool tryExtractFrame(std::vector<uint8_t> & payload) noexcept = 0;
 
   /**
    * @brief Build packet to be sent through serial port
    *
-   * @param buffer Shared pointer to string buffer to store data to be sent
+   * @param payload Vector containing the packet data to send
+   * @param frame String to store the built packet
    */
   virtual void buildFrame(
     const std::vector<uint8_t> & payload,
-    std::string & frame) = 0;
+    std::string & frame) noexcept = 0;
 
   /**
    * @brief Buffer to store received data
@@ -114,12 +141,12 @@ protected:
   libserial::Serial serial_;
 
   /**
-   * @brief Caracter to start the message
+   * @brief Character to start the message
    */
   static constexpr char kStartByte{'['};
 
   /**
-   * @brief Caracter to end the message
+   * @brief Character to end the message
    */
   static constexpr char kEndByte{']'};
 

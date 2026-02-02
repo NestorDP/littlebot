@@ -19,22 +19,23 @@
 namespace littlebot_base
 {
 
-bool SerialPort::open(std::string port, int baudrate)
+SerialError SerialPort::open(std::string port, int baudrate) noexcept
 {
   // TODO(NestorDP): Add error handling
   serial_.open(port);
   serial_.setBaudRate(baudrate);
   is_open_ = true;
-  return true;
+  return SerialError::None;
 }
 
-void SerialPort::close()
+SerialError SerialPort::close() noexcept
 {
   serial_.close();
   is_open_ = false;
+  return SerialError::None;
 }
 
-int SerialPort::read(std::vector<uint8_t> & payload)
+int SerialPort::read(std::vector<uint8_t> & payload) noexcept
 {
   if (is_open_) {
     readStream();
@@ -47,7 +48,7 @@ int SerialPort::read(std::vector<uint8_t> & payload)
   return 0;  // no complete frame yet
 }
 
-int SerialPort::write(const std::vector<uint8_t> & payload)
+int SerialPort::write(const std::vector<uint8_t> & payload) noexcept
 {
   auto frame = std::make_shared<std::string>();
   buildFrame(payload, *frame);
@@ -59,7 +60,7 @@ int SerialPort::write(const std::vector<uint8_t> & payload)
   return static_cast<int>(frame->size());
 }
 
-void SerialPort::readStream()
+void SerialPort::readStream() noexcept
 {
   auto tmp_buffer = std::make_shared<std::string>();
   size_t n = serial_.read(tmp_buffer, kMaxReadChunk);
@@ -71,7 +72,7 @@ void SerialPort::readStream()
 
 void SerialPort::buildFrame(
   const std::vector<uint8_t> & payload,
-  std::string & frame)
+  std::string & frame) noexcept
 {
   frame.clear();
   frame.reserve(payload.size() + 3);
@@ -82,7 +83,7 @@ void SerialPort::buildFrame(
   // frame.push_back('\n');
 }
 
-bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload)
+bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload) noexcept
 {
   // Safety: prevent unbounded growth
   if (rx_buffer_.size() > kMaxReadChunk) {

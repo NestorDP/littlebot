@@ -45,7 +45,7 @@ protected:
 
     // Set default behavior for open to return true
     ON_CALL(*serial_, open(testing::_, testing::_))
-    .WillByDefault(testing::Return(true));
+    .WillByDefault(testing::Return(littlebot_base::SerialError::None));
 
     driver_ = std::make_unique<littlebot_base::LittlebotDriver>(
       serial_, state_buffer_, command_buffer_, joint_names_, "/dev/TEST_PORT", 115200);

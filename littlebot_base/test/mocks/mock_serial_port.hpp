@@ -33,15 +33,16 @@ public:
   MockSerialPort() {}
   ~MockSerialPort() override = default;
 
-  MOCK_METHOD(bool, open, (std::string port, int baudrate), (override));
-  MOCK_METHOD(void, close, (), (override));
-  MOCK_METHOD(int, write, (const std::vector<uint8_t> &), (override));
-  MOCK_METHOD(int, read, (std::vector<uint8_t> &), (override));
+  MOCK_METHOD(littlebot_base::SerialError, open, (std::string port, int baudrate),
+    (override, noexcept));
+  MOCK_METHOD(littlebot_base::SerialError, close, (), (override, noexcept));
+  MOCK_METHOD(int, write, (const std::vector<uint8_t> &), (override, noexcept));
+  MOCK_METHOD(int, read, (std::vector<uint8_t> &), (override, noexcept));
 
   // Provide default implementations for pure virtual methods
-  void readStream() override {}
-  bool tryExtractFrame([[maybe_unused]] std::vector<uint8_t> & payload) override
+  void readStream() noexcept override {}
+  bool tryExtractFrame([[maybe_unused]] std::vector<uint8_t> & payload) noexcept override
   {return true;}
-  void buildFrame(const std::vector<uint8_t> & payload, std::string & frame) override
+  void buildFrame(const std::vector<uint8_t> & payload, std::string & frame) noexcept override
   {frame = std::string(payload.begin(), payload.end());}
 };
