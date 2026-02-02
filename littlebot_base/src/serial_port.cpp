@@ -21,16 +21,43 @@ namespace littlebot_base
 
 SerialError SerialPort::open(std::string port, int baudrate) noexcept
 {
-  // TODO(NestorDP): Add error handling
-  serial_.open(port);
-  serial_.setBaudRate(baudrate);
+  if(is_open_) {
+    return SerialError::AlreadyOpen;
+  }
+
+  try{
+    serial_.open(port);
+  } catch(const libserial::PermissionDeniedException &) {
+    return SerialError::InsufficientPermissions;
+  } catch(const libserial::SerialException &) {
+    return SerialError::PortUnavailable;
+  } catch(...) {
+    return  SerialError::Unknown;
+  }
+
+  try{
+    serial_.setBaudRate(baudrate);
+  } catch(const libserial::SerialException &) {
+    serial_.close();
+    return SerialError::ConfigBaudrateFailed;
+  }
+
   is_open_ = true;
   return SerialError::None;
 }
 
 SerialError SerialPort::close() noexcept
 {
-  serial_.close();
+  if (!is_open_) {
+    return SerialError::NotOpen;
+  }
+
+  try{
+    serial_.close();
+  } catch(const libserial::SerialException &) {
+    return SerialError::PortNotClosed;
+  }
+
   is_open_ = false;
   return SerialError::None;
 }

@@ -33,12 +33,14 @@ namespace littlebot_base
 enum class SerialError
 {
   None,
-  OpenFailed,
-  ConfigFailed,
+  PortUnavailable,
+  InsufficientPermissions,
+  ConfigBaudrateFailed,
   ReadFailed,
   WriteFailed,
   AlreadyOpen,
   NotOpen,
+  PortNotClosed,
   Unknown
 };
 
