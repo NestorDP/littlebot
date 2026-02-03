@@ -31,8 +31,6 @@ SerialError SerialPort::open(std::string port, int baudrate) noexcept
     return SerialError::InsufficientPermissions;
   } catch(const libserial::SerialException &) {
     return SerialError::PortUnavailable;
-  } catch(...) {
-    return  SerialError::Unknown;
   }
 
   try{
