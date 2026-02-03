@@ -64,7 +64,7 @@ public:
    * @brief Read the current state from the RT buffer
    *
    * \inheritdoc
-   * 
+   *
    * Override the virtual method from ILittlebotDriver
    */
   void readRTData(WheelRTData & state) const noexcept override;

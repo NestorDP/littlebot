@@ -25,7 +25,7 @@ SerialError SerialPort::open(std::string port, int baudrate) noexcept
     return SerialError::AlreadyOpen;
   }
 
-  try{
+  try {
     serial_.open(port);
   } catch(const libserial::PermissionDeniedException &) {
     return SerialError::InsufficientPermissions;
@@ -33,7 +33,7 @@ SerialError SerialPort::open(std::string port, int baudrate) noexcept
     return SerialError::PortUnavailable;
   }
 
-  try{
+  try {
     serial_.setBaudRate(baudrate);
   } catch(const libserial::SerialException &) {
     serial_.close();
@@ -50,7 +50,7 @@ SerialError SerialPort::close() noexcept
     return SerialError::NotOpen;
   }
 
-  try{
+  try {
     serial_.close();
   } catch(const libserial::SerialException &) {
     return SerialError::PortNotClosed;
