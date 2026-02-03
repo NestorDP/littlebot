@@ -37,8 +37,15 @@ LittlebotDriver::LittlebotDriver(
   for (const auto & name : joint_names) {
     wheels_.emplace_back(name);
   }
+}
 
-  serial_port_->open(port_, baudrate_);
+DriverError LittlebotDriver::init() noexcept
+{
+  auto serial_err = serial_port_->open(port_, baudrate_);
+  if (serial_err != SerialError::None) {
+    return mapSerialError(serial_err);
+  }
+  return DriverError::None;
 }
 
 void LittlebotDriver::readRTData(WheelRTData & state) const noexcept
@@ -138,14 +145,15 @@ bool LittlebotDriver::sendCommand() noexcept
   return serial_port_->write(payload) > 0;
 }
 
-static DriverError mapSerialError(SerialError error) noexcept
+DriverError LittlebotDriver::mapSerialError(SerialError error) noexcept
 {
   switch (error) {
-    case SerialError::None:        return DriverError::None;
-    // case SerialError::ReadFailed:  return DriverError::SerialReadError;
-    // case SerialError::WriteFailed: return DriverError::SerialWriteError;
-    // case SerialError::OpenFailed:  return DriverError::SerialOpenError;
-    default:                       return DriverError::None;
+    case SerialError::None:                    return DriverError::None;
+    case SerialError::PortUnavailable:         return DriverError::SerialPortUnavailable;
+    case SerialError::InsufficientPermissions: return DriverError::SerialInsufficientPermissions;
+    case SerialError::ConfigBaudrateFailed:    return DriverError::SerialConfigBaudrateFailed;
+    case SerialError::AlreadyOpen:             return DriverError::SerialAlreadyOpen;
+    default:                                   return DriverError::None;
   }
 }
 }  // namespace littlebot_base

@@ -52,6 +52,15 @@ public:
   ~LittlebotDriver() override = default;
 
   /**
+   * @brief Initialize the driver
+   *
+   * \inheritdoc
+   *
+   * Override the virtual method from ILittlebotDriver
+   */
+  DriverError init() noexcept override;
+
+  /**
    * @brief Read the current state from the RT buffer
    *
    * \inheritdoc

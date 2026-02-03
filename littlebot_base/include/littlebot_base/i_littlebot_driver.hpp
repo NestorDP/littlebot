@@ -52,6 +52,13 @@ public:
   virtual ~ILittlebotDriver() = default;
 
   /**
+   * @brief Initialize the driver
+   *
+   * @return DriverError The result of the initialization
+   */
+  virtual DriverError init() noexcept = 0;
+
+  /**
    * @brief Read the current state from the RT buffer
    *
    * @param state Reference to WheelRTData structure to store the read data
