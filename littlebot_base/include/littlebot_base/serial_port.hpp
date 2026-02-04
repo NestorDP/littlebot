@@ -53,7 +53,6 @@ public:
    *
    * Override the virtual method from ISerialPort
    */
-  // codacy:ignore CWE-120 CWE-20 -- Bounded internally by kMaxFrameSize and rx buffer limits
   int read(std::vector<uint8_t> & payload) noexcept override;
 
   /**
