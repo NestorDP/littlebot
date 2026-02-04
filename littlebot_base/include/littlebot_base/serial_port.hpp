@@ -35,7 +35,7 @@ public:
    *
    * Override the virtual method from ISerialPort
    */
-  SerialError  open(std::string port, int baudrate) noexcept override;
+  SerialError open(std::string port, int baudrate) noexcept override;
 
   /**
    * @brief Close the serial port

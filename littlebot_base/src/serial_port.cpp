@@ -21,7 +21,7 @@ namespace littlebot_base
 
 SerialError SerialPort::open(std::string port, int baudrate) noexcept
 {
-  if(is_open_) {
+  if (is_open_) {
     return SerialError::AlreadyOpen;
   }
 
