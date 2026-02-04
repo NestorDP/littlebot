@@ -81,6 +81,7 @@ public:
    *        Implementations must ensure the frame size never exceeds kMaxFrameSize.
    * @return Number of bytes read
    */
+  // codacy:ignore CWE-120 CWE-20 -- Bounded internally by kMaxFrameSize and rx buffer limits
   virtual int read(std::vector<uint8_t> & payload) noexcept = 0;
 
   /**

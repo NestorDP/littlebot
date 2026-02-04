@@ -60,6 +60,7 @@ SerialError SerialPort::close() noexcept
   return SerialError::None;
 }
 
+// codacy:ignore CWE-120 CWE-20 -- Bounded internally by kMaxFrameSize and rx buffer limits
 int SerialPort::read(std::vector<uint8_t> & payload) noexcept
 {
   if (is_open_) {
