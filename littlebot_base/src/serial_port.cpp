@@ -53,7 +53,7 @@ SerialError SerialPort::close() noexcept
   try {
     serial_.close();
   } catch(const libserial::SerialException &) {
-    return SerialError::PortNotClosed;
+    return SerialError::NotClosed;
   }
 
   is_open_ = false;

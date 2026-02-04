@@ -40,7 +40,7 @@ enum class SerialError
   WriteFailed,
   AlreadyOpen,
   NotOpen,
-  PortNotClosed,
+  NotClosed,
   Unknown
 };
 

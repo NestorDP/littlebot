@@ -46,7 +46,12 @@ enum class DriverError
   SerialPortUnavailable,          // 9 : Serial port unavailable
   SerialInsufficientPermissions,  // 10: Insufficient permissions to open port
   SerialConfigBaudrateFailed,     // 11: Failed to configure baudrate
-  SerialAlreadyOpen               // 12: Port already open
+  SerialReadFailed,               // 12: Failed to read from serial port
+  SerialWriteFailed,              // 13: Failed to write to serial port
+  SerialAlreadyOpen,              // 14: Port already open
+  SerialNotOpen,                  // 15: Port not open
+  SerialNotClosed,                // 16: Port could not be closed
+  Unknown                         // 17: Unknown error
 };
 
 struct DriverErrorCounters

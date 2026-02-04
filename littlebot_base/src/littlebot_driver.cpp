@@ -152,8 +152,12 @@ DriverError LittlebotDriver::mapSerialError(SerialError error) noexcept
     case SerialError::PortUnavailable:         return DriverError::SerialPortUnavailable;
     case SerialError::InsufficientPermissions: return DriverError::SerialInsufficientPermissions;
     case SerialError::ConfigBaudrateFailed:    return DriverError::SerialConfigBaudrateFailed;
+    case SerialError::ReadFailed:              return DriverError::SerialReadError;
+    case SerialError::WriteFailed:             return DriverError::SerialWriteError;
     case SerialError::AlreadyOpen:             return DriverError::SerialAlreadyOpen;
-    default:                                   return DriverError::None;
+    case SerialError::NotOpen:                 return DriverError::SerialNotOpen;
+    case SerialError::NotClosed:               return DriverError::SerialNotClosed;
+    default:                                   return DriverError::Unknown;
   }
 }
 }  // namespace littlebot_base
