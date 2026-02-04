@@ -43,7 +43,7 @@ protected:
     state_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
     command_buffer_ = std::make_shared<MockRTBuffer<littlebot_base::WheelRTData>>();
 
-    // Set default behavior for open to return true
+    // Set default behavior for open to return SerialError::None
     ON_CALL(*serial_, open(testing::_, testing::_))
     .WillByDefault(testing::Return(littlebot_base::SerialError::None));
 
