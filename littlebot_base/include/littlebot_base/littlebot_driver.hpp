@@ -121,7 +121,7 @@ private:
   /**
    * @brief Map SerialError to DriverError
    *
-   * @param e SerialError to map
+   * @param error SerialError to map
    * @return DriverError Mapped DriverError
    */
   static DriverError mapSerialError(SerialError error) noexcept;
