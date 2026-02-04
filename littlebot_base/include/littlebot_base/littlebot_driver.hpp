@@ -99,7 +99,7 @@ public:
   /**
    * @brief Get the last error that occurred
    *
-   * \inheritedoc
+   * \inheritdoc
    *
    * Override the virtual method from ILittlebotDriver
    */
@@ -108,7 +108,7 @@ public:
   /**
    * @brief Get the error counters
    *
-   * \inheritedoc
+   * \inheritdoc
    *
    * Override the virtual method from ILittlebotDriver
    */
