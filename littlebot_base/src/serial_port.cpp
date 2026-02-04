@@ -87,23 +87,26 @@ int SerialPort::write(const std::vector<uint8_t> & payload) noexcept
 
 void SerialPort::readStream() noexcept
 {
+  constexpr size_t kMaxBufferSize = kMaxReadChunk * 2;
+
   // Prevent unbounded buffer growth - don't read more if buffer is already at limit
-  if (rx_buffer_.size() >= kMaxReadChunk * 2) {
+  if (rx_buffer_.size() >= kMaxBufferSize) {
     return;
   }
 
   auto tmp_buffer = std::make_shared<std::string>();
   size_t n = serial_.read(tmp_buffer, kMaxReadChunk);
 
-  if (n > 0) {
-    rx_buffer_.insert(rx_buffer_.end(), tmp_buffer->begin(), tmp_buffer->end());
-
-    // Enforce hard limit after insertion
-    if (rx_buffer_.size() > kMaxReadChunk * 2) {
-      rx_buffer_.erase(rx_buffer_.begin(),
-                       rx_buffer_.begin() + (rx_buffer_.size() - kMaxReadChunk * 2));
-    }
+  if (n == 0) {
+    return;
   }
+
+  size_t space_left = kMaxBufferSize - rx_buffer_.size();
+  size_t to_copy = std::min(n, space_left);
+
+  rx_buffer_.insert(rx_buffer_.end(),
+                    tmp_buffer->begin(),
+                    tmp_buffer->begin() + to_copy);
 }
 
 void SerialPort::buildFrame(
@@ -111,8 +114,8 @@ void SerialPort::buildFrame(
   std::string & frame) noexcept
 {
   frame.clear();
-  frame.reserve(payload.size() + 3);
 
+  frame.reserve(payload.size() + 2);
   frame.push_back(kStartByte);
   frame.insert(frame.end(), payload.begin(), payload.end());
   frame.push_back(kEndByte);
@@ -123,8 +126,8 @@ bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload) noexcept
 {
   // Safety: prevent unbounded growth
   if (rx_buffer_.size() > kMaxReadChunk) {
-    rx_buffer_.erase(rx_buffer_.begin(),
-                     rx_buffer_.end() - kMaxReadChunk);
+    size_t excess = rx_buffer_.size() - kMaxReadChunk;
+    rx_buffer_.erase(rx_buffer_.begin(), rx_buffer_.begin() + excess);
   }
 
   auto start = std::find(rx_buffer_.begin(), rx_buffer_.end(), kStartByte);

@@ -106,7 +106,7 @@ private:
   /**
    * @brief Maximum number of bytes to read in one chunk
    */
-  static constexpr size_t kMaxReadChunk{256};
+  static constexpr size_t kMaxReadChunk{ISerialPort::kMaxFrameSize};
 };
 
 }  // namespace littlebot_base

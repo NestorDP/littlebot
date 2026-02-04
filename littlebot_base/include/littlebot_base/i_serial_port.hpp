@@ -48,6 +48,11 @@ class ISerialPort
 {
 public:
   /**
+   * @brief Maximum size of a frame that can be sent/received
+   */
+  static constexpr size_t kMaxFrameSize = 256;
+
+  /**
    * @brief Deconstructor for the ISerialPort class
    *
    */
@@ -72,7 +77,8 @@ public:
   /**
    * @brief Read Packet from the serial port
    *
-   * @param payload Vector to store the read packet data
+   * @param payload Vector to store the read packet data.
+   *        Implementations must ensure the frame size never exceeds kMaxFrameSize.
    * @return Number of bytes read
    */
   virtual int read(std::vector<uint8_t> & payload) noexcept = 0;
@@ -81,6 +87,7 @@ public:
    * @brief Write Packet to the serial port
    *
    * @param payload Vector containing the packet data to write
+   *        payload.size() must be <= kMaxFrameSize.
    * @return Number of bytes written
    */
   virtual int write(const std::vector<uint8_t> & payload) noexcept = 0;
