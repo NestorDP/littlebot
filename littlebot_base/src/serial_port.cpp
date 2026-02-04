@@ -87,11 +87,22 @@ int SerialPort::write(const std::vector<uint8_t> & payload) noexcept
 
 void SerialPort::readStream() noexcept
 {
+  // Prevent unbounded buffer growth - don't read more if buffer is already at limit
+  if (rx_buffer_.size() >= kMaxReadChunk * 2) {
+    return;
+  }
+
   auto tmp_buffer = std::make_shared<std::string>();
   size_t n = serial_.read(tmp_buffer, kMaxReadChunk);
 
   if (n > 0) {
     rx_buffer_.insert(rx_buffer_.end(), tmp_buffer->begin(), tmp_buffer->end());
+
+    // Enforce hard limit after insertion
+    if (rx_buffer_.size() > kMaxReadChunk * 2) {
+      rx_buffer_.erase(rx_buffer_.begin(),
+                       rx_buffer_.begin() + (rx_buffer_.size() - kMaxReadChunk * 2));
+    }
   }
 }
 
@@ -134,11 +145,15 @@ bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload) noexcept
   // Drop everything up to and including the end byte
   rx_buffer_.erase(rx_buffer_.begin(), end + 1);
 
-  // Remove trailing delimiters
+  // Remove trailing delimiters (with iteration limit to prevent DoS)
+  constexpr size_t kMaxDelimiterRemoval = 10;
+  size_t removed = 0;
   while (!rx_buffer_.empty() &&
-    (rx_buffer_.front() == '\n' || rx_buffer_.front() == '\r'))
+    (rx_buffer_.front() == '\n' || rx_buffer_.front() == '\r') &&
+    removed < kMaxDelimiterRemoval)
   {
     rx_buffer_.erase(rx_buffer_.begin());
+    ++removed;
   }
 
   return true;
