@@ -15,9 +15,11 @@
 
 #pragma once
 
+#include <expected>
 #include <memory>
 #include <string>
 #include <vector>
+
 #include "littlebot_base/i_littlebot_driver_factory.hpp"
 
 namespace littlebot_base
@@ -25,7 +27,7 @@ namespace littlebot_base
 class LittlebotDriverFactory : public ILittlebotDriverFactory
 {
 public:
-  std::shared_ptr<ILittlebotDriver> create(
+  std::expected<std::shared_ptr<ILittlebotDriver>, DriverError> create(
     const std::string & port,
     int baudrate,
     const std::vector<std::string> & joint_names) override;

@@ -124,15 +124,17 @@ LittlebotHardwareComponent::on_configure(
     driver_factory_ = std::make_shared<LittlebotDriverFactory>();
   }
 
-  littlebot_driver_ = driver_factory_->create(
+  auto result_driver_factory = driver_factory_->create(
     serial_port_name_, serial_baudrate_, joint_names);
 
-  if (!littlebot_driver_) {
+  if (!result_driver_factory) {
     RCLCPP_FATAL(
       rclcpp::get_logger("LittlebotSystemHardware"),
       "Failed to create Littlebot driver");
     return hardware_interface::CallbackReturn::ERROR;
   }
+
+  littlebot_driver_ = result_driver_factory.value();
 
   // Start non-RT IO loop
   io_timer_ = get_node()->create_wall_timer(

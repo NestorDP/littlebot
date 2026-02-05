@@ -21,7 +21,7 @@
 namespace littlebot_base
 {
 
-std::shared_ptr<ILittlebotDriver>
+std::expected<std::shared_ptr<ILittlebotDriver>, DriverError>
 LittlebotDriverFactory::create(
   const std::string & port,
   int baudrate,
@@ -31,8 +31,15 @@ LittlebotDriverFactory::create(
   auto state_buffer = std::make_shared<RosRTBuffer>();
   auto cmd_buffer = std::make_shared<RosRTBuffer>();
 
-  return std::make_shared<LittlebotDriver>(
+  auto driver = std::make_shared<LittlebotDriver>(
     serial, state_buffer, cmd_buffer, joint_names, port, baudrate);
+
+  auto driver_error = driver->init();
+  if (driver_error != DriverError::None) {
+    return std::unexpected(driver_error);
+  }
+
+  return driver;
 }
 
 }  // namespace littlebot_base
