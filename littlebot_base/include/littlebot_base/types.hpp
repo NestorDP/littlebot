@@ -35,14 +35,23 @@ enum class DriverError
 {
   None = 0,
 
-  NoData,              // 1: No frame available yet
-  DecodeFailure,       // 2: Deserialize error
-  EncodeFailure,       // 3: Serialize error
-  SizeMismatch,        // 4: Wrong number of wheels
-  SerialReadError,     // 5: IO error
-  SerialWriteError,    // 6: IO error
-  InvalidControlChar,  // 7: Unexpected control character
-  NoCommand            // 8: No new command available
+  NoData,                         // 1 : No frame available yet
+  DecodeFailure,                  // 2 : Deserialize error
+  EncodeFailure,                  // 3 : Serialize error
+  SizeMismatch,                   // 4 : Wrong number of wheels
+  SerialReadError,                // 5 : IO error
+  SerialWriteError,               // 6 : IO error
+  InvalidControlChar,             // 7 : Unexpected control character
+  NoCommand,                      // 8 : No new command available
+  SerialPortUnavailable,          // 9 : Serial port unavailable
+  SerialInsufficientPermissions,  // 10: Insufficient permissions to open port
+  SerialConfigBaudrateFailed,     // 11: Failed to configure baudrate
+  SerialReadFailed,               // 12: Failed to read from serial port
+  SerialWriteFailed,              // 13: Failed to write to serial port
+  SerialAlreadyOpen,              // 14: Port already open
+  SerialNotOpen,                  // 15: Port not open
+  SerialNotClosed,                // 16: Port could not be closed
+  Unknown                         // 17: Unknown error
 };
 
 struct DriverErrorCounters

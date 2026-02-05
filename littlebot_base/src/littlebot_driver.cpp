@@ -23,21 +23,29 @@ LittlebotDriver::LittlebotDriver(
   std::shared_ptr<ISerialPort> serial_port,
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
-  const std::vector<std::string> & joint_names)
-: ILittlebotDriver(
-    serial_port,
-    rt_state_buffer,
-    rt_command_buffer,
-    joint_names),
-  serial_port_(std::move(serial_port)),
+  const std::vector<std::string> & joint_names,
+  std::string port,
+  int baudrate)
+: serial_port_(std::move(serial_port)),
   rt_state_buffer_(std::move(rt_state_buffer)),
-  rt_command_buffer_(std::move(rt_command_buffer))
+  rt_command_buffer_(std::move(rt_command_buffer)),
+  port_(std::move(port)),
+  baudrate_(baudrate)
 {
   wheels_.reserve(joint_names.size());
 
   for (const auto & name : joint_names) {
     wheels_.emplace_back(name);
   }
+}
+
+DriverError LittlebotDriver::init() noexcept
+{
+  auto serial_err = serial_port_->open(port_, baudrate_);
+  if (serial_err != SerialError::None) {
+    return mapSerialError(serial_err);
+  }
+  return DriverError::None;
 }
 
 void LittlebotDriver::readRTData(WheelRTData & state) const noexcept
@@ -135,5 +143,21 @@ bool LittlebotDriver::sendCommand() noexcept
   payload.insert(payload.begin(), kCommandChar);
 
   return serial_port_->write(payload) > 0;
+}
+
+DriverError LittlebotDriver::mapSerialError(SerialError error) noexcept
+{
+  switch (error) {
+    case SerialError::None:                    return DriverError::None;
+    case SerialError::PortUnavailable:         return DriverError::SerialPortUnavailable;
+    case SerialError::InsufficientPermissions: return DriverError::SerialInsufficientPermissions;
+    case SerialError::ConfigBaudrateFailed:    return DriverError::SerialConfigBaudrateFailed;
+    case SerialError::ReadFailed:              return DriverError::SerialReadError;
+    case SerialError::WriteFailed:             return DriverError::SerialWriteError;
+    case SerialError::AlreadyOpen:             return DriverError::SerialAlreadyOpen;
+    case SerialError::NotOpen:                 return DriverError::SerialNotOpen;
+    case SerialError::NotClosed:               return DriverError::SerialNotClosed;
+    default:                                   return DriverError::Unknown;
+  }
 }
 }  // namespace littlebot_base

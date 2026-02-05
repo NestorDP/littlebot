@@ -19,22 +19,52 @@
 namespace littlebot_base
 {
 
-bool SerialPort::open(std::string port, int baudrate)
+SerialError SerialPort::open(std::string port, int baudrate) noexcept
 {
-  // TODO(NestorDP): Add error handling
-  serial_.open(port);
-  serial_.setBaudRate(baudrate);
+  if (is_open_) {
+    return SerialError::AlreadyOpen;
+  }
+
+  try {
+    serial_.open(port);
+  } catch(const libserial::PermissionDeniedException &) {
+    return SerialError::InsufficientPermissions;
+  } catch(const libserial::SerialException &) {
+    return SerialError::PortUnavailable;
+  }
+
+  try {
+    serial_.setBaudRate(baudrate);
+  } catch(const libserial::SerialException &) {
+    try {
+      serial_.close();
+    } catch (const libserial::SerialException &) {
+      // ignore: must not throw from a noexcept function
+    }
+    return SerialError::ConfigBaudrateFailed;
+  }
+
   is_open_ = true;
-  return true;
+  return SerialError::None;
 }
 
-void SerialPort::close()
+SerialError SerialPort::close() noexcept
 {
-  serial_.close();
+  if (!is_open_) {
+    return SerialError::NotOpen;
+  }
+
+  try {
+    serial_.close();
+  } catch(const libserial::SerialException &) {
+    return SerialError::NotClosed;
+  }
+
   is_open_ = false;
+  return SerialError::None;
 }
 
-int SerialPort::read(std::vector<uint8_t> & payload)
+int SerialPort::read(std::vector<uint8_t> & payload) noexcept
 {
   if (is_open_) {
     readStream();
@@ -47,7 +77,7 @@ int SerialPort::read(std::vector<uint8_t> & payload)
   return 0;  // no complete frame yet
 }
 
-int SerialPort::write(const std::vector<uint8_t> & payload)
+int SerialPort::write(const std::vector<uint8_t> & payload) noexcept
 {
   auto frame = std::make_shared<std::string>();
   buildFrame(payload, *frame);
@@ -59,35 +89,49 @@ int SerialPort::write(const std::vector<uint8_t> & payload)
   return static_cast<int>(frame->size());
 }
 
-void SerialPort::readStream()
+void SerialPort::readStream() noexcept
 {
+  constexpr size_t kMaxBufferSize = kMaxReadChunk * 2;
+
+  // Prevent unbounded buffer growth - don't read more if buffer is already at limit
+  if (rx_buffer_.size() >= kMaxBufferSize) {
+    return;
+  }
+
   auto tmp_buffer = std::make_shared<std::string>();
   size_t n = serial_.read(tmp_buffer, kMaxReadChunk);
 
-  if (n > 0) {
-    rx_buffer_.insert(rx_buffer_.end(), tmp_buffer->begin(), tmp_buffer->end());
+  if (n == 0) {
+    return;
   }
+
+  size_t space_left = kMaxBufferSize - rx_buffer_.size();
+  size_t to_copy = std::min(n, space_left);
+
+  rx_buffer_.insert(rx_buffer_.end(),
+                    tmp_buffer->begin(),
+                    tmp_buffer->begin() + to_copy);
 }
 
 void SerialPort::buildFrame(
   const std::vector<uint8_t> & payload,
-  std::string & frame)
+  std::string & frame) noexcept
 {
   frame.clear();
-  frame.reserve(payload.size() + 3);
 
+  frame.reserve(payload.size() + 2);
   frame.push_back(kStartByte);
   frame.insert(frame.end(), payload.begin(), payload.end());
   frame.push_back(kEndByte);
   // frame.push_back('\n');
 }
 
-bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload)
+bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload) noexcept
 {
   // Safety: prevent unbounded growth
   if (rx_buffer_.size() > kMaxReadChunk) {
-    rx_buffer_.erase(rx_buffer_.begin(),
-                     rx_buffer_.end() - kMaxReadChunk);
+    size_t excess = rx_buffer_.size() - kMaxReadChunk;
+    rx_buffer_.erase(rx_buffer_.begin(), rx_buffer_.begin() + excess);
   }
 
   auto start = std::find(rx_buffer_.begin(), rx_buffer_.end(), kStartByte);
@@ -108,11 +152,15 @@ bool SerialPort::tryExtractFrame(std::vector<uint8_t> & payload)
   // Drop everything up to and including the end byte
   rx_buffer_.erase(rx_buffer_.begin(), end + 1);
 
-  // Remove trailing delimiters
+  // Remove trailing delimiters (with iteration limit to prevent DoS)
+  constexpr size_t kMaxDelimiterRemoval = 10;
+  size_t removed = 0;
   while (!rx_buffer_.empty() &&
-    (rx_buffer_.front() == '\n' || rx_buffer_.front() == '\r'))
+    (rx_buffer_.front() == '\n' || rx_buffer_.front() == '\r') &&
+    removed < kMaxDelimiterRemoval)
   {
     rx_buffer_.erase(rx_buffer_.begin());
+    ++removed;
   }
 
   return true;

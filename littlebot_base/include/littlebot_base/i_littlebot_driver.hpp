@@ -41,24 +41,6 @@ public:
   static constexpr char kStatusChar{'S'};
 
   /**
-   * @brief Construct a new Littlebot Driver object
-   *
-   * @param serial_port Shared pointer to the serial port interface
-   * @param rt_buffer Shared pointer to the real-time buffer interface for wheel data
-   */
-  ILittlebotDriver(
-    std::shared_ptr<ISerialPort> serial_port,
-    std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
-    std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
-    const std::vector<std::string> & joint_names)
-  {
-    (void)serial_port;
-    (void)rt_state_buffer;
-    (void)rt_command_buffer;
-    (void)joint_names;
-  }
-
-  /**
    * @brief Prevent copy and assignment
    */
   ILittlebotDriver(const ILittlebotDriver &) = delete;
@@ -68,6 +50,13 @@ public:
    * @brief Deconstructor for the ILittlebotDriver class
    */
   virtual ~ILittlebotDriver() = default;
+
+  /**
+   * @brief Initialize the driver
+   *
+   * @return DriverError The result of the initialization
+   */
+  virtual DriverError init() noexcept = 0;
 
   /**
    * @brief Read the current state from the RT buffer
@@ -120,6 +109,12 @@ public:
    * @return const DriverErrorCounters& Reference to the error counters structure
    */
   virtual const DriverErrorCounters & getErrorCounters() const noexcept = 0;
+
+protected:
+  /**
+   * @brief Default constructor for the ILittlebotDriver class
+   */
+  ILittlebotDriver() = default;
 };
 
 }  // namespace littlebot_base

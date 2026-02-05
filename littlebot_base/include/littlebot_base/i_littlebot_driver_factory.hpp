@@ -15,9 +15,12 @@
 
 #pragma once
 
+#include <expected>
 #include <memory>
 #include <string>
 #include <vector>
+
+#include "littlebot_base/types.hpp"
 
 namespace littlebot_base
 {
@@ -29,7 +32,7 @@ class ILittlebotDriverFactory
 public:
   virtual ~ILittlebotDriverFactory() = default;
 
-  virtual std::shared_ptr<ILittlebotDriver> create(
+  virtual std::expected<std::shared_ptr<ILittlebotDriver>, DriverError> create(
     const std::string & port,
     int baudrate,
     const std::vector<std::string> & joint_names) = 0;

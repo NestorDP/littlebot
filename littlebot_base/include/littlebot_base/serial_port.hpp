@@ -29,24 +29,40 @@ class SerialPort : public ISerialPort
 {
 public:
   /**
-   * @brief Open the serial port (uses stored parameters)
+   * @brief Open the serial port
+   *
+   * \inheritdoc
+   *
+   * Override the virtual method from ISerialPort
    */
-  bool open(std::string port, int baudrate) override;
+  SerialError open(std::string port, int baudrate) noexcept override;
 
   /**
    * @brief Close the serial port
+   *
+   * \inheritdoc
+   *
+   * Override the virtual method from ISerialPort
    */
-  void close() override;
+  SerialError close() noexcept override;
 
   /**
    * @brief Read packet data from the serial port
+   *
+   * \inheritdoc
+   *
+   * Override the virtual method from ISerialPort
    */
-  int read(std::vector<uint8_t> & payload) override;
+  int read(std::vector<uint8_t> & payload) noexcept override;
 
   /**
    * @brief Write packet data to the serial port
+   *
+   * \inheritdoc
+   *
+   * Override the virtual method from ISerialPort
    */
-  int write(const std::vector<uint8_t> & payload) override;
+  int write(const std::vector<uint8_t> & payload) noexcept override;
 
   #ifdef UNIT_TEST
   void injectRxData(const std::string & data)
@@ -59,14 +75,14 @@ private:
   /**
    * @brief Read data stream from the serial port
    */
-  void readStream() override;
+  void readStream() noexcept override;
 
   /**
    * @brief Get data from the received packet
    *
    * @param buffer Shared pointer to string buffer to store received data
    */
-  bool tryExtractFrame(std::vector<uint8_t> & payload) override;
+  bool tryExtractFrame(std::vector<uint8_t> & payload) noexcept override;
 
   /**
    * @brief Build packet to be sent through serial port
@@ -75,7 +91,7 @@ private:
    */
   void buildFrame(
     const std::vector<uint8_t> & payload,
-    std::string & frame) override;
+    std::string & frame) noexcept override;
 
   /**
    * @brief Serial port device path (e.g., "/dev/ttyUSB0")
@@ -90,7 +106,7 @@ private:
   /**
    * @brief Maximum number of bytes to read in one chunk
    */
-  static constexpr size_t kMaxReadChunk{256};
+  static constexpr size_t kMaxReadChunk{ISerialPort::kMaxFrameSize};
 };
 
 }  // namespace littlebot_base

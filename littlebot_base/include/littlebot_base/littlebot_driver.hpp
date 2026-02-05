@@ -35,65 +35,82 @@ public:
    * @brief Construct a new Littlebot Driver object
    *
    * @param serial_port Shared pointer to the serial port interface
-   * @param rt_buffer Shared pointer to the real-time buffer interface for wheel data
+   * @param rt_state_buffer Shared pointer to the real-time buffer interface for wheel state data
+   * @param rt_command_buffer Shared pointer to the real-time buffer interface for wheel command data
+   * @param joint_names Vector of joint names
+   * @param port Serial port name
+   * @param baudrate Serial port baudrate
    */
   LittlebotDriver(
     std::shared_ptr<ISerialPort> serial_port,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_state_buffer,
     std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer,
-    const std::vector<std::string> & joint_names);
+    const std::vector<std::string> & joint_names,
+    std::string port,
+    int baudrate);
 
   ~LittlebotDriver() override = default;
 
   /**
+   * @brief Initialize the driver
+   *
+   * \inheritdoc
+   *
+   * Override the virtual method from ILittlebotDriver
+   */
+  DriverError init() noexcept override;
+
+  /**
    * @brief Read the current state from the RT buffer
    *
-   * @param state Reference to WheelRTData structure to store the read data
+   * \inheritdoc
    *
-   * @note This method is RT-safe (control loop)
+   * Override the virtual method from ILittlebotDriver
    */
   void readRTData(WheelRTData & state) const noexcept override;
 
   /**
    * @brief Write the command to the RT buffer
    *
-   * @param command Reference to WheelRTData structure containing the command data
+   * \inheritdoc
    *
-   * @note This method is RT-safe (control loop)
+   * Override the virtual method from ILittlebotDriver
    */
   void writeRTData(const WheelRTData & command) noexcept override;
 
   /**
    * @brief Receive data from the hardware and update the RT buffer
    *
-   * @return true if data was received successfully
-   * @return false if an error occurred
+   * \inheritdoc
    *
-   * @note This method is NOT RT-safe (executor / IO thread)
+   * Override the virtual method from ILittlebotDriver
    */
   bool requestStatus() noexcept override;
 
   /**
    * @brief Send command data to the hardware
    *
-   * @return true if data was sent successfully
-   * @return false if an error occurred
+   * \inheritdoc
    *
-   * @note This method is NOT RT-safe (executor / IO thread)
+   * Override the virtual method from ILittlebotDriver
    */
   bool sendCommand() noexcept override;
 
   /**
    * @brief Get the last error that occurred
    *
-   * @return DriverError The last error code
+   * \inheritdoc
+   *
+   * Override the virtual method from ILittlebotDriver
    */
   DriverError getLastError() const noexcept override {return last_error_;}
 
   /**
    * @brief Get the error counters
    *
-   * @return const DriverErrorCounters& Reference to the error counters structure
+   * \inheritdoc
+   *
+   * Override the virtual method from ILittlebotDriver
    */
   const DriverErrorCounters & getErrorCounters() const noexcept override
   {
@@ -101,6 +118,14 @@ public:
   }
 
 private:
+  /**
+   * @brief Map SerialError to DriverError
+   *
+   * @param error SerialError to map
+   * @return DriverError Mapped DriverError
+   */
+  static DriverError mapSerialError(SerialError error) noexcept;
+
   /**
    * @brief Error counters for the driver
    */
@@ -125,6 +150,16 @@ private:
    * @brief RT buffer interface for wheel data commands
    */
   std::shared_ptr<IRTBuffer<WheelRTData>> rt_command_buffer_;
+
+  /**
+   * @brief Serial port name
+   */
+  std::string port_;
+
+  /**
+   * @brief Serial port baudrate
+   */
+  int baudrate_{0};
 
   /**
    * @brief Vector of wheels (Not RT-safe)
