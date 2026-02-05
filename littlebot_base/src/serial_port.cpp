@@ -36,7 +36,11 @@ SerialError SerialPort::open(std::string port, int baudrate) noexcept
   try {
     serial_.setBaudRate(baudrate);
   } catch(const libserial::SerialException &) {
-    serial_.close();
+    try {
+      serial_.close();
+    } catch (const libserial::SerialException &) {
+      // ignore: must not throw from a noexcept function
+    }
     return SerialError::ConfigBaudrateFailed;
   }
 
